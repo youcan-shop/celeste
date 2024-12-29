@@ -994,5 +994,29 @@
       "value": "#020d173d",
       "type": "color"
     }
+  },
+  "primary-base": {
+    "value": "{brand.500}",
+    "type": "color"
+  },
+  "primary-darker": {
+    "value": "{brand.700}",
+    "type": "color"
+  },
+  "primary-alpha-10": {
+    "value": "{alpha.pink.alpha-10}",
+    "type": "color"
+  },
+  "primary-alpha-16": {
+    "value": "{alpha.pink.alpha-16}",
+    "type": "color"
+  },
+  "primary-dark": {
+    "value": "{brand.600}",
+    "type": "color"
+  },
+  "primary-alpha-24": {
+    "value": "{alpha.pink.alpha-24}",
+    "type": "color"
   }
 }

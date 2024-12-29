@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="font-label-latin-large">
+  <div class="bg-brand-500">
     hallo
   </div>
 </template>
