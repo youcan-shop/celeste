@@ -3,11 +3,13 @@
 </script>
 
 <template>
-  <div class="bg-brand-500">
+  <div class="hi">
     hallo
   </div>
 </template>
 
 <style scoped>
-
+.hi {
+  color: var(--text-strong-950);
+}
 </style>

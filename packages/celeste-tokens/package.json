@@ -8,26 +8,21 @@
     "celeste"
   ],
   "exports": {
-    "./tokens": {
-      "import": "./dist/tokens.js"
+    "./tokens.css": {
+      "import": "./dist/tokens.css"
     },
-    "./preset": {
-      "import": "./dist/preset.js"
+    "./tokens.scss": {
+      "import": "./dist/tokens.scss"
     }
   },
-  "main": "dist/preset.js",
   "engines": {
     "node": ">=20.10.0"
   },
   "scripts": {
-    "stub": "tsup --stub",
-    "build": "tsup && pnpm generate",
-    "watch": "tsup --watch",
-    "generate": "tsx src/scripts/generate.ts"
+    "build": "pnpm generate",
+    "generate": "rimraf dist && style-dictionary build --verbose"
   },
   "devDependencies": {
-    "@unocss/core": "^0.65.3",
-    "tsup": "^8.3.5",
-    "tsx": "^4.19.2"
+    "style-dictionary": "^4.3.0"
   }
 }
