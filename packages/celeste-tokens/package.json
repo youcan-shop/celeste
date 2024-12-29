@@ -1,0 +1,33 @@
+{
+  "name": "@youcan/celeste-tokens",
+  "type": "module",
+  "version": "0.0.0",
+  "author": "YouCan <tech@youcan.shop>",
+  "keywords": [
+    "youcan",
+    "celeste"
+  ],
+  "exports": {
+    "./tokens": {
+      "import": "./dist/tokens.js"
+    },
+    "./preset": {
+      "import": "./dist/preset.js"
+    }
+  },
+  "main": "dist/preset.js",
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "scripts": {
+    "stub": "tsup --stub",
+    "build": "tsup && pnpm generate",
+    "watch": "tsup --watch",
+    "generate": "tsx src/scripts/generate.ts"
+  },
+  "devDependencies": {
+    "@unocss/core": "^0.65.3",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2"
+  }
+}
