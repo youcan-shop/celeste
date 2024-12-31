@@ -1,0 +1,40 @@
+{
+  "radius": {
+    "full": {
+      "$value": 999,
+      "$type": "dimension"
+    },
+    "10": {
+      "$value": 10,
+      "$type": "dimension"
+    },
+    "8": {
+      "$value": 8,
+      "$type": "dimension"
+    },
+    "6": {
+      "$value": 6,
+      "$type": "dimension"
+    },
+    "12": {
+      "$value": 12,
+      "$type": "dimension"
+    },
+    "4": {
+      "$value": 4,
+      "$type": "dimension"
+    },
+    "16": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "20": {
+      "$value": 20,
+      "$type": "dimension"
+    },
+    "24": {
+      "$value": 24,
+      "$type": "dimension"
+    }
+  }
+}

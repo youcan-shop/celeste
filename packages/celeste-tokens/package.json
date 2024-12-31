@@ -20,9 +20,11 @@
   },
   "scripts": {
     "build": "pnpm generate",
-    "generate": "rimraf dist && style-dictionary build --verbose"
+    "generate": "tsx src/generate.ts"
   },
   "devDependencies": {
-    "style-dictionary": "^4.3.0"
+    "@tokens-studio/sd-transforms": "^1.2.9",
+    "style-dictionary": "^4.3.0",
+    "tsx": "^4.19.2"
   }
 }
