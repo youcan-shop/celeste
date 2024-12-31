@@ -1,13 +1,13 @@
 declare module 'style-dictionary' {
-  declare class StyleDictionary {
+  class StyleDictionary {
     constructor(config: any);
     cleanAllPlatforms(): void;
     buildAllPlatforms(): void;
   }
 
-  export = StyleDictionary;
+  export default StyleDictionary;
 }
 
 declare module '@tokens-studio/sd-transforms' {
-  function register(sd: StyleDictionary): void;
+  function register(sd: any): void;
 }
