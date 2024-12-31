@@ -21,7 +21,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@youcan/celeste-tokens": "workspace:*"
+    "@youcan/celeste-tokens": "workspace:*",
+    "radix-vue": "^1.9.12"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
