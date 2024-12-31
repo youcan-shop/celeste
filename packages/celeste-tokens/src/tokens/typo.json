@@ -16,43 +16,43 @@
     },
     "lineHeights": {
       "0": {
-        "$value": "64",
+        "$value": "64px",
         "$type": "lineHeights"
       },
       "1": {
-        "$value": "56",
+        "$value": "56px",
         "$type": "lineHeights"
       },
       "2": {
-        "$value": "48",
+        "$value": "48px",
         "$type": "lineHeights"
       },
       "3": {
-        "$value": "40",
+        "$value": "40px",
         "$type": "lineHeights"
       },
       "4": {
-        "$value": "32",
+        "$value": "32px",
         "$type": "lineHeights"
       },
       "5": {
-        "$value": "28",
+        "$value": "28px",
         "$type": "lineHeights"
       },
       "6": {
-        "$value": "24",
+        "$value": "24px",
         "$type": "lineHeights"
       },
       "7": {
-        "$value": "20",
+        "$value": "20px",
         "$type": "lineHeights"
       },
       "8": {
-        "$value": "16",
+        "$value": "16px",
         "$type": "lineHeights"
       },
       "9": {
-        "$value": "12",
+        "$value": "12px",
         "$type": "lineHeights"
       }
     },

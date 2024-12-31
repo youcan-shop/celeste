@@ -8,8 +8,9 @@
   </div>
 </template>
 
-<style scoped>
-.hi {
-  color: var(--text-strong-950);
+<style>
+html {
+  color: var(--color-text-strong-950);
+  font: var(--typo-paragraph-latin-medium);
 }
 </style>
