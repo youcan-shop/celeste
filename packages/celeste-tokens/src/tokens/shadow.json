@@ -1,7 +1,7 @@
 {
   "shadow": {
     "regular": {
-      "x-small": {
+      "xs": {
         "$value": {
           "color": "#0a0d1408",
           "$type": "dropShadow",
@@ -12,7 +12,7 @@
         },
         "$type": "boxShadow"
       },
-      "medium": {
+      "md": {
         "$value": {
           "color": "#0e121b1a",
           "$type": "dropShadow",
