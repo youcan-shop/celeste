@@ -4,11 +4,13 @@ import CommandItem from '@/components/command/command-item.vue';
 import CommandList from '@/components/command/command-list.vue';
 import CommandRoot from '@/components/command/command-root.vue';
 import ScrollArea from '@/components/scroll-area/scroll-area.vue';
+import { IconSearchLine } from '@youcan/celeste-icons';
 </script>
 
 <template>
   <div class="hi">
     hallo
+    <IconSearchLine class="h-5 w-5" />
     <CommandRoot class="w-[300px]">
       <CommandList>
         <ScrollArea class="h-[300px]">

@@ -43,7 +43,7 @@ async function getIcons(dir = './icons'): Promise<Array<{ svg: string; component
     else if (file.isFile() && path.extname(file.name) === '.svg') {
       icons.push({
         svg: await fs.readFile(path.join(dir, file.name), 'utf8'),
-        componentName: `${camelcase(file.name.replace(/\.svg$/, ''), { pascalCase: true })}`,
+        componentName: `Icon${camelcase(file.name.replace(/\.svg$/, ''), { pascalCase: true })}`,
       });
     }
   }

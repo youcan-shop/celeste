@@ -98,6 +98,9 @@ importers:
 
   packages/celeste-vue:
     dependencies:
+      '@youcan/celeste-icons':
+        specifier: workspace:*
+        version: link:../celeste-icons
       '@youcan/celeste-tokens':
         specifier: workspace:*
         version: link:../celeste-tokens
