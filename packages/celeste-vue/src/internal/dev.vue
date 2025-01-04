@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import CommandGroup from '@/components/command/command-group.vue';
+import CommandInput from '@/components/command/command-input.vue';
 import CommandItem from '@/components/command/command-item.vue';
 import CommandList from '@/components/command/command-list.vue';
 import CommandRoot from '@/components/command/command-root.vue';
 import ScrollArea from '@/components/scroll-area/scroll-area.vue';
-import { IconSearchLine } from '@youcan/celeste-icons';
 </script>
 
 <template>
   <div class="hi">
-    hallo
-    <IconSearchLine class="h-5 w-5" />
     <CommandRoot class="w-[300px]">
+      <CommandInput placeholder="Search.." />
       <CommandList>
         <ScrollArea class="h-[300px]">
           <CommandGroup heading="Support">
@@ -27,6 +26,8 @@ import { IconSearchLine } from '@youcan/celeste-icons';
             <CommandItem :value="4">
               One
             </CommandItem>
+          </CommandGroup>
+          <CommandGroup heading="Sadgeness">
             <CommandItem :value="5">
               One
             </CommandItem>
@@ -55,5 +56,8 @@ html {
   font: var(--paragraph-latin-md);
   color: var(--color-text-strong-950);
   background: var(--color-bg-weak-50);
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
 }
 </style>
