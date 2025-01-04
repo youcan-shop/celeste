@@ -18,26 +18,27 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <template>
   <ComboboxItem
     v-bind="forwarded"
-    class="dropdown-item"
+    class="celeste-command-item"
+    :class="props.class"
   >
     <slot />
   </ComboboxItem>
 </template>
 
 <style>
-.dropdown-item {
+.celeste-command-item {
   padding: var(--spacing-8);
   border-radius: var(--radius-8);
-  font: var(--typo-paragraph-latin-small);
+  font: var(--paragraph-latin-sm);
   color: var(--color-text-strong-950);
   background: var(--color-bg-white-0);
 }
 
-.dropdown-item[data-highlighted] {
+.celeste-command-item[data-highlighted] {
   background: var(--color-bg-weak-50);
 }
 
-.dropdown-item[data-disabled] {
+.celeste-command-item[data-disabled] {
   color: var(--color-icon-disabled-300);
   pointer-events: none;
 }

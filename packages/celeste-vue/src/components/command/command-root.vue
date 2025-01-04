@@ -22,11 +22,24 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <template>
   <ComboboxRoot
     v-bind="forwarded"
-    class="bg-popover text-popover-foreground' h-full w-full flex flex-col overflow-hidden rounded-md"
+    class="celeste-command-root"
+    :class="props.class"
   >
     <slot />
   </ComboboxRoot>
 </template>
 
 <style>
+.celeste-command-root {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: 100%;
+  height: 100%;
+  padding: var(--spacing-8);
+  border-radius: var(--radius-16);
+  background-color: var(--color-bg-white-0);
+  box-shadow: var(--shadow-regular-md);
+}
 </style>
