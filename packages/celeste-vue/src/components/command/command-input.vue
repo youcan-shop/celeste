@@ -55,6 +55,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 }
 
 .celeste-command-input-primitive {
+  font: inherit;
   border: none;
   outline: none;
   background: transparent;
