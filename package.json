@@ -21,8 +21,8 @@
     "lint:fix": "eslint . --cache --fix",
     "prepare": "pnpm simple-git-hooks",
     "build": "pnpm -r build",
-    "bump": "bumpp package.json packages/*/package.json",
-    "release": "pnpm build && pnpm bumpp --commit \"chore: release v\" --push --tag && pnpm -r release"
+    "bump": "bumpp package.json packages/*/package.json --commit \"chore: release v\" --push --tag",
+    "release": "pnpm run bump && pnpm run build && pnpm -r release"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
