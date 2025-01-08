@@ -22,9 +22,7 @@ function prependFonts(path: string): void {
 }
 
 function minify(path: string): void {
-  const data = readFileSync(path, 'utf8');
-  const minified = csso(data).css;
-  writeFileSync(path, minified, 'utf8');
+  writeFileSync(path, csso(readFileSync(path, 'utf8')).css, 'utf8');
 }
 
 const sd = new StyleDictionary({
