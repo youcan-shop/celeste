@@ -56,7 +56,7 @@ import ScrollArea from '@/components/scroll-area/scroll-area.vue';
 html {
   @apply antialiased;
 
-  font: var(--paragraph-latin-md);
+  font: var(--paragraph-md);
   color: var(--color-text-strong-950);
   background: var(--color-bg-weak-50);
   display: grid;

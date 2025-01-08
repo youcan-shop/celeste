@@ -35,7 +35,7 @@ const delegatedProps = computed(() => {
 
 .celeste-command-label {
   text-transform: uppercase;
-  font: var(--subheading-latin-xs);
+  font: var(--subheading-xs);
   color: var(--color-text-soft-400);
   padding: var(--spacing-4) var(--spacing-8);
 }

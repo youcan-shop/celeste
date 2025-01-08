@@ -2,6 +2,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { register } from '@tokens-studio/sd-transforms';
+import { minify as csso } from 'csso';
 import StyleDictionary from 'style-dictionary';
 
 const dist = `${resolve(import.meta.dirname, '..', 'dist')}/`;
@@ -10,13 +11,18 @@ register(StyleDictionary);
 
 // TODO: use a custom fonts cdn
 
-const fonts = `
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-`;
+const fonts = readFileSync(
+  resolve(import.meta.dirname, 'stubs/fonts.css'),
+  'utf-8',
+);
 
 function prependFonts(path: string): void {
   const data = readFileSync(path, 'utf8');
   writeFileSync(path, fonts + data, 'utf8');
+}
+
+function minify(path: string): void {
+  writeFileSync(path, csso(readFileSync(path, 'utf8')).css, 'utf8');
 }
 
 const sd = new StyleDictionary({
@@ -62,3 +68,5 @@ await sd.buildAllPlatforms();
 
 prependFonts(resolve(dist, 'tokens.css'));
 prependFonts(resolve(dist, 'tokens.scss'));
+
+minify(resolve(dist, 'tokens.css'));
