@@ -41,7 +41,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   gap: var(--spacing-8);
   display: flex;
   align-items: center;
-  font: var(--paragraph-latin-sm);
+  font: var(--paragraph-sm);
   transition:
     color,
     background-color var(--animation-normal) ease;

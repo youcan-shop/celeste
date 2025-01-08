@@ -10,9 +10,6 @@ import ScrollArea from '@/components/scroll-area/scroll-area.vue';
 
 <template>
   <div class="hi">
-    <div class="slm">
-      The lazy dog jumped over the mud brown fox هناك حقيقة مثبتة منذ زمن طويل وهي أن 1212498873.121
-    </div>
     <CommandRoot class="w-[300px]">
       <CommandInput placeholder="Search.." />
       <CommandSeparator />
@@ -59,15 +56,11 @@ import ScrollArea from '@/components/scroll-area/scroll-area.vue';
 html {
   @apply antialiased;
 
-  font: var(--paragraph-latin-md);
+  font: var(--paragraph-md);
   color: var(--color-text-strong-950);
   background: var(--color-bg-weak-50);
   display: grid;
   place-items: center;
   min-height: 100svh;
-}
-
-.slm {
-  font-family: var(--font-families-display);
 }
 </style>

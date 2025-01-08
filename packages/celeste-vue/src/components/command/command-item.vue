@@ -29,7 +29,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 .celeste-command-item {
   padding: var(--spacing-8);
   border-radius: var(--radius-8);
-  font: var(--paragraph-latin-sm);
+  font: var(--paragraph-sm);
   color: var(--color-text-strong-950);
   background: var(--color-bg-white-0);
 }
