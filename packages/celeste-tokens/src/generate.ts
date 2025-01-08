@@ -2,6 +2,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { register } from '@tokens-studio/sd-transforms';
+import { minify as csso } from 'csso';
 import StyleDictionary from 'style-dictionary';
 
 const dist = `${resolve(import.meta.dirname, '..', 'dist')}/`;
@@ -18,6 +19,12 @@ const fonts = readFileSync(
 function prependFonts(path: string): void {
   const data = readFileSync(path, 'utf8');
   writeFileSync(path, fonts + data, 'utf8');
+}
+
+function minify(path: string): void {
+  const data = readFileSync(path, 'utf8');
+  const minified = csso(data).css;
+  writeFileSync(path, minified, 'utf8');
 }
 
 const sd = new StyleDictionary({
@@ -63,3 +70,5 @@ await sd.buildAllPlatforms();
 
 prependFonts(resolve(dist, 'tokens.css'));
 prependFonts(resolve(dist, 'tokens.scss'));
+
+minify(resolve(dist, 'tokens.css'));
