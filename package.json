@@ -17,10 +17,11 @@
     "node": ">=20.10.0"
   },
   "scripts": {
-    "bumpp": "bumpp package.json packages/*/package.json docs/package.json",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --cache --fix",
-    "prepare": "pnpm simple-git-hooks"
+    "prepare": "pnpm simple-git-hooks",
+    "prepack": "pnpm -r build",
+    "release": "bumpp --commit \"chore: release v\" --push --tag && pnpm -r release"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

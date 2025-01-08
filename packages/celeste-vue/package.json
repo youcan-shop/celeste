@@ -18,7 +18,8 @@
     "watch": "vite build --watch",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "pnpm publish --access public"
   },
   "dependencies": {
     "@youcan/celeste-icons": "workspace:*",

@@ -20,7 +20,8 @@
   },
   "scripts": {
     "build": "pnpm generate",
-    "generate": "tsx src/generate.ts"
+    "generate": "tsx src/generate.ts",
+    "release": "pnpm publish --access public"
   },
   "devDependencies": {
     "@tokens-studio/sd-transforms": "^1.2.9",

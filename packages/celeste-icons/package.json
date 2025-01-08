@@ -40,7 +40,8 @@
     "node": ">=20.10.0"
   },
   "scripts": {
-    "build": "tsx scripts/build.ts"
+    "build": "tsx scripts/build.ts",
+    "release": "pnpm publish --access public"
   },
   "devDependencies": {
     "@svgr/core": "^8.1.0",
