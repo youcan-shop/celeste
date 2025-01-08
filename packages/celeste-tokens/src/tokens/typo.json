@@ -1,16 +1,39 @@
 {
-
   "fontFamilies": {
     "inter-display": {
-      "$value": "Inter Display",
-      "$type": "fontFamilies"
+      "$value": "InterDisplay",
+      "$type": "fontFamilies",
+      "font-weight-range": "100-900",
+      "font-style": ["normal", "italic"]
     },
     "inter": {
-      "$value": "Inter",
-      "$type": "fontFamilies"
+      "$value": "InterVariable",
+      "$type": "fontFamilies",
+      "font-weight-range": "100-900",
+      "font-style": ["normal", "italic"]
     },
     "cairo": {
       "$value": "Cairo",
+      "$type": "fontFamilies",
+      "font-weight-range": "400-700",
+      "font-style": ["normal"]
+    },
+    "geist-mono": {
+      "$value": "Geist Mono",
+      "$type": "fontFamilies",
+      "font-weight-range": "400-700",
+      "font-style": ["normal"]
+    },
+    "sans": {
+      "$value": "InterVariable, Cairo, sans-serif",
+      "$type": "fontFamilies"
+    },
+    "mono": {
+      "$value": "Geist Mono, monospace",
+      "$type": "fontFamilies"
+    },
+    "display": {
+      "$value": "InterDisplay, sans-serif",
       "$type": "fontFamilies"
     }
   },
