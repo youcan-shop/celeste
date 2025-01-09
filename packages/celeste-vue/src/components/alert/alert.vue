@@ -15,9 +15,9 @@ const labelledby = uniqid();
 const describedby = uniqid();
 
 const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
-  error: 'i-celeste-alert-fill',
+  warning: 'i-celeste-alert-fill',
   feature: 'i-celeste-magic-fill',
-  warning: 'i-celeste-error-warning-fill',
+  error: 'i-celeste-error-warning-fill',
   success: 'i-celeste-checkbox-circle-fill',
   information: 'i-celeste-information-fill',
 };
