@@ -54,6 +54,7 @@ jobs:
         run: pnpm run build
 
       - name: Run Chromatic
+        id: chromatic
         uses: chromaui/action@latest
         with:
           workingDir: packages/celeste-vue
