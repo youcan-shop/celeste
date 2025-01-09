@@ -58,18 +58,21 @@ interface AlertProps {
 $alert-sizes: (
   'xs': (
     height: 32px,
-    padding: 8px,
-    gap: 8px,
+    padding: var(--spacing-8),
+    gap: var(--spacing-8),
+    border-radius: var(--radius-8),
   ),
   'sm': (
     height: 36px,
-    padding: 8px 10px,
-    gap: 8px,
+    padding: var(--spacing-8) var(--spacing-10),
+    gap: var(--spacing-8),
+    border-radius: var(--radius-8),
   ),
   'lg': (
     height: fit-content,
     padding: 14px,
-    gap: 12px,
+    gap: var(--spacing-12),
+    border-radius: var(--radius-12),
   ),
 );
 
@@ -86,6 +89,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   height: map.get($size-props, height);
   padding: map.get($size-props, padding);
   gap: map.get($size-props, gap);
+  border-radius: map.get($size-props, border-radius);
 }
 
 @mixin alert-style($style, $state) {
@@ -113,7 +117,6 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   width: 100%;
   display: flex;
   align-items: center;
-  border-radius: var(--radius-8);
   font: var(--paragraph-xs);
   box-sizing: border-box;
 
