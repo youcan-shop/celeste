@@ -11,6 +11,10 @@ export default meta;
 type Story = StoryObj<typeof Alert>;
 
 export const Default: Story = {
+  args: {
+    dismissable: true,
+  },
+
   render: args => ({
     components: { Alert },
     setup() {

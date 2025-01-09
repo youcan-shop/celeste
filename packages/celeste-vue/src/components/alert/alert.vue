@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
+import { IconCloseLine } from '@youcan/celeste-icons/vue';
 import clsx from 'clsx';
 
 const props = withDefaults(
   defineProps<AlertProps>(),
-  { size: 'xs', variant: 'fill', state: 'information' },
+  { size: 'xs', variant: 'fill', state: 'information', dismissable: false },
 );
 
 const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
@@ -22,6 +23,7 @@ interface AlertProps {
   size?: 'xs' | 'sm' | 'lg';
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
   state?: 'information' | 'success' | 'warning' | 'error' | 'feature';
+  dismissable?: boolean;
 }
 </script>
 
@@ -39,7 +41,15 @@ interface AlertProps {
       class="celeste-alert-icon"
       :class="[`celeste-alert-icon--${variant}--${state}`, ICON_MAP[props.state]]"
     />
-    <slot />
+    <div role="presentation">
+      <slot />
+    </div>
+
+    <IconCloseLine
+      v-if="dismissable"
+      class="celeste-alert-close"
+      :class="[`celeste-alert-close--${variant}`]"
+    />
   </div>
 </template>
 
@@ -67,12 +77,13 @@ $alert-sizes: (
   ),
 );
 
-$alert-styles: (
+$alert-style-map: (
   'fill': 'base',
   'light': 'light',
   'lighter': 'lighter',
 );
 
+$alert-styles: ('fill', 'light', 'lighter', 'stroke');
 $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
 @mixin alert-size($size) {
@@ -91,7 +102,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     box-shadow: var(--shadow-regular-md);
   } @else {
     border: none;
-    background-color: var(--color-state-#{$state}-#{map.get($alert-styles, $style)});
+    background-color: var(--color-state-#{$state}-#{map.get($alert-style-map, $style)});
     color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
   }
 }
@@ -101,6 +112,16 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     color: var(--color-static-white);
   } @else {
     color: var(--color-state-#{$state}-base);
+  }
+}
+
+@mixin close-style($style) {
+  @if $style == 'fill' {
+    color: var(--color-static-white);
+    opacity: 0.72;
+  } @else {
+    color: var(--color-icon-strong-950);
+    opacity: 0.4;
   }
 }
 
@@ -114,12 +135,26 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   &-icon {
     height: 16px;
     width: 16px;
+    flex-shrink: 0;
 
-    @each $style in ('fill', 'light', 'lighter', 'stroke') {
-      @each $state, $icon in $alert-states {
+    @each $style in $alert-styles {
+      @each $state in $alert-states {
         &--#{$style}--#{$state} {
           @include icon-style($style, $state);
         }
+      }
+    }
+  }
+
+  &-close {
+    height: 16px;
+    width: 16px;
+    flex-shrink: 0;
+    margin-inline-start: auto;
+
+    @each $style in $alert-styles {
+      &--#{$style} {
+        @include close-style($style);
       }
     }
   }
