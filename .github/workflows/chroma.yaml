@@ -54,3 +54,11 @@ jobs:
         with:
           workingDir: packages/celeste-vue
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+      - name: Report chroma url
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/comment-pr@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            Chromatic preview: ${{ steps.chromatic.outputs.url }}
