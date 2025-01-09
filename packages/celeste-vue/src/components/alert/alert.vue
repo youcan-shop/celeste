@@ -286,6 +286,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
   &--xs {
     @include alert-size('xs');
+    align-items: center;
     --icon-size: 16px;
     --action-font: var(--label-xs);
     --title-font: var(--paragraph-xs);
@@ -293,6 +294,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
   &--sm {
     @include alert-size('sm');
+    align-items: center;
     --icon-size: 20px;
     --title-font: var(--paragraph-sm);
     --action-font: var(--label-sm);
