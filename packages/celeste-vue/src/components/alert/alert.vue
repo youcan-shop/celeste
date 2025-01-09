@@ -8,6 +8,8 @@ const props = withDefaults(
   { size: 'xs', variant: 'fill', state: 'information', dismissable: false },
 );
 
+defineEmits(['dismiss']);
+
 const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
   error: 'i-celeste-alert-fill',
   feature: 'i-celeste-magic-fill',
@@ -45,11 +47,17 @@ interface AlertProps {
       <slot />
     </div>
 
-    <IconCloseLine
-      v-if="dismissable"
+    <a
+      href="#"
+      aria-label="close"
       class="celeste-alert-close"
       :class="[`celeste-alert-close--${variant}`]"
-    />
+      @click.prevent="$emit('dismiss')"
+    >
+      <IconCloseLine
+        v-if="dismissable"
+      />
+    </a>
   </div>
 </template>
 
