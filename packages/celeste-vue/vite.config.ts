@@ -27,6 +27,7 @@ export default defineConfig({
   },
   build: {
     lib: {
+      formats: ['es'],
       name: 'celeste',
       fileName: (format, name) => `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`,
       entry: {
@@ -34,7 +35,7 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', '@vue/runtime-core'],
       output: {
         globals: {
           vue: 'Vue',
