@@ -126,7 +126,9 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     }
   } @else {
     border: 1px solid transparent;
-    background-color: var(--color-state-#{$state}-#{map.get($alert-style-map, $style)});
+    background-color: var(
+      --color-state-#{if($state == 'feature', 'faded', $state)}-#{map.get($alert-style-map, $style)}
+    );
     color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
 
     & .celeste-alert-description {
