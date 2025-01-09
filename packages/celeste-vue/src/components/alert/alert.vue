@@ -55,7 +55,7 @@ export interface AlertProps {
     />
 
     <div class="celeste-alert-inner" role="presentation">
-      <div role="presentation">
+      <div role="presentation" class="celeste-alert-content">
         <h5 :id="labelledby" class="celeste-alert-title">
           {{ title }}
         </h5>
@@ -218,6 +218,12 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     flex: 1;
     display: flex;
     justify-content: space-between;
+    min-width: 0;
+  }
+
+  &-content {
+    min-width: 0;
+    flex: 1;
   }
 
   &-icon {
@@ -250,6 +256,9 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   &-title {
     margin: 0;
     font: var(--title-font);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &-description {
@@ -261,6 +270,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     gap: var(--spacing-8);
     align-self: stretch;
     align-items: flex-start;
+    flex-shrink: 0;
   }
 
   &-action-primary {
