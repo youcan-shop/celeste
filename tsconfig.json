@@ -5,6 +5,7 @@
     "composite": false,
     "module": "ESNext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,

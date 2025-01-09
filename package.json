@@ -22,7 +22,8 @@
     "prepare": "pnpm simple-git-hooks",
     "build": "pnpm -r build",
     "bump": "bumpp package.json packages/*/package.json --commit \"chore: release v\" --push --tag",
-    "release": "pnpm run bump && pnpm run build && pnpm -r release"
+    "release": "pnpm run bump && pnpm run build && pnpm -r release",
+    "storybook": "pnpm --filter celeste-vue run storybook"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

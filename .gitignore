@@ -2,3 +2,5 @@ node_modules
 dist
 .eslintcache
 .DS_Store
+storybook-static
+*storybook.log

@@ -6,7 +6,7 @@
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["src/*"],
       "@vue/shared": ["node_modules/@vue/shared"]

@@ -2,6 +2,7 @@ import youcan from '@youcan/lint';
 
 export default youcan(
   {
+    ignores: ['node_modules', 'dist'],
     type: 'lib',
     formatters: true,
     vue: true,

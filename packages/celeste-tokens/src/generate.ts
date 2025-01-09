@@ -9,8 +9,6 @@ const dist = `${resolve(import.meta.dirname, '..', 'dist')}/`;
 
 register(StyleDictionary);
 
-// TODO: use a custom fonts cdn
-
 const fonts = readFileSync(
   resolve(import.meta.dirname, 'stubs/fonts.css'),
   'utf-8',
