@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { ref, watchEffect } from 'vue';
 
 const props = withDefaults(
   defineProps<AlertProps>(),
   { size: 'xs', variant: 'fill', state: 'information' },
 );
 
-// TODO: find a better way of doing this bs, maybe iconify
 const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
-  error: 'IconAlertFill',
-  feature: 'IconMagicFill',
-  warning: 'IconErrorWarningFill',
-  success: 'IconCheckboxCircleFill',
-  information: 'IconInformationFill',
+  error: 'i-celeste-alert-fill',
+  feature: 'i-celeste-magic-fill',
+  warning: 'i-celeste-error-warning-fill',
+  success: 'i-celeste-checkbox-circle-fill',
+  information: 'i-celeste-information-fill',
 };
-
-const icon = ref();
-
-watchEffect(async () => {
-  icon.value = (await import('@youcan/celeste-icons'))[ICON_MAP[props.state]];
-});
 </script>
 
 <script lang="ts">
@@ -43,10 +35,9 @@ interface AlertProps {
       props.class,
     )"
   >
-    <component
-      :is="icon"
+    <i
       class="celeste-alert-icon"
-      :class="`celeste-alert-icon--${variant}--${state}`"
+      :class="[`celeste-alert-icon--${variant}--${state}`, ICON_MAP[props.state]]"
     />
     <slot />
   </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconSearchLine } from '@youcan/celeste-icons';
+import { IconSearchLine } from '@youcan/celeste-icons/vue';
 import clsx from 'clsx';
 import { ComboboxInput, type ComboboxInputProps, useForwardProps } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';

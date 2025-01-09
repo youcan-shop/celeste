@@ -97,63 +97,21 @@ async function buildIcons(pkg: string, format: string) {
   await ensureWrite(`${outDir}/index.d.ts`, exportAll(icons, 'esm', false));
 }
 
-async function buildExports() {
-  const pkg = {} as { [key: string]: any };
-
-  // to appease Vite's optimizeDeps feature which requires a root-level import
-  pkg[`.`] = {
-    import: `./index.esm.js`,
-    require: `./index.js`,
-  };
-
-  // for those that want to read the version from package.json
-  pkg[`./package.json`] = { default: './package.json' };
-
-  pkg[`.`] = {
-    types: `./dist/index.d.ts`,
-    import: `./dist/esm/index.js`,
-    require: `./dist/index.js`,
-  };
-  pkg[`./*`] = {
-    types: `./dist/*.d.ts`,
-    import: `./dist/esm/*.js`,
-    require: `./dist/*.js`,
-  };
-  pkg[`./*.js`] = {
-    types: `./dist/*.d.ts`,
-    import: `./dist/esm/*.js`,
-    require: `./dist/*.js`,
-  };
-
-  pkg[`./esm/*`] = {
-    types: `./dist/*.d.ts`,
-    import: `./dist/esm/*.js`,
-  };
-  pkg[`./esm/*.js`] = {
-    types: `./dist/*.d.ts`,
-    import: `./dist/esm/*.js`,
-  };
-
-  return pkg;
-}
-
 async function main() {
   const packageJson = JSON.parse(await fs.readFile(`./package.json`, 'utf8'));
 
   console.log(`Building icons...`);
 
   await Promise.all([
-    rimraf(`./dist/*`, {
+    rimraf(`./dist/vue/*`, {
       preserveRoot: true,
     }),
   ]);
 
   await Promise.all([
-    await buildIcons('dist', 'cjs'),
-    await buildIcons('dist', 'esm'),
+    await buildIcons('dist/vue', 'cjs'),
+    await buildIcons('dist/vue', 'esm'),
   ]);
-
-  packageJson.exports = await buildExports();
 
   await ensureWriteJson(`./package.json`, packageJson);
 
