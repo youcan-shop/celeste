@@ -8,7 +8,7 @@ const props = withDefaults(
   { size: 'xs', variant: 'fill', state: 'information', dismissable: false },
 );
 
-defineEmits(['dismiss']);
+defineEmits(['dismiss', 'primary', 'secondary']);
 
 const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
   error: 'i-celeste-alert-fill',
@@ -21,6 +21,10 @@ const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
 
 <script lang="ts">
 interface AlertProps {
+  title: string;
+  description?: string;
+  primary?: string;
+  secondary?: string;
   class?: HTMLAttributes['class'];
   size?: 'xs' | 'sm' | 'lg';
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
@@ -31,7 +35,7 @@ interface AlertProps {
 
 <template>
   <div
-    role="alert"
+    :role="primary || secondary ? 'alert-dialog' : 'alert'"
     class="celeste-alert"
     :class="clsx(
       `celeste-alert--${size}`,
@@ -43,20 +47,25 @@ interface AlertProps {
       class="celeste-alert-icon"
       :class="[`celeste-alert-icon--${variant}--${state}`, ICON_MAP[props.state]]"
     />
-    <div role="presentation">
-      <slot />
+
+    <div class="inner" role="presentation">
+      <h5 class="celeste-alert-title">
+        {{ title }}
+      </h5>
+      <div v-if="size === 'lg' && description" class="celeste-alert-description">
+        {{ description }}
+      </div>
     </div>
 
     <a
+      v-if="dismissable"
       href="#"
       aria-label="close"
       class="celeste-alert-close"
       :class="[`celeste-alert-close--${variant}`]"
       @click.prevent="$emit('dismiss')"
     >
-      <IconCloseLine
-        v-if="dismissable"
-      />
+      <IconCloseLine />
     </a>
   </div>
 </template>
@@ -70,18 +79,21 @@ $alert-sizes: (
     padding: var(--spacing-8),
     gap: var(--spacing-8),
     border-radius: var(--radius-8),
+    font: var(--label-xs),
   ),
   'sm': (
     height: 36px,
     padding: var(--spacing-8) var(--spacing-10),
     gap: var(--spacing-8),
     border-radius: var(--radius-8),
+    font: var(--label-sm),
   ),
   'lg': (
     height: fit-content,
     padding: 14px,
     gap: var(--spacing-12),
     border-radius: var(--radius-12),
+    font: var(--label-sm),
   ),
 );
 
@@ -108,10 +120,19 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     background-color: var(--color-bg-white-0);
     color: var(--color-text-strong-950);
     box-shadow: var(--shadow-regular-md);
+
+    & .celeste-alert-description {
+      color: var(--color-text-sub-600);
+    }
   } @else {
-    border: none;
+    border: 1px solid transparent;
     background-color: var(--color-state-#{$state}-#{map.get($alert-style-map, $style)});
     color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
+
+    & .celeste-alert-description {
+      color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
+      opacity: if($style == 'fill', 1, 0.72);
+    }
   }
 }
 
@@ -136,13 +157,12 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 .celeste-alert {
   width: 100%;
   display: flex;
-  align-items: center;
-  font: var(--paragraph-xs);
+  align-items: start;
   box-sizing: border-box;
 
   &-icon {
-    height: 16px;
-    width: 16px;
+    height: var(--icon-size);
+    width: var(--icon-size);
     flex-shrink: 0;
 
     @each $style in $alert-styles {
@@ -155,8 +175,8 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   }
 
   &-close {
-    height: 16px;
-    width: 16px;
+    height: var(--icon-size);
+    width: var(--icon-size);
     flex-shrink: 0;
     margin-inline-start: auto;
 
@@ -167,16 +187,31 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     }
   }
 
+  &-title {
+    margin: 0;
+    font: var(--title-font);
+  }
+
+  &-description {
+    font: var(--paragraph-sm);
+  }
+
   &--xs {
     @include alert-size('xs');
+    --icon-size: 16px;
+    --title-font: var(--label-xs);
   }
 
   &--sm {
     @include alert-size('sm');
+    --icon-size: 20px;
+    --title-font: var(--label-sm);
   }
 
   &--lg {
     @include alert-size('lg');
+    --icon-size: 20px;
+    --title-font: var(--label-sm);
   }
 
   @each $style in ('fill', 'light', 'lighter', 'stroke') {

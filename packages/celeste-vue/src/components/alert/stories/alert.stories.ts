@@ -13,6 +13,13 @@ type Story = StoryObj<typeof Alert>;
 export const Default: Story = {
   args: {
     dismissable: true,
+    title: 'Payment received',
+    description: 'You have received a new payment from your-mom@gmail.com, don\'t spend it all in one place.',
+    primary: 'View transaction',
+    secondary: 'Ignore',
+    size: 'lg',
+    state: 'success',
+    variant: 'stroke',
   },
 
   render: args => ({
@@ -21,9 +28,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <Alert v-bind="args">
-        This is an alert.
-      </Alert>
+      <Alert v-bind="args"/>
     `,
   }),
 };
