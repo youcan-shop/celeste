@@ -67,4 +67,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           comment-tag: chroma
           message: |
-            Chromatic preview: ${{ steps.chromatic.outputs.url }}
+            storybook: ${{ steps.chromatic.outputs.storybookUrl }}
+            chromatic: ${{ steps.chromatic.outputs.url }}
