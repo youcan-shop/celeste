@@ -1,5 +1,8 @@
 name: Build
 
+permissions:
+  pull-requests: write
+
 on:
   push:
     branches:
@@ -9,6 +12,7 @@ on:
   pull_request:
     paths:
       - 'packages/**'
+
 jobs:
   chroma:
     runs-on: ubuntu-latest
@@ -57,8 +61,8 @@ jobs:
 
       - name: Report chroma url
         if: github.event_name == 'pull_request'
-        uses: peter-evans/comment-pr@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          message: |
             Chromatic preview: ${{ steps.chromatic.outputs.url }}
