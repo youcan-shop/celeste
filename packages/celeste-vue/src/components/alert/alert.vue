@@ -24,7 +24,7 @@ const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
 </script>
 
 <script lang="ts">
-interface AlertProps {
+export interface AlertProps {
   title: string;
   description?: string;
   primary?: string;

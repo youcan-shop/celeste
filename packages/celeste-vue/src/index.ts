@@ -1,3 +1,3 @@
 import 'virtual:uno.css';
 
-export default null;
+export * from '@/components/alert';
