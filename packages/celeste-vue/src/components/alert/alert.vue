@@ -194,7 +194,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   @if $style == 'fill' {
     color: var(--color-static-white);
   } @else {
-    color: var(--color-state-#{$state}-base);
+    color: var(--color-state-#{if($state == 'feature', 'faded', $state)}-base);
   }
 }
 
