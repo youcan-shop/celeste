@@ -27,7 +27,8 @@
     "@youcan/celeste-icons": "workspace:*",
     "@youcan/celeste-tokens": "workspace:*",
     "clsx": "^2.1.1",
-    "radix-vue": "^1.9.12"
+    "radix-vue": "^1.9.12",
+    "uniqid": "^5.4.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
@@ -40,6 +41,7 @@
     "@storybook/vue3-vite": "^8.4.7",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
+    "@types/uniqid": "^5.3.4",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",

@@ -2,6 +2,7 @@
 import type { HTMLAttributes } from 'vue';
 import { IconCloseLine } from '@youcan/celeste-icons/vue';
 import clsx from 'clsx';
+import uniqid from 'uniqid';
 
 const props = withDefaults(
   defineProps<AlertProps>(),
@@ -9,6 +10,9 @@ const props = withDefaults(
 );
 
 defineEmits(['dismiss', 'primary', 'secondary']);
+
+const labelledby = uniqid();
+const describedby = uniqid();
 
 const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
   error: 'i-celeste-alert-fill',
@@ -35,6 +39,8 @@ interface AlertProps {
 
 <template>
   <div
+    :aria-labelledby="labelledby"
+    :aria-describedby="describedby"
     :role="primary || secondary ? 'alert-dialog' : 'alert'"
     class="celeste-alert"
     :class="clsx(
@@ -48,12 +54,46 @@ interface AlertProps {
       :class="[`celeste-alert-icon--${variant}--${state}`, ICON_MAP[props.state]]"
     />
 
-    <div class="inner" role="presentation">
-      <h5 class="celeste-alert-title">
-        {{ title }}
-      </h5>
-      <div v-if="size === 'lg' && description" class="celeste-alert-description">
-        {{ description }}
+    <div class="celeste-alert-inner" role="presentation">
+      <div role="presentation">
+        <h5 :id="labelledby" class="celeste-alert-title">
+          {{ title }}
+        </h5>
+        <div
+          v-if="size === 'lg' && description"
+          :id="describedby"
+          class="celeste-alert-description"
+        >
+          {{ description }}
+        </div>
+      </div>
+
+      <div
+        v-if="primary || secondary"
+        class="celeste-alert-actions"
+        role="presentation"
+      >
+        <a
+          v-if="primary"
+          class="celeste-alert-action-primary"
+          href="#"
+          @click.prevent="$emit('primary')"
+        >
+          {{ primary }}
+        </a>
+
+        <div v-if="primary && secondary && size === 'lg'" class="celeste-alert-action-divider">
+          ∙
+        </div>
+
+        <a
+          v-if="secondary && size === 'lg'"
+          class="celeste-alert-action-secondary"
+          href="#"
+          @click.prevent="$emit('secondary')"
+        >
+          {{ secondary }}
+        </a>
       </div>
     </div>
 
@@ -124,6 +164,12 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     & .celeste-alert-description {
       color: var(--color-text-sub-600);
     }
+
+    & .celeste-alert-action-primary,
+    & .celeste-alert-action-secondary,
+    & .celeste-alert-action-divider {
+      color: var(--color-text-strong-950);
+    }
   } @else {
     border: 1px solid transparent;
     background-color: var(
@@ -134,6 +180,12 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     & .celeste-alert-description {
       color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
       opacity: if($style == 'fill', 1, 0.72);
+    }
+
+    & .celeste-alert-action-primary,
+    & .celeste-alert-action-secondary,
+    & .celeste-alert-action-divider {
+      color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
     }
   }
 }
@@ -161,6 +213,12 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   display: flex;
   align-items: start;
   box-sizing: border-box;
+
+  &-inner {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
 
   &-icon {
     height: var(--icon-size);
@@ -198,22 +256,59 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     font: var(--paragraph-sm);
   }
 
+  &-actions {
+    display: flex;
+    gap: var(--spacing-8);
+    align-self: stretch;
+    align-items: flex-start;
+  }
+
+  &-action-primary {
+    font: var(--action-font);
+    text-decoration: underline;
+  }
+
+  &-action-divider {
+    width: var(--spacing-4);
+    font: var(--paragraph-sm);
+    text-align: center;
+    opacity: 0.48;
+  }
+
+  &-action-secondary {
+    font: var(--action-font);
+    text-decoration: none;
+
+    &:focus,
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+
   &--xs {
     @include alert-size('xs');
     --icon-size: 16px;
-    --title-font: var(--label-xs);
+    --action-font: var(--label-xs);
+    --title-font: var(--paragraph-xs);
   }
 
   &--sm {
     @include alert-size('sm');
     --icon-size: 20px;
     --title-font: var(--label-sm);
+    --action-font: var(--label-sm);
   }
 
   &--lg {
     @include alert-size('lg');
     --icon-size: 20px;
+    --action-font: var(--label-sm);
     --title-font: var(--label-sm);
+
+    & .celeste-alert-inner {
+      flex-direction: column;
+      gap: var(--spacing-10);
+    }
   }
 
   @each $style in ('fill', 'light', 'lighter', 'stroke') {
