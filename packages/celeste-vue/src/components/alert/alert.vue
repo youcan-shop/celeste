@@ -295,7 +295,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   &--sm {
     @include alert-size('sm');
     --icon-size: 20px;
-    --title-font: var(--label-sm);
+    --title-font: var(--paragraph-sm);
     --action-font: var(--label-sm);
   }
 
