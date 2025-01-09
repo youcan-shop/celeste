@@ -269,7 +269,6 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   }
 
   &-action-divider {
-    width: var(--spacing-4);
     font: var(--paragraph-sm);
     text-align: center;
     opacity: 0.48;

@@ -46,7 +46,18 @@ import pkg from '../package.json' assert {type: 'json'};
       },
     });
 
-    await runSVGO(svg);
+    await runSVGO(svg, {
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false,
+            },
+          },
+        },
+      ],
+    });
 
     await deOptimisePaths(svg);
 
