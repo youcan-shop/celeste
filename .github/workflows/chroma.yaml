@@ -2,9 +2,13 @@ name: Build
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'packages/**'
-
+  pull_request:
+    paths:
+      - 'packages/**'
 jobs:
   chroma:
     runs-on: ubuntu-latest
