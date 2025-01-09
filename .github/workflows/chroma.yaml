@@ -65,5 +65,6 @@ jobs:
         uses: thollander/actions-comment-pull-request@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          comment-tag: chroma
           message: |
             Chromatic preview: ${{ steps.chromatic.outputs.url }}
