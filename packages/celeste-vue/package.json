@@ -1,7 +1,7 @@
 {
   "name": "@youcan/celeste-vue",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.1.5",
   "author": "YouCan <tech@youcan.shop>",
   "keywords": [
     "youcan",
@@ -19,7 +19,7 @@
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
     "test": "vitest",
-    "release": "pnpm publish --no-git-checks --access public",
+    "release": "pnpm publish --access public",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

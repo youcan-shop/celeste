@@ -1,7 +1,7 @@
 {
   "name": "@youcan/celeste-tokens",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.1.5",
   "author": "YouCan <tech@youcan.shop>",
   "keywords": [
     "youcan",
@@ -21,7 +21,7 @@
   "scripts": {
     "build": "pnpm generate",
     "generate": "tsx src/generate.ts",
-    "release": "pnpm publish --no-git-checks --access public"
+    "release": "pnpm publish --access public"
   },
   "devDependencies": {
     "@tokens-studio/sd-transforms": "^1.2.9",

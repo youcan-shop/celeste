@@ -1,7 +1,7 @@
 {
   "name": "@youcan/celeste-icons",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.1.5",
   "author": "YouCan <tech@youcan.shop>",
   "keywords": [
     "youcan",
@@ -33,7 +33,7 @@
     "generate-iconify": "tsx scripts/generate-iconify",
     "generate-vue": "tsx scripts/generate-vue.ts",
     "build": "rimraf dist && pnpm generate-iconify && tsup",
-    "release": "pnpm publish --no-git-checks --access public"
+    "release": "pnpm publish --access public"
   },
   "dependencies": {
     "@iconify/types": "^2.0.0"
