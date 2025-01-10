@@ -24,7 +24,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <Button disabled v-bind="args" icon="i-celeste-arrow-right-s-line"></Button>
+      <Button v-bind="args"></Button>
     `,
   }),
 
