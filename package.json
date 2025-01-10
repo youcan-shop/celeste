@@ -22,7 +22,7 @@
     "prepare": "pnpm simple-git-hooks",
     "build": "pnpm -r build",
     "bump": "bumpp package.json packages/*/package.json --commit \"chore: release v\" --push --tag",
-    "release": "pnpm run build && pnpm -r release",
+    "release": "pnpm run build && pnpm -r release -- --no-git-checks",
     "storybook": "pnpm --filter celeste-vue run storybook"
   },
   "devDependencies": {
