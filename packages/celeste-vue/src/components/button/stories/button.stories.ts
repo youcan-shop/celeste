@@ -24,7 +24,8 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <Button v-bind="args"></Button>
+      <Button v-bind="args">
+      </Button>
     `,
   }),
 

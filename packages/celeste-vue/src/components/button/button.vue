@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { Primitive } from 'radix-vue';
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  as: 'button',
   size: 'md',
   variant: 'fill',
   type: 'primary',
@@ -27,8 +26,6 @@ export interface ButtonProps extends PrimitiveProps {
 
 <template>
   <Primitive
-    :as
-    :as-child
     :class="clsx(
       'celeste-button',
       `celeste-button-type-${type}`,
