@@ -26,6 +26,7 @@ export interface ButtonProps extends PrimitiveProps {
 
 <template>
   <Primitive
+    as="button"
     :class="clsx(
       'celeste-button',
       `celeste-button-type-${type}`,
