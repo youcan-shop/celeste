@@ -9,8 +9,20 @@ import {
   parseColors,
   runSVGO,
 } from '@iconify/tools';
-import info from '../assets/info.json' assert {type: 'json'};
+import { ensureFile } from 'fs-extra';
 import pkg from '../package.json' assert {type: 'json'};
+
+// this is a stub
+const info = {
+  prefix: 'celeste',
+  name: 'Celeste Icons',
+  total: 3058,
+  version: '0.1.3',
+  author: 'YouCan <tech@youcan.shop>',
+  height: 24,
+  category: 'General',
+  palette: false,
+};
 
 (async () => {
   info.version = pkg.version;
@@ -65,6 +77,8 @@ import pkg from '../package.json' assert {type: 'json'};
   });
 
   const iconSetContent = iconSet.export(true);
+
+  await ensureFile(resolve('assets', 'icons.json'));
 
   await fs.writeFile(
     resolve('assets', 'icons.json'),
