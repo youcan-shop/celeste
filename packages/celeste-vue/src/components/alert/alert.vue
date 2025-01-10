@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { IconCloseLine } from '@youcan/celeste-icons/vue';
 import clsx from 'clsx';
 import uniqid from 'uniqid';
 
@@ -105,7 +104,7 @@ export interface AlertProps {
       :class="[`celeste-alert-close--${variant}`]"
       @click.prevent="$emit('dismiss')"
     >
-      <IconCloseLine />
+      <i i-celeste-close-line />
     </a>
   </div>
 </template>
@@ -241,10 +240,13 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   }
 
   &-close {
-    height: var(--icon-size);
-    width: var(--icon-size);
     flex-shrink: 0;
     margin-inline-start: auto;
+
+    i {
+      height: var(--icon-size);
+      width: var(--icon-size);
+    }
 
     @each $style in $alert-styles {
       &--#{$style} {

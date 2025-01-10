@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { IconSearchLine } from '@youcan/celeste-icons/vue';
 import clsx from 'clsx';
 import { ComboboxInput, type ComboboxInputProps, useForwardProps } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
@@ -23,7 +22,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 <template>
   <div class="celeste-command-input" cmdk-input-wrapper>
-    <IconSearchLine class="celeste-command-input-icon" />
+    <i i-celeste-search-line class="celeste-command-input-icon" />
     <ComboboxInput
       v-bind="{ ...forwardedProps, ...$attrs }"
       auto-focus

@@ -21,29 +21,6 @@
     },
     "./package.json": {
       "default": "./package.json"
-    },
-    "./vue": {
-      "types": "./dist/vue/index.d.ts",
-      "import": "./dist/vue/esm/index.js",
-      "require": "./dist/vue/index.js"
-    },
-    "./vue/*": {
-      "types": "./dist/vue/*.d.ts",
-      "import": "./dist/vue/esm/*.js",
-      "require": "./dist/vue/*.js"
-    },
-    "./vue/*.js": {
-      "types": "./dist/vue/*.d.ts",
-      "import": "./dist/vue/esm/*.js",
-      "require": "./dist/vue/*.js"
-    },
-    "./vue/esm/*": {
-      "types": "./dist/vue/*.d.ts",
-      "import": "./dist/vue/esm/*.js"
-    },
-    "./vue/esm/*.js": {
-      "types": "./dist/vue/*.d.ts",
-      "import": "./dist/vue/esm/*.js"
     }
   },
   "main": "dist/index.js",
@@ -53,7 +30,7 @@
   "scripts": {
     "generate-iconify": "tsx scripts/generate-iconify",
     "generate-vue": "tsx scripts/generate-vue.ts",
-    "build": "rimraf dist && pnpm generate-iconify && pnpm generate-vue && tsup",
+    "build": "rimraf dist && pnpm generate-iconify && tsup",
     "release": "pnpm publish --access public"
   },
   "dependencies": {
