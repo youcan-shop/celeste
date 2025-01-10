@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { PrimitiveProps } from 'radix-vue';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive } from 'radix-vue';
@@ -13,7 +12,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 </script>
 
 <script lang="ts">
-export interface ButtonProps extends PrimitiveProps {
+export interface ButtonProps {
   class?: HTMLAttributes['class'];
   size?: 'xxs' | 'xs' | 'sm' | 'md';
   type?: 'primary' | 'neutral' | 'error';
@@ -21,12 +20,14 @@ export interface ButtonProps extends PrimitiveProps {
   iconPosition?: 'leading' | 'trailing';
   icon?: string;
   label: string;
+  disabled?: boolean;
 }
 </script>
 
 <template>
   <Primitive
     as="button"
+    :disabled
     :class="clsx(
       'celeste-button',
       `celeste-button-type-${type}`,
