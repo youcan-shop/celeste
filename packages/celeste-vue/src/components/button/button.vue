@@ -19,7 +19,7 @@ export interface ButtonProps {
   variant?: 'fill' | 'stroke' | 'lighter' | 'ghost';
   iconPosition?: 'leading' | 'trailing';
   icon?: string;
-  label: string;
+  label?: string;
   disabled?: boolean;
 }
 </script>
@@ -37,7 +37,7 @@ export interface ButtonProps {
     )"
   >
     <i v-if="icon && iconPosition === 'leading'" :class="icon" />
-    <span role="presentation">{{ label }}</span>
+    <span v-if="label" role="presentation">{{ label }}</span>
     <i v-if="icon && iconPosition === 'trailing'" :class="icon" />
   </Primitive>
 </template>
