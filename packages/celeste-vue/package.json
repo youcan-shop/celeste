@@ -19,7 +19,7 @@
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
     "test": "vitest",
-    "release": "pnpm publish --access public",
+    "release": "pnpm publish --no-git-checks --access public",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
