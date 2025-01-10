@@ -8,24 +8,26 @@
     "celeste"
   ],
   "exports": {
+    "./*": "./*",
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./icons.json": {
-      "default": "./dist/icons.json"
-    },
-    "./info.json": {
-      "default": "./dist/info.json"
-    },
+    "./icons.json": "./dist/icons.json",
+    "./info.json": "./dist/info.json",
     "./package.json": {
       "default": "./package.json"
     }
   },
   "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=20.10.0"
+  },
+  "iconSet": {
+    "icons": "./dist/icons.json",
+    "info": "./dist/info.json"
   },
   "scripts": {
     "generate-iconify": "tsx scripts/generate-iconify",

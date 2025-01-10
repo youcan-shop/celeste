@@ -26,6 +26,7 @@
   "dependencies": {
     "@youcan/celeste-icons": "workspace:*",
     "@youcan/celeste-tokens": "workspace:*",
+    "@youcan/ui-icons": "^2.6.11",
     "clsx": "^2.1.1",
     "radix-vue": "^1.9.12",
     "uniqid": "^5.4.0"

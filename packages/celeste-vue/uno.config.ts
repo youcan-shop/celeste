@@ -1,4 +1,5 @@
-import icons from '@youcan/celeste-icons';
+import icons from '@youcan/celeste-icons/icons.json';
+import info from '@youcan/celeste-icons/info.json';
 import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss';
 
 export default defineConfig({
@@ -13,7 +14,7 @@ export default defineConfig({
         display: 'block',
       },
       collections: {
-        celeste: () => icons.icons,
+        [info.prefix]: () => icons,
       },
     }),
   ],
