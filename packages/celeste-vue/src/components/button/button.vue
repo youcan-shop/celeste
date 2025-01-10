@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Primitive } from 'radix-vue';
+import { Primitive, type PrimitiveProps } from 'radix-vue';
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'md',
   variant: 'fill',
   type: 'primary',
   iconPosition: 'trailing',
+  as: 'button',
 });
 </script>
 
 <script lang="ts">
-export interface ButtonProps {
+export interface ButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'xxs' | 'xs' | 'sm' | 'md';
   type?: 'primary' | 'neutral' | 'error';
@@ -21,12 +22,13 @@ export interface ButtonProps {
   icon?: string;
   label?: string;
   disabled?: boolean;
+  as?: keyof HTMLElementTagNameMap;
 }
 </script>
 
 <template>
   <Primitive
-    as="button"
+    :as
     :disabled
     :class="clsx(
       'celeste-button',
@@ -233,6 +235,7 @@ $hover-map: (
   border: 1px solid transparent;
   transition-timing-function: ease-out;
   transition-duration: var(--animation-fast);
+  text-decoration: none;
   transition-property: background-color color border-color;
 
   &:disabled {
