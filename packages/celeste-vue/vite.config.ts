@@ -4,8 +4,6 @@ import uno from 'unocss/vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
-const root = resolve(__dirname);
-
 export default defineConfig({
   plugins: [
     uno(),
@@ -18,29 +16,36 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': resolve(root, 'src'),
+      '@': resolve(import.meta.dirname, 'src'),
     },
-    dedupe: [
-      'vue',
-      '@vue/runtime-core',
-    ],
+    dedupe: ['vue'],
   },
   build: {
+    cssCodeSplit: true,
     lib: {
-      formats: ['es'],
-      name: 'celeste',
-      fileName: (format, name) => `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`,
+      name: 'celeste-vue',
+      fileName: (format, name) => {
+        return `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`;
+      },
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
       },
     },
     rollupOptions: {
-      external: ['vue', '@vue/runtime-core'],
+      external: ['vue', 'os'],
       output: {
+        exports: 'named',
         globals: {
           vue: 'Vue',
         },
+        assetFileNames: (chunkInfo) => {
+          if (chunkInfo.name === 'style.css')
+            return 'index.css';
+
+          return chunkInfo.name as string;
+        },
       },
     },
+    emptyOutDir: true,
   },
 });

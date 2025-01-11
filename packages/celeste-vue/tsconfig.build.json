@@ -3,6 +3,7 @@
   "compilerOptions": {
     "target": "esnext",
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "module": "esnext",

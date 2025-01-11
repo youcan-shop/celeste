@@ -21,15 +21,13 @@ export interface ButtonProps extends PrimitiveProps {
   iconPosition?: 'leading' | 'trailing';
   icon?: string;
   label?: string;
-  disabled?: boolean;
-  as?: keyof HTMLElementTagNameMap;
 }
 </script>
 
 <template>
   <Primitive
     :as
-    :disabled
+    :as-child
     :class="clsx(
       'celeste-button',
       `celeste-button-type-${type}`,
@@ -37,6 +35,7 @@ export interface ButtonProps extends PrimitiveProps {
       `celeste-button-variant-${variant}`,
       props.class,
     )"
+    :role="as === 'a' ? 'link' : 'button'"
   >
     <i v-if="icon && iconPosition === 'leading'" :class="icon" />
     <span v-if="label" role="presentation">{{ label }}</span>
@@ -236,7 +235,7 @@ $hover-map: (
   transition-timing-function: ease-out;
   transition-duration: var(--animation-fast);
   text-decoration: none;
-  transition-property: background-color color border-color;
+  transition-property: background-color, color, border-color;
 
   &:disabled {
     cursor: default;

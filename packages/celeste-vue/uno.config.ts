@@ -11,7 +11,7 @@ export default defineConfig({
       extraProperties: {
         width: '16px',
         height: '16px',
-        display: 'block',
+        display: 'inline-block',
       },
       collections: {
         [info.prefix]: () => icons,
