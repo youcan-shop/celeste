@@ -19,7 +19,7 @@ export const Default: Story = {
     template: `
       <LinkButton target="self" href="https://google.com" v-bind="args">
         Link Button Text
-        <i i-celeste-arrow-right-s-line />
+        <i class="i-celeste-arrow-right-s-line" />
       </LinkButton>
     `,
   }),

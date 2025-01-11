@@ -24,9 +24,8 @@ export const Default: Story = {
     template: `
       <Button v-bind="args">
         Continue
-        <i i-celeste-arrow-right-s-line></i>
+        <i class="i-celeste-arrow-right-s-line"></i>
       </Button>
     `,
   }),
-
 };
