@@ -478,7 +478,7 @@
       },
       "$type": "typography"
     },
-    "2xs": {
+    "xxs": {
       "$value": {
         "fontFamily": "{fontFamilies.sans}",
         "fontWeight": "{fontWeights.display-0}",
