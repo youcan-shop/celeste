@@ -88,12 +88,8 @@ $brand-map: (
     padding-inline-end: var(--spacing-6);
   }
 
-  &:hover,
   &:focus {
     outline: none;
-  }
-
-  &:focus {
     box-shadow: var(--shadow-buttons-important-focus);
   }
 
