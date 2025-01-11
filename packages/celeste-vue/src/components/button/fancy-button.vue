@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive, type PrimitiveProps } from 'radix-vue';
 
-const props = withDefaults(defineProps<ButtonProps>(), {
+const props = withDefaults(defineProps<FancyButtonProps>(), {
   size: 'md',
   type: 'primary',
   as: 'button',
@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 </script>
 
 <script lang="ts">
-export interface ButtonProps extends PrimitiveProps {
+export interface FancyButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'xs' | 'sm' | 'md';
   type?: 'primary' | 'neutral' | 'error' | 'basic';
