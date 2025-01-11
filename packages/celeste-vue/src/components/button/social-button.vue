@@ -110,6 +110,7 @@ $brand-map: (
   }
 
   i {
+    flex-shrink: 0;
     width: 20px;
     height: 20px;
   }
