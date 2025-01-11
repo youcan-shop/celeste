@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     label: 'Button',
-    icon: '',
+    icon: 'i-celeste-arrow-right-s-line',
     size: 'md',
     type: 'primary',
   },

@@ -51,25 +51,25 @@ $size-map: (
     height: 28px,
     border-radius: var(--radius-8),
     padding: var(--spacing-4) var(--spacing-6),
-    gap: 2px,
+    gap: var(--spacing-2),
   ),
   'xs': (
     height: 32px,
     border-radius: var(--radius-8),
     padding: var(--spacing-6),
-    gap: 2px,
+    gap: var(--spacing-2),
   ),
   'sm': (
     height: 36px,
     border-radius: var(--radius-8),
     padding: var(--spacing-8),
-    gap: 4px,
+    gap: var(--spacing-4),
   ),
   'md': (
     height: 40px,
     border-radius: var(--radius-10),
     padding: var(--spacing-10),
-    gap: 4px,
+    gap: var(--spacing-4),
   ),
 );
 $type-map: (

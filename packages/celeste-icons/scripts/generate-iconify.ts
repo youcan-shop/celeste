@@ -50,6 +50,11 @@ const info = {
           throw new Error(`Invalid color: "${colorStr}" in attribute ${attr}`);
         }
 
+        // ignore brand icon colors
+        if (name.startsWith('brand')) {
+          return color;
+        }
+
         if (isEmptyColor(color)) {
           return color;
         }
