@@ -37,7 +37,7 @@ export interface SocialButtonProps {
 @use 'sass:map';
 @use 'sass:string';
 
-@property --hover-bg {
+@property --celeste-social-button-bg {
   syntax: '<color>';
   initial-value: rgb(0 0 0 / 0%);
   inherits: false;
@@ -75,7 +75,7 @@ $brand-map: (
   align-items: center;
   justify-content: center;
   padding: var(--spacing-10);
-  transition-property: --hover-bg, background-color, border-color;
+  transition-property: --celeste-social-button-bg, background-color, border-color;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
   border: 1px solid transparent;
@@ -121,11 +121,11 @@ $brand-map: (
   @each $k, $v in $brand-map {
     &-#{$k}:not(&-stroke) {
       background:
-        linear-gradient(0deg, var(--hover-bg) 0%, var(--hover-bg) 100%),
+        linear-gradient(0deg, var(--celeste-social-button-bg) 0%, var(--celeste-social-button-bg) 100%),
         #{map.get($v, bg)};
 
       &:hover {
-        --hover-bg: #{map.get($v, hover)};
+        --celeste-social-button-bg: #{map.get($v, hover)};
       }
     }
   }
