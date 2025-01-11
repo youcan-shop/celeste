@@ -31,15 +31,15 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <style>
 .celeste-command-root {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
   width: 100%;
   height: 100%;
   padding: var(--spacing-8);
+  overflow: hidden;
   border-radius: var(--radius-16);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
+  gap: var(--spacing-4);
 }
 </style>

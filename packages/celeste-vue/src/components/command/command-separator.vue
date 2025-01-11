@@ -24,8 +24,8 @@ const delegatedProps = computed(() => {
 
 <style scoped>
 .celeste-command-separator {
-  background: var(--color-bg-soft-200);
-  height: 1px;
   width: 100%;
+  height: 1px;
+  background: var(--color-bg-soft-200);
 }
 </style>

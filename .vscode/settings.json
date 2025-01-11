@@ -8,6 +8,12 @@
     "source.fixAll.stylelint": "explicit"
   },
 
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "vue"
+  ],
+
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off", "fixable": true },
     { "rule": "format/*", "severity": "off", "fixable": true },

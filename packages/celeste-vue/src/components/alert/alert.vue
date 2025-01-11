@@ -135,18 +135,17 @@ $alert-sizes: (
     font: var(--label-sm),
   ),
 );
-
 $alert-style-map: (
   'fill': 'base',
   'light': 'light',
   'lighter': 'lighter',
 );
-
 $alert-styles: ('fill', 'light', 'lighter', 'stroke');
 $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
 @mixin alert-size($size) {
   $size-props: map.get($alert-sizes, $size);
+
   height: map.get($size-props, height);
   padding: map.get($size-props, padding);
   gap: map.get($size-props, gap);
@@ -157,8 +156,8 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   @if $style == 'stroke' {
     border: 1px solid var(--color-stroke-soft-200);
     background-color: var(--color-bg-white-0);
-    color: var(--color-text-strong-950);
     box-shadow: var(--shadow-regular-md);
+    color: var(--color-text-strong-950);
 
     & .celeste-alert-description {
       color: var(--color-text-sub-600);
@@ -177,8 +176,8 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
 
     & .celeste-alert-description {
-      color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
       opacity: if($style == 'fill', 1, 0.72);
+      color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
     }
 
     & .celeste-alert-action-primary,
@@ -199,36 +198,36 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
 @mixin close-style($style) {
   @if $style == 'fill' {
-    color: var(--color-static-white);
     opacity: 0.72;
+    color: var(--color-static-white);
   } @else {
-    color: var(--color-icon-strong-950);
     opacity: 0.4;
+    color: var(--color-icon-strong-950);
   }
 }
 
 .celeste-alert {
-  width: 100%;
   display: flex;
-  align-items: start;
   box-sizing: border-box;
+  align-items: start;
+  width: 100%;
 
   &-inner {
-    flex: 1;
     display: flex;
+    flex: 1;
     justify-content: space-between;
     min-width: 0;
   }
 
   &-content {
-    min-width: 0;
     flex: 1;
+    min-width: 0;
   }
 
   &-icon {
-    height: var(--icon-size);
-    width: var(--icon-size);
     flex-shrink: 0;
+    width: var(--icon-size);
+    height: var(--icon-size);
 
     @each $style in $alert-styles {
       @each $state in $alert-states {
@@ -244,8 +243,8 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     margin-inline-start: auto;
 
     i {
-      height: var(--icon-size);
       width: var(--icon-size);
+      height: var(--icon-size);
     }
 
     @each $style in $alert-styles {
@@ -257,10 +256,10 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
   &-title {
     margin: 0;
-    font: var(--title-font);
-    white-space: nowrap;
     overflow: hidden;
+    font: var(--title-font);
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &-description {
@@ -269,10 +268,10 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
   &-actions {
     display: flex;
-    gap: var(--spacing-8);
-    align-self: stretch;
-    align-items: flex-start;
     flex-shrink: 0;
+    align-items: flex-start;
+    align-self: stretch;
+    gap: var(--spacing-8);
   }
 
   &-action-primary {
@@ -281,9 +280,9 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   }
 
   &-action-divider {
+    opacity: 0.48;
     font: var(--paragraph-sm);
     text-align: center;
-    opacity: 0.48;
   }
 
   &-action-secondary {
@@ -298,7 +297,9 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
   &--xs {
     @include alert-size('xs');
+
     align-items: center;
+
     --icon-size: 16px;
     --action-font: var(--label-xs);
     --title-font: var(--paragraph-xs);
@@ -306,7 +307,9 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
   &--sm {
     @include alert-size('sm');
+
     align-items: center;
+
     --icon-size: 20px;
     --title-font: var(--paragraph-sm);
     --action-font: var(--label-sm);
@@ -314,6 +317,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
   &--lg {
     @include alert-size('lg');
+
     --icon-size: 20px;
     --action-font: var(--label-sm);
     --title-font: var(--label-sm);

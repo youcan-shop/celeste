@@ -43,18 +43,18 @@ export interface LinkButtonProps extends PrimitiveProps {
 .celeste-link-button {
   display: inline-flex;
   align-items: center;
-  text-decoration: none;
   justify-content: center;
   transition-property: color, text-decoration-color;
-  transition-timing-function: ease-out;
   transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
+  text-decoration: none;
   cursor: pointer;
 
   &:disabled,
   &-disabled {
+    color: var(--color-text-disabled-300);
     cursor: default;
     pointer-events: none;
-    color: var(--color-text-disabled-300);
   }
 
   &:hover,
@@ -72,8 +72,8 @@ export interface LinkButtonProps extends PrimitiveProps {
     font: var(--label-sm);
 
     i {
-      height: 20px;
       width: 20px;
+      height: 20px;
     }
   }
 
@@ -82,8 +82,8 @@ export interface LinkButtonProps extends PrimitiveProps {
     font: var(--label-xs);
 
     i {
-      height: 16px;
       width: 16px;
+      height: 16px;
     }
   }
 

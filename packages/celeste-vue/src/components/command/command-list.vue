@@ -32,7 +32,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style>
 .celeste-command-list {
   max-height: 300px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 </style>

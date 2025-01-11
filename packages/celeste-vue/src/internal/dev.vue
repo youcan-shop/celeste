@@ -56,11 +56,11 @@ import ScrollArea from '@/components/scroll-area/scroll-area.vue';
 html {
   @apply antialiased;
 
-  font: var(--paragraph-md);
-  color: var(--color-text-strong-950);
-  background: var(--color-bg-weak-50);
   display: grid;
-  place-items: center;
   min-height: 100svh;
+  background: var(--color-bg-weak-50);
+  color: var(--color-text-strong-950);
+  font: var(--paragraph-md);
+  place-items: center;
 }
 </style>

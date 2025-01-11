@@ -17,8 +17,12 @@
     "node": ">=20.10.0"
   },
   "scripts": {
-    "lint": "eslint . --cache",
-    "lint:fix": "eslint . --cache --fix",
+    "eslint": "eslint . --cache",
+    "eslint:fix": "eslint . --cache --fix",
+    "stylelint": "stylelint ./**/*.vue --cache",
+    "stylelint:fix": "stylelint ./**/*.vue --cache --fix",
+    "lint": "pnpm run eslint && pnpm run stylelint",
+    "lint:fix": "pnpm run eslint:fix && pnpm run stylelint:fix",
     "prepare": "pnpm simple-git-hooks",
     "build": "pnpm -r build",
     "bump": "bumpp package.json packages/*/package.json --commit \"chore: release v\" --push --tag",

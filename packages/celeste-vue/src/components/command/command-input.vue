@@ -36,14 +36,14 @@ const forwardedProps = useForwardProps(delegatedProps);
   --icon-color: var(--color-icon-soft-400);
   --placeholder-color: var(--color-text-soft-400);
 
-  padding: var(--spacing-8);
-  gap: var(--spacing-8);
   display: flex;
   align-items: center;
-  font: var(--paragraph-sm);
+  padding: var(--spacing-8);
   transition:
     color,
     background-color var(--animation-normal) ease;
+  font: var(--paragraph-sm);
+  gap: var(--spacing-8);
 }
 
 .celeste-command-input:hover {
@@ -54,24 +54,24 @@ const forwardedProps = useForwardProps(delegatedProps);
 }
 
 .celeste-command-input-primitive {
-  font: inherit;
+  width: 100%;
+  transition: color var(--animation-normal) ease;
   border: none;
   outline: none;
   background: transparent;
-  width: 100%;
-  transition: color var(--animation-normal) ease;
+  font: inherit;
 }
 
 .celeste-command-input-icon {
-  color: var(--icon-color);
+  flex-shrink: 0;
   width: 18px;
   height: 18px;
-  flex-shrink: 0;
   transition: color var(--animation-normal) ease;
+  color: var(--icon-color);
 }
 
 .celeste-command-input-primitive::placeholder {
-  color: var(--placeholder-color);
   transition: color var(--animation-normal) ease;
+  color: var(--placeholder-color);
 }
 </style>

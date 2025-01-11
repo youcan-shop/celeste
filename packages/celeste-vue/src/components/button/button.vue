@@ -72,7 +72,6 @@ $size-map: (
     gap: 4px,
   ),
 );
-
 $type-map: (
   'primary': (
     'fill': (
@@ -153,7 +152,6 @@ $type-map: (
     ),
   ),
 );
-
 $hover-map: (
   'primary': (
     'fill': (
@@ -224,28 +222,28 @@ $hover-map: (
 );
 
 .celeste-button {
-  border: none;
-  background-color: transparent;
-  box-sizing: border-box;
   display: inline-flex;
-  justify-content: center;
+  box-sizing: border-box;
   align-items: center;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition-timing-function: ease-out;
-  transition-duration: var(--animation-fast);
-  text-decoration: none;
+  justify-content: center;
   transition-property: background-color, color, border-color;
+  transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
+  border: none;
+  border: 1px solid transparent;
+  background-color: transparent;
+  text-decoration: none;
+  cursor: pointer;
 
   &:disabled {
-    cursor: default;
-    color: var(--color-text-disabled-300);
     background-color: var(--color-bg-weak-50);
+    color: var(--color-text-disabled-300);
+    cursor: default;
   }
 
   span {
-    font: var(--label-sm);
     padding: 0 4px;
+    font: var(--label-sm);
   }
 
   i {
@@ -265,26 +263,26 @@ $hover-map: (
   @each $type, $subtypes in $type-map {
     @each $variant, $values in $subtypes {
       &-type-#{$type}:not(:disabled).celeste-button-variant-#{$variant}:not(:disabled) {
-        color: map.get($values, fg);
         border-color: map.get($values, border);
         background-color: map.get($values, bg);
         box-shadow: map.get($values, shadow);
+        color: map.get($values, fg);
 
         &:hover:not(:disabled) {
           $hover-values: map.get(map.get($hover-map, $type), $variant);
-          color: map.get($hover-values, fg);
+
           border-color: map.get($hover-values, border);
           background-color: map.get($hover-values, bg);
+          color: map.get($hover-values, fg);
         }
 
         &:focus:not(:disabled) {
+          outline: none;
           box-shadow: if(
             $type == 'neutral',
             var(--shadow-buttons-important-focus),
             var(--shadow-buttons-#{$type}-focus)
           );
-
-          outline: none;
         }
       }
     }
