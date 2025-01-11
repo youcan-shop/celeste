@@ -7,7 +7,6 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'md',
   variant: 'fill',
   type: 'primary',
-  iconPosition: 'trailing',
   as: 'button',
 });
 </script>
@@ -18,9 +17,6 @@ export interface ButtonProps extends PrimitiveProps {
   size?: 'xxs' | 'xs' | 'sm' | 'md';
   type?: 'primary' | 'neutral' | 'error';
   variant?: 'fill' | 'stroke' | 'lighter' | 'ghost';
-  iconPosition?: 'leading' | 'trailing';
-  icon?: string;
-  label?: string;
 }
 </script>
 
@@ -35,11 +31,8 @@ export interface ButtonProps extends PrimitiveProps {
       `celeste-button-variant-${variant}`,
       props.class,
     )"
-    :role="as === 'a' ? 'link' : 'button'"
   >
-    <i v-if="icon && iconPosition === 'leading'" :class="icon" />
-    <span v-if="label" role="presentation">{{ label }}</span>
-    <i v-if="icon && iconPosition === 'trailing'" :class="icon" />
+    <slot />
   </Primitive>
 </template>
 
@@ -51,25 +44,25 @@ $size-map: (
     height: 28px,
     border-radius: var(--radius-8),
     padding: var(--spacing-4) var(--spacing-6),
-    gap: var(--spacing-2),
+    gap: var(--spacing-4),
   ),
   'xs': (
     height: 32px,
     border-radius: var(--radius-8),
-    padding: var(--spacing-6),
-    gap: var(--spacing-2),
+    padding: var(--spacing-6) var(--spacing-8),
+    gap: var(--spacing-4),
   ),
   'sm': (
     height: 36px,
     border-radius: var(--radius-8),
-    padding: var(--spacing-8),
-    gap: var(--spacing-4),
+    padding: var(--spacing-8) var(--spacing-10),
+    gap: var(--spacing-6),
   ),
   'md': (
     height: 40px,
     border-radius: var(--radius-10),
-    padding: var(--spacing-10),
-    gap: var(--spacing-4),
+    padding: var(--spacing-10) var(--spacing-12),
+    gap: var(--spacing-6),
   ),
 );
 $type-map: (
@@ -232,6 +225,7 @@ $hover-map: (
   border: none;
   border: 1px solid transparent;
   background-color: transparent;
+  font: var(--label-sm);
   text-decoration: none;
   cursor: pointer;
 
@@ -241,12 +235,7 @@ $hover-map: (
     cursor: default;
   }
 
-  span {
-    padding: 0 4px;
-    font: var(--label-sm);
-  }
-
-  i {
+  :deep(i) {
     width: 20px;
     height: 20px;
   }

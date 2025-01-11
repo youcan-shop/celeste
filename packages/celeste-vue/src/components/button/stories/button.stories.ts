@@ -12,8 +12,6 @@ type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
   args: {
-    label: 'Button',
-    icon: 'i-celeste-arrow-right-s-line',
     size: 'md',
     type: 'primary',
   },
@@ -25,6 +23,8 @@ export const Default: Story = {
     },
     template: `
       <Button v-bind="args">
+        Continue
+        <i i-celeste-arrow-right-s-line></i>
       </Button>
     `,
   }),

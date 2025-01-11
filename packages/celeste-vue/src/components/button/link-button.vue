@@ -71,7 +71,7 @@ export interface LinkButtonProps extends PrimitiveProps {
     height: 20px;
     font: var(--label-sm);
 
-    i {
+    :deep(i) {
       width: 20px;
       height: 20px;
     }
@@ -81,7 +81,7 @@ export interface LinkButtonProps extends PrimitiveProps {
     height: 16px;
     font: var(--label-xs);
 
-    i {
+    :deep(i) {
       width: 16px;
       height: 16px;
     }
