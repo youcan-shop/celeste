@@ -131,9 +131,6 @@ importers:
       '@youcan/celeste-tokens':
         specifier: workspace:*
         version: link:../celeste-tokens
-      '@youcan/ui-icons':
-        specifier: ^2.6.11
-        version: 2.6.11
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1911,9 +1908,6 @@ packages:
         optional: true
       svelte-eslint-parser:
         optional: true
-
-  '@youcan/ui-icons@2.6.11':
-    resolution: {integrity: sha512-lkm7iIV0p3GlikcDij1fJ1lVmFfy6SSPZxhzYVyLbr8SufJvoumcq3dkZnze+xqezWMnvZwWCY5wtyjj2VTafQ==}
 
   '@zip.js/zip.js@2.7.54':
     resolution: {integrity: sha512-qMrJVg2hoEsZJjMJez9yI2+nZlBUxgYzGV3mqcb2B/6T1ihXp0fWBDYlVHlHquuorgNUQP5a8qSmX6HF5rFJNg==}
@@ -7169,10 +7163,6 @@ snapshots:
       - supports-color
       - typescript
       - vitest
-
-  '@youcan/ui-icons@2.6.11':
-    dependencies:
-      '@iconify/types': 2.0.0
 
   '@zip.js/zip.js@2.7.54': {}
 

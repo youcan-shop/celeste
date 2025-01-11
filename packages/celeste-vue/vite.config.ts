@@ -32,7 +32,7 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['vue', 'os'],
+      external: ['vue'],
       output: {
         exports: 'named',
         globals: {

@@ -12,7 +12,6 @@
     "node": ">=20.10.0"
   },
   "scripts": {
-    "dev": "vite",
     "build": "pnpm type-check && pnpm build-only",
     "build-only": "vite build",
     "watch": "vite build --watch",
@@ -20,13 +19,12 @@
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
     "test": "vitest",
     "release": "pnpm publish --access public",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "NODE_ENV=dev storybook dev -p 6006",
+    "build-storybook": "NODE_ENV=dev storybook build"
   },
   "dependencies": {
     "@youcan/celeste-icons": "workspace:*",
     "@youcan/celeste-tokens": "workspace:*",
-    "@youcan/ui-icons": "^2.6.11",
     "clsx": "^2.1.1",
     "radix-vue": "^1.9.12",
     "uniqid": "^5.4.0"
