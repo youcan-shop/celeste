@@ -15,7 +15,7 @@ export interface BadgeProps {
   size?: 'sm' | 'md';
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
   type?: 'basic' | 'dot' | 'leading-icon' | 'trailing-icon';
-  color?: 'faded' | 'information' | 'warning' | 'error' | 'success' | 'away' | 'feature' | 'verified' | 'highlighted' | 'stable';
+  state?: 'faded' | 'information' | 'warning' | 'error' | 'success' | 'away' | 'feature' | 'verified' | 'highlighted' | 'stable';
   disabled?: boolean;
   icon?: string;
   label?: string;
@@ -29,7 +29,7 @@ export interface BadgeProps {
       'celeste-badge',
       `celeste-badge-${size}`,
       `celeste-badge-${type}`,
-      `celeste-badge-${color}`,
+      `celeste-badge-${state}`,
       `celeste-badge-${variant}`,
       disabled && 'celeste-badge-disabled',
       props.class,
@@ -46,13 +46,14 @@ export interface BadgeProps {
 </template>
 
 <style scoped lang="scss">
-$colors: faded, information, warning, error, success, away, feature, verified, highlighted, stable;
+$states: faded, information, warning, error, success, away, feature, verified, highlighted, stable;
 
 .celeste-badge {
   display: inline-flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  padding: 0 var(--spacing-8);
+  padding: var(--spacing-2) var(--spacing-8);
   transition-property: background-color, color, border-color;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
@@ -104,25 +105,26 @@ $colors: faded, information, warning, error, success, away, feature, verified, h
     font: var(--label-xs);
   }
 
-  @each $color in $colors {
-    &-fill.celeste-badge-#{$color}:not(&-disabled) {
-      background-color: var(--color-state-#{$color}-base);
+  @each $state in $states {
+    &-fill.celeste-badge-#{$state}:not(&-disabled) {
+      background-color: var(--color-state-#{$state}-base);
       color: var(--color-text-white-0);
     }
 
-    &-light.celeste-badge-#{$color}:not(&-disabled) {
-      background-color: var(--color-state-#{$color}-light);
-      color: var(--color-state-#{$color}-dark);
+    &-light.celeste-badge-#{$state}:not(&-disabled) {
+      background-color: var(--color-state-#{$state}-light);
+      color: var(--color-state-#{$state}-dark);
     }
 
-    &-lighter.celeste-badge-#{$color}:not(&-disabled) {
-      background-color: var(--color-state-#{$color}-lighter);
-      color: var(--color-state-#{$color}-base);
+    &-lighter.celeste-badge-#{$state}:not(&-disabled) {
+      background-color: var(--color-state-#{$state}-lighter);
+      color: var(--color-state-#{$state}-base);
     }
 
-    &-stroke.celeste-badge-#{$color}:not(&-disabled) {
-      border-color: var(--color-state-#{$color}-base);
-      color: var(--color-state-#{$color}-base);
+    &-stroke.celeste-badge-#{$state}:not(&-disabled) {
+      border-color: var(--color-state-#{$state}-base);
+      background-color: var(--color-bg-white-0);
+      color: var(--color-state-#{$state}-base);
     }
   }
 }

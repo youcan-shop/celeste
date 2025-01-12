@@ -15,9 +15,9 @@ export const Default: Story = {
     size: 'md',
     variant: 'fill',
     label: 'Badge',
-    color: 'information',
+    state: 'information',
     type: 'leading-icon',
-    icon: 'i-celeste-contrast-2-line',
+    icon: 'i-celeste-information-fill',
   },
 
   render: args => ({
