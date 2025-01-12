@@ -38,7 +38,7 @@ export interface BadgeProps {
     :aria-disabled="disabled || undefined"
     role="badge"
   >
-    <i v-if="type === 'dot'" class="i-celeste-dot dot" />
+    <i v-if="type === 'dot'" class="dot i-celeste-dot" />
     <i v-if="type === 'leading-icon'" :class="icon" />
     <span v-if="label">{{ label }}</span>
     <i v-if="type === 'trailing-icon'" :class="icon" />
@@ -46,7 +46,7 @@ export interface BadgeProps {
 </template>
 
 <style scoped lang="scss">
-$colors: faded, information, warning, error, success, awaiy, feature, verified, highlighted, stable;
+$colors: faded, information, warning, error, success, away, feature, verified, highlighted, stable;
 
 .celeste-badge {
   display: inline-flex;
