@@ -74,6 +74,14 @@ export interface CompactButtonProps extends PrimitiveProps {
     color: var(--color-icon-strong-950);
   }
 
+  &:focus {
+    border-color: transparent;
+    outline: none;
+    background-color: var(--color-bg-weak-50);
+    box-shadow: var(--shadow-buttons-important-focus);
+    color: var(--color-icon-strong-950);
+  }
+
   &:active {
     border-color: transparent;
     outline: none;

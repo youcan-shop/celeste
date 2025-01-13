@@ -36,25 +36,30 @@ export interface CheckboxProps extends CheckboxRootProps {
 
 <style lang="scss">
 .celeste-checkbox {
+  --celeste-checkbox-border: var(--color-stroke-soft-200);
+
   box-sizing: border-box;
   flex-shrink: 0;
   width: 16px;
   height: 16px;
   padding: 0;
-  transition-property: border-color, background-color;
+  transition-property: box-shadow, background-color;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
-  border: 1.5px solid var(--color-stroke-soft-200);
+  border: none;
   border-radius: var(--radius-4);
   background-color: var(--color-bg-white-0);
-  box-shadow: var(--shadow-regular-xs);
+  box-shadow:
+    inset 0 0 0 1.5px var(--celeste-checkbox-border),
+    var(--shadow-regular-xs);
 
   &:hover {
-    border-color: var(--color-stroke-sub-300);
+    --celeste-checkbox-border: var(--color-stroke-sub-300);
   }
 
   &:focus {
-    border-color: var(--color-primary-base);
+    --celeste-checkbox-border: var(--color-primary-base);
+
     outline: none;
   }
 
@@ -65,7 +70,8 @@ export interface CheckboxProps extends CheckboxRootProps {
 
   &[data-state='checked']:not(:disabled),
   &[data-state='indeterminate']:not(:disabled) {
-    border-color: transparent;
+    --celeste-checkbox-border: transparent;
+
     background-color: var(--color-primary-base);
 
     &:hover,
