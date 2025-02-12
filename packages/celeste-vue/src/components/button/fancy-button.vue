@@ -90,7 +90,6 @@ $type-map: (
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
   border: none;
-  border: 1px solid transparent;
   background-color: transparent;
   font: var(--label-sm);
   text-decoration: none;
@@ -126,16 +125,27 @@ $type-map: (
       --celeste-fbutton-bg-start: rgb(255 255 255 / 16%);
       --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
 
-      border: 1px solid rgb(255 255 255 / 12%);
       background:
         linear-gradient(180deg, var(--celeste-fbutton-bg-start) 0%, var(--celeste-fbutton-bg-end) 100%),
         #{map.get($v, bg)};
-      box-shadow: var(--shadow-fancy-buttons-#{$k});
+      box-shadow:
+        inset 0 1px 0.5px 0.5px hsl(0deg 0% 100% / 12%),
+        var(--shadow-fancy-buttons-#{$k});
       color: var(--color-text-white-0);
 
       &:hover {
         --celeste-fbutton-bg-start: rgb(255 255 255 / 24%);
         --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
+      }
+
+      &:focus {
+        --celeste-fbutton-bg-start: rgb(255 255 255 / 24%);
+        --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
+
+        box-shadow:
+          inset 0 1px 0.5px 0.5px hsl(0deg 0% 100% / 12%),
+          var(--shadow-fancy-buttons-#{$k}),
+          if($k == 'neutral', var(--shadow-buttons-important-focus), var(--shadow-buttons-#{$k}-focus));
       }
     }
   }
@@ -148,6 +158,12 @@ $type-map: (
     &:hover {
       background: var(--color-bg-weak-50);
       box-shadow: none;
+      color: var(--text-strong-950);
+    }
+
+    &:focus {
+      background: var(--color-bg-weak-50);
+      box-shadow: var(--shadow-buttons-important-focus);
       color: var(--text-strong-950);
     }
   }
