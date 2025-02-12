@@ -12,6 +12,25 @@ type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
   args: {
+    checked: 'indeterminate',
+    flip: true,
+    label: 'Label',
+    sublabel: 'Sublabel',
+    description: 'Insert the checkbox description here.',
+    badgeProps: {
+      size: 'sm',
+      variant: 'light',
+      label: 'Badge',
+      state: 'information',
+      type: 'basic',
+    },
+    linkButtonProps: {
+      size: 'sm',
+      as: 'a',
+      type: 'primary',
+    },
+    link: 'https://google.com',
+    linkText: 'Link button',
   },
 
   render: args => ({
@@ -20,8 +39,9 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <Checkbox v-bind="args">
-      </Checkbox>
+      <div style="width: 30%">
+        <Checkbox v-bind="args" />
+      </div>
     `,
   }),
 };
