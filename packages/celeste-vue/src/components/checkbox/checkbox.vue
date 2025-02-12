@@ -170,10 +170,10 @@ export interface CheckboxProps extends CheckboxRootProps {
 }
 
 .celeste-input-sublabel {
-  font: var(--label-sm);
   color: var(--color-text-sub-600);
-  line-height: var(--line-heights-8);
+  font: var(--label-sm);
   font-weight: var(--font-weights-sans-0);
+  line-height: var(--line-heights-8);
 }
 
 .celeste-input-badge {
@@ -181,12 +181,12 @@ export interface CheckboxProps extends CheckboxRootProps {
 }
 
 .celeste-input-description {
-  font: var(--paragraph-xs);
   color: var(--color-text-sub-600);
+  font: var(--paragraph-xs);
 }
 
 .celeste-input-action {
-  pointer-events: auto;
   margin-top: var(--spacing-4);
+  pointer-events: auto;
 }
 </style>
