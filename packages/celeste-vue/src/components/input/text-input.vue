@@ -66,34 +66,35 @@ export interface TextInputProps {
 
 .celeste-input-wrapper {
   @include transition-default;
+
   --input-gap: var(--spacing-8);
 
   display: flex;
   align-items: center;
-  gap: var(--input-gap);
+  border: 1px solid var(--color-stroke-soft-200);
+  background: var(--color-bg-white-0);
+  box-shadow: var(--shadow-regular-xs);
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
-  background: var(--color-bg-white-0);
-  border: 1px solid var(--color-stroke-soft-200);
-  box-shadow: var(--shadow-regular-xs);
+  gap: var(--input-gap);
 
   &:focus-within {
-    outline: none;
     border: 1px solid var(--color-stroke-strong-950);
+    outline: none;
     box-shadow: var(--shadow-buttons-important-focus);
   }
 
   &:hover {
-    background: var(--color-bg-weak-50);
-    color: var(--color-text-sub-600);
-    box-shadow: none;
     border-color: var(--color-bg-weak-50);
+    background: var(--color-bg-weak-50);
+    box-shadow: none;
+    color: var(--color-text-sub-600);
   }
 
   &-disabled {
+    border: none;
     background: var(--color-bg-weak-50);
     cursor: not-allowed;
-    border: none;
   }
 
   &-error,
@@ -125,13 +126,15 @@ export interface TextInputProps {
 
   .celeste-input {
     @include transition-default;
-    border: none;
+
     width: 100%;
+    border: none;
     background: transparent;
     color: inherit;
 
     &::placeholder {
       @include transition-default;
+
       color: var(--color-text-soft-400);
     }
 
@@ -147,8 +150,8 @@ export interface TextInputProps {
     }
 
     &:disabled {
-      cursor: not-allowed;
       color: var(--color-text-disabled-300);
+      cursor: not-allowed;
 
       &::placeholder {
         color: var(--color-text-disabled-300);
@@ -157,7 +160,6 @@ export interface TextInputProps {
 
     &[type='password'] {
       letter-spacing: var(--spacing-4);
-      text-security: disc;
       -webkit-text-security: disc;
     }
 
