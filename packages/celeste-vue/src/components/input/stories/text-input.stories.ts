@@ -21,7 +21,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <TextInput v-bind="args" style="--input-gap: 0px;">
+      <TextInput v-bind="args">
          <template #prefix>
            <i style="display: flex; align-items: center; justify-content: center; color: inherit" class="i-celeste-user-6-line" />
          </template>
