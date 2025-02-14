@@ -11,6 +11,13 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    backgrounds: {
+      values: [
+        { name: 'white', value: '#ffffff' },
+        { name: 'gray', value: '#E1E4EA' }, // Add your preferred color
+        { name: 'dark', value: '#333333' },
+      ],
+    },
   },
   tags: ['autodocs'],
 };
