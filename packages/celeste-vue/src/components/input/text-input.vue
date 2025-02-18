@@ -81,17 +81,17 @@ export interface TextInputProps {
   gap: var(--input-gap);
   cursor: text;
 
-  &:focus-within {
-    border: 1px solid var(--color-stroke-strong-950);
-    outline: none;
-    box-shadow: var(--shadow-buttons-important-focus);
-  }
-
   &:hover {
     border-color: var(--color-bg-weak-50);
     background: var(--color-bg-weak-50);
     box-shadow: none;
     color: var(--color-text-sub-600);
+  }
+
+  &:focus-within:not(.celeste-input-wrapper-disabled) {
+    border: 1px solid var(--color-stroke-strong-950);
+    outline: none;
+    box-shadow: var(--shadow-buttons-important-focus);
   }
 
   &-disabled {
