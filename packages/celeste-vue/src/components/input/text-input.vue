@@ -32,6 +32,8 @@ export interface TextInputProps {
       { 'celeste-input-wrapper-disabled': disabled },
       props.class,
     )"
+    tabindex="0"
+    @click="$el.querySelector('input')?.focus()"
   >
     <!-- Prefix Slot -->
     <div v-if="$slots.prefix" class="celeste-input-prefix">
@@ -77,6 +79,7 @@ export interface TextInputProps {
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
   gap: var(--input-gap);
+  cursor: text;
 
   &:focus-within {
     border: 1px solid var(--color-stroke-strong-950);
@@ -95,6 +98,11 @@ export interface TextInputProps {
     border: none;
     background: var(--color-bg-weak-50);
     cursor: not-allowed;
+  }
+
+  &-disabled:deep(i) {
+    background: var(--color-icon-disabled-300);
+    color: var(--color-icon-disabled-300);
   }
 
   &-error,
@@ -161,11 +169,20 @@ export interface TextInputProps {
     &[type='password'] {
       letter-spacing: var(--spacing-4);
       -webkit-text-security: disc;
+
+      &::placeholder {
+        letter-spacing: normal;
+      }
     }
 
     &[type='search']::-webkit-search-cancel-button {
       display: none;
     }
+  }
+
+  .celeste-input-prefix,
+  .celeste-input-suffix {
+    cursor: auto;
   }
 }
 </style>
