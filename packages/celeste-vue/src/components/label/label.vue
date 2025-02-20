@@ -18,13 +18,12 @@ const mergedLinkButtonProps = computed(() => ({
 
 <script lang="ts">
 export interface LabelProps {
+  labelText: string;
   class?: HTMLAttributes['class'];
   disabled?: boolean;
   sublabel?: string;
   required?: boolean;
   tooltip?: string;
-  button?: boolean;
-  labelText: string;
   buttonLink?: string;
   buttonLinkText?: string;
   linkButtonProps?: LinkButtonProps;
