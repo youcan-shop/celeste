@@ -1,12 +1,10 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<HintTextProps>(), {
-  disabled: false,
+  state: 'default',
 });
-
-const message = computed(() => props.error || props.text);
 </script>
 
 <script lang="ts">
@@ -14,23 +12,23 @@ export interface HintTextProps {
   text?: string;
   icon?: string;
   class?: HTMLAttributes['class'];
-  disabled?: boolean;
-  error?: string;
+  state?: 'default' | 'disabled' | 'error';
 }
 </script>
 
 <template>
   <div
-    :role="error ? 'alert' : 'note'"
+    :role="props.state === 'error' ? 'alert' : 'note'"
     :class="clsx(
       'celeste-hint-text',
-      { 'celeste-hint-text-disabled': disabled },
-      { 'celeste-hint-text-error': error },
+      `celeste-hint-text-${state}`,
       props.class,
     )"
   >
     <i v-if="icon" :class="icon" />
-    <p>{{ message }}</p>
+    <p v-if="text">
+      {{ text }}
+    </p>
   </div>
 </template>
 
