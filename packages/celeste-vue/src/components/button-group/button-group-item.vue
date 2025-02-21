@@ -1,0 +1,126 @@
+<script setup lang="ts">
+import clsx from 'clsx';
+import { ToggleGroupItem, type ToggleGroupItemProps } from 'radix-vue';
+import { computed, type HTMLAttributes } from 'vue';
+
+const props = withDefaults(defineProps<ButtonGroupItemProps>(), {
+  size: 'sm',
+});
+
+const delegatedProps = computed(() => {
+  const delegated = { ...props };
+
+  delete delegated.class;
+  delete delegated.text;
+  delete delegated.iconRight;
+  delete delegated.iconLeft;
+
+  return delegated;
+});
+</script>
+
+<script lang="ts">
+export interface ButtonGroupItemProps extends ToggleGroupItemProps {
+  class?: HTMLAttributes['class'];
+  size?: 'xxs' | 'xs' | 'sm';
+  text?: string;
+  iconLeft?: string;
+  iconRight?: string;
+}
+</script>
+
+<template>
+  <ToggleGroupItem
+    :class="clsx(
+      'celeste-button-group-item',
+      `celeste-button-group-item-size-${size}`,
+      props.class,
+    )"
+    v-bind="delegatedProps"
+  >
+    <i v-if="iconLeft" :class="iconLeft" />
+    <span v-text="text" />
+    <i v-if="iconRight" :class="iconRight" />
+  </ToggleGroupItem>
+</template>
+
+<style lang="scss" scoped>
+@use 'sass:map';
+
+$size-map: (
+  'xxs': (
+    height: 24px,
+    padding: var(--spacing-4) var(--spacing-12),
+    font: var(--label-xs),
+  ),
+  'xs': (
+    height: 32px,
+    padding: var(--spacing-6) var(--spacing-14),
+    font: var(--label-sm),
+  ),
+  'sm': (
+    height: 36px,
+    padding: var(--spacing-8) var(--spacing-16),
+    font: var(--label-sm),
+  ),
+);
+
+.celeste-button-group-item {
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  transition-property: background-color;
+  transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
+  border: 1px solid var(--color-stroke-soft-200);
+  outline: none;
+  background-color: var(--color-bg-white-0);
+  color: var(--color-text-sub-600);
+  cursor: pointer;
+  gap: 8px;
+
+  @each $k, $v in $size-map {
+    &-size-#{$k} {
+      height: map.get($v, height);
+      padding: map.get($v, padding);
+      font: map.get($v, font);
+    }
+  }
+
+  i {
+    display: block;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.celeste-button-group-item:not(:last-child) {
+  border-right: none;
+}
+
+.celeste-button-group-item:last-of-type {
+  border-end-end-radius: var(--radius-8);
+  border-start-end-radius: var(--radius-8);
+}
+
+.celeste-button-group-item:first-of-type {
+  border-end-start-radius: var(--radius-8);
+  border-start-start-radius: var(--radius-8);
+}
+
+.celeste-button-group-item:hover,
+.celeste-button-group-item:focus {
+  background-color: var(--color-bg-weak-50);
+}
+
+.celeste-button-group-item[data-state='on'] {
+  color: var(--color-text-strong-950);
+}
+
+.celeste-button-group-item:disabled {
+  background-color: var(--color-bg-weak-50);
+  color: var(--color-text-disabled-300);
+}
+</style>

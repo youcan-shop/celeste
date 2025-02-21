@@ -14,6 +14,7 @@
   "scripts": {
     "build": "pnpm type-check && pnpm build-only",
     "build-only": "vite build",
+    "dev": "vite dev",
     "watch": "vite build --watch",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
