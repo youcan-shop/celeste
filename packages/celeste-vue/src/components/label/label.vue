@@ -24,8 +24,8 @@ export interface LabelProps {
   sublabel?: string;
   required?: boolean;
   tooltip?: string;
-  buttonLink?: string;
-  buttonLinkText?: string;
+  linkButtonLink?: string;
+  linkButtonText?: string;
   linkButtonProps?: LinkButtonProps;
 }
 </script>
@@ -55,9 +55,9 @@ export interface LabelProps {
       {{ sublabel }}
     </span>
     <span v-if="tooltip" />
-    <span v-if="buttonLink && buttonLinkText" class="celeste-label-button">
-      <LinkButton :href="buttonLink" v-bind="mergedLinkButtonProps">
-        {{ buttonLinkText }}
+    <span v-if="linkButtonLink && linkButtonText" class="celeste-label-button">
+      <LinkButton :href="linkButtonLink" v-bind="mergedLinkButtonProps">
+        {{ linkButtonText }}
       </LinkButton>
     </span>
   </div>
@@ -92,7 +92,7 @@ export interface LabelProps {
     flex: 1 0 0;
     align-items: center;
     justify-content: flex-end;
-    gap: 4px;
+    gap: var(--spacing-4);
   }
 
   &-disabled {

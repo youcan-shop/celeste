@@ -12,8 +12,8 @@ type Story = StoryObj<typeof Label>;
 
 export const Default: Story = {
   args: {
-    buttonLink: 'https://google.com',
-    buttonLinkText: 'Help?',
+    linkButtonLink: 'https://google.com',
+    linkButtonText: 'Help?',
     sublabel: '(Optional)',
     labelText: 'Label',
     linkButtonProps: {
