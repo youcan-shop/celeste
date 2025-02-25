@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   position: 'left',
 });
 
-const tooltipState = ref(true);
+const isOpen = ref(true);
 </script>
 
 <script lang="ts">
@@ -26,7 +26,7 @@ export interface TooltipProps {
 
 <template>
   <TooltipProvider :delay-duration="200">
-    <TooltipRoot :open="tooltipState" @update:open="(val) => tooltipState = val">
+    <TooltipRoot :open="isOpen" @update:open="(val) => isOpen = val">
       <TooltipTrigger
         :class="clsx('celeste-tooltip-trigger', props.class)"
       >
@@ -35,7 +35,7 @@ export interface TooltipProps {
       <TooltipPortal>
         <TooltipContent
           aria-label="tooltip"
-          :aria-hidden="tooltipState"
+          :aria-hidden="isOpen"
           :class="clsx(
             'celeste-tooltip-content',
             `celeste-tooltip-size-${size}`,
@@ -62,7 +62,7 @@ export interface TooltipProps {
               v-if="dismissIcon"
               aria-label="close tooltip"
               type="button"
-              @click="() => tooltipState = false"
+              @click="() => isOpen = false"
             >
               <i class="i-celeste-close-line" />
             </button>
