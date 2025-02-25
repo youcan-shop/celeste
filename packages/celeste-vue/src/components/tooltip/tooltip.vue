@@ -64,7 +64,7 @@ export interface TooltipProps {
               type="button"
               @click="() => tooltipState = false"
             >
-              <i v-if="icon" class="i-celeste-close-line" />
+              <i class="i-celeste-close-line" />
             </button>
           </div>
           <div v-else>
