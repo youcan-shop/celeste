@@ -16,7 +16,7 @@ export const Default: Story = {
     position: 'right',
     size: 'lg',
     description: 'Insert tooltip description here. It would look much better as three lines of text.',
-    dismissIcon: true,
+    dismissable: true,
   },
 
   render: args => ({
@@ -28,7 +28,7 @@ export const Default: Story = {
     <div>
       <Tooltip v-bind="args">
          <template #tooltip-trigger>
-            <i class="i-celeste-information-line" />
+            <i style="width: 20px; height: 20px;"  class="i-celeste-information-line" />
          </template>
       </Tooltip>
     </div>

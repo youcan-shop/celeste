@@ -20,12 +20,12 @@ export interface TooltipProps {
   text: string;
   icon?: string;
   description?: string;
-  dismissIcon: boolean;
+  dismissable: boolean;
 }
 </script>
 
 <template>
-  <TooltipProvider :delay-duration="200">
+  <TooltipProvider>
     <TooltipRoot :open="isOpen" @update:open="(val) => isOpen = val">
       <TooltipTrigger
         :class="clsx('celeste-tooltip-trigger', props.class)"
@@ -44,6 +44,7 @@ export interface TooltipProps {
           :side="props.position"
           :arrow-padding="2"
           :align="size === 'lg' ? 'start' : 'center'"
+          force-mount
         >
           <div v-if="size === 'lg'" class="celeste-tooltip-large">
             <i v-if="icon" :class="icon" />
@@ -59,7 +60,7 @@ export interface TooltipProps {
               </div>
             </div>
             <button
-              v-if="dismissIcon"
+              v-if="dismissable"
               aria-label="close tooltip"
               type="button"
               @click="() => isOpen = false"
@@ -134,6 +135,7 @@ export interface TooltipProps {
     0 1px 2px 0 rgb(14 18 27 / 3%);
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
+  will-change: opacity;
 
   &[data-state='delayed-open'] {
     opacity: 1;
@@ -151,6 +153,8 @@ export interface TooltipProps {
 
   i {
     flex-shrink: 0;
+    width: 20px;
+    height: 20px;
     color: var(--color-icon-sub-600);
   }
 
