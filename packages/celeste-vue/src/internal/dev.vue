@@ -8,7 +8,7 @@ const buttons = [
   { value: 'share', label: 'Share', leadingIcon: 'arrow-drop-left-line', trailingIcon: 'arrow-drop-right-line' },
 ];
 
-const selectedVal = ref<string | undefined>('comment');
+const selectedVal = ref<string[]>(['comment']);
 
 watchEffect(() => {
   // eslint-disable-next-line no-console
@@ -20,7 +20,7 @@ watchEffect(() => {
   <div class="hi">
     <ButtonGroup
       v-model="selectedVal"
-      type="single"
+      type="multiple"
     >
       <ButtonGroupItem
         v-for="button in buttons"
