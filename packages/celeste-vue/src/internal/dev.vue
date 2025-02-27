@@ -2,35 +2,36 @@
 import { ref, watchEffect } from 'vue';
 import { ButtonGroup, ButtonGroupItem } from '../components/button-group';
 
-const value = ref('ok1');
+const buttons = [
+  { value: 'like', label: 'Like', leadingIcon: 'arrow-drop-left-line', trailingIcon: 'arrow-drop-right-line' },
+  { value: 'comment', label: 'Comment', leadingIcon: 'arrow-drop-left-line', trailingIcon: 'arrow-drop-right-line' },
+  { value: 'share', label: 'Share', leadingIcon: 'arrow-drop-left-line', trailingIcon: 'arrow-drop-right-line' },
+];
+
+const selectedVal = ref<string | undefined>('comment');
 
 watchEffect(() => {
   // eslint-disable-next-line no-console
-  console.log(value.value);
+  console.log(selectedVal.value);
 });
 </script>
 
 <template>
   <div class="hi">
-    <ButtonGroup v-model="value" type="single">
+    <ButtonGroup
+      v-model="selectedVal"
+      type="single"
+    >
       <ButtonGroupItem
-        value="like"
-        text="Like"
-        icon-right="i-celeste-arrow-drop-right-line"
-        icon-left="i-celeste-arrow-drop-left-line"
-      />
-      <ButtonGroupItem
-        value="comment"
-        text="Comment"
-        icon-right="i-celeste-arrow-drop-right-line"
-        icon-left="i-celeste-arrow-drop-left-line"
-      />
-      <ButtonGroupItem
-        value="share"
-        text="Share"
-        icon-right="i-celeste-arrow-drop-right-line"
-        icon-left="i-celeste-arrow-drop-left-line"
-      />
+        v-for="button in buttons"
+        :key="button.value"
+        :value="button.value"
+        size="xxs"
+      >
+        <i :class="`i-celeste-${button.leadingIcon}`" />
+        {{ button.label }}
+        <i :class="`i-celeste-${button.trailingIcon}`" />
+      </ButtonGroupItem>
     </ButtonGroup>
   </div>
 </template>

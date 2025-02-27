@@ -14,7 +14,6 @@ type Story = StoryObj<typeof ButtonGroupItem>;
 export const Default: Story = {
   args: {
     value: 'share',
-    text: 'Share',
   },
 
   render: args => ({
@@ -24,7 +23,10 @@ export const Default: Story = {
     },
     template: `
       <ButtonGroup type='single'>
-        <ButtonGroupItem v-bind="args">Button</ButtonGroupItem>
+        <ButtonGroupItem v-bind="args">
+          <i class="i-celeste-arrow-left-s-line"></i>
+          Back
+        </ButtonGroupItem>
       </ButtonGroup>
     `,
   }),

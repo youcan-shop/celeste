@@ -8,12 +8,7 @@ const props = withDefaults(defineProps<ButtonGroupItemProps>(), {
 });
 
 const delegatedProps = computed(() => {
-  const delegated = { ...props };
-
-  delete delegated.class;
-  delete delegated.text;
-  delete delegated.iconRight;
-  delete delegated.iconLeft;
+  const { class: _, size: __, ...delegated } = props;
 
   return delegated;
 });
@@ -23,9 +18,6 @@ const delegatedProps = computed(() => {
 export interface ButtonGroupItemProps extends ToggleGroupItemProps {
   class?: HTMLAttributes['class'];
   size?: 'xxs' | 'xs' | 'sm';
-  text?: string;
-  iconLeft?: string;
-  iconRight?: string;
 }
 </script>
 
@@ -38,9 +30,7 @@ export interface ButtonGroupItemProps extends ToggleGroupItemProps {
     )"
     v-bind="delegatedProps"
   >
-    <i v-if="iconLeft" :class="iconLeft" />
-    <span v-text="text" />
-    <i v-if="iconRight" :class="iconRight" />
+    <slot />
   </ToggleGroupItem>
 </template>
 
@@ -88,8 +78,7 @@ $size-map: (
     }
   }
 
-  i {
-    display: block;
+  :slotted(i) {
     flex-shrink: 0;
     width: 20px;
     height: 20px;
@@ -111,7 +100,7 @@ $size-map: (
 }
 
 .celeste-button-group-item:hover,
-.celeste-button-group-item:focus {
+.celeste-button-group-item:focus-visible {
   background-color: var(--color-bg-weak-50);
 }
 
