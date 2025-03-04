@@ -26,7 +26,7 @@ const modelValue = defineModel<boolean | 'indeterminate'>('checked', { required:
 export interface CheckboxProps extends CheckboxRootProps {
   class?: HTMLAttributes['class'];
   disabled?: boolean;
-  label: string;
+  label?: string;
   description?: string;
   flip?: boolean;
   sublabel?: string;
