@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Dropdown>;
 
 export const Default: Story = {
   args: {
-
+    placeholder: 'Select...',
   },
 
   render: args => ({
@@ -21,7 +21,11 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <Dropdown v-bind="args" />
+      <Dropdown v-bind="args">
+         <template #prefix>
+           <i class="i-celeste-global-line" />
+         </template>
+      </Dropdown>
     `,
   }),
 };
