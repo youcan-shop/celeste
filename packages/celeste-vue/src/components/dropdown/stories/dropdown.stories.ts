@@ -13,6 +13,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Default: Story = {
   args: {
     placeholder: 'Select...',
+    multiple: true,
   },
 
   render: args => ({

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { computed } from 'vue';
 import Checkbox from '../checkbox/checkbox.vue';
 
 const props = withDefaults(defineProps<DropdownItem>(), {
@@ -9,12 +8,7 @@ const props = withDefaults(defineProps<DropdownItem>(), {
   disabled: false,
 });
 
-const emit = defineEmits(['update:selected']);
-
-const selectedModel = computed({
-  get: () => props.selected,
-  set: value => emit('update:selected', value),
-});
+defineEmits(['update:selected']);
 </script>
 
 <script lang="ts">
@@ -39,8 +33,9 @@ export interface DropdownItem {
   >
     <Checkbox
       v-if="checkbox && size === 'sm'"
-      v-model="selectedModel"
+      :checked="selected"
       :disabled="disabled"
+      @update:checked="value => $emit('update:selected', value)"
     />
     <div
       v-if="$slots.prefix"

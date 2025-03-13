@@ -10,49 +10,63 @@ const props = withDefaults(defineProps<Dropdown>(), {
   placeholder: 'Placeholder',
   size: 'sm',
   type: 'normal',
+  multiple: false,
+  searchable: false,
+  emptyLabel: 'No options available',
 });
 
-const searched = ref('');
+const selected = ref<string | string[]>(props.multiple ? [] : '');
+const searched = ref<string>('');
 const isFocused = ref(false);
-const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple', 'りんご', 'Pineapple', 'Pineapple', 'Pineapple', 'Pineapple'];
+
+function optionIsSelected(option: string): boolean {
+  if (props.multiple) {
+    return selected.value.includes(option);
+  }
+
+  return option === selected.value;
+}
+// watch(selected, val => console.log(val));
+const options = ['Apple', 'Banana', 'Blueberry'];
 </script>
 
 <script lang="ts">
 export interface Dropdown {
-  type: 'normal' | 'compact' | 'inline' | 'compact-inline';
-  disabled: boolean;
+  disabled?: boolean;
   icon?: string;
   placeholder: string;
   error?: boolean;
+  size?: 'xs' | 'sm' | 'md';
+  multiple?: boolean;
+  emptyLabel: string;
+  searchable?: boolean;
 }
 </script>
 
 <template>
   <div class="celeste-dropdown-wrapper">
     <ComboboxRoot
-      v-model="searched"
+      v-model="selected"
       :disabled="disabled"
+      :multiple="props.multiple"
       class="celeste-dropdown-root"
     >
       <ComboboxAnchor
         :class="clsx(
           'celeste-dropdown-anchor',
-          `celeste-dropdown-anchor-${props.type}`,
+          `celeste-dropdown-anchor-size-${props.size}`,
           { 'celeste-dropdown-anchor-error': props.error },
           { 'celeste-dropdown-anchor-disabled': props.disabled },
           { 'celeste-dropdown-anchor-focused': isFocused },
-          { 'celeste-dropdown-anchor-filled': searched },
+          { 'celeste-dropdown-anchor-filled': selected },
         )"
         tabindex="0"
         @focus="isFocused = true"
         @blur="isFocused = false"
       >
-        <i :class="icon" />
-        <!-- <ComboboxInput
-          disabled
-          :placeholder="placeholder"
-          :value="searched"
-        /> -->
+        <div v-if="$slots.prefix" class="celeste-dropdown-anchor-prefix">
+          <slot name="prefix" />
+        </div>
         <ComboboxTrigger
           as="span"
           :disabled="disabled"
@@ -60,7 +74,10 @@ export interface Dropdown {
           @focus="isFocused = true"
           @blur="isFocused = false"
         >
-          {{ searched.length === 0 ? placeholder : searched }}
+          <span v-if="multiple">{{ placeholder }}</span>
+          <span v-else>
+            {{ selected.length === 0 ? placeholder : selected }}
+          </span>
         </ComboboxTrigger>
         <ComboboxTrigger
           :disabled="disabled"
@@ -72,11 +89,9 @@ export interface Dropdown {
         </ComboboxTrigger>
       </ComboboxAnchor>
 
-      <ComboboxContent class="celeste-dropdown-content">
-        <ComboboxViewport>
-          <ComboboxEmpty />
-
-          <ComboboxGroup class="celeste-dropdown-items-group">
+      <ComboboxContent force-mount class="celeste-dropdown-content">
+        <ComboboxViewport class="celeste-dropdown-items-viewport">
+          <div v-if="searchable" class="celeste-dropdown-search">
             <ComboboxInput as-child>
               <TextInput
                 v-model="searched"
@@ -99,6 +114,10 @@ export interface Dropdown {
               </TextInput>
             </ComboboxInput>
             <ComboboxSeparator class="celeste-dropdown-separator" />
+          </div>
+          <ComboboxEmpty class="celeste-dropdown-empty-list" />
+
+          <ComboboxGroup class="celeste-dropdown-items-group">
             <ComboboxItem
               v-for="(option, index) in options"
               :key="index"
@@ -106,7 +125,11 @@ export interface Dropdown {
               :value="option"
             >
               <div>
-                <DropdownItem :label="option" />
+                <DropdownItem
+                  :label="option"
+                  :checkbox="multiple"
+                  :selected="optionIsSelected(option)"
+                />
               </div>
             </ComboboxItem>
           </ComboboxGroup>
@@ -117,13 +140,15 @@ export interface Dropdown {
 </template>
 
 <style lang="scss" scoped>
+@use 'sass:map';
+
 @mixin icon-size {
   width: 20px;
   height: 20px;
 }
 
 @mixin transition-default {
-  transition-property: background-color, transform;
+  transition-property: background-color, transform, opacity;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
 }
@@ -152,14 +177,12 @@ export interface Dropdown {
 
     display: flex;
     align-items: center;
-    padding: var(--spacing-10);
     border: 1px solid var(--color-stroke-soft-200);
-    border-radius: var(--radius-10);
     background-color: var(--color-bg-white-0);
     box-shadow: var(--shadow-regular-xs);
     gap: var(--spacing-8);
 
-    i {
+    :deep(i) {
       @include icon-size;
 
       color: var(--color-icon-soft-400);
@@ -182,10 +205,20 @@ export interface Dropdown {
       background: none;
       color: var(--color-icon-soft-400);
       cursor: pointer;
+
+      &[data-state='open'] {
+        transform: rotate(180deg);
+      }
     }
 
     &:hover {
       background: var(--color-bg-weak-50);
+    }
+
+    &-prefix {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     &-error {
@@ -218,20 +251,38 @@ export interface Dropdown {
       i {
         color: var(--color-icon-strong-950);
       }
-
-      .celeste-dropdown-trigger {
-        @include transition-default;
-
-        transform: rotate(180deg);
-      }
     }
 
     &-filled {
       color: var(--color-text-strong-950);
     }
+
+    $sizes-map: (
+      'xs': (
+        'padding': var(--spacing-6),
+        'border-radius': var(--radius-8),
+      ),
+      'sm': (
+        'padding': var(--spacing-8),
+        'border-radius': var(--radius-8),
+      ),
+      'md': (
+        'padding': var(--spacing-10),
+        'border-radius': var(--radius-10),
+      ),
+    );
+
+    @each $size, $values in $sizes-map {
+      &-size-#{$size} {
+        padding: map.get($values, 'padding');
+        border-radius: map.get($values, 'border-radius');
+      }
+    }
   }
 
   .celeste-dropdown-content {
+    @include transition-default;
+
     display: flex;
     position: absolute;
     z-index: 99;
@@ -240,12 +291,24 @@ export interface Dropdown {
     flex-direction: column;
     width: var(--dropdown-width);
     max-height: var(--dropdown-height);
+    margin-top: var(--spacing-10);
     padding: var(--spacing-8);
     overflow: hidden;
+    border: 1px solid var(--color-stroke-soft-200);
     border-radius: var(--radius-16);
     background-color: var(--color-bg-white-0);
     box-shadow: var(--shadow-regular-md);
     gap: var(--spacing-4);
+
+    &[data-state='closed'] {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    &[data-state='open'] {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   &:deep(.celeste-input-wrapper .celeste-input-prefix) {
@@ -270,11 +333,19 @@ export interface Dropdown {
     box-shadow: none;
   }
 
-  .celeste-dropdown-items-group {
+  &:deep(.celeste-dropdown-items-viewport) {
     display: flex;
+    position: relative;
     flex-direction: column;
-    background: var(--color-bg-white-0);
     gap: var(--spacing-4);
+  }
+
+  .celeste-dropdown-empty-list {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-8);
+    color: var(--color-text-sub-600);
+    font: var(--paragraph-sm);
   }
 
   &:deep(.celeste-input-wrapper .celeste-input-suffix) {
@@ -291,6 +362,14 @@ export interface Dropdown {
 
       color: var(--color-icon-soft-400);
     }
+  }
+
+  .celeste-dropdown-search {
+    display: flex;
+    position: sticky;
+    top: 0;
+    flex-direction: column;
+    gap: var(--spacing-4);
   }
 
   .celeste-dropdown-separator {
