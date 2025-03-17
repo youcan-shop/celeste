@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<Dropdown>(), {
 
 const emit = defineEmits(['update:modelValue']);
 
-const selected = ref<SelectedType | SelectedType[] | null>(props.multiple ? [] : null);
+const selected = ref<SelectedType | SelectedType[] | undefined>(props.multiple ? [] : undefined);
 const searched = ref<string>('');
 const isFocused = ref(false);
 
