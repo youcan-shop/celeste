@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'radix-vue';
-import { ref } from 'vue';
+import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxItem, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'radix-vue';
+import { computed, ref, watch } from 'vue';
 import TextInput from '../input/text-input.vue';
 import DropdownItem from './dropdown-item.vue';
 
@@ -15,19 +15,37 @@ const props = withDefaults(defineProps<Dropdown>(), {
   emptyLabel: 'No options available',
 });
 
-const selected = ref<string | string[]>(props.multiple ? [] : '');
+const emit = defineEmits(['update:modelValue']);
+
+const selected = ref<SelectedType | SelectedType[] | null>(props.multiple ? [] : null);
 const searched = ref<string>('');
 const isFocused = ref(false);
 
-function optionIsSelected(option: string): boolean {
-  if (props.multiple) {
-    return selected.value.includes(option);
+watch(selected, (newValue) => {
+  emit('update:modelValue', newValue);
+});
+
+// Filter options based on search input
+const filteredOptions = computed(() => {
+  if (!props.searchable || !searched.value)
+    return props.options;
+  return props.options.filter(option =>
+    option.label.toLowerCase().includes(searched.value.toLowerCase()),
+  );
+});
+
+// Check if an option is selected
+function optionIsSelected(option: SelectedType): boolean {
+  if (!props.multiple) {
+    return selected.value && !Array.isArray(selected.value)
+      ? option.value === selected.value.value
+      : false;
   }
 
-  return option === selected.value;
+  return Array.isArray(selected.value)
+    ? selected.value.some(selectedOption => selectedOption.value === option.value)
+    : false;
 }
-// watch(selected, val => console.log(val));
-const options = ['Apple', 'Banana', 'Blueberry'];
 </script>
 
 <script lang="ts">
@@ -38,8 +56,17 @@ export interface Dropdown {
   error?: boolean;
   size?: 'xs' | 'sm' | 'md';
   multiple?: boolean;
-  emptyLabel: string;
+  emptyLabel?: string;
   searchable?: boolean;
+  options: SelectedType[];
+}
+
+export interface SelectedType {
+  value: any;
+  label: string;
+  icon?: string;
+  image?: string;
+  [key: string]: any;
 }
 </script>
 
@@ -65,7 +92,23 @@ export interface Dropdown {
         @blur="isFocused = false"
       >
         <div v-if="$slots.prefix" class="celeste-dropdown-anchor-prefix">
-          <slot name="prefix" />
+          <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-prefix-selected">
+            <i v-if="selected.icon" :class="selected.icon" />
+            <div v-if="selected.image">
+              <slot name="image" v-bind="{ selected }">
+                <img
+                  :src="selected.image"
+                  alt="Selected option"
+                  class="selected-dropdown-image"
+                >
+              </slot>
+            </div>
+          </div>
+          <slot
+            v-else
+            name="prefix"
+            class="celeste-dropdown-anchor-prefix-default"
+          />
         </div>
         <ComboboxTrigger
           as="span"
@@ -76,7 +119,7 @@ export interface Dropdown {
         >
           <span v-if="multiple">{{ placeholder }}</span>
           <span v-else>
-            {{ selected.length === 0 ? placeholder : selected }}
+            {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
           </span>
         </ComboboxTrigger>
         <ComboboxTrigger
@@ -92,43 +135,42 @@ export interface Dropdown {
       <ComboboxContent force-mount class="celeste-dropdown-content">
         <ComboboxViewport class="celeste-dropdown-items-viewport">
           <div v-if="searchable" class="celeste-dropdown-search">
-            <ComboboxInput as-child>
-              <TextInput
-                v-model="searched"
-                type="search"
-                size="sm"
-                placeholder="Search"
-                @focus="isFocused = true"
-                @blur="isFocused = false"
-              >
-                <template #prefix>
-                  <i class="i-celeste-search-2-line" />
-                </template>
-                <template v-if="isFocused" #suffix>
-                  <div
-                    @click="() => searched = ''"
-                  >
-                    <i class="i-celeste-close-line" />
-                  </div>
-                </template>
-              </TextInput>
-            </ComboboxInput>
+            <TextInput
+              v-model="searched"
+              type="search"
+              size="sm"
+              placeholder="Search"
+              @focus="isFocused = true"
+              @blur="isFocused = false"
+            >
+              <template #prefix>
+                <i class="i-celeste-search-2-line" />
+              </template>
+              <template v-if="isFocused" #suffix>
+                <div
+                  @click="() => searched = ''"
+                >
+                  <i class="i-celeste-close-line" />
+                </div>
+              </template>
+            </TextInput>
             <ComboboxSeparator class="celeste-dropdown-separator" />
           </div>
           <ComboboxEmpty class="celeste-dropdown-empty-list" />
 
           <ComboboxGroup class="celeste-dropdown-items-group">
             <ComboboxItem
-              v-for="(option, index) in options"
-              :key="index"
+              v-for="option in filteredOptions"
+              :key="option.value"
               class="celeste-dropdown-item"
               :value="option"
             >
               <div>
                 <DropdownItem
-                  :label="option"
-                  :checkbox="multiple"
+                  :label="option.label"
+                  :checkbox="props.multiple"
                   :selected="optionIsSelected(option)"
+                  :disabled="props.disabled"
                 />
               </div>
             </ComboboxItem>
@@ -188,6 +230,28 @@ export interface Dropdown {
       color: var(--color-icon-soft-400);
     }
 
+    .celeste-dropdown-anchor-prefix {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &-selected {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .selected-dropdown-image {
+          @include icon-size;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          object-fit: cover;
+          border-radius: var(--radius-full);
+        }
+      }
+    }
+
     .celeste-dropdown-input {
       flex: 1 0 0;
       background: inherit;
@@ -213,12 +277,6 @@ export interface Dropdown {
 
     &:hover {
       background: var(--color-bg-weak-50);
-    }
-
-    &-prefix {
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     &-error {

@@ -26,6 +26,7 @@ export interface DropdownItem {
 
 <template>
   <div
+    :aria-disabled="disabled"
     :class="clsx(
       'celeste-dropdown-item',
       { 'celeste-dropdown-item-disabled': disabled },
