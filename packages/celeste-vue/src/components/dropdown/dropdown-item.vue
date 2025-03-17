@@ -30,6 +30,7 @@ export interface DropdownItem {
     :class="clsx(
       'celeste-dropdown-item',
       { 'celeste-dropdown-item-disabled': disabled },
+      { 'celeste-dropdown-item-selected': selected },
     )"
   >
     <Checkbox
@@ -147,6 +148,10 @@ export interface DropdownItem {
     .celeste-dropdown-item-description {
       color: var(--color-text-disabled-300);
     }
+  }
+
+  &-selected {
+    background: var(--color-bg-weak-50);
   }
 
   .celeste-dropdown-item-info {

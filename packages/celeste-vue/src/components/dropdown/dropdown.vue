@@ -55,6 +55,7 @@ export interface Dropdown {
   placeholder: string;
   error?: boolean;
   size?: 'xs' | 'sm' | 'md';
+  type?: 'normal' | 'compact' | 'inline' | 'compact-input';
   multiple?: boolean;
   emptyLabel?: string;
   searchable?: boolean;
@@ -82,6 +83,7 @@ export interface SelectedType {
         :class="clsx(
           'celeste-dropdown-anchor',
           `celeste-dropdown-anchor-size-${props.size}`,
+          `celeste-dropdown-anchor-type-${props.type}`,
           { 'celeste-dropdown-anchor-error': props.error },
           { 'celeste-dropdown-anchor-disabled': props.disabled },
           { 'celeste-dropdown-anchor-focused': isFocused },
@@ -91,7 +93,12 @@ export interface SelectedType {
         @focus="isFocused = true"
         @blur="isFocused = false"
       >
-        <div v-if="$slots.prefix" class="celeste-dropdown-anchor-prefix">
+        <ComboboxTrigger
+          v-if="$slots.prefix"
+          as="div"
+          :disabled="disabled"
+          class="celeste-dropdown-anchor-prefix"
+        >
           <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-prefix-selected">
             <i v-if="selected.icon" :class="selected.icon" />
             <div v-if="selected.image">
@@ -109,8 +116,9 @@ export interface SelectedType {
             name="prefix"
             class="celeste-dropdown-anchor-prefix-default"
           />
-        </div>
+        </ComboboxTrigger>
         <ComboboxTrigger
+          v-if="type !== 'inline'"
           as="span"
           :disabled="disabled"
           class="celeste-dropdown-input"
@@ -132,7 +140,11 @@ export interface SelectedType {
         </ComboboxTrigger>
       </ComboboxAnchor>
 
-      <ComboboxContent force-mount class="celeste-dropdown-content">
+      <ComboboxContent
+        v-if="!disabled"
+        force-mount
+        class="celeste-dropdown-content"
+      >
         <ComboboxViewport class="celeste-dropdown-items-viewport">
           <div v-if="searchable" class="celeste-dropdown-search">
             <TextInput
@@ -164,6 +176,7 @@ export interface SelectedType {
               :key="option.value"
               class="celeste-dropdown-item"
               :value="option"
+              :disabled="disabled"
             >
               <div>
                 <DropdownItem
@@ -270,7 +283,7 @@ export interface SelectedType {
       color: var(--color-icon-soft-400);
       cursor: pointer;
 
-      &[data-state='open'] {
+      &[data-state='open']:not([data-disabled]) {
         transform: rotate(180deg);
       }
     }
@@ -279,25 +292,28 @@ export interface SelectedType {
       background: var(--color-bg-weak-50);
     }
 
-    &-error {
+    &-error:not(.celeste-dropdown-anchor-type-inline) {
       border: 1px solid var(--color-state-error-base);
     }
 
     &-disabled {
       background: var(--color-bg-weak-50);
       color: var(--color-text-disabled-300);
+      cursor: not-allowed;
 
       .celeste-dropdown-input {
         color: var(--color-text-disabled-300);
+        cursor: not-allowed;
       }
 
       i,
       .celeste-dropdown-trigger {
         color: var(--color-icon-disabled-300);
+        cursor: not-allowed;
       }
     }
 
-    &-focused {
+    &-focused:not(.celeste-dropdown-anchor-disabled, .celeste-dropdown-anchor-type-compact) {
       border: 1px solid var(--color-stroke-strong-950);
       box-shadow: var(--shadow-buttons-important-focus);
       color: var(--color-text-strong-950);
@@ -313,6 +329,50 @@ export interface SelectedType {
 
     &-filled {
       color: var(--color-text-strong-950);
+    }
+
+    &.celeste-dropdown-anchor-type-compact {
+      width: fit-content;
+      background: transparent;
+      box-shadow: none;
+
+      .celeste-dropdown-input {
+        flex: inherit;
+      }
+
+      &:hover,
+      &.celeste-dropdown-anchor-focused {
+        .celeste-dropdown-input {
+          color: var(--color-text-strong-950);
+        }
+
+        &:deep(i) {
+          color: var(--color-icon-strong-950);
+        }
+      }
+    }
+
+    &.celeste-dropdown-anchor-type-compact-input {
+      width: fit-content;
+      border-radius: var(--radius-0);
+
+      &:deep(.celeste-dropdown-input) {
+        flex: inherit;
+      }
+
+      &.celeste-dropdown-anchor-focused {
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    &.celeste-dropdown-anchor-type-inline {
+      width: fit-content;
+      gap: var(--spacing-4);
+
+      &:deep(.celeste-dropdown-input) {
+        flex: inherit;
+      }
     }
 
     $sizes-map: (
@@ -415,7 +475,7 @@ export interface SelectedType {
 
     cursor: pointer;
 
-    i {
+    &:deep(i) {
       @include icon-size;
 
       color: var(--color-icon-soft-400);
@@ -434,6 +494,12 @@ export interface SelectedType {
     width: 100%;
     height: 1px;
     background-color: var(--color-stroke-soft-200);
+  }
+
+  .celeste-dropdown-items-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
   }
 }
 </style>

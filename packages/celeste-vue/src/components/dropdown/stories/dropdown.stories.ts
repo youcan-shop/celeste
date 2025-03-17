@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Default: Story = {
   args: {
     placeholder: 'Select...',
-    multiple: false,
+    multiple: true,
 
     options: [
       { value: 1, label: 'Option 1', icon: 'i-celeste-globe-line' },
@@ -21,7 +21,9 @@ export const Default: Story = {
       { value: 3, label: 'Option 3', icon: 'i-celeste-information-line' },
     ],
 
-    searchable: true,
+    searchable: false,
+    disabled: false,
+    size: 'sm',
   },
 
   render: args => ({
