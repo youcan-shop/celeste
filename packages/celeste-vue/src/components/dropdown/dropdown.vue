@@ -48,6 +48,11 @@ function optionIsSelected(option: SelectedType): boolean {
     ? selected.value.some(selectedOption => selectedOption.value === option.value)
     : false;
 }
+
+const mergedBadgeProps = computed(() => ({
+  ...props.badgeProps,
+  disabled: props.disabled,
+}));
 </script>
 
 <script lang="ts">
@@ -83,66 +88,59 @@ export interface SelectedType {
       class="celeste-dropdown-root"
     >
       <ComboboxAnchor
-        :class="clsx(
-          'celeste-dropdown-anchor',
-          `celeste-dropdown-anchor-size-${props.size}`,
-          `celeste-dropdown-anchor-type-${props.type}`,
-          { 'celeste-dropdown-anchor-error': props.error },
-          { 'celeste-dropdown-anchor-disabled': props.disabled },
-          { 'celeste-dropdown-anchor-focused': isFocused },
-          { 'celeste-dropdown-anchor-filled': selected },
-        )"
         tabindex="0"
         @focus="isFocused = true"
         @blur="isFocused = false"
       >
         <ComboboxTrigger
-          v-if="$slots.prefix"
+          :class="clsx(
+            'celeste-dropdown-anchor-trigger',
+            `celeste-dropdown-anchor-trigger-size-${props.size}`,
+            `celeste-dropdown-anchor-trigger-type-${props.type}`,
+            { 'celeste-dropdown-anchor-trigger-error': props.error },
+            { 'celeste-dropdown-anchor-trigger-disabled': props.disabled },
+            { 'celeste-dropdown-anchor-trigger-focused': isFocused },
+            { 'celeste-dropdown-anchor-trigger-filled': selected },
+          )"
           as="div"
           :disabled="disabled"
-          class="celeste-dropdown-anchor-prefix"
+          @focus="isFocused = true"
+          @blur="isFocused = false"
         >
-          <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-prefix-selected">
-            <i v-if="selected.icon" :class="selected.icon" />
-            <div v-if="selected.image">
-              <slot name="image" v-bind="{ selected }">
-                <img
-                  :src="selected.image"
-                  alt="Selected option"
-                  class="selected-dropdown-image"
-                >
-              </slot>
+          <div class="celeste-dropdown-anchor-trigger-prefix">
+            <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-trigger-prefix-selected">
+              <i v-if="selected.icon" :class="selected.icon" />
+              <div v-if="selected.image">
+                <slot name="image" v-bind="{ selected }">
+                  <img
+                    :src="selected.image"
+                    alt="Selected option"
+                    class="selected-dropdown-image"
+                  >
+                </slot>
+              </div>
             </div>
+            <slot
+              v-else
+              name="prefix"
+              class="celeste-dropdown-anchor-trigger-prefix-default"
+            />
           </div>
-          <slot
-            v-else
-            name="prefix"
-            class="celeste-dropdown-anchor-prefix-default"
-          />
-        </ComboboxTrigger>
-        <ComboboxTrigger
-          v-if="type !== 'inline'"
-          as="span"
-          :disabled="disabled"
-          class="celeste-dropdown-input"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
-        >
-          <span v-if="multiple">{{ placeholder }}</span>
-          <span v-else>
-            {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
-          </span>
-          <span v-if="badgeProps" class="celeste-input-badge">
-            <Badge v-bind="badgeProps" />
-          </span>
-        </ComboboxTrigger>
-        <ComboboxTrigger
-          :disabled="disabled"
-          class="celeste-dropdown-trigger"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
-        >
-          <i class="i-celeste-arrow-down-s-line" />
+          <div
+            v-if="type !== 'inline'"
+            class="celeste-dropdown-input"
+          >
+            <span v-if="multiple">{{ placeholder }}</span>
+            <span v-else>
+              {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
+            </span>
+            <span v-if="mergedBadgeProps" class="celeste-input-badge">
+              <Badge v-bind="mergedBadgeProps" />
+            </span>
+          </div>
+          <div class="celeste-dropdown-trigger">
+            <i class="i-celeste-arrow-down-s-line" />
+          </div>
         </ComboboxTrigger>
       </ComboboxAnchor>
 
@@ -233,7 +231,7 @@ export interface SelectedType {
     gap: var(--spacing-10);
   }
 
-  .celeste-dropdown-anchor {
+  .celeste-dropdown-anchor-trigger {
     @include transition-default;
 
     display: flex;
@@ -249,7 +247,7 @@ export interface SelectedType {
       color: var(--color-icon-soft-400);
     }
 
-    .celeste-dropdown-anchor-prefix {
+    .celeste-dropdown-anchor-trigger-prefix {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -302,7 +300,7 @@ export interface SelectedType {
       background: var(--color-bg-weak-50);
     }
 
-    &-error:not(.celeste-dropdown-anchor-type-inline) {
+    &-error:not(.celeste-dropdown-anchor-trigger-type-compact) {
       border: 1px solid var(--color-state-error-base);
     }
 
@@ -316,14 +314,14 @@ export interface SelectedType {
         cursor: not-allowed;
       }
 
-      i,
+      &:deep(i),
       .celeste-dropdown-trigger {
         color: var(--color-icon-disabled-300);
         cursor: not-allowed;
       }
     }
 
-    &-focused:not(.celeste-dropdown-anchor-disabled, .celeste-dropdown-anchor-type-compact) {
+    &-focused:not(.celeste-dropdown-anchor-trigger-disabled, .celeste-dropdown-anchor-trigger-type-compact) {
       border: 1px solid var(--color-stroke-strong-950);
       box-shadow: var(--shadow-buttons-important-focus);
       color: var(--color-text-strong-950);
@@ -341,7 +339,7 @@ export interface SelectedType {
       color: var(--color-text-strong-950);
     }
 
-    &.celeste-dropdown-anchor-type-compact {
+    &.celeste-dropdown-anchor-trigger-type-compact {
       width: fit-content;
       background: transparent;
       box-shadow: none;
@@ -351,7 +349,7 @@ export interface SelectedType {
       }
 
       &:hover,
-      &.celeste-dropdown-anchor-focused {
+      &.celeste-dropdown-anchor-trigger-focused {
         .celeste-dropdown-input {
           color: var(--color-text-strong-950);
         }
@@ -362,7 +360,7 @@ export interface SelectedType {
       }
     }
 
-    &.celeste-dropdown-anchor-type-compact-input {
+    &.celeste-dropdown-anchor-trigger-type-compact-input {
       width: fit-content;
       border-radius: var(--radius-0);
 
@@ -370,13 +368,13 @@ export interface SelectedType {
         flex: inherit;
       }
 
-      &.celeste-dropdown-anchor-focused {
-        border: none;
+      &.celeste-dropdown-anchor-trigger-focused {
+        border: 1px solid var(--color-stroke-soft-200);
         box-shadow: none;
       }
     }
 
-    &.celeste-dropdown-anchor-type-inline {
+    &.celeste-dropdown-anchor-trigger-type-inline {
       width: fit-content;
       gap: var(--spacing-4);
 
@@ -431,6 +429,7 @@ export interface SelectedType {
     &[data-state='closed'] {
       transform: translateY(10px);
       opacity: 0;
+      pointer-events: none;
     }
 
     &[data-state='open'] {
