@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { BadgeProps } from '../badge/badge.vue';
 import clsx from 'clsx';
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxItem, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'radix-vue';
 import { computed, ref, watch } from 'vue';
+import Badge from '../badge/badge.vue';
 import TextInput from '../input/text-input.vue';
 import DropdownItem from './dropdown-item.vue';
 
@@ -60,6 +62,7 @@ export interface Dropdown {
   emptyLabel?: string;
   searchable?: boolean;
   options: SelectedType[];
+  badgeProps?: BadgeProps;
 }
 
 export interface SelectedType {
@@ -128,6 +131,9 @@ export interface SelectedType {
           <span v-if="multiple">{{ placeholder }}</span>
           <span v-else>
             {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
+          </span>
+          <span v-if="badgeProps" class="celeste-input-badge">
+            <Badge v-bind="badgeProps" />
           </span>
         </ComboboxTrigger>
         <ComboboxTrigger
@@ -266,11 +272,15 @@ export interface SelectedType {
     }
 
     .celeste-dropdown-input {
+      display: flex;
       flex: 1 0 0;
+      align-items: center;
+      justify-content: space-between;
       background: inherit;
       color: var(--color-text-sub-600);
       font: var(--paragraph-sm);
       cursor: pointer;
+      gap: var(--spacing-8);
     }
 
     .celeste-dropdown-trigger {
