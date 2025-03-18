@@ -413,7 +413,7 @@ export interface SelectedType {
 
     display: flex;
     position: absolute;
-    z-index: 99;
+    z-index: 9999;
     top: calc(var(--dropdown-width) + var(--spacing-4));
     left: 0;
     flex-direction: column;
