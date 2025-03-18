@@ -240,6 +240,7 @@ export interface SelectedType {
     background-color: var(--color-bg-white-0);
     box-shadow: var(--shadow-regular-xs);
     gap: var(--spacing-8);
+    cursor: pointer;
 
     :deep(i) {
       @include icon-size;
@@ -348,8 +349,8 @@ export interface SelectedType {
         flex: inherit;
       }
 
-      &:hover,
-      &.celeste-dropdown-anchor-trigger-focused {
+      &:hover:not(.celeste-dropdown-anchor-trigger-disabled),
+      &.celeste-dropdown-anchor-trigger-focused:not(.celeste-dropdown-anchor-trigger-disabled) {
         .celeste-dropdown-input {
           color: var(--color-text-strong-950);
         }
