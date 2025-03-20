@@ -22,6 +22,13 @@ const emit = defineEmits(['update:modelValue']);
 const selected = ref<SelectedType | SelectedType[] | undefined>(props.multiple ? [] : undefined);
 const searched = ref<string>('');
 const isFocused = ref(false);
+const isOpen = ref<boolean>(false);
+
+function toggleDropdown() {
+  isOpen.value = true;
+  // reset focused index when opening
+  focusedItemIndex.value = -1;
+}
 
 watch(selected, (newValue) => {
   emit('update:modelValue', newValue);
@@ -49,10 +56,66 @@ function optionIsSelected(option: SelectedType): boolean {
     : false;
 }
 
+function toggleSelection(isSelected: boolean, option: SelectedType) {
+  if (props.multiple && Array.isArray(selected.value)) {
+    selected.value = isSelected
+      ? selected.value.filter(o => o.value !== option.value)
+      : [...selected.value, option];
+
+    return;
+  }
+
+  selected.value = option;
+}
+
 const mergedBadgeProps = computed(() => ({
   ...props.badgeProps,
   disabled: props.disabled,
 }));
+
+const focusedItemIndex = ref<number>(-1);
+
+// Add keydown handler for arrow navigation
+function handleKeydown(event: KeyboardEvent) {
+  if (!isOpen.value)
+    return;
+
+  switch (event.key) {
+    case 'ArrowDown':
+      event.preventDefault();
+      if (focusedItemIndex.value < filteredOptions.value.length - 1) {
+        focusedItemIndex.value++;
+      }
+      else {
+        focusedItemIndex.value = 0;
+      }
+      break;
+    case 'ArrowUp':
+      event.preventDefault();
+      if (focusedItemIndex.value > 0) {
+        focusedItemIndex.value--;
+      }
+      else {
+        focusedItemIndex.value = filteredOptions.value.length - 1;
+      }
+
+      break;
+    case 'Enter':
+      event.preventDefault();
+      if (focusedItemIndex.value >= 0 && focusedItemIndex.value < filteredOptions.value.length) {
+        const option = filteredOptions.value[focusedItemIndex.value];
+        toggleSelection(optionIsSelected(option), option);
+      }
+      break;
+  }
+}
+
+// Watch for changes in filtered options to reset focus if needed
+watch(filteredOptions, () => {
+  if (focusedItemIndex.value >= filteredOptions.value.length) {
+    focusedItemIndex.value = filteredOptions.value.length - 1;
+  }
+});
 </script>
 
 <script lang="ts">
@@ -80,12 +143,21 @@ export interface SelectedType {
 </script>
 
 <template>
-  <div class="celeste-dropdown-wrapper">
+  <div
+    class="celeste-dropdown-wrapper"
+    tabindex="0"
+    @keydown.enter="toggleDropdown"
+    @keydown.space="toggleDropdown"
+  >
     <ComboboxRoot
       v-model="selected"
+      :open="isOpen"
       :disabled="disabled"
       :multiple="props.multiple"
       class="celeste-dropdown-root"
+      :display-value="(v) => v.label"
+      @update:open="(val) => isOpen = val"
+      @keydown="handleKeydown"
     >
       <ComboboxAnchor
         tabindex="0"
@@ -176,20 +248,22 @@ export interface SelectedType {
 
           <ComboboxGroup class="celeste-dropdown-items-group">
             <ComboboxItem
-              v-for="option in filteredOptions"
+              v-for="option, index in filteredOptions"
               :key="option.value"
-              class="celeste-dropdown-item"
               :value="option"
               :disabled="disabled"
+              class="celeste-dropdown-item"
+              tabindex="0"
             >
-              <div>
-                <DropdownItem
-                  :label="option.label"
-                  :checkbox="props.multiple"
-                  :selected="optionIsSelected(option)"
-                  :disabled="props.disabled"
-                />
-              </div>
+              <DropdownItem
+                :label="option.label"
+                :checkbox="props.multiple"
+                :selected="optionIsSelected(option)"
+                :disabled="props.disabled"
+                :focused="index === focusedItemIndex"
+                @update:selected="(isSelected) => toggleSelection(isSelected, option)"
+              />
+              <ComboboxSeparator />
             </ComboboxItem>
           </ComboboxGroup>
         </ComboboxViewport>
@@ -222,6 +296,13 @@ export interface SelectedType {
 
   position: relative;
 
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    border: none;
+    outline: none;
+  }
+
   &:deep(.celeste-dropdown-root) {
     display: flex;
     position: relative;
@@ -246,6 +327,12 @@ export interface SelectedType {
       @include icon-size;
 
       color: var(--color-icon-soft-400);
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:focus-within {
+      outline: none;
     }
 
     .celeste-dropdown-anchor-trigger-prefix {

@@ -41,7 +41,7 @@ export interface CheckboxProps extends CheckboxRootProps {
   <label class="celeste-input-wrapper" :class="{ flipped: flip }">
     <CheckboxRoot
       v-bind="forwarded"
-      v-model:checked="modelValue"
+      :checked="checked"
       :class="clsx('celeste-checkbox', props.class)"
       :aria-checked="modelValue"
       :aria-disabled="disabled"

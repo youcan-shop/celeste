@@ -6,9 +6,16 @@ const props = withDefaults(defineProps<DropdownItem>(), {
   size: 'sm',
   selected: false,
   disabled: false,
+  focused: false,
 });
 
-defineEmits(['update:selected']);
+const emit = defineEmits(['update:selected']);
+
+function toggleSelection() {
+  if (!props.disabled && props.checkbox) {
+    emit('update:selected', !props.selected);
+  }
+}
 </script>
 
 <script lang="ts">
@@ -21,17 +28,22 @@ export interface DropdownItem {
   description?: string;
   selected?: boolean | 'indeterminate';
   disabled?: boolean;
+  focused?: boolean;
 }
 </script>
 
 <template>
   <div
+    tabindex="0"
     :aria-disabled="disabled"
     :class="clsx(
       'celeste-dropdown-item',
       { 'celeste-dropdown-item-disabled': disabled },
       { 'celeste-dropdown-item-selected': selected },
+      { 'celeste-dropdown-item-focused': focused },
     )"
+    @keydown.enter="toggleSelection"
+    @click="toggleSelection"
   >
     <Checkbox
       v-if="checkbox && size === 'sm'"
@@ -86,7 +98,8 @@ export interface DropdownItem {
     color: var(--color-icon-sub-600);
   }
 
-  &:hover {
+  &:hover,
+  &-focused {
     background: var(--color-bg-weak-50);
   }
 
