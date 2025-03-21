@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Default: Story = {
   args: {
     placeholder: 'Select...',
-    multiple: true,
+    multiple: false,
 
     options: [
       { value: 1, label: 'Option 1', icon: 'i-celeste-globe-line' },
@@ -33,7 +33,8 @@ export const Default: Story = {
       type: 'basic',
     },
 
-    type: 'normal',
+    type: 'compact-input',
+    error: false,
   },
 
   render: args => ({

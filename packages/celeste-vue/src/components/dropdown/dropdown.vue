@@ -219,6 +219,7 @@ export interface SelectedType {
       <ComboboxContent
         v-if="!disabled"
         force-mount
+        dismissable
         class="celeste-dropdown-content"
       >
         <ComboboxViewport class="celeste-dropdown-items-viewport">
@@ -262,7 +263,17 @@ export interface SelectedType {
                 :disabled="props.disabled"
                 :focused="index === focusedItemIndex"
                 @update:selected="(isSelected) => toggleSelection(isSelected, option)"
-              />
+              >
+                <template #prefix>
+                  <i v-if="option.icon" :class="option.icon" />
+                  <img
+                    v-if="option.image"
+                    :src="option.image"
+                    alt="option"
+                    class="celeste-dropdown-item-image"
+                  >
+                </template>
+              </DropdownItem>
               <ComboboxSeparator />
             </ComboboxItem>
           </ComboboxGroup>
@@ -307,7 +318,7 @@ export interface SelectedType {
     display: flex;
     position: relative;
     flex-direction: column;
-    width: var(--dropdown-width);
+    width: fit-content;
     padding-top: var(--spacing-4);
     gap: var(--spacing-10);
   }
@@ -344,16 +355,6 @@ export interface SelectedType {
         display: flex;
         align-items: center;
         justify-content: center;
-
-        .selected-dropdown-image {
-          @include icon-size;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          object-fit: cover;
-          border-radius: var(--radius-full);
-        }
       }
     }
 
@@ -378,8 +379,10 @@ export interface SelectedType {
       background: none;
       color: var(--color-icon-soft-400);
       cursor: pointer;
+    }
 
-      &[data-state='open']:not([data-disabled]) {
+    &[data-state='open']:not([data-disabled]) {
+      :deep(.celeste-dropdown-trigger) {
         transform: rotate(180deg);
       }
     }
@@ -450,6 +453,7 @@ export interface SelectedType {
 
     &.celeste-dropdown-anchor-trigger-type-compact-input {
       width: fit-content;
+      border: none;
       border-radius: var(--radius-0);
 
       &:deep(.celeste-dropdown-input) {
@@ -457,7 +461,6 @@ export interface SelectedType {
       }
 
       &.celeste-dropdown-anchor-trigger-focused {
-        border: 1px solid var(--color-stroke-soft-200);
         box-shadow: none;
       }
     }
@@ -471,23 +474,31 @@ export interface SelectedType {
       }
     }
 
+    &.celeste-dropdown-anchor-trigger-type-normal {
+      min-width: 300px;
+    }
+
     $sizes-map: (
       'xs': (
         'padding': var(--spacing-6),
         'border-radius': var(--radius-8),
+        'height': 32px,
       ),
       'sm': (
         'padding': var(--spacing-8),
         'border-radius': var(--radius-8),
+        'height': 36px,
       ),
       'md': (
         'padding': var(--spacing-10),
         'border-radius': var(--radius-10),
+        'height': 40px,
       ),
     );
 
     @each $size, $values in $sizes-map {
       &-size-#{$size} {
+        height: map.get($values, 'height');
         padding: map.get($values, 'padding');
         border-radius: map.get($values, 'border-radius');
       }
@@ -504,6 +515,7 @@ export interface SelectedType {
     left: 0;
     flex-direction: column;
     width: var(--dropdown-width);
+    min-width: 300px;
     max-height: var(--dropdown-height);
     margin-top: var(--spacing-10);
     padding: var(--spacing-8);
@@ -585,6 +597,11 @@ export interface SelectedType {
     top: 0;
     flex-direction: column;
     gap: var(--spacing-4);
+
+    &:deep(.celeste-input-wrapper-type-search) {
+      border-top-left-radius: var(--radius-8);
+      border-top-right-radius: var(--radius-8);
+    }
   }
 
   .celeste-dropdown-separator {
@@ -597,6 +614,17 @@ export interface SelectedType {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);
+  }
+
+  .celeste-dropdown-item-image,
+  .selected-dropdown-image {
+    @include icon-size;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    border-radius: var(--radius-full);
   }
 }
 </style>
