@@ -21,7 +21,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const selected = ref<SelectedType | SelectedType[] | undefined>(props.multiple ? [] : undefined);
 const searched = ref<string>('');
-const isFocused = ref(false);
+const isSearchedFocused = ref(false);
 const isOpen = ref<boolean>(false);
 
 function toggleDropdown() {
@@ -159,11 +159,7 @@ export interface SelectedType {
       @update:open="(val) => isOpen = val"
       @keydown="handleKeydown"
     >
-      <ComboboxAnchor
-        tabindex="0"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-      >
+      <ComboboxAnchor tabindex="0">
         <ComboboxTrigger
           :class="clsx(
             'celeste-dropdown-anchor-trigger',
@@ -171,13 +167,11 @@ export interface SelectedType {
             `celeste-dropdown-anchor-trigger-type-${props.type}`,
             { 'celeste-dropdown-anchor-trigger-error': props.error },
             { 'celeste-dropdown-anchor-trigger-disabled': props.disabled },
-            { 'celeste-dropdown-anchor-trigger-focused': isFocused },
             { 'celeste-dropdown-anchor-trigger-filled': selected },
+            { 'celeste-dropdown-anchor-trigger-focused': isOpen },
           )"
           as="div"
           :disabled="disabled"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
         >
           <div class="celeste-dropdown-anchor-trigger-prefix">
             <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-trigger-prefix-selected">
@@ -229,13 +223,13 @@ export interface SelectedType {
               type="search"
               size="sm"
               placeholder="Search"
-              @focus="isFocused = true"
-              @blur="isFocused = false"
+              @focus="isSearchedFocused = true"
+              @blur="isSearchedFocused = false"
             >
               <template #prefix>
                 <i class="i-celeste-search-2-line" />
               </template>
-              <template v-if="isFocused" #suffix>
+              <template v-if="isSearchedFocused" #suffix>
                 <div
                   @click="() => searched = ''"
                 >
@@ -431,10 +425,11 @@ export interface SelectedType {
 
     &.celeste-dropdown-anchor-trigger-type-compact {
       width: fit-content;
+      border: none;
       background: transparent;
       box-shadow: none;
 
-      .celeste-dropdown-input {
+      &:deep(.celeste-dropdown-input) {
         flex: inherit;
       }
 
