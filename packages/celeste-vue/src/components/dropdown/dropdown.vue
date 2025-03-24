@@ -65,7 +65,7 @@ function toggleSelection(isSelected: boolean, option: SelectedType) {
     return;
   }
 
-  selected.value = option;
+  selected.value = isSelected ? undefined : option;
 }
 
 const mergedBadgeProps = computed(() => ({
@@ -262,7 +262,6 @@ export interface SelectedType {
                 :selected="optionIsSelected(option)"
                 :disabled="props.disabled"
                 :focused="index === focusedItemIndex"
-                @update:selected="(isSelected) => toggleSelection(isSelected, option)"
               >
                 <template #prefix>
                   <i v-if="option.icon" :class="option.icon" />
@@ -455,6 +454,7 @@ export interface SelectedType {
       width: fit-content;
       border: none;
       border-radius: var(--radius-0);
+      box-shadow: none;
 
       &:deep(.celeste-dropdown-input) {
         flex: inherit;
