@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue';
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue';
 import { ref } from 'vue';
 
 const props = withDefaults(defineProps<TooltipProps>(), {
@@ -40,9 +40,8 @@ export interface TooltipProps {
             'celeste-tooltip-content',
             `celeste-tooltip-size-${size}`,
           )"
-          :side-offset="1"
           :side="props.position"
-          :arrow-padding="2"
+          :arrow-padding="15"
           :align="size === 'lg' ? 'start' : 'center'"
           force-mount
         >
@@ -71,6 +70,13 @@ export interface TooltipProps {
           <div v-else>
             {{ text }}
           </div>
+          <TooltipArrow
+            as-child
+            :width="12"
+            :height="6"
+          >
+            <span class="celeste-tooltip-arrow" />
+          </TooltipArrow>
         </TooltipContent>
       </TooltipPortal>
     </TooltipRoot>
@@ -143,6 +149,29 @@ export interface TooltipProps {
 
   &[data-state='closed'] {
     opacity: 0;
+  }
+
+  .celeste-tooltip-arrow {
+    position: relative;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid var(--color-bg-white-0);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: -4.8px;
+      left: -6px;
+      width: 0;
+      height: 0;
+      border-top: 6px solid var(--color-stroke-soft-200);
+      border-right: 6px solid transparent;
+      border-left: 6px solid transparent;
+    }
   }
 }
 

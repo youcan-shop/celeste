@@ -25,7 +25,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-    <div>
+    <div style="display: flex; justify-content: center;">
       <Tooltip v-bind="args">
          <template #tooltip-trigger>
             <i style="width: 20px; height: 20px;"  class="i-celeste-information-line" />
