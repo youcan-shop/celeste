@@ -17,9 +17,8 @@ const props = withDefaults(defineProps<Dropdown>(), {
   emptyLabel: 'No options available',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const model = defineModel<SelectedType | SelectedType[] | undefined>();
 
-const selected = ref<SelectedType | SelectedType[] | undefined>(props.multiple ? [] : undefined);
 const searched = ref<string>('');
 const isSearchedFocused = ref(false);
 const isOpen = ref<boolean>(false);
@@ -29,10 +28,6 @@ function toggleDropdown() {
   // reset focused index when opening
   focusedItemIndex.value = -1;
 }
-
-watch(selected, (newValue) => {
-  emit('update:modelValue', newValue);
-});
 
 // Filter options based on search input
 const filteredOptions = computed(() => {
@@ -46,26 +41,26 @@ const filteredOptions = computed(() => {
 // Check if an option is selected
 function optionIsSelected(option: SelectedType): boolean {
   if (!props.multiple) {
-    return selected.value && !Array.isArray(selected.value)
-      ? option.value === selected.value.value
+    return model.value && !Array.isArray(model.value)
+      ? option.value === model.value.value
       : false;
   }
 
-  return Array.isArray(selected.value)
-    ? selected.value.some(selectedOption => selectedOption.value === option.value)
+  return Array.isArray(model.value)
+    ? model.value.some(selectedOption => selectedOption.value === option.value)
     : false;
 }
 
 function toggleSelection(isSelected: boolean, option: SelectedType) {
-  if (props.multiple && Array.isArray(selected.value)) {
-    selected.value = isSelected
-      ? selected.value.filter(o => o.value !== option.value)
-      : [...selected.value, option];
+  if (props.multiple && Array.isArray(model.value)) {
+    model.value = isSelected
+      ? model.value.filter(o => o.value !== option.value)
+      : [...model.value, option];
 
     return;
   }
 
-  selected.value = isSelected ? undefined : option;
+  model.value = isSelected ? undefined : option;
 }
 
 const mergedBadgeProps = computed(() => ({
@@ -150,7 +145,7 @@ export interface SelectedType {
     @keydown.space="toggleDropdown"
   >
     <ComboboxRoot
-      v-model="selected"
+      v-model="model"
       :open="isOpen"
       :disabled="disabled"
       :multiple="props.multiple"
@@ -167,19 +162,19 @@ export interface SelectedType {
             `celeste-dropdown-anchor-trigger-type-${props.type}`,
             { 'celeste-dropdown-anchor-trigger-error': props.error },
             { 'celeste-dropdown-anchor-trigger-disabled': props.disabled },
-            { 'celeste-dropdown-anchor-trigger-filled': selected },
+            { 'celeste-dropdown-anchor-trigger-filled': model },
             { 'celeste-dropdown-anchor-trigger-focused': isOpen },
           )"
           as="div"
           :disabled="disabled"
         >
           <div class="celeste-dropdown-anchor-trigger-prefix">
-            <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-trigger-prefix-selected">
-              <i v-if="selected.icon" :class="selected.icon" />
-              <div v-if="selected.image">
-                <slot name="image" v-bind="{ selected }">
+            <div v-if="model && !Array.isArray(model)" class="celeste-dropdown-anchor-trigger-prefix-selected">
+              <i v-if="model.icon" :class="model.icon" />
+              <div v-if="model.image">
+                <slot name="image" v-bind="{ model }">
                   <img
-                    :src="selected.image"
+                    :src="model.image"
                     alt="Selected option"
                     class="selected-dropdown-image"
                   >
@@ -198,7 +193,7 @@ export interface SelectedType {
           >
             <span v-if="multiple">{{ placeholder }}</span>
             <span v-else>
-              {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
+              {{ model && !Array.isArray(model) ? model.label : props.placeholder }}
             </span>
             <span v-if="mergedBadgeProps" class="celeste-input-badge">
               <Badge v-bind="mergedBadgeProps" />
