@@ -47,7 +47,6 @@ export interface TextInputProps {
       :type="type"
       :aria-disabled="disabled"
       class="celeste-input"
-      @keydown.escape="() => modelValue = ''"
     >
 
     <!-- Suffix Slot -->
