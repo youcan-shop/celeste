@@ -43,7 +43,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <Dropdown v-bind="args">
+      <Dropdown v-model="" v-bind="args">
          <template #prefix>
            <i class="i-celeste-global-line" />
          </template>
