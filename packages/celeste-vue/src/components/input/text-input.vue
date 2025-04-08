@@ -32,7 +32,6 @@ export interface TextInputProps {
       { 'celeste-input-wrapper-disabled': disabled },
       props.class,
     )"
-    tabindex="0"
     @click="$el.querySelector('input')?.focus()"
   >
     <!-- Prefix Slot -->
