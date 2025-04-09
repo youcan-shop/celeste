@@ -279,6 +279,7 @@ export interface ContextMenuItem {
   }
 
   &-disabled {
+    background: var(--color-bg-white-0);
     color: var(--color-text-disabled-300);
     cursor: not-allowed;
 
