@@ -184,6 +184,7 @@ export interface ContextMenuItem {
       &[data-state='unchecked']:has([data-disabled]) {
         border: 1px solid var(--color-bg-soft-200);
         background: var(--color-bg-white-0);
+        cursor: not-allowed;
 
         .celeste-switch-thumb {
           outline-color: var(--color-bg-soft-200);
