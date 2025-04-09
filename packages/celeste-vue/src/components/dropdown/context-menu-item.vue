@@ -5,7 +5,7 @@ import { computed } from 'vue';
 import Badge, { type BadgeProps } from '../badge/badge.vue';
 import Button, { type ButtonProps } from '../button/button.vue';
 
-const props = withDefaults(defineProps<ContextMenuItem>(), {
+const props = withDefaults(defineProps<ContextMenuItemProps>(), {
   disabled: false,
   focused: false,
   size: 'sm',
@@ -31,7 +31,7 @@ const mergedButtonProps = computed<ButtonProps | null>(() => {
 </script>
 
 <script lang="ts">
-export interface ContextMenuItem {
+export interface ContextMenuItemProps {
   size: 'sm' | 'lg';
   class?: string;
   label: string;
