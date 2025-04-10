@@ -2,6 +2,7 @@ export * from './alert';
 export * from './badge';
 export * from './button';
 export * from './checkbox';
+export * from './content-divider';
 export * from './dropdown';
 export * from './hint-text';
 export * from './input';
