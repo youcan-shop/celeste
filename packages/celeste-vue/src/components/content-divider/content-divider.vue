@@ -44,16 +44,6 @@ export interface ContentDividerProps {
     >
       {{ text }}
     </div>
-    <div
-      v-if="type === 'group-buttons'"
-      class="celecte-content-divider-type-group-buttons"
-    >
-      <hr>
-      <span>
-        <slot v-if="$slots.groupButtons" name="groupButtons" />
-      </span>
-      <hr>
-    </div>
   </Separator>
 </template>
 
@@ -86,8 +76,7 @@ export interface ContentDividerProps {
     white-space: nowrap;
   }
 
-  &-type-text-line,
-  &-type-group-buttons {
+  &-type-text-line {
     display: flex;
     flex-shrink: 0;
     align-items: center;
