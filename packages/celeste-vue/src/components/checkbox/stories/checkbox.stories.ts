@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
   args: {
-    checked: 'indeterminate',
+    checked: false,
     flip: true,
     label: 'Label',
     sublabel: 'Sublabel',
