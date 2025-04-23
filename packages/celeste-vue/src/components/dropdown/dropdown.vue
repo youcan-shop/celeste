@@ -552,9 +552,11 @@ export interface SelectedType {
     right: 0;
   }
 
-  .celeste-dropdown-content-align-center {
-    right: -50%;
-    left: -50%;
+  :not(:has(.celeste-dropdown-anchor-trigger-type-normal)) {
+    .celeste-dropdown-content-align-center {
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 
   &:deep(.celeste-input-wrapper .celeste-input-prefix) {
