@@ -19,7 +19,7 @@ const delegatedProps = computed(() => {
 <template>
   <ComboboxGroup
     v-bind="delegatedProps"
-    :class="clsx(props.class)"
+    :class="clsx(props.class, 'celeste-dropdown-items-group')"
   >
     <ComboboxLabel v-if="heading" class="">
       {{ heading }}
@@ -27,3 +27,16 @@ const delegatedProps = computed(() => {
     <slot />
   </ComboboxGroup>
 </template>
+
+<style lang="scss" scoped>
+ .celeste-dropdown-items-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+
+  &:deep([data-radix-vue-combobox-item]) {
+    width: auto;
+    height: auto;
+  }
+}
+</style>

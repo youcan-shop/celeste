@@ -18,8 +18,14 @@ const forwarded = useForwardProps(delegatedProps);
 <template>
   <ComboboxAnchor
     v-bind="forwarded"
-    :class="clsx(props.class)"
+    :class="clsx(props.class, 'celeste-dropdown-anchor')"
   >
     <slot />
   </ComboboxAnchor>
 </template>
+
+<style lang="scss" scoped>
+.celeste-dropdown-anchor {
+  width: fit-content;
+}
+</style>

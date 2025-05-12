@@ -27,7 +27,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       force-mount
       :class="clsx(props.class, 'celeste-dropdown-content')"
     >
-      <ComboboxViewport>
+      <ComboboxViewport class="celeste-dropdown-items-viewport">
         <slot />
       </ComboboxViewport>
     </ComboboxContent>
@@ -35,11 +35,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </template>
 
 <style lang="scss" scoped>
+.celeste-dropdown-content,
 div:deep(.celeste-dropdown-content) {
   --dropdown-width: 100%;
   --dropdown-height: 300px;
 
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   width: var(--dropdown-width);
   min-width: 300px;
@@ -65,6 +67,12 @@ div:deep(.celeste-dropdown-content) {
   &[data-state='open'] {
     transform: translateY(0);
     opacity: 1;
+  }
+
+  &:deep(.celeste-dropdown-items-viewport) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
   }
 }
 </style>

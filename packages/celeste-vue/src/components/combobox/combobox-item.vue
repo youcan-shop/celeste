@@ -5,7 +5,9 @@ import { ComboboxItem, useForwardPropsEmits } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
 import Checkbox from '../checkbox/checkbox.vue';
 
-const props = defineProps<ComboboxItemProps<DropdownItemProps> & { class?: HTMLAttributes['class'] }>();
+const props = withDefaults(defineProps<ComboboxItemPropsType>(), {
+  size: 'sm',
+});
 const emits = defineEmits<ComboboxItemEmits>();
 
 const delegatedProps = computed(() => {
@@ -18,7 +20,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <script lang="ts">
-export interface DropdownItemProps {
+export interface ComboboxItemPropsType extends ComboboxItemProps {
   class?: HTMLAttributes['class'];
   label: string;
   size?: 'sm' | 'lg';
@@ -27,6 +29,9 @@ export interface DropdownItemProps {
   description?: string;
   selected?: boolean | 'indeterminate';
   focused?: boolean;
+  value: string | number | boolean | Record<string, any>;
+  icon?: string;
+  image?: string;
 }
 </script>
 
@@ -34,6 +39,7 @@ export interface DropdownItemProps {
   <ComboboxItem
     v-bind="forwarded"
     :disabled="disabled"
+    as-child
   >
     <div
       tabindex="0"
@@ -42,20 +48,20 @@ export interface DropdownItemProps {
         props.class,
         'celeste-dropdown-item',
         { 'celeste-dropdown-item-disabled': disabled },
-        { 'celeste-dropdown-item-selected': value.selected },
-        { 'celeste-dropdown-item-focused': value.focused },
+        { 'celeste-dropdown-item-selected': selected },
+        { 'celeste-dropdown-item-focused': focused },
       )"
     >
       <Checkbox
-        v-if="value.checkbox && value.size === 'sm'"
-        v-model:checked="value.selected"
+        v-if="checkbox && size === 'sm'"
+        :checked="selected"
         :disabled="disabled"
       />
       <div
         v-if="$slots.prefix"
         :class="clsx(
           'celeste-dropdown-item-prefix',
-          `celeste-dropdown-item-prefix-${value.size}`,
+          `celeste-dropdown-item-prefix-${size}`,
         )"
       >
         <slot name="prefix" />
@@ -64,20 +70,20 @@ export interface DropdownItemProps {
         <div
           :class="clsx(
             'celeste-dropdown-item-header',
-            `celeste-dropdown-item-header-${value.size}`,
+            `celeste-dropdown-item-header-${size}`,
           )"
         >
-          <span class="celeste-dropdown-item-label" v-html="value.label" />
-          <span v-if="value.sublabel" class="celeste-dropdown-item-sublabel">{{ value.sublabel }}</span>
+          <span class="celeste-dropdown-item-label" v-html="label" />
+          <span v-if="sublabel" class="celeste-dropdown-item-sublabel">{{ sublabel }}</span>
         </div>
-        <p v-if="value.description && value.size === 'lg'" class="celeste-dropdown-item-description">
-          {{ value.description }}
+        <p v-if="description && size === 'lg'" class="celeste-dropdown-item-description">
+          {{ description }}
         </p>
       </div>
       <div v-if="$slots.suffix" class="celeste-dropdown-item-suffix">
         <slot name="suffix" />
       </div>
-      <i v-if="value.selected" class="i-celeste-check-fill" />
+      <i v-if="selected" class="i-celeste-check-fill" />
     </div>
   </ComboboxItem>
 </template>

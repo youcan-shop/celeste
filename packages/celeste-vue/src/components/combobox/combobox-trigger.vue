@@ -26,6 +26,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
   filled?: boolean;
   type?: 'normal' | 'compact' | 'inline' | 'compact-input';
   error?: boolean;
+  isOpen: boolean;
 }
 </script>
 
@@ -40,6 +41,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
       { 'celeste-dropdown-anchor-trigger-error': props.error },
       { 'celeste-dropdown-anchor-trigger-disabled': props.disabled },
       { 'celeste-dropdown-anchor-trigger-filled': filled },
+      { 'celeste-dropdown-anchor-trigger-focused': isOpen },
       props.class,
     )"
   >
@@ -48,12 +50,19 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
 </template>
 
 <style lang="scss" scoped>
-.celeste-dropdown-anchor-trigger {
-  display: flex;
-  align-items: center;
+@use 'sass:map';
+
+@mixin transition-default {
   transition-property: background-color, transform, opacity;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
+}
+
+.celeste-dropdown-anchor-trigger {
+  @include transition-default;
+
+  display: flex;
+  align-items: center;
   border: 1px solid var(--color-stroke-soft-200);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-xs);
@@ -61,8 +70,8 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
   cursor: pointer;
 
   :deep(i) {
-    @include icon-size;
-
+    width: 20px;
+    height: 20px;
     color: var(--color-icon-soft-400);
   }
 
@@ -154,6 +163,10 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
 
   &-filled {
     color: var(--color-text-strong-950);
+
+    :deep(.celeste-dropdown-input) {
+      color: var(--color-text-strong-950);
+    }
   }
 
   &.celeste-dropdown-anchor-trigger-type-compact {
@@ -203,6 +216,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
   }
 
   &.celeste-dropdown-anchor-trigger-type-normal {
+    width: 100%;
     min-width: 300px;
   }
 
