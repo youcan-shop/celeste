@@ -25,7 +25,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     <ComboboxContent
       v-bind="forwarded"
       force-mount
-      :class="clsx(props.class, 'celeste-dropdown-content')"
+      :class="clsx('celeste-dropdown-content', props.class)"
     >
       <ComboboxViewport class="celeste-dropdown-items-viewport">
         <slot />
@@ -68,11 +68,11 @@ div:deep(.celeste-dropdown-content) {
     transform: translateY(0);
     opacity: 1;
   }
+}
 
-  &:deep(.celeste-dropdown-items-viewport) {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-4);
-  }
+div:deep(.celeste-dropdown-items-viewport) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
 }
 </style>

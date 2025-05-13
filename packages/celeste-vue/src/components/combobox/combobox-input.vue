@@ -55,29 +55,31 @@ const textInputProps = computed((): TextInputProps => {
 <style lang="scss" scoped>
 .celeste-dropdown-input {
   display: flex;
-  position: sticky;
-  z-index: 50;
-  top: 0;
   align-items: center;
   gap: var(--spacing-4);
   background-color: var(--color-bg-white-0);
-
-  &:deep(.celeste-input-wrapper .celeste-input-prefix) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: none;
-    color: var(--color-icon-sub-600);
-  }
 
   &:deep(.celeste-input-wrapper) {
     width: 100%;
     border: none;
     border-radius: 0;
     box-shadow: none;
+
+    .celeste-input-prefix,
+    .celeste-input-suffix > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: none;
+      color: var(--color-icon-sub-600);
+    }
+
+    .celeste-input-suffix {
+      cursor: pointer;
+    }
   }
 
   &:deep(.celeste-input-wrapper-type-search) {

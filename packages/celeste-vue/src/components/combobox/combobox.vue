@@ -3,10 +3,12 @@ import { ComboboxRoot, type ComboboxRootEmits, type ComboboxRootProps, useForwar
 import { computed, ref } from 'vue';
 import Badge, { type BadgeProps } from '../badge/badge.vue';
 import ComboboxAnchor from './combobox-anchor.vue';
+import ComboboxEmpty from './combobox-empty.vue';
 import ComboboxGroup from './combobox-group.vue';
 import ComboboxInput from './combobox-input.vue';
 import ComboboxItem, { type ComboboxItemPropsType } from './combobox-item.vue';
 import ComboboxList from './combobox-list.vue';
+import ComboboxSeparator from './combobox-seperator.vue';
 import ComboboxTrigger from './combobox-trigger.vue';
 
 const props = withDefaults(defineProps<ComboboxPropsType>(), {
@@ -80,11 +82,11 @@ export interface ComboboxPropsType extends ComboboxRootProps {
   size?: 'xs' | 'sm' | 'md';
   emptyLabel?: string;
   badgeProps?: BadgeProps;
+  searchable?: boolean;
 }
 </script>
 
 <template>
-  <!-- {{ console.log('val searched => ', searchTerm) }} -->
   <div class="root">
     <ComboboxRoot
       v-model:model-value="selected"
@@ -139,8 +141,18 @@ export interface ComboboxPropsType extends ComboboxRootProps {
       </ComboboxAnchor>
 
       <ComboboxList>
-        <ComboboxGroup>
+        <div v-if="searchable" class="celeste-dropdown-inner-input">
           <ComboboxInput />
+          <ComboboxSeparator />
+        </div>
+
+        <ComboboxEmpty>
+          <template v-if="emptyLabel" #default>
+            {{ emptyLabel }}
+          </template>
+        </ComboboxEmpty>
+
+        <ComboboxGroup>
           <ComboboxItem
             v-for="option, idx in props.options"
             :key="idx"
@@ -217,5 +229,15 @@ export interface ComboboxPropsType extends ComboboxRootProps {
   background: none;
   color: var(--color-icon-soft-400);
   cursor: pointer;
+}
+
+.celeste-dropdown-inner-input {
+  display: flex;
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  background-color: var(--color-bg-white-0);
 }
 </style>
