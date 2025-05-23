@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { ToggleGroupRoot, type ToggleGroupRootEmits, type ToggleGroupRootProps, useForwardPropsEmits } from 'radix-vue';
+import { ToggleGroupRoot as SegmentedControlRoot, type ToggleGroupRootEmits, type ToggleGroupRootProps, useForwardPropsEmits } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<ToggleGroupRootProps & { class?: HTMLAttributes['class'] }>(), {
@@ -20,13 +20,16 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <ToggleGroupRoot :class="clsx('celeste-toggle-group', props.class)" v-bind="forwarded">
+  <SegmentedControlRoot
+    :class="clsx('celeste-segmented-control', props.class)"
+    v-bind="forwarded"
+  >
     <slot />
-  </ToggleGroupRoot>
+  </SegmentedControlRoot>
 </template>
 
 <style scoped lang="scss">
-.celeste-toggle-group {
+.celeste-segmented-control {
   display: flex;
   gap: var(--spacing-4);
   align-items: center;

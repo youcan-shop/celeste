@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { ToggleGroupItem, type ToggleGroupItemProps } from 'radix-vue';
+import { ToggleGroupItem as SegmentedControlItem, type ToggleGroupItemProps } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
 
 const props = defineProps<ToggleGroupItemProps & { class?: HTMLAttributes['class'] }>();
@@ -13,16 +13,16 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <ToggleGroupItem
+  <SegmentedControlItem
     v-bind="delegatedProps"
-    :class="clsx('celeste-toggle-group-item', props.class)"
+    :class="clsx('celeste-segmented-control-item', props.class)"
   >
     <slot />
-  </ToggleGroupItem>
+  </SegmentedControlItem>
 </template>
 
 <style scoped lang="scss">
-.celeste-toggle-group-item {
+.celeste-segmented-control-item {
   display: flex;
   align-items: center;
   gap: var(--spacing-6);
