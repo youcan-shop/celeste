@@ -28,7 +28,7 @@ const delegatedProps = computed(() => {
   gap: var(--spacing-6);
   justify-content: center;
   width: 100%;
-  padding: 4px;
+  padding: var(--spacing-4);
   transition: color var(--animation-fast) ease-out;
   border: none;
   border-radius: var(--radius-6);
