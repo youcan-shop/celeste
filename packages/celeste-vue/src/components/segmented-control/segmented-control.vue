@@ -3,10 +3,7 @@ import clsx from 'clsx';
 import { ToggleGroupRoot as SegmentedControlRoot, type ToggleGroupRootEmits, type ToggleGroupRootProps, useForwardPropsEmits } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
 
-const props = withDefaults(defineProps<ToggleGroupRootProps & { class?: HTMLAttributes['class'] }>(), {
-  type: 'single',
-  orientation: 'horizontal',
-});
+const props = defineProps<Omit<ToggleGroupRootProps, 'type'> & { class?: HTMLAttributes['class'] }>();
 
 const emits = defineEmits<ToggleGroupRootEmits>();
 
@@ -23,6 +20,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   <SegmentedControlRoot
     :class="clsx('celeste-segmented-control', props.class)"
     v-bind="forwarded"
+    type="single"
   >
     <slot />
   </SegmentedControlRoot>

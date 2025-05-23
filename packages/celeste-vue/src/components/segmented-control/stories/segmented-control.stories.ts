@@ -14,7 +14,6 @@ type Story = StoryObj<typeof SegmentedControl>;
 export const Default: Story = {
   args: {
     defaultValue: 'light',
-    type: 'single',
     orientation: 'horizontal',
     loop: true,
     rovingFocus: true,
