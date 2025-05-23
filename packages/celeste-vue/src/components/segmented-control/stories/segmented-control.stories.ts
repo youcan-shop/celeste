@@ -29,9 +29,15 @@ export const Default: Story = {
     },
     template: `
       <SegmentedControl v-bind="args">
-        <SegmentedControlItem value="light">Light</SegmentedControlItem>
-        <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
-        <SegmentedControlItem value="system" disabled>System</SegmentedControlItem>
+        <SegmentedControlItem value="light">
+          <i class="i-celeste-sun-line" /> Light
+        </SegmentedControlItem>
+        <SegmentedControlItem value="dark">
+          <i class="i-celeste-moon-line" /> Dark
+        </SegmentedControlItem>
+        <SegmentedControlItem value="system" disabled>
+          <i class="i-celeste-settings-line" /> System
+        </SegmentedControlItem>
       </SegmentedControl>`,
   }),
 };
