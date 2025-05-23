@@ -105,8 +105,12 @@ export interface ComboboxItemPropsType extends ComboboxItemProps {
     color: var(--color-icon-sub-600);
   }
 
+  &[data-highlighted],
   &:hover,
-  &-focused {
+  &-focused,
+  &:focus,
+  &:focus-visible {
+    outline: none;
     background: var(--color-bg-weak-50);
   }
 

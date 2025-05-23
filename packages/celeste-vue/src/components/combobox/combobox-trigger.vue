@@ -6,7 +6,6 @@ import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<CustomComboboxTriggerProps>(), {
   type: 'normal',
-  size: 'sm',
 });
 
 const delegatedProps = computed(() => {
@@ -21,12 +20,10 @@ const forwarded = useForwardProps(delegatedProps);
 <script lang="ts">
 export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
   class?: HTMLAttributes['class'];
-  size?: 'sm' | 'lg';
-  focused?: boolean;
+  size?: 'xs' | 'sm' | 'md';
   filled?: boolean;
   type?: 'normal' | 'compact' | 'inline' | 'compact-input';
   error?: boolean;
-  isOpen: boolean;
 }
 </script>
 
@@ -39,9 +36,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
       `celeste-dropdown-anchor-trigger-size-${props.size}`,
       `celeste-dropdown-anchor-trigger-type-${props.type}`,
       { 'celeste-dropdown-anchor-trigger-error': props.error },
-      { 'celeste-dropdown-anchor-trigger-disabled': props.disabled },
       { 'celeste-dropdown-anchor-trigger-filled': filled },
-      { 'celeste-dropdown-anchor-trigger-focused': isOpen },
       props.class,
     )"
   >
@@ -130,7 +125,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     border: 1px solid var(--color-state-error-base);
   }
 
-  &-disabled {
+  &[data-disabled] {
     background: var(--color-bg-weak-50);
     color: var(--color-text-disabled-300);
     cursor: not-allowed;
@@ -147,7 +142,11 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     }
   }
 
-  &-focused:not(.celeste-dropdown-anchor-trigger-disabled, .celeste-dropdown-anchor-trigger-type-compact) {
+  &[data-state='open']:not(
+      [data-disabled],
+      .celeste-dropdown-anchor-trigger-type-compact,
+      .celeste-dropdown-anchor-trigger-type-compact-input
+    ) {
     border: 1px solid var(--color-stroke-strong-950);
     box-shadow: var(--shadow-buttons-important-focus);
     color: var(--color-text-strong-950);
@@ -179,8 +178,8 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
       flex: inherit;
     }
 
-    &:hover:not(.celeste-dropdown-anchor-trigger-disabled),
-    &.celeste-dropdown-anchor-trigger-focused:not(.celeste-dropdown-anchor-trigger-disabled) {
+    &:hover:not([data-disabled]),
+    &[data-state='open']:not([data-disabled]) {
       .celeste-dropdown-input {
         color: var(--color-text-strong-950);
       }
@@ -201,7 +200,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
       flex: inherit;
     }
 
-    &.celeste-dropdown-anchor-trigger-focused {
+    &[data-state='open'] {
       box-shadow: none;
     }
   }
