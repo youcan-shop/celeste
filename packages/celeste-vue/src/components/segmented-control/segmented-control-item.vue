@@ -41,6 +41,7 @@ const delegatedProps = computed(() => {
     background-color: var(--color-bg-white-0);
     box-shadow: var(--shadow-toggle-switch);
     color: var(--color-text-strong-950);
+    pointer-events: none;
   }
 
   &[data-state='off']:hover {
