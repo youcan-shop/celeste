@@ -24,7 +24,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 .celeste-tab-menu-list {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   padding: var(--spacing-10);
   gap: var(--spacing-8);
