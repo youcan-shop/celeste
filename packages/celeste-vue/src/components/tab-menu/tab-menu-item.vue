@@ -19,7 +19,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     )"
   >
     <slot name="prefix" />
-    <span class="celeste-tab-menu-item-label">
+    <span v-if="$slots.default" class="celeste-tab-menu-item-label">
       <slot />
     </span>
     <slot name="postfix" />
