@@ -60,17 +60,17 @@ export const Default: Story = {
         
         <TabMenuContent value="tab1">
           <div style="padding: 20px;">
-            <HintText text="Profile Settings: Manage your personal information, avatar, and display preferences." />
+            <HintText text="Profile Settings tab content" />
           </div>
         </TabMenuContent>
         <TabMenuContent value="tab2">
           <div style="padding: 20px;">
-            <HintText text="Contact Information: Update your email, phone number, and address details." />
+            <HintText text="Contact Information tab content" />
           </div>
         </TabMenuContent>
         <TabMenuContent value="tab3">
           <div style="padding: 20px;">
-            <HintText text="Preferences: Customize notifications, themes, and application settings." />
+            <HintText text="Preferences tab content" />
           </div>
         </TabMenuContent>
       </TabMenu>
@@ -113,17 +113,17 @@ export const Horizontal: Story = {
         
         <TabMenuContent value="dashboard">
           <div style="padding: 24px; text-align: center;">
-            <HintText text="📊 Dashboard overview with key metrics and widgets" />
+            <HintText text="Dashboard tab content" />
           </div>
         </TabMenuContent>
         <TabMenuContent value="analytics">
           <div style="padding: 24px; text-align: center;">
-            <HintText text="📈 Detailed analytics and performance insights" />
+            <HintText text="Detailed tab content" />
           </div>
         </TabMenuContent>
         <TabMenuContent value="reports">
           <div style="padding: 24px; text-align: center;">
-            <HintText text="📋 Generated reports and export options" />
+            <HintText text="Generated tab content" />
           </div>
         </TabMenuContent>
       </TabMenu>
@@ -167,17 +167,17 @@ export const Vertical: Story = {
           
           <TabMenuContent value="general" style="flex: 1;">
             <div style="padding: 24px;">
-              <HintText text="⚙️ General settings and preferences" />
+              <HintText text="General settings tab contents" />
             </div>
           </TabMenuContent>
           <TabMenuContent value="security" style="flex: 1;">
             <div style="padding: 24px;">
-              <HintText text="🔒 Security settings and two-factor authentication" />
+              <HintText text="Security settings tab content" />
             </div>
           </TabMenuContent>
           <TabMenuContent value="notifications" style="flex: 1;">
             <div style="padding: 24px;">
-              <HintText text="🔔 Notification preferences and alerts" />
+              <HintText text="Notification preferences tab content" />
             </div>
           </TabMenuContent>
         </TabMenu>
