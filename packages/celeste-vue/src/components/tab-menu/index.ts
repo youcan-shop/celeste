@@ -1,8 +1,8 @@
 export * from './tab-menu-content.vue';
-export { default as LinkButton } from './tab-menu-content.vue';
+export { default as TabMenuContent } from './tab-menu-content.vue';
 
 export * from './tab-menu-item.vue';
-export { default as FancyButton } from './tab-menu-item.vue';
+export { default as TabMenuItem } from './tab-menu-item.vue';
 
 export * from './tab-menu-list.vue';
 export { default as TabMenuList } from './tab-menu-list.vue';
