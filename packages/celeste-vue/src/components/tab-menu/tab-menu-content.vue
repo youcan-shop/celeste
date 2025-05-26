@@ -20,6 +20,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
 <style scoped>
 .celeste-tab-menu-content {
-  background-color: green;
+  flex: 1;
 }
 </style>

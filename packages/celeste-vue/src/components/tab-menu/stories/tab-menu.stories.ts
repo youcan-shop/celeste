@@ -1,5 +1,5 @@
-// TabMenu.stories.ts
 import type { Meta, StoryObj } from '@storybook/vue3';
+import HintText from '../../hint-text/hint-text.vue';
 import TabMenuContent from '../tab-menu-content.vue';
 import TabMenuItem from '../tab-menu-item.vue';
 import TabMenuList from '../tab-menu-list.vue';
@@ -8,45 +8,123 @@ import TabMenu from '../tab-menu.vue';
 const meta: Meta<typeof TabMenu> = {
   title: 'Components/Tab Menu',
   component: TabMenu,
+  argTypes: {
+    orientation: {
+      control: { type: 'select' },
+      options: ['horizontal', 'vertical'],
+      description: 'The orientation of the tab menu',
+    },
+    defaultValue: {
+      control: 'text',
+      description: 'The default active tab',
+    },
+  },
+  args: {
+    orientation: 'horizontal',
+    dir: 'ltr',
+    defaultValue: 'tab1',
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof TabMenu>;
 
-export const Horizontal: Story = {
-  render: () => ({
-    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent },
+export const Default: Story = {
+  render: args => ({
+    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent, HintText },
+    setup() {
+      return { args };
+    },
     template: `
-      <TabMenu default-value="tab1" orientation="horizontal">
-       <TabMenuList>
-          <TabMenuItem v-bind="args" value="tab1">
+      <TabMenu v-bind="args" style="width: 600px; margin: 0 auto;">
+        <TabMenuList>
+          <TabMenuItem value="tab1">
             <template #prefix>
               <i class="i-celeste-user-line" />
             </template>
             Profile Settings
           </TabMenuItem>
-          <TabMenuItem v-bind="args" value="tab2">
+          <TabMenuItem value="tab2">
             <template #prefix>
               <i class="i-celeste-contacts-book-line" />
             </template>
             Contact Information
           </TabMenuItem>
-          <TabMenuItem v-bind="args" value="tab3">
+          <TabMenuItem value="tab3">
             <template #prefix>
-              <i class="i-celeste-share-line" />
+              <i class="i-celeste-settings-line" />
             </template>
-            Social Links
+            Preferences
           </TabMenuItem>
         </TabMenuList>
         
         <TabMenuContent value="tab1">
-          <div style="padding: 20px;">Profile content here...</div>
+          <div style="padding: 20px;">
+            <HintText text="Profile Settings: Manage your personal information, avatar, and display preferences." />
+          </div>
         </TabMenuContent>
         <TabMenuContent value="tab2">
-          <div style="padding: 20px;">Contact content here...</div>
+          <div style="padding: 20px;">
+            <HintText text="Contact Information: Update your email, phone number, and address details." />
+          </div>
         </TabMenuContent>
         <TabMenuContent value="tab3">
-          <div style="padding: 20px;">Links content here...</div>
+          <div style="padding: 20px;">
+            <HintText text="Preferences: Customize notifications, themes, and application settings." />
+          </div>
+        </TabMenuContent>
+      </TabMenu>
+    `,
+  }),
+};
+
+export const Horizontal: Story = {
+  args: {
+    orientation: 'horizontal',
+    defaultValue: 'dashboard',
+  },
+  render: args => ({
+    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent, HintText },
+    setup() {
+      return { args };
+    },
+    template: `
+      <TabMenu v-bind="args" style="width: 500px; margin: 0 auto;">
+        <TabMenuList>
+          <TabMenuItem value="dashboard">
+            <template #prefix>
+              <i class="i-celeste-dashboard-line" />
+            </template>
+            Dashboard
+          </TabMenuItem>
+          <TabMenuItem value="analytics">
+            <template #prefix>
+              <i class="i-celeste-bar-chart-line" />
+            </template>
+            Analytics
+          </TabMenuItem>
+          <TabMenuItem value="reports">
+            <template #prefix>
+              <i class="i-celeste-file-chart-line" />
+            </template>
+            Reports
+          </TabMenuItem>
+        </TabMenuList>
+        
+        <TabMenuContent value="dashboard">
+          <div style="padding: 24px; text-align: center;">
+            <HintText text="📊 Dashboard overview with key metrics and widgets" />
+          </div>
+        </TabMenuContent>
+        <TabMenuContent value="analytics">
+          <div style="padding: 24px; text-align: center;">
+            <HintText text="📈 Detailed analytics and performance insights" />
+          </div>
+        </TabMenuContent>
+        <TabMenuContent value="reports">
+          <div style="padding: 24px; text-align: center;">
+            <HintText text="📋 Generated reports and export options" />
+          </div>
         </TabMenuContent>
       </TabMenu>
     `,
@@ -54,63 +132,56 @@ export const Horizontal: Story = {
 };
 
 export const Vertical: Story = {
-  render: () => ({
-    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent },
+  args: {
+    orientation: 'vertical',
+    defaultValue: 'general',
+  },
+  render: args => ({
+    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent, HintText },
+    setup() {
+      return { args };
+    },
     template: `
-      <TabMenu default-value="tab1" orientation="vertical" style="height: 300px;">
-        <TabMenuList>
-          <TabMenuItem v-bind="args" value="tab1">
-            <template #prefix>
-              <i class="i-celeste-user-line" />
-            </template>
-            Profile Settings
-          </TabMenuItem>
-          <TabMenuItem v-bind="args" value="tab2">
-            <template #prefix>
-              <i class="i-celeste-contacts-book-line" />
-            </template>
-            Contact Information
-          </TabMenuItem>
-          <TabMenuItem v-bind="args" value="tab3">
-            <template #prefix>
-              <i class="i-celeste-share-line" />
-            </template>
-            Social Links
-          </TabMenuItem>
-        </TabMenuList>
-        
-        <TabMenuContent value="tab1">
-          <div style="padding: 20px;">Dashboard content...</div>
-        </TabMenuContent>
-        <TabMenuContent value="tab2">
-          <div style="padding: 20px;">Settings content...</div>
-        </TabMenuContent>
-      </TabMenu>
-    `,
-  }),
-};
-
-export const WithPrefixAndPostfix: Story = {
-  render: () => ({
-    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent },
-    template: `
-      <TabMenu default-value="tab1">
-        <TabMenuList>
-          <TabMenuItem value="tab1">
-            <template #prefix><i class="i-celeste-home" /></template>
-            Dashboard
-            <template #postfix><span style="font-size: 12px; opacity: 0.6;">⌘1</span></template>
-          </TabMenuItem>
-          <TabMenuItem value="tab2">
-            <template #prefix><i class="i-celeste-settings" /></template>
-            Settings
-            <template #postfix><i class="i-celeste-close" style="width: 14px; height: 14px;" /></template>
-          </TabMenuItem>
-        </TabMenuList>
-        
-        <TabMenuContent value="tab1">Dashboard content</TabMenuContent>
-        <TabMenuContent value="tab2">Settings content</TabMenuContent>
-      </TabMenu>
+      <div style="display: flex; height: 300px; width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px;">
+        <TabMenu v-bind="args">
+          <TabMenuList style="width: 240px; border-right: 1px solid #e0e0e0;">
+            <TabMenuItem value="general">
+              <template #prefix>
+                <i class="i-celeste-settings-line" />
+              </template>
+              General
+            </TabMenuItem>
+            <TabMenuItem value="security">
+              <template #prefix>
+                <i class="i-celeste-shield-line" />
+              </template>
+              Security
+            </TabMenuItem>
+            <TabMenuItem value="notifications">
+              <template #prefix>
+                <i class="i-celeste-notification-line" />
+              </template>
+              Notifications
+            </TabMenuItem>
+          </TabMenuList>
+          
+          <TabMenuContent value="general" style="flex: 1;">
+            <div style="padding: 24px;">
+              <HintText text="⚙️ General settings and preferences" />
+            </div>
+          </TabMenuContent>
+          <TabMenuContent value="security" style="flex: 1;">
+            <div style="padding: 24px;">
+              <HintText text="🔒 Security settings and two-factor authentication" />
+            </div>
+          </TabMenuContent>
+          <TabMenuContent value="notifications" style="flex: 1;">
+            <div style="padding: 24px;">
+              <HintText text="🔔 Notification preferences and alerts" />
+            </div>
+          </TabMenuContent>
+        </TabMenu>
+      </div>
     `,
   }),
 };
