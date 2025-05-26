@@ -20,6 +20,8 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
 <style scoped>
 .celeste-tab-menu-content {
-  flex: 1;
+  &[data-orientation='vertical'] {
+    flex: 1;
+  }
 }
 </style>

@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { TabsList, type TabsListProps } from 'radix-vue';
 
 const props = defineProps<TabsListProps & { class?: HTMLAttributes['class'] }>();
-
 const delegatedProps = useDelegatedProps(props, 'class');
 </script>
 

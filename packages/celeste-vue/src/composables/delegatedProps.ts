@@ -1,4 +1,3 @@
-// composables/useDelegatedProps.ts
 import { computed, type ComputedRef } from 'vue';
 
 export function useDelegatedProps(props: any, excludeKeys: string | string[] = ['class']): ComputedRef<any> {

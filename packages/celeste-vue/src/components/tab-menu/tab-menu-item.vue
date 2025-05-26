@@ -7,7 +7,6 @@ import { TabsTrigger, type TabsTriggerProps, useForwardProps } from 'radix-vue';
 const props = defineProps<TabsTriggerProps & { class?: HTMLAttributes['class'] }>();
 
 const delegatedProps = useDelegatedProps(props, 'class');
-
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
