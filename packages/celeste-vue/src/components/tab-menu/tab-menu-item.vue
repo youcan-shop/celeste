@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/delegatedProps';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { TabsTrigger, type TabsTriggerProps, useForwardProps } from 'radix-vue';
 
@@ -55,7 +55,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   &[data-orientation='horizontal'] {
     position: relative;
     padding-block: var(--spacing-14);
-    padding-inline: 0;
+    padding-inline: var(--spacing-0);
 
     &::after {
       content: '';

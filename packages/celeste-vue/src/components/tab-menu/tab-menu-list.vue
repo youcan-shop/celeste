@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/delegatedProps';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { TabsList, type TabsListProps } from 'radix-vue';
 
@@ -31,8 +31,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
   &[data-orientation='horizontal'] {
     flex-direction: row;
-    padding: 0;
-    padding-inline: 0;
+    padding: var(--spacing-0);
     border-block: 1px solid var(--color-stroke-soft-200);
     gap: var(--spacing-16);
   }
