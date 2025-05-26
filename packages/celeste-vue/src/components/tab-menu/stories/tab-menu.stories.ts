@@ -143,8 +143,8 @@ export const Vertical: Story = {
     },
     template: `
       <div style="display: flex; height: 300px; width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px;">
-        <TabMenu v-bind="args">
-          <TabMenuList style="width: 240px; border-right: 1px solid #e0e0e0;">
+        <TabMenu v-bind="args" style="flex: 1;">
+          <TabMenuList style="width: 240px; border-inline-end: 1px solid #e0e0e0;">
             <TabMenuItem value="general">
               <template #prefix>
                 <i class="i-celeste-settings-line" />
@@ -197,9 +197,9 @@ export const IconsOnly: Story = {
       return { args };
     },
     template: `
-      <div style="display: flex; height: 300px; width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px;">
-        <TabMenu v-bind="args">
-          <TabMenuList style="width: fit-content; border-right: 1px solid #e0e0e0;">
+      <div style="display: flex; flex-direction:row; height: 300px; width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px;">
+        <TabMenu v-bind="args" style="flex: 1;">
+          <TabMenuList style="width: fit-content; border-inline-end: 1px solid #e0e0e0;">
             <TabMenuItem value="general">
               <template #prefix>
                 <i class="i-celeste-settings-line" />
