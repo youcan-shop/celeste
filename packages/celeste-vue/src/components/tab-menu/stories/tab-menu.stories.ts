@@ -185,3 +185,55 @@ export const Vertical: Story = {
     `,
   }),
 };
+
+export const IconsOnly: Story = {
+  args: {
+    orientation: 'vertical',
+    defaultValue: 'general',
+  },
+  render: args => ({
+    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent, HintText },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: flex; height: 300px; width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px;">
+        <TabMenu v-bind="args">
+          <TabMenuList style="width: fit-content; border-right: 1px solid #e0e0e0;">
+            <TabMenuItem value="general">
+              <template #prefix>
+                <i class="i-celeste-settings-line" />
+              </template>
+            </TabMenuItem>
+            <TabMenuItem value="security">
+              <template #prefix>
+                <i class="i-celeste-shield-line" />
+              </template>
+            </TabMenuItem>
+            <TabMenuItem value="notifications">
+              <template #prefix>
+                <i class="i-celeste-notification-line" />
+              </template>
+            </TabMenuItem>
+          </TabMenuList>
+          
+          <TabMenuContent value="general" style="flex: 1;">
+            <div style="padding: 24px;">
+              <HintText text="General settings tab contents" />
+            </div>
+          </TabMenuContent>
+          <TabMenuContent value="security" style="flex: 1;">
+            <div style="padding: 24px;">
+              <HintText text="Security settings tab content" />
+            </div>
+          </TabMenuContent>
+          <TabMenuContent value="notifications" style="flex: 1;">
+            <div style="padding: 24px;">
+              <HintText text="Notification preferences tab content" />
+            </div>
+          </TabMenuContent>
+        </TabMenu>
+      </div>
+    `,
+  }),
+};
