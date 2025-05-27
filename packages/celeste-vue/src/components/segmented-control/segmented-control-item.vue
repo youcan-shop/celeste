@@ -5,20 +5,28 @@ import clsx from 'clsx';
 import { ToggleGroupItem as SegmentedControlItem, type ToggleGroupItemProps } from 'radix-vue';
 
 const props = defineProps<ToggleGroupItemProps & { class?: HTMLAttributes['class'] }>();
-
 const delegatedProps = useDelegatedProps(props, 'class');
+
+function onKeydown(e: KeyboardEvent) {
+  const item = e.currentTarget as HTMLButtonElement | null;
+
+  if ((['Enter', ' '].includes(e.key) && item?.getAttribute('data-state') === 'on')) {
+    e.preventDefault();
+  }
+}
 </script>
 
 <template>
   <SegmentedControlItem
     v-bind="delegatedProps"
     :class="clsx('celeste-segmented-control-item', props.class)"
+    @keydown="onKeydown"
   >
     <slot />
   </SegmentedControlItem>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .celeste-segmented-control-item {
   display: flex;
   align-items: center;
@@ -26,7 +34,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   justify-content: center;
   width: 100%;
   padding: var(--spacing-4);
-  transition: color var(--animation-fast) ease-out;
+  transition: all var(--animation-fast) ease-out;
   border: none;
   border-radius: var(--radius-6);
   background-color: transparent;

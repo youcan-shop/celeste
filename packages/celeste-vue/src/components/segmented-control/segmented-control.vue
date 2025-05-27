@@ -21,7 +21,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   </SegmentedControlRoot>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .celeste-segmented-control {
   display: flex;
   gap: var(--spacing-4);

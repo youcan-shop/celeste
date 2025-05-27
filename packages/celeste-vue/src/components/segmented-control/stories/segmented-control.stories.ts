@@ -40,3 +40,81 @@ export const Default: Story = {
       </SegmentedControl>`,
   }),
 };
+
+export const Vertical: Story = {
+  args: {
+    orientation: 'vertical',
+    defaultValue: 'light',
+  },
+  render: args => ({
+    components: { SegmentedControl, SegmentedControlItem },
+    setup() {
+      return { args };
+    },
+    template: `
+      <SegmentedControl v-bind="args">
+        <SegmentedControlItem value="light">
+          <i class="i-celeste-sun-line" /> Light
+        </SegmentedControlItem>
+        <SegmentedControlItem value="dark">
+          <i class="i-celeste-moon-line" /> Dark
+        </SegmentedControlItem>
+        <SegmentedControlItem value="system" disabled>
+          <i class="i-celeste-settings-line" /> System
+        </SegmentedControlItem>
+      </SegmentedControl>
+    `,
+  }),
+};
+
+export const LabelsOnly: Story = {
+  args: {
+    orientation: 'horizontal',
+    defaultValue: 'light',
+  },
+  render: args => ({
+    components: { SegmentedControl, SegmentedControlItem },
+    setup() {
+      return { args };
+    },
+    template: `
+      <SegmentedControl v-bind="args">
+        <SegmentedControlItem value="light">
+          Light
+        </SegmentedControlItem>
+        <SegmentedControlItem value="dark">
+          Dark
+        </SegmentedControlItem>
+        <SegmentedControlItem value="system">
+          System
+        </SegmentedControlItem>
+      </SegmentedControl>
+    `,
+  }),
+};
+
+export const IconsOnly: Story = {
+  args: {
+    orientation: 'horizontal',
+    defaultValue: 'light',
+  },
+  render: args => ({
+    components: { SegmentedControl, SegmentedControlItem },
+    setup() {
+      return { args };
+    },
+    template: `
+      <SegmentedControl v-bind="args">
+        <SegmentedControlItem value="light">
+          <i class="i-celeste-sun-line" />
+        </SegmentedControlItem>
+        <SegmentedControlItem value="dark">
+          <i class="i-celeste-moon-line" />
+        </SegmentedControlItem>
+        <SegmentedControlItem value="system">
+          <i class="i-celeste-settings-line" />
+        </SegmentedControlItem>
+      </SegmentedControl>
+    `,
+  }),
+};
