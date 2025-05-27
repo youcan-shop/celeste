@@ -86,12 +86,14 @@ export interface TextAreaProps {
   }
 
   .celeste-textarea-count {
+    --resize-handle-offset: 16px;
+
     display: flex;
     position: absolute;
     color: var(--color-text-soft-400);
     font: var(--subheading-2xs);
     inset-block-end: var(--spacing);
-    inset-inline-end: calc(var(--spacing) + 16px);
+    inset-inline-end: calc(var(--spacing) + var(--resize-handle-offset));
   }
 
   &-disabled {
