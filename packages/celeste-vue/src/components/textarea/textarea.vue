@@ -123,6 +123,7 @@ export interface TextAreaProps {
     background: transparent;
     color: inherit;
     font-family: inherit;
+    font-size: var(--font-size-2);
     resize: vertical;
 
     &::placeholder {
