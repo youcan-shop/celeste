@@ -8,9 +8,9 @@ const props = defineProps<ToggleGroupItemProps & { class?: HTMLAttributes['class
 const delegatedProps = useDelegatedProps(props, 'class');
 
 function onKeydown(e: KeyboardEvent) {
-  const item = e.currentTarget as HTMLButtonElement | null;
+  const item = e.currentTarget as HTMLButtonElement;
 
-  if ((['Enter', ' '].includes(e.key) && item?.getAttribute('data-state') === 'on')) {
+  if ((['Enter', ' '].includes(e.key) && item.getAttribute('data-state') === 'on')) {
     e.preventDefault();
   }
 }
