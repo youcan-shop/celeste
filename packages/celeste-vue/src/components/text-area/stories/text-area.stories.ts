@@ -20,7 +20,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <TextArea v-bind="args" maxLength="10">
+      <TextArea v-bind="args">
          <template #prefix>
            <i style="display: flex; align-items: center; justify-content: center; color: inherit" class="i-celeste-user-6-line" />
          </template>
