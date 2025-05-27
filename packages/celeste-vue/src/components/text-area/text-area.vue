@@ -41,7 +41,7 @@ export interface TextAreaProps {
       :maxlength="maxLength"
       class="celeste-textarea"
     />
-    <span v-if="showCount && maxLength" class="celeste-textarea-count">
+    <span v-if="showCount && Number(maxLength)" class="celeste-textarea-count">
       {{ `${modelValue?.length || 0}/${maxLength}` }}
     </span>
   </div>
@@ -102,11 +102,6 @@ export interface TextAreaProps {
     .celeste-textarea-count {
       color: var(--color-icon-disabled-300);
     }
-  }
-
-  &-disabled:deep(i) {
-    background: var(--color-icon-disabled-300);
-    color: var(--color-icon-disabled-300);
   }
 
   &-error {
