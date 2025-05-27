@@ -12,6 +12,7 @@ type Story = StoryObj<typeof TextArea>;
 
 export const Default: Story = {
   args: {
+    placeholder: 'Your Message',
   },
 
   render: args => ({
@@ -20,7 +21,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <TextArea v-bind="args" rows="8" />
+      <TextArea v-bind="args" rows="10" />
     `,
   }),
 };
