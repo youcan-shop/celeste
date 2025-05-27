@@ -10,7 +10,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 function onKeydown(e: KeyboardEvent) {
   const item = e.currentTarget as HTMLButtonElement;
 
-  if ((['Enter', ' '].includes(e.key) && item.getAttribute('data-state') === 'on')) {
+  if ((e.key === 'Enter' || e.key === ' ') && item.getAttribute('data-state') === 'on') {
     e.preventDefault();
   }
 }
