@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import SelectContent from '../select-content.vue';
+import SelectGroup from '../select-group.vue';
 import SelectItemIcon from '../select-item-icon.vue';
 import SelectItem from '../select-item.vue';
+import SelectLabel from '../select-label.vue';
+import SelectSeparator from '../select-separator.vue';
 import SelectTrigger from '../select-trigger.vue';
 import SelectValue from '../select-value.vue';
 import Select from '../select.vue';
@@ -21,27 +24,33 @@ export const Default: Story = {
   },
 
   render: args => ({
-    components: { Select, SelectValue, SelectTrigger, SelectItem, SelectItemIcon, SelectContent },
+    components: { Select, SelectValue, SelectTrigger, SelectSeparator, SelectLabel, SelectGroup, SelectItem, SelectItemIcon, SelectContent },
     setup() {
       return { args };
     },
     template: `
       <Select v-bind="args">
         <SelectTrigger style="width: 300px;">
-          <SelectValue placeholder="Select" />
+          <SelectValue placeholder="Select">
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="rent" disabled>
-            <SelectItemIcon>
-              <img src="https://images.icon-icons.com/2699/PNG/512/slack_tile_logo_icon_168820.png" alt="Slack" />
-            </SelectItemIcon>
-            Rent Payment
-          </SelectItem>
-          <SelectItem value="utility">
-            <SelectItemIcon>
-              <i class="i-celeste-flashlight-line" />
-            </SelectItemIcon>
-            Utility Payment</SelectItem>
+          <SelectGroup>
+            <SelectLabel>Products</SelectLabel>
+            <SelectItem value="rent">
+              <SelectItemIcon>
+                <i class="i-celeste-home-4-line" />
+              </SelectItemIcon>
+              Rent Payment
+            </SelectItem>
+            <SelectItem value="utility">
+              <SelectItemIcon>
+                <i class="i-celeste-flashlight-line" />
+              </SelectItemIcon>
+              Utility Payment
+            </SelectItem>
+          </SelectGroup>
+          <SelectSeparator />
           <SelectItem value="Donation">
             <SelectItemIcon>
               <i class="i-celeste-hand-coin-line" />
@@ -60,6 +69,7 @@ export const Default: Story = {
             </SelectItemIcon>
             Tuition Fee
           </SelectItem>
+          <SelectSeparator />
           <SelectItem value="phone">
             <SelectItemIcon>
               <i class="i-celeste-smartphone-line" />

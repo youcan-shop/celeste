@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<SelectTriggerProps & {
   class?: HTMLAttributes['class'];
   variant?: 'default' | 'compact' | 'inline';
   size?: 'xs' | 'sm' | 'md' | 'lg';
+  hasError?: boolean;
 }>(), {
   variant: 'default',
   size: 'md',
@@ -22,8 +23,6 @@ const delegatedProps = computed(() => {
 <template>
   <SelectTrigger
     v-bind="delegatedProps"
-    :data-size="size"
-    :data-variant="variant"
     :class="clsx('celeste-select-trigger', props.class)"
   >
     <slot />
@@ -49,33 +48,37 @@ const delegatedProps = computed(() => {
   cursor: pointer;
   gap: var(--spacing-8);
 
-  &[data-size='xs'] {
+  &[size='xs'] {
     height: 32px;
   }
 
-  &[data-size='sm'] {
+  &[size='sm'] {
     height: 36px;
   }
 
-  &[data-size='md'] {
+  &[size='md'] {
     height: 40px;
   }
 
-  &[data-size='lg'] {
+  &[size='lg'] {
     height: 56px;
   }
 
-  &[data-variant='compact'] {
+  &[variant='compact'] {
     width: fit-content;
   }
 
-  &[data-variant='inline'] {
+  &[variant='inline'] {
     width: fit-content;
     height: fit-content;
     padding: var(--spacing-0);
     border-color: transparent;
     background-color: transparent;
     box-shadow: none;
+  }
+
+  &[haserror='true'] {
+    border-color: var(--color-state-error-base);
   }
 
   &:disabled {

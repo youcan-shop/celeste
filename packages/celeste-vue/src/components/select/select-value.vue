@@ -13,7 +13,10 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <SelectValue v-bind="delegatedProps" :class="clsx('celeste-select-value', props.class)">
+  <SelectValue
+    v-bind="delegatedProps"
+    :class="clsx('celeste-select-value', props.class)"
+  >
     <slot />
   </SelectValue>
 </template>
