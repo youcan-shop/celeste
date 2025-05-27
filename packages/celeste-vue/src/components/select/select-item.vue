@@ -27,6 +27,7 @@ const delegatedProps = computed(() => {
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-8);
+  gap: var(--spacing-4);
   border-radius: var(--radius-8);
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -35,18 +36,32 @@ const delegatedProps = computed(() => {
   font: var(--paragraph-sm);
   cursor: pointer;
 
-  i {
+  &:deep(i) {
     color: var(--color-icon-sub-600);
-  }
-
-  & > span:last-child {
-    display: flex;
-    align-items: center;
   }
 
   &:hover,
   &:focus {
     background-color: var(--color-bg-weak-50);
+  }
+
+  &:deep(> span) {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+  }
+
+  &[data-disabled] {
+    color: var(--color-text-disabled-300);
+    pointer-events: none;
+
+    &:deep(i) {
+      color: var(--color-icon-disabled-300);
+    }
+
+    &:deep(.celeste-select-item-icon > img) {
+      opacity: 0.3;
+    }
   }
 }
 </style>

@@ -20,12 +20,16 @@ const delegatedProps = computed(() => {
 
 <style scoped>
 .celeste-select-value {
+  display: flex;
+  align-items: center;
   overflow: hidden;
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
+  gap: var(--spacing-8);
 
+  &:deep(i),
   &:deep(~ i) {
     flex-shrink: 0;
     color: var(--color-icon-sub-600);

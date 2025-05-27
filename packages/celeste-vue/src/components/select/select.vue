@@ -15,7 +15,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <SelectRoot v-bind="forwarded" :class="clsx('celeste-select', props.class)">
+  <SelectRoot
+    v-bind="forwarded"
+    :class="clsx('celeste-select', props.class)"
+  >
     <slot />
   </SelectRoot>
 </template>

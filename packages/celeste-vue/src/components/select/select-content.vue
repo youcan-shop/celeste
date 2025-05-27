@@ -31,24 +31,42 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style>
 .celeste-select-content {
   width: var(--radix-select-trigger-width);
-  scale: 0.98;
-  margin-block-start: var(--spacing-4);
-  animation: open var(--animation-fast) forwards;
+  max-height: var(--radix-select-content-available-height);
+  overflow-y: scroll;
+  animation: var(--animation-fast) forwards;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
+  scale: 0.98;
   gap: var(--spacing-4);
+
+  &[data-side='top'] {
+    margin-block-start: var(--spacing-4);
+    animation-name: open-top;
+  }
+
+  &[data-side='bottom'] {
+    margin-block-end: var(--spacing-4);
+    animation-name: open-bottom;
+  }
 
   .celeste-select-view-port {
     padding: var(--spacing-8);
   }
 }
 
-@keyframes open {
+@keyframes open-bottom {
   to {
     scale: 1;
     margin-block-start: var(--spacing-8);
+  }
+}
+
+@keyframes open-top {
+  to {
+    scale: 1;
+    margin-block-end: var(--spacing-8);
   }
 }
 </style>

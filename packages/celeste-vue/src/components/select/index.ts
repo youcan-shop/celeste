@@ -1,6 +1,9 @@
 export * from './select-content.vue';
 export { default as SelectContent } from './select-content.vue';
 
+export * from './select-item-icon.vue';
+export { default as SelectItemIcon } from './select-item-icon.vue';
+
 export * from './select-item.vue';
 export { default as SelectItem } from './select-item.vue';
 
