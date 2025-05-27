@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import TextArea from '../text-area.vue';
+import TextArea from '../textarea.vue';
 
 const meta: Meta<typeof TextArea> = {
   title: 'Components/Text Area',
