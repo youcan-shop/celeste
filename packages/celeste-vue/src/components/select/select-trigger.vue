@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SelectIcon, SelectTrigger, type SelectTriggerProps } from 'radix-vue';
-import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<SelectTriggerProps & {
   class?: HTMLAttributes['class'];
@@ -13,11 +14,7 @@ const props = withDefaults(defineProps<SelectTriggerProps & {
   size: 'md',
 });
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
+const delegatedProps = useDelegatedProps(props, 'class');
 </script>
 
 <template>

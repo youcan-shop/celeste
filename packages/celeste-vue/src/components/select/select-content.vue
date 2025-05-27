@@ -1,16 +1,13 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SelectContent, type SelectContentEmits, type SelectContentProps, SelectPortal, SelectViewport, useForwardPropsEmits } from 'radix-vue';
-import { computed, type HTMLAttributes } from 'vue';
 
 const props = defineProps<SelectContentProps & { class?: HTMLAttributes['class'] }>();
 const emits = defineEmits<SelectContentEmits>();
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-  return delegated;
-});
-
+const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
