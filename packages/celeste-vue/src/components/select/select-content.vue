@@ -29,8 +29,8 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   </SelectPortal>
 </template>
 
-<style lang="scss">
-.celeste-select-content {
+<style scoped lang="scss">
+:deep(.celeste-select-content) {
   max-height: var(--radix-select-content-available-height);
   overflow-y: scroll;
   animation: var(--animation-fast) forwards;
