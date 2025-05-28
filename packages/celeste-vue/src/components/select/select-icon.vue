@@ -8,13 +8,13 @@ const delegatedProps = useDelegatedProps(props, 'class');
 </script>
 
 <template>
-  <span v-bind="delegatedProps" :class="clsx('celeste-select-item-icon', props.class)">
+  <span v-bind="delegatedProps" :class="clsx('celeste-select-icon', props.class)">
     <slot />
   </span>
 </template>
 
-<style scoped>
-.celeste-select-item-icon {
+<style scoped lang="scss">
+.celeste-select-icon {
   --select-icon-size: 20px;
 
   width: var(--select-icon-size);

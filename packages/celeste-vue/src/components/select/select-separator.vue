@@ -15,7 +15,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .celeste-select-separator {
   width: 100%;
   height: 1px;

@@ -17,7 +17,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   </SelectValue>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .celeste-select-value {
   display: flex;
   align-items: center;

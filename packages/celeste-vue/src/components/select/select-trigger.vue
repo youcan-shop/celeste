@@ -7,7 +7,7 @@ import { SelectIcon, SelectTrigger, type SelectTriggerProps } from 'radix-vue';
 const props = withDefaults(defineProps<SelectTriggerProps & {
   class?: HTMLAttributes['class'];
   variant?: 'default' | 'compact' | 'inline';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md';
   hasError?: boolean;
 }>(), {
   variant: 'default',
@@ -29,7 +29,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   </SelectTrigger>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .celeste-select-trigger {
   display: flex;
   align-items: center;
@@ -45,6 +45,10 @@ const delegatedProps = useDelegatedProps(props, 'class');
   cursor: pointer;
   gap: var(--spacing-8);
 
+  &:deep(.celeste-select-value) {
+    flex: 2;
+  }
+
   &[size='xs'] {
     height: 32px;
   }
@@ -57,10 +61,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
     height: 40px;
   }
 
-  &[size='lg'] {
-    height: 56px;
-  }
-
   &[variant='compact'] {
     width: fit-content;
   }
@@ -69,6 +69,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
     width: fit-content;
     height: fit-content;
     padding: var(--spacing-0);
+    border-radius: 0;
     border-color: transparent;
     background-color: transparent;
     box-shadow: none;
@@ -78,20 +79,50 @@ const delegatedProps = useDelegatedProps(props, 'class');
     border-color: var(--color-state-error-base);
   }
 
+  &[data-placeholder] {
+    &:deep(.celeste-select-value) {
+      color: var(--color-text-sub-600);
+
+      & ~ i {
+        color: var(--color-icon-soft-400);
+      }
+    }
+
+    &:deep(.celeste-select-icon) {
+      color: var(--color-icon-soft-400);
+    }
+  }
+
   &:disabled {
     border-color: transparent;
     background-color: var(--color-bg-weak-50);
+    pointer-events: none;
 
     &:deep(.celeste-select-value) {
       color: var(--color-text-disabled-300);
 
+      & i,
       & ~ i {
         color: var(--color-icon-disabled-400);
       }
+
+      .celeste-select-icon > img {
+        opacity: 0.3;
+      }
+    }
+
+    &:deep(.celeste-select-icon) {
+      color: var(--color-icon-disabled-400);
     }
   }
 
-  &:not([data-variant='inline']) {
+  &:not([data-placeholder]) {
+    &:deep(> :first-child.celeste-select-icon) {
+      display: none;
+    }
+  }
+
+  &:not([variant='inline']) {
     &:hover {
       border-color: transparent;
       background-color: var(--color-bg-weak-50);
@@ -100,16 +131,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
     &:focus {
       border-color: var(--color-stroke-strong-950);
       outline-color: var(--color-stroke-soft-200);
-    }
-  }
-
-  &[data-placeholder] {
-    &:deep(.celeste-select-value) {
-      color: var(--color-text-sub-600);
-
-      & ~ i {
-        color: var(--color-icon-soft-400);
-      }
     }
   }
 }

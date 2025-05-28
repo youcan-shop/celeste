@@ -4,7 +4,10 @@ import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SelectContent, type SelectContentEmits, type SelectContentProps, SelectPortal, SelectViewport, useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<SelectContentProps & { class?: HTMLAttributes['class'] }>();
+const props = withDefaults(defineProps<SelectContentProps & {
+  class?: HTMLAttributes['class'];
+  width?: 'full' | 'fit';
+}>(), { width: 'full' });
 const emits = defineEmits<SelectContentEmits>();
 
 const delegatedProps = useDelegatedProps(props, 'class');
@@ -16,6 +19,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     <SelectContent
       v-bind="forwarded"
       position="popper"
+      :data-width="width"
       :class="clsx('celeste-select-content', props.class)"
     >
       <SelectViewport class="celeste-select-view-port">
@@ -25,9 +29,8 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   </SelectPortal>
 </template>
 
-<style>
+<style lang="scss">
 .celeste-select-content {
-  width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
   overflow-y: scroll;
   animation: var(--animation-fast) forwards;
@@ -46,6 +49,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   &[data-side='bottom'] {
     margin-block-end: var(--spacing-4);
     animation-name: open-bottom;
+  }
+
+  &[width='full'] {
+    width: var(--radix-select-trigger-width);
   }
 
   .celeste-select-view-port {

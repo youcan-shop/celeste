@@ -17,7 +17,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   </SelectLabel>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .celeste-select-label {
   padding: var(--spacing-4) var(--spacing-8);
   color: var(--color-text-soft-400);

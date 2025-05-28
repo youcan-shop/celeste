@@ -17,7 +17,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   </SelectItem>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .celeste-select-item {
   display: flex;
   align-items: center;
@@ -50,12 +50,13 @@ const delegatedProps = useDelegatedProps(props, 'class');
   &[data-disabled] {
     color: var(--color-text-disabled-300);
     pointer-events: none;
+    user-select: none;
 
     &:deep(i) {
       color: var(--color-icon-disabled-300);
     }
 
-    &:deep(.celeste-select-item-icon > img) {
+    &:deep(.celeste-select-icon > img) {
       opacity: 0.3;
     }
   }
