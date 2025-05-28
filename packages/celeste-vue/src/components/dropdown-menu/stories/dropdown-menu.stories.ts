@@ -52,35 +52,35 @@ export const Default: Story = {
     template: `
       <DropdownMenu v-bind="args">
          <DropdownMenuTrigger>
-      trigger
-    </DropdownMenuTrigger>
+            <i class="i-celeste-menu-line" />
+         </DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuGroup>
-        <DropdownMenuItem label="Item 1" sublabel="(sublabel)" description="wei@alignui.com">
-        </DropdownMenuItem>
-        
+        <DropdownMenuItem label="Item 1" sublabel="(sublabel)" description="wei@alignui.com" />        
         <DropdownMenuSeparator />
         
         <DropdownMenuItem label="Item 2">
-        <template #prefix>
-        <i class="i-celeste-home-4-line" />
-        </template>
+           <template #prefix>
+              <i class="i-celeste-home-4-line" />
+           </template>
         </DropdownMenuItem>
+
         <DropdownMenuItem label="Item 3" disabled>
           <template #prefix>
              <i class="i-celeste-global-line" />
           </template>
         </DropdownMenuItem>
+
         <DropdownMenuItem label="Item 4">
-        <template #suffix>
-           <Badge v-bind="badgeProps" />
-        </template>
+           <template #suffix>
+             <Badge v-bind="badgeProps" />
+           </template>
         </DropdownMenuItem label="Item 4">
         
         <DropdownMenuSeparator />
 
         <DropdownMenuLabel>
-        Label
+           Label
         </DropdownMenuLabel>
 
         <DropdownMenuSub>

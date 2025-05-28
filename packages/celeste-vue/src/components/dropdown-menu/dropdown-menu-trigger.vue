@@ -38,5 +38,15 @@ const forwardedProps = useForwardProps(props);
     box-shadow: var(--shadow-buttons-important-focus);
     color: var(--color-text-strong-950);
   }
+
+  &[data-disabled] {
+    background: var(--color-bg-weak-50);
+    color: var(--color-text-disabled-300);
+    cursor: auto;
+
+    &:deep(i) {
+      color: var(--color-icon-disabled-300);
+    }
+  }
 }
 </style>
