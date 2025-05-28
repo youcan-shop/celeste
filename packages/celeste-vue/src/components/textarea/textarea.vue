@@ -78,12 +78,9 @@ export interface TextAreaProps {
 
   &:focus-within {
     &:not([aria-disabled='true']) {
+      border: 1px solid var(--color-stroke-strong-950);
       outline: none;
       box-shadow: var(--shadow-buttons-important-focus);
-
-      &:not([error='true']) {
-        border: 1px solid var(--color-stroke-strong-950);
-      }
     }
   }
 
@@ -110,14 +107,11 @@ export interface TextAreaProps {
   }
 
   &[error='true'] {
+    border: 1px solid var(--color-state-error-base);
+
     .celeste-textarea-count {
       color: var(--color-state-error-base);
     }
-  }
-
-  &[error='true'],
-  &[error='true']:hover {
-    border: 1px solid var(--color-state-error-base);
   }
 
   .celeste-textarea {
