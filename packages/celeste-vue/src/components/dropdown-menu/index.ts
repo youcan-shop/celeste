@@ -1,6 +1,3 @@
-export * from './dropdown-mensub-content.vue';
-export { default as DropdownMenuSubContent } from './dropdown-mensub-content.vue';
-
 export * from './dropdown-menu-content.vue';
 export { default as DropdownMenuContent } from './dropdown-menu-content.vue';
 
@@ -15,6 +12,9 @@ export { default as DropdownMenuLabel } from './dropdown-menu-label.vue';
 
 export * from './dropdown-menu-separator.vue';
 export { default as DropdownMenuSeparator } from './dropdown-menu-separator.vue';
+
+export * from './dropdown-menu-sub-content.vue';
+export { default as DropdownMenuSubContent } from './dropdown-menu-sub-content.vue';
 
 export * from './dropdown-menu-sub-trigger.vue';
 export { default as DropdownMenuSubTrigger } from './dropdown-menu-sub-trigger.vue';

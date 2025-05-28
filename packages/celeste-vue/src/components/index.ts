@@ -4,6 +4,7 @@ export * from './button';
 export * from './checkbox';
 export * from './content-divider';
 export * from './dropdown';
+export * from './dropdown-menu';
 export * from './hint-text';
 export * from './input';
 export * from './label';
