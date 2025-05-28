@@ -25,7 +25,7 @@ export const Default: Story = {
         <PopoverTrigger>
           Trigger
         </PopoverTrigger>
-        <PopoverContent title="Hello" description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium, corporis ex. Atque nihil ipsum ratione aspernatur excepturi consequuntur laboriosam minus, dignissimos iure voluptatum. Quam nisi explicabo assumenda quia. Facilis, error.">
+        <PopoverContent icon="i-celeste-magic-line" title="Hello" description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium, corporis ex. Atque nihil ipsum ratione aspernatur excepturi consequuntur laboriosam minus, dignissimos iure voluptatum. Quam nisi explicabo assumenda quia. Facilis, error.">
           
         </PopoverContent>
       </Popover>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import Button from '@/components/button/button.vue';
+import CompactButton from '@/components/button/compact-button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import {
@@ -24,6 +24,7 @@ const props = withDefaults(
     showTail: true,
     side: 'bottom',
     dismissible: true,
+    iconSize: 'lg',
   },
 );
 const emits = defineEmits<PopoverContentEmits>();
@@ -41,6 +42,8 @@ export interface PopoverProps {
   description?: string;
   showTail?: boolean;
   dismissible?: boolean;
+  icon?: string;
+  iconSize?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 }
 </script>
 
@@ -58,6 +61,15 @@ export interface PopoverProps {
     >
       <div class="celeste-popover-content">
         <template v-if="!$slots.default">
+          <span
+            v-if="icon"
+            class="celeste-popover-icon"
+            :data-icon-size="iconSize"
+          >
+            <i
+              :class="icon"
+            />
+          </span>
           <p class="celeste-popover-title">
             {{ title }}
           </p>
@@ -81,25 +93,44 @@ export interface PopoverProps {
         class="PopoverClose"
         aria-label="Close"
       >
-        <Button
-          size="xxs"
-          variant="ghost"
-          type="neutral"
+        <CompactButton
+          icon="i-celeste-close-line"
           class="celeste-popover-close-button"
-        >
-          <i i-celeste-close-line />
-        </Button>
+        />
       </PopoverClose>
     </PopoverContent>
   </PopoverPortal>
 </template>
 
 <style scoped lang="scss">
+@use 'sass:map';
+
+$icon-size-map: (
+  'sm': (
+    size: 32px,
+    padding: var(--spacing-6),
+  ),
+  'md': (
+    size: 40px,
+    padding: var(--spacing-6),
+  ),
+  'lg': (
+    size: 48px,
+    padding: var(--spacing-12),
+  ),
+  'xl': (
+    size: 56px,
+    padding: var(--spacing-14),
+  ),
+  'xxl': (
+    size: 64px,
+    padding: var(--spacing-16),
+  ),
+);
+
 :deep(.celeste-popover-content-wrapper) {
   min-width: 320px;
   max-width: 400px;
-
-  // height: 100px;
   padding: var(--spacing-16);
   transform-origin: var(--radix-popover-content-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
@@ -150,7 +181,7 @@ export interface PopoverProps {
   .celeste-popover-content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-8);
+    gap: var(--spacing-4);
 
     .celeste-popover-title,
     .celeste-popover-description {
@@ -166,6 +197,33 @@ export interface PopoverProps {
       color: var(--color-text-sub-600);
       font: var(--paragraph-sm);
     }
+
+    .celeste-popover-icon {
+      box-sizing: border-box;
+      margin-block-end: var(--spacing-16);
+      border: 1px solid var(--color-stroke-soft-200);
+      border-radius: 50%;
+
+      @each $key, $value in $icon-size-map {
+        &[data-icon-size='#{$key}'] {
+          width: map.get($value, size);
+          height: map.get($value, size);
+          padding: map.get($value, padding);
+        }
+      }
+
+      i {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+@keyframes open {
+  to {
+    opacity: 1;
+    scale: 1;
   }
 }
 
@@ -178,13 +236,6 @@ export interface PopoverProps {
   to {
     scale: 0.95;
     opacity: 0;
-  }
-}
-
-@keyframes open {
-  to {
-    opacity: 1;
-    scale: 1;
   }
 }
 </style>
