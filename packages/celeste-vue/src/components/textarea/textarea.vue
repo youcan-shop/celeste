@@ -14,10 +14,9 @@ const modelValue = defineModel<string>();
 <script lang="ts">
 export interface TextAreaProps {
   class?: TextareaHTMLAttributes['class'];
-  disabled?: boolean;
   placeholder: string;
-  error?: boolean;
   showCount?: boolean;
+  disabled?: boolean;
   maxLength?: TextareaHTMLAttributes['maxlength'];
 }
 </script>
@@ -26,19 +25,17 @@ export interface TextAreaProps {
   <div
     :class="clsx(
       'celeste-textarea-wrapper',
-      { 'celeste-textarea-wrapper-error': error },
-      { 'celeste-textarea-wrapper-disabled': disabled },
       props.class,
     )"
+    :aria-disabled="disabled"
     @click="$el.querySelector('textarea')?.focus()"
   >
     <textarea
       v-model="modelValue"
       v-bind="$attrs"
       :placeholder="placeholder"
-      :disabled="disabled"
-      :aria-disabled="disabled"
       :maxlength="maxLength"
+      :disabled="disabled"
       class="celeste-textarea"
     />
     <span v-if="showCount && Number(maxLength)" class="celeste-textarea-count">
@@ -72,17 +69,22 @@ export interface TextAreaProps {
   cursor: text;
   gap: var(--spacing-8);
 
-  &:hover {
+  &:hover:not(:focus-within) {
     border-color: var(--color-bg-weak-50);
     background: var(--color-bg-weak-50);
     box-shadow: none;
     color: var(--color-text-sub-600);
   }
 
-  &:focus-within:not(.celeste-textarea-wrapper-disabled) {
-    border: 1px solid var(--color-stroke-strong-950);
-    outline: none;
-    box-shadow: var(--shadow-buttons-important-focus);
+  &:focus-within {
+    &:not([aria-disabled='true']) {
+      outline: none;
+      box-shadow: var(--shadow-buttons-important-focus);
+
+      &:not([error='true']) {
+        border: 1px solid var(--color-stroke-strong-950);
+      }
+    }
   }
 
   .celeste-textarea-count {
@@ -96,9 +98,10 @@ export interface TextAreaProps {
     inset-inline-end: calc(var(--spacing) + var(--resize-handle-offset));
   }
 
-  &-disabled {
-    border: none;
+  &[aria-disabled='true'] {
+    border-color: transparent;
     background: var(--color-bg-weak-50);
+    box-shadow: none;
     cursor: not-allowed;
 
     .celeste-textarea-count {
@@ -106,14 +109,14 @@ export interface TextAreaProps {
     }
   }
 
-  &-error {
+  &[error='true'] {
     .celeste-textarea-count {
       color: var(--color-state-error-base);
     }
   }
 
-  &-error,
-  &-error:hover {
+  &[error='true'],
+  &[error='true']:hover {
     border: 1px solid var(--color-state-error-base);
   }
 
@@ -147,7 +150,7 @@ export interface TextAreaProps {
 
     &:disabled {
       color: var(--color-text-disabled-300);
-      cursor: not-allowed;
+      pointer-events: none;
 
       &::placeholder {
         color: var(--color-text-disabled-300);
