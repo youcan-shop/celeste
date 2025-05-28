@@ -393,18 +393,6 @@ export const Group: Story = {
             <SelectItem value="carrot">Carrot</SelectItem>
             <SelectItem value="courgette" disabled>Courgette</SelectItem>
             <SelectItem value="leek">Leek</SelectItem>
-            <SelectItem value="carrot">Carrot</SelectItem>
-            <SelectItem value="courgette" disabled>Courgette</SelectItem>
-            <SelectItem value="leek">Leek</SelectItem>
-            <SelectItem value="carrot">Carrot</SelectItem>
-            <SelectItem value="courgette" disabled>Courgette</SelectItem>
-            <SelectItem value="leek">Leek</SelectItem>
-            <SelectItem value="carrot">Carrot</SelectItem>
-            <SelectItem value="courgette" disabled>Courgette</SelectItem>
-            <SelectItem value="leek">Leek</SelectItem>
-            <SelectItem value="carrot">Carrot</SelectItem>
-            <SelectItem value="courgette" disabled>Courgette</SelectItem>
-            <SelectItem value="leek">Leek</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
