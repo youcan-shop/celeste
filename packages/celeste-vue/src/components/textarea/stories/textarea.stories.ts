@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import TextArea from '../textarea.vue';
+import Textarea from '../textarea.vue';
 
-const meta: Meta<typeof TextArea> = {
-  title: 'Components/Text Area',
-  component: TextArea,
+const meta: Meta<typeof Textarea> = {
+  title: 'Components/Textarea',
+  component: Textarea,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof TextArea>;
+type Story = StoryObj<typeof Textarea>;
 
 export const Default: Story = {
   args: {
@@ -16,12 +16,12 @@ export const Default: Story = {
   },
 
   render: args => ({
-    components: { TextArea },
+    components: { Textarea },
     setup() {
       return { args };
     },
     template: `
-      <TextArea v-bind="args" rows="10" />
+      <Textarea v-bind="args" rows="10" />
     `,
   }),
 };

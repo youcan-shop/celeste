@@ -27,7 +27,6 @@ export interface TextAreaProps {
     :class="clsx(
       'celeste-textarea-wrapper',
       { 'celeste-textarea-wrapper-error': error },
-      { 'celeste-textarea-wrapper-disabled': disabled },
       props.class,
     )"
     @click="$el.querySelector('textarea')?.focus()"
@@ -79,7 +78,7 @@ export interface TextAreaProps {
     color: var(--color-text-sub-600);
   }
 
-  &:focus-within:not(.celeste-textarea-wrapper-disabled) {
+  &:focus-within:not([disabled]) {
     border: 1px solid var(--color-stroke-strong-950);
     outline: none;
     box-shadow: var(--shadow-buttons-important-focus);
