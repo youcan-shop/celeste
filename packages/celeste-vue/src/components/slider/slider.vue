@@ -67,6 +67,14 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     &[style*='right: calc(0%'] {
       background-color: var(--color-bg-soft-200);
     }
+
+    &:hover {
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
   }
 }
 </style>
