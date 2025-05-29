@@ -4,7 +4,7 @@ import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SliderRange, SliderRoot, type SliderRootEmits, type SliderRootProps, SliderThumb, SliderTrack, useForwardPropsEmits } from 'radix-vue';
 
-const props = defineProps<SliderRootProps & { class?: HTMLAttributes['class'] }>();
+const props = defineProps<Omit<SliderRootProps, 'orientation'> & { class?: HTMLAttributes['class'] }>();
 const emits = defineEmits<SliderRootEmits>();
 
 const delegatedProps = useDelegatedProps(props, 'class');
@@ -41,13 +41,14 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     flex-grow: 1;
     width: 100%;
     height: 6px;
+    overflow: hidden;
     border-radius: var(--radius-full);
     background-color: var(--color-bg-soft-200);
 
     .celeste-slider-range {
       position: absolute;
       height: 100%;
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-full) 0 0 var(--radius-full);
       background-color: var(--color-primary-base);
     }
   }
