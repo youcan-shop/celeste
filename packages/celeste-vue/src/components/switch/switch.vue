@@ -45,8 +45,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     height: calc(var(--switch-thumb-size) / 3);
     transform: translateY(-50%);
     transition:
-      width,
-      height,
       inset-inline-start,
       var(--animation-fast) var(--animation-function);
     border: calc(var(--switch-thumb-size) / 4) solid var(--color-static-white);
