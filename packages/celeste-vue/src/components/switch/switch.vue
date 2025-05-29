@@ -42,9 +42,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     width: calc(var(--switch-thumb-size) / 3);
     height: calc(var(--switch-thumb-size) / 3);
     transform: translateY(-50%);
-    transition:
-      inset-inline-start,
-      var(--animation-fast) var(--animation-function);
+    transition-property: inset-inline-start, width, height;
+    transition-duration: var(--animation-fast);
+    transition-timing-function: var(--animation-function), ease-out, ease-out;
     border: calc(var(--switch-thumb-size) / 4) solid var(--color-static-white);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-toggle-switch);
