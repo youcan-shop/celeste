@@ -20,7 +20,6 @@ defineOptions({
 const props = withDefaults(
   defineProps<PopoverProps>(),
   {
-    sideOffset: 4,
     showTail: true,
     side: 'bottom',
     dismissible: true,
@@ -50,8 +49,8 @@ export interface PopoverProps {
 <template>
   <PopoverPortal>
     <PopoverContent
-      data-slot="popover-content"
       v-bind="{ ...forwarded, ...$attrs }"
+      :side-offset="showTail ? 0 : 8"
       :class="
         clsx(
           'celeste-popover-content-wrapper',
@@ -94,10 +93,14 @@ export interface PopoverProps {
         aria-label="Close"
       >
         <CompactButton
+          variant="ghost"
           icon="i-celeste-close-line"
           class="celeste-popover-close-button"
         />
       </PopoverClose>
+      <div v-if="$slots.footer" class="celeste-popover-footer">
+        <slot name="footer" />
+      </div>
     </PopoverContent>
   </PopoverPortal>
 </template>
@@ -129,9 +132,8 @@ $icon-size-map: (
 );
 
 :deep(.celeste-popover-content-wrapper) {
-  min-width: 320px;
+  min-width: 300px;
   max-width: 400px;
-  padding: var(--spacing-16);
   transform-origin: var(--radix-popover-content-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
   border: 1px solid var(--color-stroke-soft-200);
@@ -181,7 +183,8 @@ $icon-size-map: (
   .celeste-popover-content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-4);
+    padding: var(--spacing-16);
+    gap: var(--spacing-8);
 
     .celeste-popover-title,
     .celeste-popover-description {
@@ -203,6 +206,7 @@ $icon-size-map: (
       margin-block-end: var(--spacing-16);
       border: 1px solid var(--color-stroke-soft-200);
       border-radius: 50%;
+      color: var(--color-icon-sub-600);
 
       @each $key, $value in $icon-size-map {
         &[data-icon-size='#{$key}'] {
@@ -217,6 +221,12 @@ $icon-size-map: (
         height: 100%;
       }
     }
+  }
+
+  .celeste-popover-footer {
+    display: flex;
+    padding: var(--spacing-16);
+    border-block-start: 1px solid var(--color-stroke-soft-200);
   }
 }
 
