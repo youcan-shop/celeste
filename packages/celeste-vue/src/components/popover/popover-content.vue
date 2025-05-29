@@ -8,8 +8,8 @@ import {
   PopoverClose,
   PopoverContent,
   type PopoverContentEmits,
-  type PopoverContentProps,
   PopoverPortal,
+  type PopoverContentProps as RadixPopoverContentProps,
   useForwardPropsEmits,
 } from 'radix-vue';
 
@@ -18,7 +18,7 @@ defineOptions({
 });
 
 const props = withDefaults(
-  defineProps<PopoverProps>(),
+  defineProps<PopoverContentProps>(),
   {
     showTail: true,
     side: 'bottom',
@@ -34,9 +34,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <script lang="ts">
-export interface PopoverProps {
+export interface PopoverContentProps {
   class?: HTMLAttributes['class'];
-  side?: PopoverContentProps['side'];
+  side?: RadixPopoverContentProps['side'];
   title?: string;
   description?: string;
   showTail?: boolean;
