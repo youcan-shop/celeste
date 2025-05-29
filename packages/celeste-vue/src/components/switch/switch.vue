@@ -16,9 +16,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     v-bind="forwarded"
     :class="clsx('celeste-switch', props.class)"
   >
-    <SwitchThumb class="celeste-switch-thumb">
-      <slot name="thumb" />
-    </SwitchThumb>
+    <SwitchThumb class="celeste-switch-thumb" />
   </SwitchRoot>
 </template>
 
