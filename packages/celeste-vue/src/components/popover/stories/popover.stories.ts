@@ -57,7 +57,6 @@ export default meta;
 
 type Story = StoryObj<typeof Popover>;
 
-// Basic popover with title and description
 export const Default: Story = {
   args: {},
   render: args => ({
@@ -80,7 +79,6 @@ export const Default: Story = {
   }),
 };
 
-// Popover with icon
 export const WithIcon: Story = {
   args: {},
   render: args => ({
@@ -105,7 +103,6 @@ export const WithIcon: Story = {
   }),
 };
 
-// Popover with different icon sizes
 export const IconSizes: Story = {
   args: {},
   render: args => ({
@@ -189,7 +186,6 @@ export const IconSizes: Story = {
   }),
 };
 
-// Popover with footer
 export const WithFooter: Story = {
   args: {},
   render: args => ({
@@ -225,7 +221,6 @@ export const WithFooter: Story = {
   }),
 };
 
-// Popover without dismissible button
 export const NotDismissible: Story = {
   args: {},
   render: args => ({
@@ -251,7 +246,6 @@ export const NotDismissible: Story = {
   }),
 };
 
-// Popover without tail/arrow
 export const NoTail: Story = {
   args: {},
   render: args => ({
@@ -277,7 +271,6 @@ export const NoTail: Story = {
   }),
 };
 
-// Different positioning
 export const Positioning: Story = {
   args: {},
   render: args => ({
