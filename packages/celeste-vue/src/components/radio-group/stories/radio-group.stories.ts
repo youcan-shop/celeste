@@ -32,15 +32,15 @@ export const Default: Story = {
       <RadioGroup v-bind="args" v-model="option2" style="display: flex; gap: 20px;">
         <div style="display: flex; align-items: center;">
           <RadioGroupItem id="r1" value="option1"></RadioGroupItem>
-          <label for="r1" style="padding-left: 10px;">Option 1</label>
+          <label for="r1" style="padding-inline-start: 10px;">Option 1</label>
         </div>
         <div style="display: flex; align-items: center;">
           <RadioGroupItem id="r2" value="option2"></RadioGroupItem>
-          <label for="r2" style="padding-left: 10px;">Option 2</label>
+          <label for="r2" style="padding-inline-start: 10px;">Option 2</label>
         </div>
         <div style="display: flex; align-items: center;">
           <RadioGroupItem id="r3" value="option3"></RadioGroupItem>
-          <label for="r3" style="padding-left: 10px;">Option 3</label>
+          <label for="r3" style="padding-inline-start: 10px;">Option 3</label>
         </div>
       </RadioGroup>
     `,
