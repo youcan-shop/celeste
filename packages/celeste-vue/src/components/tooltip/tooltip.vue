@@ -79,6 +79,8 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
   display: flex;
   position: relative;
   align-items: flex-start;
+  width: auto;
+  height: auto;
   transition: all var(--animation-fast) ease-out;
   border: 1px solid transparent;
   background-color: var(--color-bg-white-0);
