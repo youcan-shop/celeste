@@ -1,81 +1,72 @@
 <script setup lang="ts">
+import type { TooltipContentProps, TooltipRootEmits, TooltipRootProps } from 'radix-vue';
+import CompactButton from '@/components/button/compact-button.vue';
 import clsx from 'clsx';
-import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'radix-vue';
-import { ref } from 'vue';
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger, useForwardPropsEmits } from 'radix-vue';
+import { type HTMLAttributes, ref } from 'vue';
 
 const props = withDefaults(defineProps<TooltipProps>(), {
-  size: 'xs',
-  icon: 'i-celeste-information-line',
-  position: 'left',
+  delayDuration: 0,
+  sideOffset: 12,
+  variant: 'light',
+  size: 'sm',
 });
 
-const isOpen = ref(true);
+const emits = defineEmits<TooltipRootEmits>();
+const forwarded = useForwardPropsEmits(props, emits);
+
+const isOpen = ref(props.defaultOpen);
+
+function close() {
+  isOpen.value = false;
+}
 </script>
 
 <script lang="ts">
-export interface TooltipProps {
-  class?: string;
-  size?: 'xxs' | 'xs' | 'lg';
-  position: 'top' | 'right' | 'bottom' | 'left';
-  text: string;
+export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
+  class?: HTMLAttributes['class'];
+  size?: 'xs' | 'sm' | 'md';
+  variant?: 'light' | 'dark';
   icon?: string;
+  title?: string;
   description?: string;
-  dismissable: boolean;
+  dismissible?: boolean;
 }
 </script>
 
 <template>
   <TooltipProvider>
-    <TooltipRoot :open="isOpen" @update:open="(val) => isOpen = val">
-      <TooltipTrigger
-        :class="clsx('celeste-tooltip-trigger', props.class)"
-      >
-        <slot name="tooltip-trigger" class="celeste-tooltip-trigger" />
+    <TooltipRoot
+      v-bind="forwarded"
+      :open="isOpen"
+      @update:open="(state) => isOpen = state"
+    >
+      <TooltipTrigger as-child>
+        <slot />
       </TooltipTrigger>
-      <TooltipPortal>
+      <TooltipPortal class="celeste-tooltip-portal">
         <TooltipContent
-          aria-label="tooltip"
-          :aria-hidden="isOpen"
-          :class="clsx(
-            'celeste-tooltip-content',
-            `celeste-tooltip-size-${size}`,
-          )"
-          :side="props.position"
-          :arrow-padding="15"
-          :align="size === 'lg' ? 'start' : 'center'"
+          v-bind="{ ...forwarded, ...$attrs }"
           force-mount
+          :size="size"
+          :variant="variant"
+          :class="clsx('celeste-tooltip-content', props.class)"
         >
-          <div v-if="size === 'lg'" class="celeste-tooltip-large">
-            <i v-if="icon" :class="icon" />
-            <div class="celeste-tooltip-large-content">
-              <div class="celeste-tooltip-large-title">
-                {{ text }}
-              </div>
-              <div
-                v-if="description"
-                class="celeste-tooltip-large-description"
-              >
-                {{ description }}
-              </div>
-            </div>
-            <button
-              v-if="dismissable"
-              aria-label="close tooltip"
-              type="button"
-              @click="() => isOpen = false"
-            >
-              <i class="i-celeste-close-line" />
-            </button>
+          <i v-if="icon" :class="`celeste-tooltip-content-icon ${icon}`" />
+          <div class="celeste-tooltip-content-box">
+            <span v-if="title" class="celeste-tooltip-content-title">{{ title }}</span>
+            <span v-if="description" class="celeste-tooltip-content-description">
+              {{ description }}
+            </span>
           </div>
-          <div v-else>
-            {{ text }}
-          </div>
-          <TooltipArrow
-            as-child
-            :width="12"
-            :height="6"
-          >
-            <span class="celeste-tooltip-arrow" />
+          <CompactButton
+            v-if="dismissible"
+            variant="ghost"
+            icon="i-celeste-close-line"
+            @click="close"
+          />
+          <TooltipArrow as-child>
+            <span class="celeste-tooltip-content-arrow" />
           </TooltipArrow>
         </TooltipContent>
       </TooltipPortal>
@@ -83,132 +74,150 @@ export interface TooltipProps {
   </TooltipProvider>
 </template>
 
-<style lang="scss">
-@use 'sass:map';
-
-.celeste-tooltip {
-  $sizes-map: (
-    'xxs': (
-      'padding': (
-        2px 6px,
-      ),
-      'border-radius': var(--radius-4),
-      'justify-content': center,
-      'align-items': center,
-    ),
-    'xs': (
-      'padding': (
-        4px 10px,
-      ),
-      'border-radius': var(--radius-4),
-      'justify-content': center,
-      'align-items': center,
-    ),
-    'lg': (
-      'padding': 12px,
-      'border-radius': var(--radius-12),
-      'align-items': flex-start,
-      'justify-content': flex-start,
-    ),
-  );
-
-  @each $size, $values in $sizes-map {
-    &-size-#{$size} {
-      align-items: map.get($values, 'align-items');
-      justify-content: map.get($values, 'justify-content');
-      padding: map.get($values, 'padding');
-      border-radius: map.get($values, 'border-radius');
-    }
-  }
-}
-
-.celeste-tooltip-trigger {
-  border: none;
-  background: none;
-}
-
-.celeste-tooltip-content {
+<style scoped lang="scss">
+:deep(.celeste-tooltip-content) {
   display: flex;
   position: relative;
-  transition-property: opacity;
-  transition-duration: var(--animation-fast);
-  transition-timing-function: ease-out;
-  border: 1px solid var(--color-stroke-soft-200);
-  opacity: 0;
-  background: var(--color-bg-white-0);
+  align-items: flex-start;
+  transition: all var(--animation-fast) ease-out;
+  border: 1px solid transparent;
+  background-color: var(--color-bg-white-0);
   box-shadow:
     0 12px 24px 0 rgb(14 18 27 / 6%),
     0 1px 2px 0 rgb(14 18 27 / 3%);
-  color: var(--color-text-strong-950);
-  font: var(--paragraph-sm);
-  will-change: opacity;
+  gap: var(--spacing-12);
+  will-change: opacity, translate, scale;
 
   &[data-state='delayed-open'] {
+    scale: 1;
     opacity: 1;
+    translate: 0;
   }
 
   &[data-state='closed'] {
     opacity: 0;
-  }
+    scale: 0.98;
 
-  .celeste-tooltip-arrow {
-    position: relative;
-    top: -1px;
-    width: 0;
-    height: 0;
-    border-top: 6px solid var(--color-bg-white-0);
-    border-right: 6px solid transparent;
-    border-left: 6px solid transparent;
+    &[data-side='left'] {
+      translate: calc(var(--spacing-4) * -1) 0;
+    }
 
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      top: -4.8px;
-      left: -6px;
-      width: 0;
-      height: 0;
-      border-top: 6px solid var(--color-stroke-soft-200);
-      border-right: 6px solid transparent;
-      border-left: 6px solid transparent;
+    &[data-side='right'] {
+      translate: var(--spacing-4) 0;
+    }
+
+    &[data-side='top'] {
+      translate: 0 calc(var(--spacing-4) * -1);
+    }
+
+    &[data-side='bottom'] {
+      translate: 0 var(--spacing-4);
     }
   }
-}
 
-.celeste-tooltip-large {
-  display: flex;
-  gap: var(--spacing-12);
-  max-width: 250px;
-
-  i {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    color: var(--color-icon-sub-600);
-  }
-
-  button {
-    width: fit-content;
-    height: fit-content;
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-
-  &-content {
+  .celeste-tooltip-content-box {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);
+
+    .celeste-tooltip-content-description {
+      font: var(--paragraph-xs);
+    }
   }
 
-  &-title {
-    color: var(--color-text-strong-950);
-    font: var(--label-sm);
+  .celeste-tooltip-content-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
   }
 
-  &-description {
-    color: var(--color-text-sub-600);
-    font: var(--paragraph-xs);
+  .celeste-tooltip-content-arrow {
+    --tooltip-arrow-size: 8px;
+
+    position: absolute;
+    width: var(--tooltip-arrow-size);
+    border: 1px solid transparent;
+    border-bottom-left-radius: calc(var(--radius-6) / 2);
+    background-color: var(--color-bg-white-0);
+    rotate: -45deg;
+    aspect-ratio: 1;
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+    inset-inline-start: calc(var(--tooltip-arrow-size) / 4 * -1);
+    inset-block-start: calc((var(--tooltip-arrow-size) / 2 + 1px) * -1);
+  }
+
+  &[variant='light'] {
+    border-color: var(--color-stroke-soft-200);
+
+    .celeste-tooltip-content-icon {
+      color: var(--color-icon-sub-600);
+    }
+
+    .celeste-tooltip-content-title {
+      color: var(--color-text-strong-950);
+    }
+
+    .celeste-tooltip-content-description {
+      color: var(--color-text-sub-600);
+    }
+
+    .celeste-tooltip-content-arrow {
+      border-color: var(--color-stroke-soft-200);
+    }
+  }
+
+  &[variant='dark'] {
+    background-color: var(--color-bg-strong-950);
+
+    .celeste-tooltip-content-icon {
+      color: var(--color-icon-soft-400);
+    }
+
+    .celeste-tooltip-content-title {
+      color: var(--color-text-white-0);
+    }
+
+    .celeste-tooltip-content-description {
+      color: var(--color-text-soft-400);
+    }
+
+    .celeste-tooltip-content-arrow {
+      background-color: var(--color-bg-strong-950);
+    }
+  }
+
+  &[size='xs'] {
+    padding: var(--spacing-2) var(--spacing-6);
+    border-radius: var(--radius-4);
+
+    .celeste-tooltip-content-title {
+      font: var(--paragraph-xs);
+    }
+  }
+
+  &[size='sm'] {
+    padding: var(--spacing-4) var(--spacing-10);
+    border-radius: var(--radius-6);
+
+    .celeste-tooltip-content-title {
+      font: var(--paragraph-sm);
+    }
+  }
+
+  &[size='md'] {
+    padding: var(--spacing-12);
+    border-radius: var(--radius-12);
+
+    .celeste-tooltip-content-title {
+      font: var(--label-sm);
+    }
+  }
+
+  &[data-side='left'],
+  &[data-side='right'] {
+    .celeste-tooltip-content-arrow {
+      translate: calc(var(--tooltip-arrow-size) / 4 * -1) 0;
+    }
   }
 }
 </style>
