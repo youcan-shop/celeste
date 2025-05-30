@@ -71,6 +71,9 @@ const forwardedProps = useForwardProps(delegatedProps);
     flex-direction: column;
     justify-content: center;
     gap: var(--spacing-4);
+    width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   &-text {
@@ -85,14 +88,18 @@ const forwardedProps = useForwardProps(delegatedProps);
   }
 
   &-sublabel {
+    overflow: hidden;
     color: var(--color-text-soft-400);
     font: var(--paragraph-xs);
+    text-overflow: ellipsis;
   }
 
   &-description {
     margin: var(--spacing-0);
+    overflow: hidden;
     color: var(--color-text-sub-600);
     font: var(--paragraph-xs);
+    text-overflow: ellipsis;
   }
 
   .celeste-context-menu-item-prefix,

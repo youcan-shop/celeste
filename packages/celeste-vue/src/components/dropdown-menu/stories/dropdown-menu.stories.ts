@@ -76,6 +76,8 @@ export const Default: Story = {
              <Badge v-bind="badgeProps" />
            </template>
         </DropdownMenuItem label="Item 4">
+
+        <DropdownMenuItem label="Item 5" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
         
         <DropdownMenuSeparator />
 
@@ -85,7 +87,7 @@ export const Default: Story = {
 
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
-            Item 5
+            Item 6
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             <DropdownMenuItem label="Sub Item 1" sublabel="(sublabel)">

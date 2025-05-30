@@ -28,6 +28,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 <style>
 .celeste-dropdown-menu-sub-trigger {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-8);
@@ -47,6 +48,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
   &:focus-visible,
   &:not([data-disabled]):hover,
+  &[data-state='open'],
   &[data-highlighted] {
     outline: none;
     background: var(--color-bg-weak-50);

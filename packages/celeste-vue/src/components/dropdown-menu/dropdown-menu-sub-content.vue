@@ -42,9 +42,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   margin-top: var(--spacing-10);
   padding: var(--spacing-8);
   overflow: hidden;
-  transition-property: background-color, transform, opacity;
+  transition-property: transform, opacity, display;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);
   background-color: var(--color-bg-white-0);
@@ -52,14 +53,20 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   gap: var(--spacing-4);
 
   &[data-state='closed'] {
+    display: none;
     transform: translateY(10px);
     opacity: 0;
-    pointer-events: none;
   }
 
   &[data-state='open'] {
+    display: block;
     transform: translateY(0);
     opacity: 1;
+
+    @starting-style {
+      transform: translateY(10px);
+      opacity: 0;
+    }
   }
 }
 </style>
