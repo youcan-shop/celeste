@@ -50,6 +50,7 @@ export const Default: Story = {
       return { args, badgeProps };
     },
     template: `
+    <div style="display: flex; align-items: center; justify-content: center;">
       <DropdownMenu v-bind="args">
          <DropdownMenuTrigger>
             <i class="i-celeste-menu-line" />
@@ -77,30 +78,30 @@ export const Default: Story = {
            </template>
         </DropdownMenuItem label="Item 4">
 
-        <DropdownMenuItem label="Item 5" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
+        <DropdownMenuItem label="Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
         
         <DropdownMenuSeparator />
-
+        
         <DropdownMenuLabel>
-           Label
+        Label
         </DropdownMenuLabel>
-
+        
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             Item 6
           </DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuItem label="Sub Item 1" sublabel="(sublabel)">
-              Sub Item 1
-            </DropdownMenuItem>
-            <DropdownMenuItem label="Sub Item 2">
-              Sub Item 2
-            </DropdownMenuItem>
-          </DropdownMenuSubContent>
+        <DropdownMenuSubContent>
+           <DropdownMenuItem label="Sub Item 1" sublabel="(sublabel)" />
+
+           <DropdownMenuItem label="Sub Item 2" />
+
+           <DropdownMenuItem label="Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
+        </DropdownMenuSubContent>
         </DropdownMenuSub>
       </DropdownMenuGroup>
     </DropdownMenuContent>
       </DropdownMenu>
+      </div>
     `,
   }),
 };

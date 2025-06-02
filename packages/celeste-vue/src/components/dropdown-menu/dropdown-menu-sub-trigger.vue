@@ -44,6 +44,10 @@ const forwardedProps = useForwardProps(delegatedProps);
 
   i {
     color: var(--color-icon-sub-600);
+
+    &:dir(rtl) {
+      transform: rotate(180deg);
+    }
   }
 
   &:focus-visible,

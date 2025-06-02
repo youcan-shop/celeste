@@ -19,7 +19,7 @@ const forwardedProps = useForwardProps(delegatedProps);
       props.class,
     )"
   >
-    <div class="celeste-context-menu-item-prefix">
+    <div class="celeste-dropdown-menu-item-prefix">
       <slot name="prefix" />
     </div>
 
@@ -71,7 +71,8 @@ const forwardedProps = useForwardProps(delegatedProps);
     flex-direction: column;
     justify-content: center;
     gap: var(--spacing-4);
-    width: 200px;
+    width: fit-content;
+    max-width: 400px;
     overflow: hidden;
     white-space: nowrap;
   }
@@ -79,15 +80,20 @@ const forwardedProps = useForwardProps(delegatedProps);
   &-text {
     display: flex;
     align-items: center;
+    min-width: 100%;
     gap: var(--spacing-4);
   }
 
   &-label {
+    max-width: 50%;
+    overflow: hidden;
     color: var(--color-text-strong-950);
     font: var(--paragraph-sm);
+    text-overflow: ellipsis;
   }
 
   &-sublabel {
+    max-width: 50%;
     overflow: hidden;
     color: var(--color-text-soft-400);
     font: var(--paragraph-xs);
@@ -102,11 +108,12 @@ const forwardedProps = useForwardProps(delegatedProps);
     text-overflow: ellipsis;
   }
 
-  .celeste-context-menu-item-prefix,
-  .celeste-context-menu-item-suffix {
+  .celeste-dropdown-menu-item-prefix,
+  .celeste-dropdown-menu-item-suffix {
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 50%;
     height: fit-content;
     color: var(--color-icon-sub-600);
 
@@ -121,8 +128,8 @@ const forwardedProps = useForwardProps(delegatedProps);
 
     .celeste-dropdown-menu-item-label,
     .celeste-dropdown-menu-item-sublabel,
-    .celeste-context-menu-item-prefix,
-    .celeste-context-menu-item-suffix,
+    .celeste-dropdown-menu-item-prefix,
+    .celeste-dropdown-menu-item-suffix,
     .celeste-dropdown-menu-item-description {
       color: var(--color-text-disabled-300);
 
