@@ -7,6 +7,7 @@ export * from './dropdown';
 export * from './hint-text';
 export * from './input';
 export * from './label';
+export * from './progress';
 export * from './scroll-area';
 export * from './segmented-control';
 export * from './tab-menu';
