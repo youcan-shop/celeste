@@ -25,8 +25,12 @@ const forwardedProps = useForwardProps(delegatedProps);
 
     <div class="celeste-dropdown-menu-item-body">
       <div class="celeste-dropdown-menu-item-text">
-        <span class="celeste-dropdown-menu-item-label">{{ label }}</span>
-        <span v-if="sublabel" class="celeste-dropdown-menu-item-sublabel">{{ sublabel }}</span>
+        <span class="celeste-dropdown-menu-item-label" :title="label">{{ label }}</span>
+        <span
+          v-if="sublabel"
+          :title="sublabel"
+          class="celeste-dropdown-menu-item-sublabel"
+        >{{ sublabel }}</span>
       </div>
       <div v-if="description" class="celeste-dropdown-menu-item-description">
         {{ description }}
