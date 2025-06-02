@@ -19,7 +19,7 @@ const props = withDefaults(
     }
   >(),
   {
-    modelValue: 89,
+    modelValue: 0,
     size: 80,
     strokeWidth: 6.4,
     showLabel: true,
