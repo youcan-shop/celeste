@@ -122,8 +122,8 @@ onUnmounted(() => {
       aria-label="Hue"
       tabindex="0"
       @mousedown="handleMouseDown"
-      @touchmove="handleChange"
-      @touchstart="handleChange"
+      @touchmove.passive="handleChange"
+      @touchstart.passive="handleChange"
       @keydown="handleKeyDown"
     >
       <div
