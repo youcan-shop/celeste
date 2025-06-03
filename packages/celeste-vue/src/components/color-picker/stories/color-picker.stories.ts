@@ -18,7 +18,7 @@ type Story = StoryObj<typeof ColorPicker>;
 
 export const Default: Story = {
   args: {},
-  render: args => ({
+  render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
       const color = ref('#00F');
