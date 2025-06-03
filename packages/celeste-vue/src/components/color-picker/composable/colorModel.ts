@@ -15,18 +15,6 @@ export const ColorPickerEmits = ['update:modelValue'];
 
 export function defineColorModel(props: useTinyColorModelProps, emit: any): WritableComputedRef<tinycolor.Instance, tinycolor.ColorInput> {
   let originalFormat: TinyColorFormat;
-
-  function updateColor(value: tinycolor.ColorInput): void {
-    const newValue = tinycolor(value);
-    // if (Object.prototype.hasOwnProperty.call(props, 'tinyColor')) {
-    //   emit('update:tinyColor', newValue);
-    // }
-    // if (Object.prototype.hasOwnProperty.call(props, 'modelValue')) {
-    //   emit('update:modelValue', transformToOriginalInputFormat(newValue, originalFormat, isObjectOriginally));
-    // }
-    emit('update:modelValue', transformToOriginalInputFormat(newValue, originalFormat));
-  };
-
   const tinyColorRef = computed({
     get: () => {
       const colorInput = props.modelValue;
@@ -37,7 +25,7 @@ export function defineColorModel(props: useTinyColorModelProps, emit: any): Writ
       return value;
     },
     set: (newValue: tinycolor.ColorInput) => {
-      updateColor(newValue);
+      emit('update:modelValue', transformToOriginalInputFormat(tinycolor(newValue), originalFormat));
     },
   });
 

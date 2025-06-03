@@ -4,6 +4,7 @@ import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import ColorArea from './color-area.vue';
 import { defineColorModel } from './composable/colorModel';
+import { useHueRef } from './composable/hue';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
@@ -16,6 +17,8 @@ const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const colorModel = defineColorModel(props, emit);
+
+const { hueRef } = useHueRef(colorModel);
 </script>
 
 <script lang="ts">
@@ -32,7 +35,7 @@ export interface ColorPickerEmits {
 <template>
   <div class="celeste-color-picker-wrapper" v-bind="forwarded">
     <div class="celeste-color-picker">
-      <ColorArea v-model="colorModel" />
+      <ColorArea v-model="colorModel" :hue="hueRef" />
       <div class="celeste-color-slider">
         <input
           id=""

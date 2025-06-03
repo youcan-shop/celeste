@@ -19,7 +19,7 @@ const rgb = computed(() => {
 });
 
 const hue = computed(() => {
-  return hsv.value.h;
+  return props.hue ?? hsv.value.h;
 });
 
 const colorAreaBG = computed(() => {
@@ -157,6 +157,7 @@ onUnmounted(() => {
 
 <script lang="ts">
 export interface ColorAreaProps {
+  hue: number;
   modelValue: tinycolor.ColorInput;
 }
 </script>
