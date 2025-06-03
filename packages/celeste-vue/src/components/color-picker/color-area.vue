@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, useTemplateRef } from 'vue';
-import { ColorPickerEmits, defineColorModel } from './composable/colorModel';
+import { ColorPickerEmits, defineColorModel } from './composable/use-color-model.ts';
 
 import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from './utils.ts';
 

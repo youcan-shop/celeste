@@ -3,8 +3,8 @@ import type { HTMLAttributes } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import ColorArea from './color-area.vue';
-import { defineColorModel } from './composable/colorModel';
-import { useHueRef } from './composable/hue';
+import { defineColorModel } from './composable/use-color-model';
+import { useHueRef } from './composable/use-hue';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',

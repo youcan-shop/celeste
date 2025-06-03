@@ -21,7 +21,7 @@ export const Default: Story = {
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
-      const color = ref('#00F');
+      const color = ref('#0000ff');
       return { args, color };
     },
     template: `
