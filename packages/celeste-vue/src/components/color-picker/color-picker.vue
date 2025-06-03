@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
+import tinycolor from 'tinycolor2';
+import { type HTMLAttributes, ref } from 'vue';
 import ColorArea from './color-area.vue';
 import { defineColorModel } from './composable/use-color-model';
-import { useHueRef } from './composable/use-hue';
 import HueSlider from './hue-slider.vue';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
@@ -19,7 +19,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const colorModel = defineColorModel(props, emit);
 
-const { hueRef, updateHueRef } = useHueRef(colorModel);
+const hueRef = ref(tinycolor(colorModel.value).toHsl().h);
 </script>
 
 <script lang="ts">
@@ -37,7 +37,7 @@ export interface ColorPickerEmits {
   <div class="celeste-color-picker-wrapper" v-bind="forwarded">
     <div class="celeste-color-picker">
       <ColorArea v-model="colorModel" :hue="hueRef" />
-      <HueSlider v-model="hueRef" @update:model-value="updateHueRef" />
+      <HueSlider v-model="hueRef" />
       <div class="celeste-color-code">
         Color control
       </div>

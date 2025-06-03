@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import { ColorPickerEmits, defineColorModel } from './composable/use-color-model.ts';
+import { useUserPageSelection } from './composable/use-user-select.ts';
 
 import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from './utils.ts';
 
 const props = defineProps<ColorAreaProps>();
 const emit = defineEmits(['change'].concat(ColorPickerEmits));
+
+const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
 
 const pointerRef = ref(0);
 const tinyColorRef = defineColorModel(props, emit);
@@ -32,11 +35,7 @@ const rgb = computed(() => {
 });
 
 const hue = computed(() => {
-  if (props.hue !== undefined) {
-    return props.hue;
-  }
-  // Otherwise, use the hue from current color
-  return hsv.value.h;
+  return props.hue ?? hsv.value.h; ;
 });
 
 const colorAreaBG = computed(() => {
@@ -107,12 +106,15 @@ function onChange(param: { h: number; s: number; v: number; a: number }) {
 }
 
 function handleMouseDown() {
+  preventPageUserSelect();
+
   window.addEventListener('mousemove', handleChange);
   window.addEventListener('mouseup', handleChange);
   window.addEventListener('mouseup', handleMouseUp);
 }
 
 function handleMouseUp() {
+  allowPageUserSelect();
   unbindEventListeners();
 }
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
+import { useUserPageSelection } from './composable/use-user-select.ts';
 import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from './utils';
 
 const hue = defineModel({
@@ -9,6 +10,8 @@ const hue = defineModel({
 const pullDirection = ref<'right' | 'left'>();
 
 const containerRef = useTemplateRef('slider-track');
+
+const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
 
 watch(hue, (newHue: number, oldHue: number) => {
   if (newHue !== 0 && newHue - oldHue > 0)
@@ -71,11 +74,14 @@ function emitChange(h: number) {
 
 function handleMouseDown(e: MouseEvent) {
   handleChange(e, true);
+  preventPageUserSelect();
+
   window.addEventListener('mousemove', handleChange);
   window.addEventListener('mouseup', handleMouseUp);
 }
 
 function handleMouseUp() {
+  allowPageUserSelect();
   unbindEventListeners();
 }
 
