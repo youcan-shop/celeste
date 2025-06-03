@@ -89,7 +89,6 @@ const forwardedProps = useForwardProps(delegatedProps);
 
   &-label,
   &-sublabel {
-    min-width: 0;
     max-width: 250px;
     overflow: hidden;
     text-overflow: ellipsis;
