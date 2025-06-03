@@ -6,7 +6,7 @@ const hue = defineModel({
   default: 0,
 });
 
-const pullDirection = ref<'right' | 'left' | undefined>();
+const pullDirection = ref<'right' | 'left'>();
 
 const containerRef = useTemplateRef('slider-track');
 
