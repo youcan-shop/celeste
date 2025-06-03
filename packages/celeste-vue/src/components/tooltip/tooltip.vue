@@ -222,5 +222,9 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
       translate: calc(var(--tooltip-arrow-size) / 4 * -1) 0;
     }
   }
+
+  &:has(button):not(:has(.celeste-tooltip-content-description)) {
+    align-items: center;
+  }
 }
 </style>
