@@ -46,15 +46,13 @@ const pointerLeft = computed(() => {
 const containerRef = useTemplateRef('color-area');
 
 function handleChange(e: MouseEvent | TouchEvent, skip = false) {
-  if (!skip) {
-    e.preventDefault();
-  }
+  e.preventDefault();
+
   const container = containerRef.value;
   if (!container) {
-    // for some edge cases, container may not exist. see #220
-    /* v8 ignore next 2 */
     return;
   }
+
   const containerWidth = container.clientWidth;
   const containerHeight = container.clientHeight;
 
@@ -69,11 +67,9 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
 
   pointerRef.value = saturation;
 
-  // s and v is multiplied by 100 due to prevention of dithering
   let s = Math.round(saturation * 100);
   let v = Math.round(brightness * 100);
 
-  // "1" is treated as percentage number in tinycolor
   if (s === 1) {
     s = 0.01;
   }
@@ -90,8 +86,6 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
 }
 
 function onChange(param: { h: number; s: number; v: number; a: number }) {
-  // tiny color internally doesn't handle saturation and brightness of HSV mutation
-  // so, need to create a new tiny color instance
   tinyColorRef.value = param;
 }
 
