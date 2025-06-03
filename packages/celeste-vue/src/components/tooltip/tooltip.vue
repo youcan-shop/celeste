@@ -38,7 +38,7 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
   <TooltipProvider>
     <TooltipRoot
       v-bind="forwarded"
-      :open="isOpen"
+      :open="props.open || isOpen"
       @update:open="(state) => isOpen = state"
     >
       <TooltipTrigger as-child>
@@ -80,6 +80,7 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
   position: relative;
   align-items: flex-start;
   width: auto;
+  max-width: calc(var(--radix-tooltip-content-available-width) / 1.5);
   height: auto;
   transition: all var(--animation-fast) ease-out;
   border: 1px solid transparent;
@@ -144,7 +145,7 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
     rotate: -45deg;
     aspect-ratio: 1;
     clip-path: polygon(0 0, 100% 100%, 0 100%);
-    inset-inline-start: calc(var(--tooltip-arrow-size) / 4 * -1);
+    inset-inline-start: calc(var(--tooltip-arrow-size) / 2 * -1);
     inset-block-start: calc((var(--tooltip-arrow-size) / 2 + 1px) * -1);
   }
 
