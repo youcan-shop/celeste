@@ -189,15 +189,5 @@ export interface ColorAreaProps {
   border-radius: var(--radius-8);
   background: linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent),
     v-bind(colorAreaBG);
-
-  .celeste-color-thumb {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    transform: translate(-50%, -50%);
-    border: 2px solid var(--color-static-white);
-    border-radius: 50%;
-    cursor: pointer;
-  }
 }
 </style>

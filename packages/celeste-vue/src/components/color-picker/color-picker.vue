@@ -5,6 +5,7 @@ import { useForwardPropsEmits } from 'radix-vue';
 import ColorArea from './color-area.vue';
 import { defineColorModel } from './composable/use-color-model';
 import { useHueRef } from './composable/use-hue';
+import HueSlider from './hue-slider.vue';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
@@ -18,7 +19,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const colorModel = defineColorModel(props, emit);
 
-const { hueRef } = useHueRef(colorModel);
+const { hueRef, updateHueRef } = useHueRef(colorModel);
 </script>
 
 <script lang="ts">
@@ -36,20 +37,7 @@ export interface ColorPickerEmits {
   <div class="celeste-color-picker-wrapper" v-bind="forwarded">
     <div class="celeste-color-picker">
       <ColorArea v-model="colorModel" :hue="hueRef" />
-      <div class="celeste-color-slider">
-        <input
-          id=""
-          type="range"
-          name=""
-        >
-      </div>
-      <div class="celeste-color-slider">
-        <input
-          id=""
-          type="range"
-          name=""
-        >
-      </div>
+      <HueSlider v-model="hueRef" @update:model-value="updateHueRef" />
       <div class="celeste-color-code">
         Color control
       </div>
@@ -79,14 +67,6 @@ export interface ColorPickerEmits {
       box-sizing: border-box;
     }
 
-    .celeste-color-slider {
-      width: 100%;
-
-      input {
-        width: 100%;
-      }
-    }
-
     .celeste-color-code {
       display: flex;
       flex-direction: column;
@@ -100,5 +80,14 @@ export interface ColorPickerEmits {
     padding: var(--radius-16);
     border-block-start: 1px solid var(--color-stroke-soft-200);
   }
+}
+
+:deep(.celeste-color-thumb) {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--color-static-white);
+  border-radius: 50%;
 }
 </style>
