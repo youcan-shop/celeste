@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onUnmounted, ref, useTemplateRef } from 'vue';
+import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import { ColorPickerEmits, defineColorModel } from './composable/use-color-model.ts';
 
 import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from './utils.ts';
@@ -9,6 +9,19 @@ const emit = defineEmits(['change'].concat(ColorPickerEmits));
 
 const pointerRef = ref(0);
 const tinyColorRef = defineColorModel(props, emit);
+
+watch(() => props.hue, (newHue, oldHue) => {
+  if (newHue !== undefined && newHue !== oldHue) {
+    const currentHsv = tinyColorRef.value.toHsv();
+
+    onChange({
+      h: newHue,
+      s: currentHsv.s * 100,
+      v: currentHsv.v * 100,
+      a: currentHsv.a,
+    });
+  }
+});
 
 const hsv = computed(() => {
   return tinyColorRef.value.toHsv();
@@ -67,8 +80,8 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
 
   pointerRef.value = saturation;
 
-  let s = Math.round(saturation * 100);
-  let v = Math.round(brightness * 100);
+  let s = saturation * 100;
+  let v = brightness * 100;
 
   if (s === 1) {
     s = 0.01;
@@ -76,6 +89,8 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
   if (v === 1) {
     v = 0.01;
   }
+
+  const currentHue = props.hue !== undefined ? props.hue : hsv.value.h;
 
   onChange({
     h: hue.value,
