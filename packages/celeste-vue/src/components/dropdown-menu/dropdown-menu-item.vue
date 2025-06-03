@@ -85,12 +85,12 @@ const forwardedProps = useForwardProps(delegatedProps);
     display: flex;
     align-items: center;
     gap: var(--spacing-4);
-    max-width: 65%;
   }
 
   &-label,
   &-sublabel {
     min-width: 0;
+    max-width: 250px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
