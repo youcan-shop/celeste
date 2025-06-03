@@ -16,8 +16,8 @@ watch(() => props.hue, (newHue, oldHue) => {
 
     onChange({
       h: newHue,
-      s: currentHsv.s * 100,
-      v: currentHsv.v * 100,
+      s: Math.round(currentHsv.s * 100),
+      v: Math.round(currentHsv.v * 100),
       a: currentHsv.a,
     });
   }
@@ -32,7 +32,11 @@ const rgb = computed(() => {
 });
 
 const hue = computed(() => {
-  return props.hue ?? hsv.value.h;
+  if (props.hue !== undefined) {
+    return props.hue;
+  }
+  // Otherwise, use the hue from current color
+  return hsv.value.h;
 });
 
 const colorAreaBG = computed(() => {
@@ -80,8 +84,8 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
 
   pointerRef.value = saturation;
 
-  let s = saturation * 100;
-  let v = brightness * 100;
+  let s = Math.round(saturation * 100);
+  let v = Math.round(brightness * 100);
 
   if (s === 1) {
     s = 0.01;
@@ -89,8 +93,6 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
   if (v === 1) {
     v = 0.01;
   }
-
-  const currentHue = props.hue !== undefined ? props.hue : hsv.value.h;
 
   onChange({
     h: hue.value,
