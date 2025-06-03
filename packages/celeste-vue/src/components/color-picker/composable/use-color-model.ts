@@ -1,7 +1,7 @@
 import tinycolor from 'tinycolor2';
 import { computed, nextTick, ref, type WritableComputedRef } from 'vue';
 
-type TinyColorFormat = 'hex' | 'rgb' | 'hsv' | 'hsl';
+type TinyColorFormat = 'hex8' | 'hex' | 'rgb' | 'hsv' | 'hsl';
 
 function transformToOriginalInputFormat(color: tinycolor.Instance, originalFormat?: TinyColorFormat): any {
   return color.toString(originalFormat);
