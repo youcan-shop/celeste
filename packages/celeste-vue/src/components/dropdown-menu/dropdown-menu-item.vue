@@ -84,24 +84,26 @@ const forwardedProps = useForwardProps(delegatedProps);
   &-text {
     display: flex;
     align-items: center;
-    min-width: 100%;
     gap: var(--spacing-4);
+    max-width: 65%;
+  }
+
+  &-label,
+  &-sublabel {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &-label {
-    max-width: 50%;
-    overflow: hidden;
     color: var(--color-text-strong-950);
     font: var(--paragraph-sm);
-    text-overflow: ellipsis;
   }
 
   &-sublabel {
-    max-width: 50%;
-    overflow: hidden;
     color: var(--color-text-soft-400);
     font: var(--paragraph-xs);
-    text-overflow: ellipsis;
   }
 
   &-description {

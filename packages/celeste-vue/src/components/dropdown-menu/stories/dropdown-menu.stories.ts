@@ -60,7 +60,7 @@ export const Default: Story = {
         <DropdownMenuItem label="Item 1" sublabel="(sublabel)" description="wei@alignui.com" />        
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem label="Item 2">
+        <DropdownMenuItem label="Item 2 label is a bit long">
            <template #prefix>
               <i class="i-celeste-home-4-line" />
            </template>

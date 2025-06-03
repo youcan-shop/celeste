@@ -38,7 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style lang="scss">
 .celeste-dropdown-menu-content {
   --dropdown-width: 100%;
-  --dropdown-max-width: 600px;
+  --dropdown-max-width: 350px;
 
   display: flex;
   box-sizing: border-box;
