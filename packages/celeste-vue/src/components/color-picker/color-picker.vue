@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import AlphaSlider from '@/components/color-picker/alpha-slider.vue';
-import ColorSwatch from '@/components/color-picker/color-swatch.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
@@ -16,12 +15,11 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
 const emit = defineEmits<ColorPickerEmits>();
 
 const delegatedProps = useDelegatedProps(props, 'class');
-
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
-const colorModel = defineColorModel(props, emit);
+const tinyColorRef = defineColorModel(props, emit);
 
-const hueRef = ref(tinycolor(colorModel.value).toHsl().h);
+const hueRef = ref(tinycolor(tinyColorRef.value).toHsl().h);
 </script>
 
 <script lang="ts">
@@ -38,19 +36,22 @@ export interface ColorPickerEmits {
 <template>
   <div class="celeste-color-picker-wrapper" v-bind="forwarded">
     <div class="celeste-color-picker">
-      <ColorArea v-model="colorModel" :hue="hueRef" />
+      <ColorArea
+        v-model="tinyColorRef"
+        :hue="hueRef"
+      />
       <HueSlider v-model="hueRef" />
-      <AlphaSlider v-model="colorModel" />
+      <AlphaSlider v-model="tinyColorRef" />
       <div class="celeste-color-code">
         Color Inputs
       </div>
     </div>
-    <div class="celeste-color-swatches">
-      <ColorSwatch v-model="colorModel" />
-    </div>
-    <!-- <div v-if="$slots.swatches" class="celeste-color-swatches">
-      <slot name="swatches" />
+    <!-- <div class="celeste-color-swatches">
+      <ColorSwatch v-model="tinyColorRef" />
     </div> -->
+    <div v-if="$slots.swatches" class="celeste-color-swatches">
+      <slot name="swatches" />
+    </div>
   </div>
 </template>
 

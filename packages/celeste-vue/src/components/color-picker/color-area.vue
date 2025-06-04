@@ -8,23 +8,12 @@ import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection }
 const props = defineProps<ColorAreaProps>();
 const emit = defineEmits(['change'].concat(ColorPickerEmits));
 
-const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
-
 const pointerRef = ref(0);
 const tinyColorRef = defineColorModel(props, emit);
 
-watch(() => props.hue, (newHue, oldHue) => {
-  if (newHue !== undefined && newHue !== oldHue) {
-    const currentHsv = tinyColorRef.value.toHsv();
+const containerRef = useTemplateRef('color-area');
 
-    onChange({
-      h: newHue,
-      s: Math.round(currentHsv.s * 100),
-      v: Math.round(currentHsv.v * 100),
-      a: currentHsv.a,
-    });
-  }
-});
+const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
 
 const hsv = computed(() => {
   return tinyColorRef.value.toHsv();
@@ -59,7 +48,18 @@ const pointerLeft = computed(() => {
   return `${hsv.value.s * 100}%`;
 });
 
-const containerRef = useTemplateRef('color-area');
+watch(() => props.hue, (newHue, oldHue) => {
+  if (newHue !== undefined && newHue !== oldHue) {
+    const currentHsv = tinyColorRef.value.toHsv();
+
+    onChange({
+      h: newHue,
+      s: Math.round(currentHsv.s * 100),
+      v: Math.round(currentHsv.v * 100),
+      a: currentHsv.a,
+    });
+  }
+});
 
 function handleChange(e: MouseEvent | TouchEvent, skip = false) {
   e.preventDefault();
@@ -101,8 +101,8 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
   });
 }
 
-function onChange(param: { h: number; s: number; v: number; a: number }) {
-  tinyColorRef.value = param;
+function onChange(color: { h: number; s: number; v: number; a: number }) {
+  tinyColorRef.value = color;
 }
 
 function handleMouseDown() {
@@ -171,7 +171,7 @@ onUnmounted(() => {
 <script lang="ts">
 export interface ColorAreaProps {
   hue: number;
-  modelValue: tinycolor.ColorInput;
+  modelValue: tinycolor.Instance;
 }
 </script>
 
