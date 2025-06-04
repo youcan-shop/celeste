@@ -1,107 +1,96 @@
 <script setup lang="ts">
-import type { LinkButtonProps } from '../button/link-button.vue';
-import LinkButton from '@/components/button/link-button.vue';
+import type { HTMLAttributes } from 'vue';
+import Tooltip from '@/components/tooltip/tooltip.vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
-import { computed, type HTMLAttributes } from 'vue';
+import { Label, type LabelProps } from 'radix-vue';
 
-const props = withDefaults(defineProps<LabelProps>(), {
-  disabled: false,
-  labelText: 'Label',
-  required: false,
-});
-
-const mergedLinkButtonProps = computed(() => ({
-  ...props.linkButtonProps,
-  disabled: props.disabled,
-}));
-</script>
-
-<script lang="ts">
-export interface LabelProps {
-  labelText: string;
-  class?: HTMLAttributes['class'];
-  disabled?: boolean;
+const props = defineProps<LabelProps & {
   sublabel?: string;
+  information?: string;
   required?: boolean;
-  tooltip?: string;
-  linkButtonLink?: string;
-  linkButtonText?: string;
-  linkButtonProps?: LinkButtonProps;
-}
+  disabled?: boolean;
+  class?: HTMLAttributes['class'];
+}>();
+
+const delegatedProps = useDelegatedProps(props, 'class');
 </script>
 
 <template>
-  <div
-    :class="clsx(
-      'celeste-label-wrapper',
-      { 'celeste-label-wrapper-disabled': disabled },
-      props.class,
-    )"
+  <Label
+    v-bind="delegatedProps"
+    :aria-required="required"
+    :aria-disabled="disabled"
+    :class="clsx('celeste-label', props.class)"
   >
-    <label
-      :class="clsx(
-        'celeste-label',
-        { 'celeste-label-required': required },
-      )"
-      v-bind="$attrs"
+    <slot />
+    <span v-if="sublabel" class="celeste-sublabel">{{ sublabel }}</span>
+    <Tooltip
+      v-if="information"
+      :title="information"
     >
-      {{ labelText }}
-    </label>
-    <span v-if="required" class="celeste-label-required-indicator">*</span>
-    <span
-      v-if="sublabel"
-      class="celeste-sublabel"
-    >
-      {{ sublabel }}
-    </span>
-    <span v-if="tooltip" />
-    <span v-if="linkButtonLink && linkButtonText" class="celeste-label-button">
-      <LinkButton :href="linkButtonLink" v-bind="mergedLinkButtonProps">
-        {{ linkButtonText }}
-      </LinkButton>
-    </span>
-  </div>
+      <button class="celeste-label-info">
+        <i class="i-celeste-information-2-fill" />
+      </button>
+    </Tooltip>
+  </Label>
 </template>
 
-<style lang="scss" scoped>
-.celeste-label-wrapper {
-  --label-wrapper-sapcing: 1px;
-
+<style scoped lang="scss">
+.celeste-label {
   display: flex;
   align-items: center;
-  align-self: stretch;
-  gap: var(--label-wrapper-sapcing);
+  gap: var(--spacing-2);
+  color: var(--color-text-strong-950);
+  font: var(--label-sm);
 
-  .celeste-label {
-    color: var(--color-text-strong-950);
-    font: var(--label-sm);
+  &:has(> a) > *:last-child {
+    flex: 2;
   }
 
-  .celeste-label-required-indicator {
+  &[aria-required='true']::after {
+    content: '*';
+    order: 2;
     color: var(--color-primary-base);
-    font: var(--label-sm);
+  }
+
+  &:not(:has(> .celeste-sublabel, > .celeste-label-info, &[aria-required='true'])) {
+    & > * {
+      flex: none;
+    }
+
+    &[aria-required='false'] {
+      justify-content: space-between;
+    }
+
+    &[aria-required='true']::after {
+      flex: 2;
+    }
   }
 
   .celeste-sublabel {
+    order: 3;
     color: var(--color-text-sub-600);
     font: var(--paragraph-sm);
   }
 
-  .celeste-label-button {
+  .celeste-label-info {
     display: flex;
-    flex: 1 0 0;
     align-items: center;
-    justify-content: flex-end;
-    gap: var(--spacing-4);
+    order: 4;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: var(--color-icon-disabled-300);
   }
 
-  &-disabled {
+  &[aria-disabled='true'] {
     color: var(--color-text-disabled-300);
+    pointer-events: none;
 
-    .celeste-label,
-    .celeste-sublabel,
-    .celeste-label-required-indicator,
-    .celeste-tooltip {
+    &::after,
+    & > :deep(a),
+    .celeste-sublabel {
       color: inherit;
     }
   }
