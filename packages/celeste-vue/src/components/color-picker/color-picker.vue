@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type tinycolor from 'tinycolor2';
 import AlphaSlider from '@/components/color-picker/alpha-slider.vue';
 import ColorSwatch from '@/components/color-picker/color-swatch.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
-import tinycolor from 'tinycolor2';
 import { type HTMLAttributes, ref, watch } from 'vue';
 import ColorArea from './color-area.vue';
 import { defineColorModel } from './composable/use-color-model';
@@ -20,16 +20,18 @@ const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const tinyColorRef = defineColorModel(props, emit);
 
-const hueRef = ref(tinycolor(tinyColorRef.value).toHsl().h);
+const hueRef = ref(tinyColorRef.value.toHsl().h);
 
-watch(tinyColorRef, (newValue, oldValue) => {
-  const newHue = newValue.toHsl().h;
-  const oldHue = oldValue.toHsl().h;
+watch(tinyColorRef, (tinyColorInstance) => {
+  const newHue = tinyColorInstance.toHsl().h;
 
-  if (oldHue !== newHue) {
-    hueRef.value = +newHue;
+  // Preserve hue when color becomes grayscale
+  if (newHue === 0 && hueRef.value !== 0) {
+    return;
   }
-});
+
+  hueRef.value = newHue;
+}, { immediate: true });
 </script>
 
 <script lang="ts">
