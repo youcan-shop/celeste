@@ -1,3 +1,15 @@
+// VALUES
+export const DEFAULT_SWATCH = [
+  '#717784ff',
+  '#335cffff',
+  '#ff8547ff',
+  '#fb3747ff',
+  '#1fc16bff',
+  '#f6b51eff',
+  '#7e52f4ff',
+  '#47c2ffff',
+];
+
 // MATH
 
 export function getFractionDigit(data: number | string): number {

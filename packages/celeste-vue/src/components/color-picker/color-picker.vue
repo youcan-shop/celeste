@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type tinycolor from 'tinycolor2';
 import AlphaSlider from '@/components/color-picker/alpha-slider.vue';
 import ColorSwatch from '@/components/color-picker/color-swatch.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
-import { type HTMLAttributes, ref, watch } from 'vue';
+import tinycolor from 'tinycolor2';
+import { computed, type HTMLAttributes, ref, watch } from 'vue';
 import ColorArea from './color-area.vue';
 import { defineColorModel } from './composable/use-color-model';
 import HueSlider from './hue-slider.vue';
@@ -32,6 +32,32 @@ watch(tinyColorRef, (tinyColorInstance) => {
 
   hueRef.value = newHue;
 }, { immediate: true });
+
+// ALTERNATIVE
+
+const HSVA = computed({
+  get: () => tinyColorRef.value.toHsv(),
+  set: (newValue: tinycolor.ColorFormats.HSVA) => {
+    hue.value = newValue.h;
+    saturation.value = newValue.s;
+    value.value = newValue.v;
+    alpha.value = newValue.a;
+  },
+});
+
+const hue = ref(HSVA.value.h);
+const saturation = ref(HSVA.value.s);
+const value = ref(HSVA.value.v);
+const alpha = ref(HSVA.value.a);
+
+watch([hue, saturation, value, alpha], () => {
+  tinyColorRef.value = tinycolor({
+    h: hue.value,
+    s: saturation.value,
+    v: value.value,
+    a: alpha.value,
+  });
+});
 </script>
 
 <script lang="ts">
@@ -49,17 +75,17 @@ export interface ColorPickerEmits {
   <div class="celeste-color-picker-wrapper" v-bind="forwarded">
     <div class="celeste-color-picker">
       <ColorArea
-        v-model="tinyColorRef"
-        :hue="hueRef"
+        v-model="HSVA"
+        :hue="hue"
       />
-      <HueSlider v-model="hueRef" />
-      <AlphaSlider v-model="tinyColorRef" />
+      <HueSlider v-model="hue" />
+      <AlphaSlider v-model="alpha" :color="HSVA" />
       <div class="celeste-color-code">
         Color Inputs
       </div>
     </div>
     <div class="celeste-color-swatches">
-      <ColorSwatch v-model="tinyColorRef" :hue="hueRef" />
+      <ColorSwatch v-model="HSVA" :hue="hueRef" />
     </div>
     <!-- <div v-if="$slots.swatches" class="celeste-color-swatches">
       <slot name="swatches" />

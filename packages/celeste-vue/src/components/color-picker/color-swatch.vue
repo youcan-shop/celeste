@@ -1,54 +1,53 @@
 <script setup lang="ts">
-import type tinycolor from 'tinycolor2';
-import { defineColorModel } from '@/components/color-picker/composable/use-color-model';
+import tinycolor from 'tinycolor2';
 import { computed } from 'vue';
+import { DEFAULT_SWATCH } from './utils';
 
 const props = withDefaults(defineProps<ColorSwatchProps>(), {
   label: 'Recommended Colors',
   swatch: () => DEFAULT_SWATCH,
+  modelValue: () => tinycolor(DEFAULT_SWATCH[0]).toHsv(),
 });
-const emit = defineEmits<ColorPickerEmits>();
 
-const tinyColorRef = defineColorModel(props, emit);
+const emit = defineEmits<{
+  'update:modelValue': [value: tinycolor.ColorFormats.HSVA];
+}>();
 
-const alpha = computed(() => tinyColorRef.value.getAlpha());
+const color = computed({
+  get: () => props.modelValue,
+  set: newColor => emit('update:modelValue', newColor),
+});
 
-const hex = computed(() => {
-  return alpha.value < 1
-    ? tinyColorRef.value.toHex8String()
-    : tinyColorRef.value.toHexString();
+const tinyColorRef = computed(() => {
+  const { h, s, v, a } = color.value;
+
+  return tinycolor({ h, s, v, a });
 });
 
 const activeSwatchColorBG = computed(() => {
-  return `0 0 0 2px var(--color-bg-white-0), 0 0 0 4px ${hex.value}`;
+  return `0 0 0 2px var(--color-bg-white-0), 0 0 0 4px ${tinyColorRef.value.toRgbString()}`;
 });
 
-function handlePreset(color: string) {
-  tinyColorRef.value = color;
+function handlePreset(newColor: string) {
+  color.value = tinycolor(newColor).toHsv();
+}
+
+function isSwatchColorSelected(color: string) {
+  return tinyColorRef.value.toHex8String().toLocaleLowerCase() === tinycolor(color).toHex8String().toLocaleLowerCase();
 }
 </script>
 
 <script lang="ts">
 export interface ColorSwatchProps {
-  modelValue: tinycolor.ColorInput;
+  modelValue: tinycolor.ColorFormats.HSVA;
   label?: string;
   swatch?: string[];
+  defaultColor?: string;
 }
 
 export interface ColorPickerEmits {
   'update:modelValue': [value: string];
 }
-
-export const DEFAULT_SWATCH = [
-  '#717784',
-  '#335CFF',
-  '#FF8447',
-  '#FB3748',
-  '#1FC16B',
-  '#F6B51E',
-  '#7D52F4',
-  '#47C2FF',
-];
 </script>
 
 <template>
@@ -58,17 +57,17 @@ export const DEFAULT_SWATCH = [
     </span>
     <div class="color-palette">
       <div
-        v-for="color in swatch"
-        :key="color"
+        v-for="swatchColor in swatch"
+        :key="swatchColor"
         class="palette-color"
-        :style="{ background: color }"
-        :aria-selected="hex.toLowerCase() === color.toLowerCase()"
-        :title="color"
-        :aria-label="`Color:${color}`"
+        :style="{ background: swatchColor }"
+        :aria-selected="isSwatchColorSelected(swatchColor.toLowerCase())"
+        :title="swatchColor"
+        :aria-label="`Color:${swatchColor}`"
         role="option"
         tabindex="0"
-        @click="handlePreset(color)"
-        @keydown.space="handlePreset(color)"
+        @click="handlePreset(swatchColor)"
+        @keydown.space="handlePreset(swatchColor)"
       />
     </div>
   </div>

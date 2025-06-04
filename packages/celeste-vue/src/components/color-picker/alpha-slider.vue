@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import type tinycolor from 'tinycolor2';
-import { defineColorModel } from '@/components/color-picker/composable/use-color-model';
 import { useUserPageSelection } from '@/components/color-picker/composable/use-user-select';
 import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from '@/components/color-picker/utils';
+import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, onUnmounted, useTemplateRef } from 'vue';
 
 const props = defineProps<AlphaSliderProps>();
-const emit = defineEmits<AlphaSliderEmits>();
-
-const colorRef = defineColorModel(props, emit);
-
-const alpha = computed(() => colorRef.value.getAlpha());
-
-const containerRef = useTemplateRef('slider-track');
 
 const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
 
+const alpha = defineModel({
+  default: 1,
+});
+
+const tinyColorRef = computed(() => tinycolor(props.color));
+
+const containerRef = useTemplateRef('slider-track');
+
 const alphaSliderBG = computed(() => {
-  const { r, g, b } = colorRef.value.toRgb();
+  const { r, g, b } = tinyColorRef.value.toRgb();
 
   return `
     linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0), rgba(${r}, ${g}, ${b}, 1)),
@@ -31,7 +31,7 @@ const alphaSliderBG = computed(() => {
 });
 
 const trackThumbBG = computed(() => {
-  const { r, g, b, a } = colorRef.value.toRgb();
+  const { r, g, b, a } = tinyColorRef.value.toRgb();
   const rgbaString = [r, g, b, a].join(',');
   return `rgba(${rgbaString})`;
 });
@@ -63,7 +63,7 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
   }
 
   if (alpha.value !== a) {
-    colorRef.value = colorRef.value.setAlpha(a).clone();
+    alpha.value = a;
   }
 }
 
@@ -101,7 +101,7 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
   if (typeof newValue !== 'undefined') {
-    colorRef.value = colorRef.value.setAlpha(newValue).clone();
+    alpha.value = newValue;
   }
 }
 
@@ -113,7 +113,8 @@ onUnmounted(() => {
 <script lang="ts">
 export interface AlphaSliderProps {
   class?: HTMLAttributes['class'];
-  modelValue: tinycolor.ColorInput;
+  modelValue: number;
+  color: tinycolor.ColorFormats.HSVA;
 }
 
 export interface AlphaSliderEmits {
