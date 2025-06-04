@@ -117,7 +117,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="celeste-hue-slider">
+  <div class="celeste-color-slider">
     <div
       ref="slider-track"
       class="slider-track"
@@ -142,22 +142,9 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-  .celeste-hue-slider {
-  --track-height: 8px;
-
-  width: 100%;
-  padding-block: var(--spacing-4);
-
+.celeste-color-slider {
   .slider-track {
-    position: relative;
-    width: 100%;
-    height: var(--track-height);
-    border-radius: calc(var(--track-height) / 2);
     background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-
-    .celeste-color-thumb {
-      top: calc(var(--track-height) / 2);
-    }
   }
 }
 </style>
