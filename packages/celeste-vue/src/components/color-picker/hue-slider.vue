@@ -157,7 +157,6 @@ onUnmounted(() => {
 
     .celeste-color-thumb {
       top: calc(var(--track-height) / 2);
-      background-color: red;
     }
   }
 }

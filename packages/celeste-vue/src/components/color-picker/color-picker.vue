@@ -84,10 +84,10 @@ export interface ColorPickerEmits {
 
 :deep(.celeste-color-thumb) {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   transform: translate(-50%, -50%);
-  border: 2px solid var(--color-static-white);
   border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--color-bg-white-0);
 }
 </style>
