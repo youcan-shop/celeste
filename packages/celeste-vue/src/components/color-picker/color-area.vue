@@ -203,7 +203,7 @@ export interface ColorAreaProps {
 <style scoped lang="scss">
 .celeste-color-area {
   position: relative;
-  width: 100%;
+  width: 240px;
   height: 232px;
   border-radius: var(--radius-8);
   background: linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent),

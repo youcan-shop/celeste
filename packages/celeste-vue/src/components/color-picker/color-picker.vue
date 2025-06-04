@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AlphaSlider from '@/components/color-picker/alpha-slider.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
@@ -25,7 +26,7 @@ const hueRef = ref(tinycolor(colorModel.value).toHsl().h);
 <script lang="ts">
 export interface ColorPickerProps {
   class?: HTMLAttributes['class'];
-  modelValue: string;
+  modelValue: string | tinycolor.ColorInput;
 }
 
 export interface ColorPickerEmits {
@@ -38,8 +39,9 @@ export interface ColorPickerEmits {
     <div class="celeste-color-picker">
       <ColorArea v-model="colorModel" :hue="hueRef" />
       <HueSlider v-model="hueRef" />
+      <AlphaSlider v-model="colorModel" />
       <div class="celeste-color-code">
-        Color control
+        Color Inputs
       </div>
     </div>
     <div class="celeste-color-swatches">
@@ -51,7 +53,7 @@ export interface ColorPickerEmits {
 <style scoped lang="scss">
 .celeste-color-picker-wrapper {
   display: grid;
-  width: 272px;
+  box-sizing: border-box;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);
 
@@ -89,5 +91,23 @@ export interface ColorPickerEmits {
   transform: translate(-50%, -50%);
   border-radius: 50%;
   box-shadow: 0 0 0 2px var(--color-bg-white-0);
+}
+
+:deep(.celeste-color-slider) {
+  --track-height: 8px;
+
+  width: 100%;
+  padding-block: var(--spacing-4);
+
+  .slider-track {
+    position: relative;
+    width: 100%;
+    height: var(--track-height);
+    border-radius: calc(var(--track-height) / 2);
+
+    .celeste-color-thumb {
+      top: calc(var(--track-height) / 2);
+    }
+  }
 }
 </style>
