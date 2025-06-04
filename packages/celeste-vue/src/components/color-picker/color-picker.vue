@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AlphaSlider from '@/components/color-picker/alpha-slider.vue';
+import ColorSwatch from '@/components/color-picker/color-swatch.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
@@ -45,8 +46,11 @@ export interface ColorPickerEmits {
       </div>
     </div>
     <div class="celeste-color-swatches">
-      Swatches
+      <ColorSwatch v-model="colorModel" />
     </div>
+    <!-- <div v-if="$slots.swatches" class="celeste-color-swatches">
+      <slot name="swatches" />
+    </div> -->
   </div>
 </template>
 
@@ -54,6 +58,7 @@ export interface ColorPickerEmits {
 .celeste-color-picker-wrapper {
   display: grid;
   box-sizing: border-box;
+  width: 272px;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);
 
