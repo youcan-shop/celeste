@@ -30,6 +30,7 @@ export const toolbarActions = ref<ToolbarItem[]>([
   { slug: 'align', option: 'right', name: 'Align right', icon: 'align-right', active: { textAlign: 'right' } },
   { slug: 'align', option: 'justify', name: 'Align justify', icon: 'align-justify', active: { textAlign: 'justify' } },
   { type: 'divider' },
+  { slug: 'link', name: 'Link', icon: 'link', active: 'link' },
   { type: 'divider' },
   { slug: 'undo', name: 'Undo', icon: 'arrow-go-back-line', active: 'undo' },
   { slug: 'redo', name: 'Redo', icon: 'arrow-go-forward-line', active: 'redo' },
@@ -50,6 +51,7 @@ export function onActionClick(editor: Editor, slug: string, option: string | nul
     bulletList: () => vm.toggleBulletList().run(),
     orderedList: () => vm.toggleOrderedList().run(),
     align: () => vm.setTextAlign(option || 'left').run(),
+    link: () => vm.toggleLink({ href: '' }).run(),
     undo: () => vm.undo().run(),
     redo: () => vm.redo().run(),
     clear: () => {
@@ -61,6 +63,8 @@ export function onActionClick(editor: Editor, slug: string, option: string | nul
   actionTriggers[slug]?.();
 }
 
-export function onHeadingClick(editor: Editor, index: number): void {
-  editor.chain().focus().toggleHeading({ level: index as 1 | 2 | 3 | 4 | 5 | 6 }).run();
+export function onHeadingClick(editor: Editor, event: Event): void {
+  const target = event.target as HTMLSelectElement;
+  const headingLevel = Number(target.value);
+  editor.chain().focus().toggleHeading({ level: headingLevel as 1 | 2 | 3 | 4 | 5 | 6 }).run();
 }
