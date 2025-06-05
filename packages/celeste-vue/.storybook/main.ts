@@ -8,21 +8,20 @@ function getAbsolutePath(value): PathLike {
 /** @type { import('@storybook/vue3-vite').StorybookConfig } */
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
   addons: [
     getAbsolutePath('@storybook/addon-onboarding'),
-    getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-interactions'),
+    getAbsolutePath('@storybook/addon-docs'),
   ],
+
   framework: {
     name: getAbsolutePath('@storybook/vue3-vite'),
     options: {
       docgen: 'vue-component-meta',
     },
   },
-  docs: {
-    autodocs: true,
-  },
+
   async viteFinal(config) {
     config.resolve = config.resolve || {};
     config.resolve.alias = config.resolve.alias || {};

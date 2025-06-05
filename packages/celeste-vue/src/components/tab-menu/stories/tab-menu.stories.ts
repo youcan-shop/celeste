@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import HintText from '../../hint-text/hint-text.vue';
 import TabMenuContent from '../tab-menu-content.vue';
 import TabMenuItem from '../tab-menu-item.vue';
