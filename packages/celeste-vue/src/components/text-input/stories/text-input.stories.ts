@@ -5,7 +5,7 @@ import TextInputIcon from '../text-input-icon.vue';
 import TextInput from '../text-input.vue';
 
 const meta: Meta<typeof TextInput> = {
-  title: 'Components/Text Input 2',
+  title: 'Components/Text Input',
   component: TextInput,
 };
 
