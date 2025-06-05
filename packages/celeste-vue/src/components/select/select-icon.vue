@@ -19,6 +19,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
   width: var(--select-icon-size);
   height: var(--select-icon-size);
+  transition: color var(--animation-fast) ease-out;
 
   & > :where(i, svg, img) {
     width: 100%;

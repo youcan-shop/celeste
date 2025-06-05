@@ -45,6 +45,10 @@ const delegatedProps = useDelegatedProps(props, 'class');
   cursor: pointer;
   gap: var(--spacing-8);
 
+  & > i {
+    transition: rotate var(--animation-fast) ease-out;
+  }
+
   &:deep(.celeste-select-value) {
     flex: 2;
   }
@@ -77,6 +81,16 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
   &[haserror='true'] {
     border-color: var(--color-state-error-base);
+  }
+
+  &[aria-expanded='true'] {
+    & > i {
+      rotate: 180deg;
+    }
+  }
+
+  &:focus > i {
+    color: var(--color-icon-strong-950);
   }
 
   &[data-placeholder] {
@@ -122,13 +136,23 @@ const delegatedProps = useDelegatedProps(props, 'class');
     }
   }
 
-  &:not([variant='inline']) {
-    &:hover {
+  &:hover {
+    &[variant='inline'] {
+      & > i,
+      &:deep(.celeste-select-icon),
+      &:deep(.celeste-select-value) {
+        color: var(--color-text-strong-950);
+      }
+    }
+
+    &:not([variant='inline']) {
       border-color: transparent;
       background-color: var(--color-bg-weak-50);
     }
+  }
 
-    &:focus {
+  &:focus {
+    &:not([variant='inline']) {
       border-color: var(--color-stroke-strong-950);
       outline-color: var(--color-stroke-soft-200);
     }
