@@ -50,8 +50,6 @@ export function onActionClick(editor: Editor, slug: string, option: string | nul
     bulletList: () => vm.toggleBulletList().run(),
     orderedList: () => vm.toggleOrderedList().run(),
     align: () => vm.setTextAlign(option || 'left').run(),
-    subscript: () => vm.toggleSubscript().run(),
-    superscript: () => vm.toggleSuperscript().run(),
     undo: () => vm.undo().run(),
     redo: () => vm.redo().run(),
     clear: () => {
