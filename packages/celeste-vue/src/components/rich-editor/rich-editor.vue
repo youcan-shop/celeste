@@ -124,20 +124,20 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .celeste-rich-editor {
-  border-radius: var(--spacing-12);
   border: 1px solid var(--color-stroke-soft-200);
+  border-radius: var(--spacing-12);
   background: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-xs);
 
   .toolbar {
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
+    align-items: center;
     padding: var(--spacing-4);
-    gap: var(--spacing-4);
-    border-radius: var(--spacing-12) var(--spacing-12) 0 0;
     border-bottom: 1px solid var(--color-stroke-soft-200);
+    border-radius: var(--spacing-12) var(--spacing-12) 0 0;
     background: var(--color-bg-white-0);
+    gap: var(--spacing-4);
 
     &:deep(.celeste-cbutton:active) {
       background-color: var(--color-bg-weak-50);
@@ -153,21 +153,21 @@ onBeforeUnmount(() => {
     .divider {
       width: 1px;
       height: 16px;
-      background: var(--color-stroke-soft-200);
       margin: 0 3px;
+      background: var(--color-stroke-soft-200);
     }
   }
 
   .text-field {
+    position: relative;
     min-height: 88px;
     margin: var(--spacing-12);
-    resize: vertical;
     overflow-y: auto;
-    position: relative;
+    resize: vertical;
 
     &:deep(.tiptap) {
-      outline: none;
       min-height: 88px;
+      outline: none;
 
       :first-child {
         margin-top: 0;
@@ -175,8 +175,8 @@ onBeforeUnmount(() => {
 
       ul,
       ol {
-        padding: 0 1rem;
         margin: 1.25rem 1rem 1.25rem 0.4rem;
+        padding: 0 1rem;
 
         li p {
           margin-top: 0.25em;
@@ -190,8 +190,8 @@ onBeforeUnmount(() => {
       h4,
       h5,
       h6 {
-        line-height: 1.1;
         margin-top: 2.5rem;
+        line-height: 1.1;
         text-wrap: pretty;
       }
 
@@ -222,12 +222,12 @@ onBeforeUnmount(() => {
   }
 
   .footer {
+    display: flex;
     position: fixed;
     bottom: 22px;
-    inset-inline-end: 35px;
-    display: flex;
     justify-content: flex-end;
     margin-top: var(--spacing-8);
+    inset-inline-end: 35px;
 
     & .characters-count {
       color: var(--color-text-soft-400);
