@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import CompactButton from '@/components/button/compact-button.vue';
+import Tooltip from '@/components/tooltip/tooltip.vue';
 import CharacterCount from '@tiptap/extension-character-count';
-import Subscript from '@tiptap/extension-subscript';
-import Superscript from '@tiptap/extension-superscript';
 import TextAlign from '@tiptap/extension-text-align';
 import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
@@ -50,8 +49,6 @@ onMounted(() => {
     extensions: [
       StarterKit,
       Underline,
-      Subscript,
-      Superscript,
       CharacterCount.configure({
         limit: props.maxLimit,
       }),
@@ -94,13 +91,15 @@ onBeforeUnmount(() => {
       <div class="divider" />
 
       <template v-for="(item, index) in toolbarActions" :key="index">
-        <CompactButton
-          v-if="item.type !== 'divider'"
-          :icon="`i-celeste-${item.icon}`"
-          variant="ghost"
-          :class="{ active: editor.isActive(item.active) }"
-          @click="onActionClick(editor as Editor, item.name, item.option)"
-        />
+        <Tooltip v-if="item.type !== 'divider'" :title="item.name">
+          <CompactButton
+            :icon="`i-celeste-${item.icon}`"
+            variant="ghost"
+            :class="{ active: editor.isActive(item.active) }"
+            @click="onActionClick(editor as Editor, item.slug, item.option)"
+          />
+        </Tooltip>
+
         <div
           v-else
           class="divider"
@@ -113,10 +112,12 @@ onBeforeUnmount(() => {
         :editor="editor as Editor"
       />
 
-      <div v-if="maxLimit" class="footer">
-        <span class="characters-count" :class="maxLimit ? limitWarning : ''">
-          {{ charactersCount }}/{{ maxLimit }}
-        </span>
+      <div
+        v-if="maxLimit"
+        class="characters-count"
+        :class="maxLimit ? limitWarning : ''"
+      >
+        {{ charactersCount }}/{{ maxLimit }}
       </div>
     </div>
   </div>
@@ -161,6 +162,7 @@ onBeforeUnmount(() => {
   .text-field {
     position: relative;
     min-height: 88px;
+    padding-inline-end: var(--spacing-12);
     margin: var(--spacing-12);
     overflow-y: auto;
     resize: vertical;
@@ -221,18 +223,12 @@ onBeforeUnmount(() => {
     }
   }
 
-  .footer {
-    display: flex;
+  .characters-count {
     position: fixed;
     bottom: 22px;
-    justify-content: flex-end;
-    margin-top: var(--spacing-8);
     inset-inline-end: 35px;
-
-    & .characters-count {
-      color: var(--color-text-soft-400);
-      font: var(--subheading-xxs);
-    }
+    color: var(--color-text-soft-400);
+    font: var(--subheading-xxs);
   }
 }
 </style>
