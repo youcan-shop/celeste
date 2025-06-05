@@ -3,6 +3,7 @@ import { ref } from 'vue';
 
 interface ToolbarAction {
   type?: 'action';
+  slug: string;
   name: string;
   icon: string;
   active: string | Record<string, unknown>;
@@ -16,28 +17,26 @@ interface ToolbarDivider {
 type ToolbarItem = ToolbarAction | ToolbarDivider;
 
 export const toolbarActions = ref<ToolbarItem[]>([
-  { name: 'bold', icon: 'bold', active: 'bold' },
-  { name: 'italic', icon: 'italic', active: 'italic' },
-  { name: 'underline', icon: 'underline', active: 'underline' },
-  { name: 'strike', icon: 'strikethrough', active: 'strike' },
+  { slug: 'bold', name: 'Bold', icon: 'bold', active: 'bold' },
+  { slug: 'italic', name: 'Italic', icon: 'italic', active: 'italic' },
+  { slug: 'underline', name: 'Underline', icon: 'underline', active: 'underline' },
+  { slug: 'strike', name: 'Strike', icon: 'strikethrough', active: 'strike' },
   { type: 'divider' },
-  { name: 'bulletList', icon: 'list-unordered', active: 'bulletList' },
-  { name: 'orderedList', icon: 'list-ordered', active: 'orderedList' },
+  { slug: 'bulletList', name: 'Bullet list', icon: 'list-unordered', active: 'bulletList' },
+  { slug: 'orderedList', name: 'Orderred list', icon: 'list-ordered', active: 'orderedList' },
   { type: 'divider' },
-  { name: 'align', option: 'left', icon: 'align-left', active: { textAlign: 'left' } },
-  { name: 'align', option: 'center', icon: 'align-center', active: { textAlign: 'center' } },
-  { name: 'align', option: 'right', icon: 'align-right', active: { textAlign: 'right' } },
-  { name: 'align', option: 'justify', icon: 'align-justify', active: { textAlign: 'justify' } },
+  { slug: 'align', option: 'left', name: 'Align left', icon: 'align-left', active: { textAlign: 'left' } },
+  { slug: 'align', option: 'center', name: 'Align center', icon: 'align-center', active: { textAlign: 'center' } },
+  { slug: 'align', option: 'right', name: 'Align right', icon: 'align-right', active: { textAlign: 'right' } },
+  { slug: 'align', option: 'justify', name: 'Align justify', icon: 'align-justify', active: { textAlign: 'justify' } },
   { type: 'divider' },
-  { name: 'subscript', icon: 'subscript-2', active: 'subscript' },
-  { name: 'superscript', icon: 'superscript-2', active: 'superscript' },
   { type: 'divider' },
-  { name: 'undo', icon: 'arrow-go-back-line', active: 'undo' },
-  { name: 'redo', icon: 'arrow-go-forward-line', active: 'redo' },
-  { name: 'clear', icon: 'format-clear', active: 'clear' },
+  { slug: 'undo', name: 'Undo', icon: 'arrow-go-back-line', active: 'undo' },
+  { slug: 'redo', name: 'Redo', icon: 'arrow-go-forward-line', active: 'redo' },
+  { slug: 'clear', name: 'Clear', icon: 'format-clear', active: 'clear' },
 ]);
 
-export function onActionClick(editor: Editor, name: string, option: string | null = null): void {
+export function onActionClick(editor: Editor, slug: string, option: string | null = null): void {
   const vm = editor.chain().focus();
   if (!vm) {
     return;
@@ -61,7 +60,7 @@ export function onActionClick(editor: Editor, name: string, option: string | nul
     },
   };
 
-  actionTriggers[name]?.();
+  actionTriggers[slug]?.();
 }
 
 export function onHeadingClick(editor: Editor, index: number): void {
