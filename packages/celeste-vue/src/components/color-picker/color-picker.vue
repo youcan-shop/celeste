@@ -6,7 +6,6 @@ import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, ref, watch } from 'vue';
 import Button from '../button/button.vue';
-import TextInput from '../input/text-input.vue';
 import ColorArea from './color-area.vue';
 import { defineColorModel } from './composable/use-color-model';
 import HueSlider from './hue-slider.vue';
@@ -95,6 +94,16 @@ function inputChangeHex(event: Event) {
     alpha.value = a;
   }
 }
+
+function inputChangeAlpha(event: Event) {
+  const data = Number((event.target as HTMLInputElement)?.value);
+
+  if (!data || Number.isNaN(data)) {
+    return;
+  }
+
+  alpha.value = data;
+}
 </script>
 
 <script lang="ts">
@@ -159,13 +168,18 @@ declare global {
           @focusout="inputChangeHex"
           @keydown.enter.prevent="inputChangeHex"
         >
-        <TextInput
+        <input
           placeholder="100"
-          type="basic"
+          type="number"
+          min="0"
+          step="0.01"
+          max="1"
           class="color-input"
           size="xs"
-          value="100%"
-        />
+          :value="tinyColorRef.getAlpha()"
+          @focusout="inputChangeAlpha"
+          @keydown.enter.prevent="inputChangeAlpha"
+        >
       </div>
     </div>
     <div class="celeste-color-swatches">
