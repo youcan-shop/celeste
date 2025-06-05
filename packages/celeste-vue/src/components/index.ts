@@ -10,6 +10,7 @@ export * from './input';
 export * from './label';
 export * from './scroll-area';
 export * from './segmented-control';
+export * from './select';
 export * from './slider';
 export * from './switch';
 export * from './tab-menu';
