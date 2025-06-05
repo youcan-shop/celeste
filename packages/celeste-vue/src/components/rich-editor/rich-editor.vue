@@ -2,6 +2,7 @@
 import CompactButton from '@/components/button/compact-button.vue';
 import Tooltip from '@/components/tooltip/tooltip.vue';
 import CharacterCount from '@tiptap/extension-character-count';
+import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
@@ -49,6 +50,15 @@ onMounted(() => {
     extensions: [
       StarterKit,
       Underline,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: 'https',
+        HTMLAttributes: {
+          class: 'celeste-rich-editor-link',
+          rel: null,
+        },
+      }),
       CharacterCount.configure({
         limit: props.maxLimit,
       }),
@@ -70,24 +80,24 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="editor" class="celeste-rich-editor">
     <div class="toolbar">
-      <div class="align-dropdown">
-        <button class="dropbtn">
+      <select @change="onHeadingClick(editor as Editor, $event)">
+        <option
+          value=""
+          disabled
+          selected
+          hidden
+        >
           Heading ▼
-        </button>
-        <div class="dropdown-content">
-          <a
-            v-for="index in 6"
-            :key="index"
-            :class="{ active: editor.isActive('heading', { level: index }) }"
-            :style="{ fontSize: `${20 - index}px` }"
-            role="button"
-            @click="onHeadingClick(editor as Editor, index)"
-          >
-            H{{ index }}
-          </a>
-        </div>
-      </div>
-
+        </option>
+        <option
+          v-for="index in 6"
+          :key="index"
+          :value="index"
+          :class="{ active: editor.isActive('heading', { level: index }) }"
+        >
+          H{{ index }}
+        </option>
+      </select>
       <div class="divider" />
 
       <template v-for="(item, index) in toolbarActions" :key="index">
@@ -115,7 +125,10 @@ onBeforeUnmount(() => {
       <div
         v-if="maxLimit"
         class="characters-count"
-        :class="maxLimit ? limitWarning : ''"
+        :class="{
+          warning: limitWarning === 'warning',
+          danger: limitWarning === 'danger',
+        }"
       >
         {{ charactersCount }}/{{ maxLimit }}
       </div>
@@ -162,8 +175,8 @@ onBeforeUnmount(() => {
   .text-field {
     position: relative;
     min-height: 88px;
-    padding-inline-end: var(--spacing-12);
     margin: var(--spacing-12);
+    padding-inline-end: var(--spacing-12);
     overflow-y: auto;
     resize: vertical;
 
@@ -220,6 +233,15 @@ onBeforeUnmount(() => {
       h6 {
         font-size: 1rem;
       }
+
+      a {
+        color: var(--color-purple-600);
+        cursor: pointer;
+
+        &:hover {
+          color: var(--color-purple-700);
+        }
+      }
     }
   }
 
@@ -229,6 +251,14 @@ onBeforeUnmount(() => {
     inset-inline-end: 35px;
     color: var(--color-text-soft-400);
     font: var(--subheading-xxs);
+
+    &.warning {
+      color: var(--color-state-warning-base);
+    }
+
+    &.danger {
+      color: var(--color-state-error-base);
+    }
   }
 }
 </style>
