@@ -4,11 +4,12 @@ import Tooltip from '@/components/tooltip/tooltip.vue';
 import CharacterCount from '@tiptap/extension-character-count';
 import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
+import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { onActionClick, onHeadingClick, toolbarActions } from './config';
+import { onActionClick, toolbarActions } from './config';
 
 const props = defineProps({
   modelValue: {
@@ -49,6 +50,7 @@ onMounted(() => {
     content: props.modelValue,
     extensions: [
       StarterKit,
+      TextStyle.configure({ mergeNestedSpanStyles: true }),
       Underline,
       Link.configure({
         openOnClick: false,
@@ -80,28 +82,8 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="editor" class="celeste-rich-editor">
     <div class="toolbar">
-      <select @change="onHeadingClick(editor as Editor, $event)">
-        <option
-          value=""
-          disabled
-          selected
-          hidden
-        >
-          Heading ▼
-        </option>
-        <option
-          v-for="index in 6"
-          :key="index"
-          :value="index"
-          :class="{ active: editor.isActive('heading', { level: index }) }"
-        >
-          H{{ index }}
-        </option>
-      </select>
-      <div class="divider" />
-
       <template v-for="(item, index) in toolbarActions" :key="index">
-        <Tooltip v-if="item.type !== 'divider'" :title="item.name">
+        <Tooltip v-if="item.type !== 'divider' && !item.children">
           <CompactButton
             :icon="`i-celeste-${item.icon}`"
             variant="ghost"
@@ -110,6 +92,27 @@ onBeforeUnmount(() => {
           />
         </Tooltip>
 
+        <template v-else-if="item.children">
+          <select
+            @change="onActionClick(editor as Editor, item.slug, $event.target.value)"
+          >
+            <option
+              value=""
+              disabled
+              selected
+              hidden
+            >
+              {{ item.name || item.children[0].name }}
+            </option>
+            <option
+              v-for="child in item.children"
+              :key="child.option"
+              :value="child.option"
+            >
+              {{ child.name }}
+            </option>
+          </select>
+        </template>
         <div
           v-else
           class="divider"
