@@ -5,6 +5,8 @@ import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, ref, watch } from 'vue';
+import Button from '../button/button.vue';
+import TextInput from '../input/text-input.vue';
 import ColorArea from './color-area.vue';
 import { defineColorModel } from './composable/use-color-model';
 import HueSlider from './hue-slider.vue';
@@ -22,6 +24,8 @@ const tinyColorRef = defineColorModel(props, emit);
 
 const hueRef = ref(tinyColorRef.value.toHsl().h);
 
+const eyeDropper = ref<EyeDropper | null>(null);
+
 watch(tinyColorRef, (tinyColorInstance) => {
   const newHue = tinyColorInstance.toHsl().h;
 
@@ -32,8 +36,6 @@ watch(tinyColorRef, (tinyColorInstance) => {
 
   hueRef.value = newHue;
 }, { immediate: true });
-
-// ALTERNATIVE
 
 const HSVA = computed({
   get: () => tinyColorRef.value.toHsv(),
@@ -50,6 +52,10 @@ const saturation = ref(HSVA.value.s);
 const value = ref(HSVA.value.v);
 const alpha = ref(HSVA.value.a);
 
+if (window.EyeDropper) {
+  eyeDropper.value = new window.EyeDropper();
+}
+
 watch([hue, saturation, value, alpha], () => {
   tinyColorRef.value = tinycolor({
     h: hue.value,
@@ -58,6 +64,37 @@ watch([hue, saturation, value, alpha], () => {
     a: alpha.value,
   });
 });
+
+function sipColor() {
+  if (!eyeDropper.value) {
+    return;
+  }
+
+  eyeDropper.value.open().then((result: any) => {
+    const hsv = tinycolor(result.sRGBHex).toHsv();
+    HSVA.value = hsv;
+  }).catch((e: Error) => {
+    // Do nothing, this prevents an error from being thrown if the user cancels the color selection.
+  });
+}
+
+function inputChangeHex(event: Event) {
+  const data = (event.target as HTMLInputElement)?.value;
+  if (!data) {
+    return;
+  }
+
+  const color = tinycolor(data);
+
+  if (color.isValid()) {
+    const { h, s, v, a } = color.toHsv();
+
+    hue.value = h;
+    saturation.value = s;
+    value.value = v;
+    alpha.value = a;
+  }
+}
 </script>
 
 <script lang="ts">
@@ -68,6 +105,28 @@ export interface ColorPickerProps {
 
 export interface ColorPickerEmits {
   'update:modelValue': [value: string];
+}
+
+interface ColorSelectionOptions {
+  signal?: AbortSignal;
+}
+
+interface ColorSelectionResult {
+  sRGBHex: string;
+}
+
+interface EyeDropper {
+  open: (options?: ColorSelectionOptions) => Promise<ColorSelectionResult>;
+}
+
+interface EyeDropperConstructor {
+  new (): EyeDropper;
+}
+
+declare global {
+  interface Window {
+    EyeDropper?: EyeDropperConstructor | undefined;
+  }
 }
 </script>
 
@@ -80,8 +139,33 @@ export interface ColorPickerEmits {
       />
       <HueSlider v-model="hue" />
       <AlphaSlider v-model="alpha" :color="HSVA" />
-      <div class="celeste-color-code">
-        Color Inputs
+      <div class="celeste-color-controls">
+        <Button
+          v-if="eyeDropper"
+          variant="stroke"
+          size="xxs"
+          type="neutral"
+          @click="sipColor"
+        >
+          <i i-celeste-sip-line />
+        </Button>
+        <input
+          name="Hex input"
+          placeholder="#FFFFFF"
+          type="basic"
+          class="color-input"
+          size="xs"
+          :value="tinyColorRef.toHexString().toUpperCase()"
+          @focusout="inputChangeHex"
+          @keydown.enter.prevent="inputChangeHex"
+        >
+        <TextInput
+          placeholder="100"
+          type="basic"
+          class="color-input"
+          size="xs"
+          value="100%"
+        />
       </div>
     </div>
     <div class="celeste-color-swatches">
@@ -113,10 +197,40 @@ export interface ColorPickerEmits {
       box-sizing: border-box;
     }
 
-    .celeste-color-code {
+    .celeste-color-controls {
       display: flex;
-      flex-direction: column;
-      gap: var(--spacing-4);
+      width: 100%;
+      height: 32px;
+
+      & > * {
+        box-sizing: border-box;
+        height: 100%;
+      }
+
+      // gap: var(--spacing-4);
+
+      & > *:first-child {
+        border-end-end-radius: 0;
+        border-start-end-radius: 0;
+        margin-inline-end: -1px;
+      }
+
+      & > *:last-child {
+        z-index: 1;
+        flex: 1;
+        margin-inline-start: -1px;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+      }
+
+      & > *:not(:last-child, :first-child) {
+        flex: 3;
+        border-radius: 0;
+
+        &:focus-within {
+          z-index: 2;
+        }
+      }
     }
   }
 
