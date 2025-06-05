@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CompactButton from '@/components/button/compact-button.vue';
 import CharacterCount from '@tiptap/extension-character-count';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
@@ -7,18 +8,7 @@ import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-
-type ToolbarAction =
-  | {
-    type?: 'action';
-    name: string;
-    icon: string;
-    active: string | Record<string, unknown>;
-    option?: string;
-  }
-  | {
-    type: 'divider';
-  };
+import { onActionClick, onHeadingClick, toolbarActions } from './config';
 
 const props = defineProps({
   modelValue: {
@@ -34,30 +24,8 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const editor = ref<Editor | null>(null);
-const toolbarActions = ref<ToolbarAction[]>([
-  { name: 'bold', icon: 'bold', active: 'bold' },
-  { name: 'italic', icon: 'italic', active: 'italic' },
-  { name: 'underline', icon: 'underline', active: 'underline' },
-  { name: 'strike', icon: 'strikethrough', active: 'strike' },
-  { type: 'divider' },
-  { name: 'bulletList', icon: 'list-unordered', active: 'bulletList' },
-  { name: 'orderedList', icon: 'list-ordered', active: 'orderedList' },
-  { type: 'divider' },
-  { name: 'align', option: 'left', icon: 'align-left', active: { textAlign: 'left' } },
-  { name: 'align', option: 'center', icon: 'align-center', active: { textAlign: 'center' } },
-  { name: 'align', option: 'right', icon: 'align-right', active: { textAlign: 'right' } },
-  { name: 'align', option: 'justify', icon: 'align-justify', active: { textAlign: 'justify' } },
-  { type: 'divider' },
-  { name: 'subscript', icon: 'subscript-2', active: 'subscript' },
-  { name: 'superscript', icon: 'superscript-2', active: 'superscript' },
-  { type: 'divider' },
-  { name: 'undo', icon: 'arrow-go-back-line', active: 'undo' },
-  { name: 'redo', icon: 'arrow-go-forward-line', active: 'redo' },
-  { name: 'clear', icon: 'format-clear', active: 'clear' },
-]);
 
 const charactersCount = computed(() => editor.value?.storage.characterCount.characters() || 0);
-const wordsCount = computed(() => editor.value?.storage.characterCount.words() || 0);
 
 const limitWarning = computed(() => {
   const isCloseToMax = charactersCount.value >= (props.maxLimit - 20);
@@ -75,36 +43,6 @@ watch(() => props.modelValue, (value) => {
     return;
   editor.value?.commands.setContent(value, false);
 });
-
-function onActionClick(name: string, option: string | null = null) {
-  const vm = editor.value?.chain().focus();
-  if (!vm)
-    return;
-
-  const actionTriggers: Record<string, () => void> = {
-    bold: () => vm.toggleBold().run(),
-    italic: () => vm.toggleItalic().run(),
-    underline: () => vm.toggleUnderline().run(),
-    strike: () => vm.toggleStrike().run(),
-    bulletList: () => vm.toggleBulletList().run(),
-    orderedList: () => vm.toggleOrderedList().run(),
-    align: () => vm.setTextAlign(option || 'left').run(),
-    subscript: () => vm.toggleSubscript().run(),
-    superscript: () => vm.toggleSuperscript().run(),
-    undo: () => vm.undo().run(),
-    redo: () => vm.redo().run(),
-    clear: () => {
-      vm.clearNodes().run();
-      vm.unsetAllMarks().run();
-    },
-  };
-
-  actionTriggers[name]?.();
-}
-
-function onHeadingClick(index: number) {
-  editor.value?.chain().focus().toggleHeading({ level: index as 1 | 2 | 3 | 4 | 5 | 6 }).run();
-}
 
 onMounted(() => {
   editor.value = new Editor({
@@ -133,9 +71,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div id="text-editor">
-    <div v-if="editor" class="toolbar">
-      <!-- Headings -->
+  <div v-if="editor" class="celeste-rich-editor">
+    <div class="toolbar">
       <div class="align-dropdown">
         <button class="dropbtn">
           Heading ▼
@@ -147,7 +84,7 @@ onBeforeUnmount(() => {
             :class="{ active: editor.isActive('heading', { level: index }) }"
             :style="{ fontSize: `${20 - index}px` }"
             role="button"
-            @click="onHeadingClick(index)"
+            @click="onHeadingClick(editor as Editor, index)"
           >
             H{{ index }}
           </a>
@@ -157,13 +94,13 @@ onBeforeUnmount(() => {
       <div class="divider" />
 
       <template v-for="(item, index) in toolbarActions" :key="index">
-        <button
+        <CompactButton
           v-if="item.type !== 'divider'"
+          :icon="`i-celeste-${item.icon}`"
+          variant="ghost"
           :class="{ active: editor.isActive(item.active) }"
-          @click="onActionClick(item.name, item.option)"
-        >
-          <i :class="`i-celeste-${item.icon}`" />
-        </button>
+          @click="onActionClick(editor as Editor, item.name, item.option)"
+        />
         <div
           v-else
           class="divider"
@@ -171,19 +108,131 @@ onBeforeUnmount(() => {
       </template>
     </div>
 
-    <EditorContent
-      v-if="editor"
-      :editor="editor as Editor"
-    />
+    <div class="text-field">
+      <EditorContent
+        :editor="editor as Editor"
+      />
 
-    <div v-if="editor" class="footer">
-      <span class="characters-count" :class="maxLimit ? limitWarning : ''">
-        {{ charactersCount }}{{ maxLimit ? ` / ${maxLimit} characters` : ' characters' }}
-      </span>
-      |
-      <span class="words-count">
-        {{ wordsCount }} words
-      </span>
+      <div v-if="maxLimit" class="footer">
+        <span class="characters-count" :class="maxLimit ? limitWarning : ''">
+          {{ charactersCount }}/{{ maxLimit }}
+        </span>
+      </div>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.celeste-rich-editor {
+  border-radius: var(--spacing-12);
+  border: 1px solid var(--color-stroke-soft-200);
+  background: var(--color-bg-white-0);
+  box-shadow: var(--shadow-regular-xs);
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: var(--spacing-4);
+    gap: var(--spacing-4);
+    border-radius: var(--spacing-12) var(--spacing-12) 0 0;
+    border-bottom: 1px solid var(--color-stroke-soft-200);
+    background: var(--color-bg-white-0);
+
+    &:deep(.celeste-cbutton:active) {
+      background-color: var(--color-bg-weak-50);
+      box-shadow: none;
+      color: var(--color-icon-strong-950);
+    }
+
+    .celeste-cbutton.active {
+      background-color: var(--color-neutral-100);
+      color: var(--color-icon-strong-950);
+    }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background: var(--color-stroke-soft-200);
+      margin: 0 3px;
+    }
+  }
+
+  .text-field {
+    min-height: 88px;
+    margin: var(--spacing-12);
+    resize: vertical;
+    overflow-y: auto;
+    position: relative;
+
+    &:deep(.tiptap) {
+      outline: none;
+      min-height: 88px;
+
+      :first-child {
+        margin-top: 0;
+      }
+
+      ul,
+      ol {
+        padding: 0 1rem;
+        margin: 1.25rem 1rem 1.25rem 0.4rem;
+
+        li p {
+          margin-top: 0.25em;
+          margin-bottom: 0.25em;
+        }
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        line-height: 1.1;
+        margin-top: 2.5rem;
+        text-wrap: pretty;
+      }
+
+      h1,
+      h2 {
+        margin-top: 3.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+      }
+
+      h4,
+      h5,
+      h6 {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 22px;
+    inset-inline-end: 35px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing-8);
+
+    & .characters-count {
+      color: var(--color-text-soft-400);
+      font: var(--subheading-xxs);
+    }
+  }
+}
+</style>
