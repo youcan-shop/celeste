@@ -9,7 +9,8 @@ import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { onActionClick, toolbarActions } from './config';
+import { isFontSizeActive, onActionClick, toolbarActions } from './config';
+import { FontSize } from './extensions/font-size';
 
 const props = defineProps({
   modelValue: {
@@ -50,7 +51,8 @@ onMounted(() => {
     content: props.modelValue,
     extensions: [
       StarterKit,
-      TextStyle.configure({ mergeNestedSpanStyles: true }),
+      TextStyle,
+      FontSize,
       Underline,
       Link.configure({
         openOnClick: false,
@@ -83,31 +85,34 @@ onBeforeUnmount(() => {
   <div v-if="editor" class="celeste-rich-editor">
     <div class="toolbar">
       <template v-for="(item, index) in toolbarActions" :key="index">
-        <Tooltip v-if="item.type !== 'divider' && !item.children">
+        <Tooltip v-if="item.type !== 'divider' && !item.children" :title="item.name">
           <CompactButton
             :icon="`i-celeste-${item.icon}`"
             variant="ghost"
-            :class="{ active: editor.isActive(item.active) }"
+            :class="{ active: typeof item.active === 'string' && editor.isActive(item.active) }"
             @click="onActionClick(editor as Editor, item.slug, item.option)"
           />
         </Tooltip>
 
-        <template v-else-if="item.children">
+        <template v-else-if="item.type !== 'divider' && item.children">
           <select
-            @change="onActionClick(editor as Editor, item.slug, $event.target.value)"
+            @change="onActionClick(editor as Editor, item.slug, ($event.target as HTMLSelectElement)?.value)"
           >
             <option
               value=""
               disabled
-              selected
+              :selected="!editor.isActive(item.active || '') && !item.children.some(child => editor?.isActive(child.active || ''))"
               hidden
             >
-              {{ item.name || item.children[0].name }}
+              {{ item.name }}
             </option>
             <option
               v-for="child in item.children"
               :key="child.option"
               :value="child.option"
+              :selected="item.slug === 'fontSize'
+                ? isFontSizeActive(editor as Editor, child.active)
+                : editor.isActive(child.active || '')"
             >
               {{ child.name }}
             </option>
