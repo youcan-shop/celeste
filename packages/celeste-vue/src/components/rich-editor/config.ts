@@ -28,24 +28,26 @@ export const toolbarActions = ref<ToolbarItem[]>([
     slug: 'heading',
     name: 'Heading ▼',
     children: [
-      { option: '1', name: 'H1', active: 'heading-1' },
-      { option: '2', name: 'H2', active: 'heading-2' },
-      { option: '3', name: 'H3', active: 'heading-3' },
-      { option: '4', name: 'H4', active: 'heading-4' },
-      { option: '5', name: 'H5', active: 'heading-5' },
-      { option: '6', name: 'H6', active: 'heading-6' },
+      { option: '1', name: 'H1', active: { level: 1 } },
+      { option: '2', name: 'H2', active: { level: 2 } },
+      { option: '3', name: 'H3', active: { level: 3 } },
+      { option: '4', name: 'H4', active: { level: 4 } },
+      { option: '5', name: 'H5', active: { level: 5 } },
+      { option: '6', name: 'H6', active: { level: 6 } },
+      { option: 'p', name: 'Paragraph', active: 'paragraph' },
     ],
   },
   { type: 'divider' },
   {
     slug: 'fontSize',
+    name: 'Font size ▼',
     children: [
-      { option: '12px', name: '12px', active: 'heading-1' },
-      { option: '14px', name: '14px', active: 'heading-2' },
-      { option: '16px', name: '16px', active: 'heading-3' },
-      { option: '20px', name: '20px', active: 'heading-4' },
-      { option: '26px', name: '26px', active: 'heading-5' },
-      { option: '30px', name: '30px', active: 'heading-6' },
+      { option: '12px', name: '12px', active: { fontSize: '12px' } },
+      { option: '14px', name: '14px', active: { fontSize: '14px' } },
+      { option: '16px', name: '16px', active: { fontSize: '16px' } },
+      { option: '20px', name: '20px', active: { fontSize: '20px' } },
+      { option: '26px', name: '26px', active: { fontSize: '26px' } },
+      { option: '30px', name: '30px', active: { fontSize: '30px' } },
     ],
   },
   { type: 'divider' },
@@ -76,23 +78,27 @@ export const toolbarActions = ref<ToolbarItem[]>([
 
 export function onActionClick(editor: Editor, slug: string, option: string | null = null): void {
   const chain = editor.chain().focus();
+
   if (!chain) {
     return;
   }
 
   const actionTriggers: Record<string, () => void> = {
     heading: () => {
-      const headingLevel = Number(option);
-
-      chain.toggleHeading({ level: headingLevel as 1 | 2 | 3 | 4 | 5 | 6 }).run();
-    },
-    fontSize: () => {
       if (!option) {
-        editor.chain().focus().unsetMark('textStyle');
+        return;
+      }
+
+      if (option === 'p') {
+        chain.setParagraph().run();
       }
       else {
-        editor.chain().focus().setMark('textStyle', { style: `font-size: ${option}` });
+        const headingLevel = Number(option);
+        chain.toggleHeading({ level: headingLevel as 1 | 2 | 3 | 4 | 5 | 6 }).run();
       }
+    },
+    fontSize: () => {
+      editor.chain().focus().setMark('textStyle', { fontSize: option }).run();
     },
     bold: () => chain.toggleBold().run(),
     italic: () => chain.toggleItalic().run(),
@@ -111,4 +117,10 @@ export function onActionClick(editor: Editor, slug: string, option: string | nul
   };
 
   actionTriggers[slug]?.();
+}
+
+export function isFontSizeActive(editor: Editor, active: ToolbarChildOption['active']): boolean {
+  const currentFontSize = editor.getAttributes('textStyle').fontSize || '16px';
+
+  return typeof active === 'object' && active?.fontSize === currentFontSize;
 }
