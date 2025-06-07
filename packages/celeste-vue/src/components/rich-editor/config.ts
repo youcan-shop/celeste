@@ -1,53 +1,39 @@
 import type { Editor } from '@tiptap/vue-3';
+import type { ToolbarChildOption, ToolbarItem } from './types';
 import { ref } from 'vue';
-
-interface ToolbarChildOption {
-  option: string;
-  name?: string;
-  icon?: string;
-  active?: string | Record<string, unknown>;
-}
-interface ToolbarAction {
-  type?: 'action';
-  slug: string;
-  name?: string;
-  icon?: string;
-  active?: string | Record<string, unknown>;
-  option?: string;
-  children?: ToolbarChildOption[];
-}
-
-interface ToolbarDivider {
-  type: 'divider';
-}
-
-type ToolbarItem = ToolbarAction | ToolbarDivider;
 
 export const toolbarActions = ref<ToolbarItem[]>([
   {
     slug: 'heading',
-    name: 'Heading ▼',
+    name: 'Text styles',
     children: [
-      { option: '1', name: 'H1', active: { level: 1 } },
-      { option: '2', name: 'H2', active: { level: 2 } },
-      { option: '3', name: 'H3', active: { level: 3 } },
-      { option: '4', name: 'H4', active: { level: 4 } },
-      { option: '5', name: 'H5', active: { level: 5 } },
-      { option: '6', name: 'H6', active: { level: 6 } },
-      { option: 'p', name: 'Paragraph', active: 'paragraph' },
+      { option: 'p', name: 'Normal text', active: 'paragraph' },
+      { option: '1', name: 'Heading 1', active: { level: 1 } },
+      { option: '2', name: 'Heading 2', active: { level: 2 } },
+      { option: '3', name: 'Heading 3', active: { level: 3 } },
+      { option: '4', name: 'Heading 4', active: { level: 4 } },
+      { option: '5', name: 'Heading 5', active: { level: 5 } },
+      { option: '6', name: 'Heading 6', active: { level: 6 } },
     ],
   },
   { type: 'divider' },
   {
     slug: 'fontSize',
-    name: 'Font size ▼',
+    name: 'Font size',
     children: [
-      { option: '12px', name: '12px', active: { fontSize: '12px' } },
-      { option: '14px', name: '14px', active: { fontSize: '14px' } },
-      { option: '16px', name: '16px', active: { fontSize: '16px' } },
-      { option: '20px', name: '20px', active: { fontSize: '20px' } },
-      { option: '26px', name: '26px', active: { fontSize: '26px' } },
-      { option: '30px', name: '30px', active: { fontSize: '30px' } },
+      { option: '8px', name: '8', active: { fontSize: '8px' } },
+      { option: '10px', name: '10', active: { fontSize: '10px' } },
+      { option: '12px', name: '12', active: { fontSize: '12px' } },
+      { option: '14px', name: '14', active: { fontSize: '14px' } },
+      { option: '16px', name: '16', active: { fontSize: '16px' } },
+      { option: '18px', name: '18', active: { fontSize: '18px' } },
+      { option: '24px', name: '24', active: { fontSize: '24px' } },
+      { option: '30px', name: '30', active: { fontSize: '30px' } },
+      { option: '36px', name: '36', active: { fontSize: '36px' } },
+      { option: '48px', name: '48', active: { fontSize: '48px' } },
+      { option: '60px', name: '60', active: { fontSize: '60px' } },
+      { option: '72px', name: '72', active: { fontSize: '72px' } },
+      { option: '96px', name: '96', active: { fontSize: '96px' } },
     ],
   },
   { type: 'divider' },
@@ -56,20 +42,21 @@ export const toolbarActions = ref<ToolbarItem[]>([
   { slug: 'underline', name: 'Underline', icon: 'underline', active: 'underline' },
   { slug: 'strike', name: 'Strike', icon: 'strikethrough', active: 'strike' },
   { type: 'divider' },
-  { slug: 'bulletList', name: 'Bullet list', icon: 'list-unordered', active: 'bulletList' },
-  { slug: 'orderedList', name: 'Orderred list', icon: 'list-ordered', active: 'orderedList' },
+  { slug: 'bulletList', name: 'Bulleted list', icon: 'list-unordered', active: 'bulletList' },
+  { slug: 'orderedList', name: 'Numbered list', icon: 'list-ordered', active: 'orderedList' },
   { type: 'divider' },
   {
     slug: 'align',
+    name: 'Text alignment',
     children: [
-      { option: 'left', name: 'Align left', icon: 'align-left', active: { textAlign: 'left' } },
-      { option: 'center', name: 'Align center', icon: 'align-center', active: { textAlign: 'center' } },
-      { option: 'right', name: 'Align right', icon: 'align-right', active: { textAlign: 'right' } },
-      { option: 'justify', name: 'Align justify', icon: 'align-justify', active: { textAlign: 'justify' } },
+      { option: 'left', name: 'Left align', icon: 'align-left', active: { textAlign: 'left' } },
+      { option: 'center', name: 'Center align', icon: 'align-center', active: { textAlign: 'center' } },
+      { option: 'right', name: 'Right align', icon: 'align-right', active: { textAlign: 'right' } },
+      { option: 'justify', name: 'Justify', icon: 'align-justify', active: { textAlign: 'justify' } },
     ],
   },
   { type: 'divider' },
-  { slug: 'link', name: 'Link', icon: 'link', active: 'link' },
+  { slug: 'link', name: 'Insert Link', icon: 'link', active: 'link' },
   { type: 'divider' },
   { slug: 'undo', name: 'Undo', icon: 'arrow-go-back-line', active: 'undo' },
   { slug: 'redo', name: 'Redo', icon: 'arrow-go-forward-line', active: 'redo' },
@@ -106,14 +93,11 @@ export function onActionClick(editor: Editor, slug: string, option: string | nul
     strike: () => chain.toggleStrike().run(),
     bulletList: () => chain.toggleBulletList().run(),
     orderedList: () => chain.toggleOrderedList().run(),
-    align: () => chain.setTextAlign(option || 'left').run(),
+    align: () => chain.setTextAlign(option ?? 'left').run(),
     link: () => chain.toggleLink({ href: '' }).run(),
     undo: () => chain.undo().run(),
     redo: () => chain.redo().run(),
-    clear: () => {
-      chain.clearNodes().run();
-      chain.unsetAllMarks().run();
-    },
+    clear: () => chain.clearNodes().unsetAllMarks().run(),
   };
 
   actionTriggers[slug]?.();
@@ -122,5 +106,5 @@ export function onActionClick(editor: Editor, slug: string, option: string | nul
 export function isFontSizeActive(editor: Editor, active: ToolbarChildOption['active']): boolean {
   const currentFontSize = editor.getAttributes('textStyle').fontSize || '16px';
 
-  return typeof active === 'object' && active?.fontSize === currentFontSize;
+  return typeof active === 'object' && active.fontSize === currentFontSize;
 }
