@@ -90,22 +90,14 @@ onBeforeUnmount(() => {
             :icon="`i-celeste-${item.icon}`"
             variant="ghost"
             :class="{ active: typeof item.active === 'string' && editor.isActive(item.active) }"
-            @click="onActionClick(editor as Editor, item.slug, item.option)"
+            @click="onActionClick(editor as Editor, item.slug)"
           />
         </Tooltip>
 
-        <template v-else-if="item.type !== 'divider' && item.children">
+        <Tooltip v-else-if="item.type !== 'divider' && item.children" :title="item.name">
           <select
             @change="onActionClick(editor as Editor, item.slug, ($event.target as HTMLSelectElement)?.value)"
           >
-            <option
-              value=""
-              disabled
-              :selected="!editor.isActive(item.active || '') && !item.children.some(child => editor?.isActive(child.active || ''))"
-              hidden
-            >
-              {{ item.name }}
-            </option>
             <option
               v-for="child in item.children"
               :key="child.option"
@@ -117,7 +109,8 @@ onBeforeUnmount(() => {
               {{ child.name }}
             </option>
           </select>
-        </template>
+        </Tooltip>
+
         <div
           v-else
           class="divider"
@@ -196,6 +189,58 @@ onBeforeUnmount(() => {
         margin-top: 0;
       }
 
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
+        margin-bottom: 0px;
+      }
+
+      h1 {
+        font-size: 1.71429em;
+        line-height: 1.16667;
+        margin-top: 2em;
+      }
+
+      h2 {
+        font-size: 1.42857em;
+        line-height: 1.2;
+        margin-top: 1.8em;
+      }
+
+      h3 {
+        font-size: 1.42857em;
+        line-height: 1.2;
+        margin-top: 1.8em;
+      }
+
+      h4 {
+        font-size: 1em;
+        line-height: 1.14286;
+        margin-top: 1.357em;
+      }
+
+      h5 {
+        font-size: 0.857143em;
+        line-height: 1.33333;
+        margin-top: 1.667em;
+      }
+
+      h6 {
+        font-size: 0.785714em;
+        line-height: 1.45455;
+        margin-top: 1.455em;
+      }
+
+      p {
+        font-size: 1em;
+        line-height: 1.714;
+        margin-top: 0.75rem;
+      }
+
       ul,
       ol {
         margin: 1.25rem 1rem 1.25rem 0.4rem;
@@ -205,41 +250,6 @@ onBeforeUnmount(() => {
           margin-top: 0.25em;
           margin-bottom: 0.25em;
         }
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        margin-top: 2.5rem;
-        line-height: 1.1;
-        text-wrap: pretty;
-      }
-
-      h1,
-      h2 {
-        margin-top: 3.5rem;
-        margin-bottom: 1.5rem;
-      }
-
-      h1 {
-        font-size: 1.4rem;
-      }
-
-      h2 {
-        font-size: 1.2rem;
-      }
-
-      h3 {
-        font-size: 1.1rem;
-      }
-
-      h4,
-      h5,
-      h6 {
-        font-size: 1rem;
       }
 
       a {
