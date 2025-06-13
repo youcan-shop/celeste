@@ -1,7 +1,7 @@
 {
   "name": "@youcan/celeste-vue",
   "type": "module",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "author": "YouCan <tech@youcan.shop>",
   "keywords": [
     "youcan",
