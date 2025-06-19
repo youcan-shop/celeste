@@ -6,7 +6,7 @@ import { Primitive, type PrimitiveProps } from 'radix-vue';
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'md',
   variant: 'fill',
-  type: 'primary',
+  intent: 'primary',
   as: 'button',
 });
 </script>
@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 export interface ButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'xxs' | 'xs' | 'sm' | 'md';
-  type?: 'primary' | 'neutral' | 'error';
+  intent?: 'primary' | 'neutral' | 'error';
   variant?: 'fill' | 'stroke' | 'lighter' | 'ghost';
 }
 </script>
@@ -26,7 +26,7 @@ export interface ButtonProps extends PrimitiveProps {
     :as-child
     :class="clsx(
       'celeste-button',
-      `celeste-button-type-${type}`,
+      `celeste-button-intent-${intent}`,
       `celeste-button-size-${size}`,
       `celeste-button-variant-${variant}`,
       props.class,
@@ -65,7 +65,7 @@ $size-map: (
     gap: var(--spacing-6),
   ),
 );
-$type-map: (
+$intent-map: (
   'primary': (
     'fill': (
       fg: var(--color-text-white-0),
@@ -250,16 +250,16 @@ $hover-map: (
     }
   }
 
-  @each $type, $subtypes in $type-map {
-    @each $variant, $values in $subtypes {
-      &-type-#{$type}:not(:disabled).celeste-button-variant-#{$variant}:not(:disabled) {
+  @each $intent, $sub in $intent-map {
+    @each $variant, $values in $sub {
+      &-intent-#{$intent}:not(:disabled).celeste-button-variant-#{$variant}:not(:disabled) {
         border-color: map.get($values, border);
         background-color: map.get($values, bg);
         box-shadow: map.get($values, shadow);
         color: map.get($values, fg);
 
         &:hover:not(:disabled) {
-          $hover-values: map.get(map.get($hover-map, $type), $variant);
+          $hover-values: map.get(map.get($hover-map, $intent), $variant);
 
           border-color: map.get($hover-values, border);
           background-color: map.get($hover-values, bg);
@@ -269,9 +269,9 @@ $hover-map: (
         &:focus:not(:disabled) {
           outline: none;
           box-shadow: if(
-            $type == 'neutral',
+            $intent == 'neutral',
             var(--shadow-buttons-important-focus),
-            var(--shadow-buttons-#{$type}-focus)
+            var(--shadow-buttons-#{$intent}-focus)
           );
         }
       }

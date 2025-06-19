@@ -19,7 +19,7 @@ export const Default: Story = {
     linkButtonProps: {
       size: 'sm',
       as: 'a',
-      type: 'gray',
+      intent: 'gray',
     },
   },
 
