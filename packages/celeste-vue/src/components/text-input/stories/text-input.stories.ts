@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import TextInputAffix from '../text-input-affix.vue';
 import TextInputButton from '../text-input-button.vue';
 import TextInputIcon from '../text-input-icon.vue';
