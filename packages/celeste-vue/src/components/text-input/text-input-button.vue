@@ -16,7 +16,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   <Button
     v-bind="delegatedProps"
     size="sm"
-    type="neutral"
+    intent="neutral"
     variant="stroke"
     :class="clsx('celeste-text-input-button', props.class)"
   >
@@ -34,7 +34,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
     border-end-start-radius: 0;
     border-start-start-radius: 0;
 
-    &:is(.celeste-button-type-neutral, .celeste-button-variant-stroke):not(:disabled) {
+    &:is(.celeste-button-intent-neutral, .celeste-button-variant-stroke):not(:disabled) {
       background-color: var(--color-bg-white-0);
 
       &:hover {
@@ -47,6 +47,10 @@ const delegatedProps = useDelegatedProps(props, 'class');
     width: 20px;
     height: 20px;
     margin-inline-end: var(--input-padding);
+
+    &:hover {
+      background-color: transparent !important;
+    }
   }
 }
 </style>

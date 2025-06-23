@@ -151,6 +151,7 @@ const props = withDefaults(defineProps<TextInputProps>(), {
   }
 
   &:has(.celeste-text-input:hover:not(:focus, :disabled)) {
+    /* stylelint-disable-next-line no-descending-specificity */
     &:not(:has(.celeste-text-input-button, .celeste-text-input-affix)) {
       border-color: transparent;
       background-color: var(--color-bg-weak-50);
@@ -168,6 +169,7 @@ const props = withDefaults(defineProps<TextInputProps>(), {
   }
 
   &:has(.celeste-text-input:placeholder-shown:not(:disabled)) {
+    /* stylelint-disable-next-line no-descending-specificity */
     &:deep(.celeste-text-input-icon),
     &:deep(.celeste-text-input-affix) {
       color: var(--color-text-soft-400);
