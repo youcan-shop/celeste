@@ -55,7 +55,7 @@ const preview: Preview = {
             :style="{ 
               direction: direction,
               textAlign: direction === 'rtl' ? 'right' : 'left',
-              fontFamily: direction === 'rtl' ? 'Cairo, -apple-system, sans-serif' : 'inherit'
+              fontFamily: direction === 'rtl' ? 'Cairo, Inter, -apple-system, sans-serif' : 'inherit'
             }"
           >
             <story />
