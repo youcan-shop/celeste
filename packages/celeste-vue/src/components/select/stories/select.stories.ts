@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import SelectContent from '../select-content.vue';
 import SelectGroup from '../select-group.vue';
 import SelectIcon from '../select-icon.vue';
