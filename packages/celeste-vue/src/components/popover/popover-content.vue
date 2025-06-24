@@ -169,7 +169,7 @@ $icon-size-map: (
       height: 16px;
       transform: translate(-50%, -50%);
       border: 1px solid var(--color-stroke-soft-200);
-      border-radius: 2px;
+      border-radius: var(--radius-2);
       background-color: var(--color-bg-white-0);
       rotate: 45deg;
     }
@@ -189,7 +189,7 @@ $icon-size-map: (
 
     .celeste-popover-title,
     .celeste-popover-description {
-      margin: 0;
+      margin: var(--spacing-0);
     }
 
     .celeste-popover-title {
