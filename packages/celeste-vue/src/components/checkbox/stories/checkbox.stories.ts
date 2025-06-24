@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Checkbox from '../checkbox.vue';
 
 const meta: Meta<typeof Checkbox> = {
