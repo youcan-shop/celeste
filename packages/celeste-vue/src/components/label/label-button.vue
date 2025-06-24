@@ -10,7 +10,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 <template>
   <LinkButton
     v-bind="delegatedProps"
-    :type="props.type || 'gray'"
+    :intent="props.intent || 'gray'"
     :class="clsx('celeste-label-button', props.class)"
   >
     <slot />
