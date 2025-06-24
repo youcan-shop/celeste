@@ -5,7 +5,7 @@ import { Primitive, type PrimitiveProps } from 'radix-vue';
 
 const props = withDefaults(defineProps<LinkButtonProps>(), {
   size: 'sm',
-  type: 'primary',
+  intent: 'primary',
   as: 'a',
 });
 </script>
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
 export interface LinkButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'sm' | 'md';
-  type?: 'primary' | 'black' | 'gray' | 'error';
+  intent?: 'primary' | 'black' | 'gray' | 'error';
   underline?: boolean;
   disabled?: boolean;
 }
@@ -27,7 +27,7 @@ export interface LinkButtonProps extends PrimitiveProps {
     :as-child
     :class="clsx(
       'celeste-link-button',
-      `celeste-link-button-${type}`,
+      `celeste-link-button-${intent}`,
       `celeste-link-button-${size}`,
       disabled && 'celeste-link-button-disabled',
       underline && 'celeste-link-button-underline',
