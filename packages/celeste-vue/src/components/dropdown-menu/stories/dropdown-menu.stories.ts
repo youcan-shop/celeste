@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Badge from '@/components/badge/badge.vue';
 import DropdownMenuContent from '../dropdown-menu-content.vue';
 import DropdownMenuGroup from '../dropdown-menu-group.vue';

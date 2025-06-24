@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
 import ContextMenuItem from '../context-menu-item.vue';
 
@@ -25,7 +25,7 @@ export const Default: Story = {
       type: 'basic',
     },
     buttonProps: {
-      type: 'primary',
+      intent: 'primary',
     },
     shortcut: '⌘ ⇧ Z',
     rightIcon: 'i-celeste-arrow-right-s-line',
