@@ -28,7 +28,7 @@ const props = withDefaults(
 );
 const emits = defineEmits<PopoverContentEmits>();
 
-const delegatedProps = useDelegatedProps(props, 'class');
+const delegatedProps = useDelegatedProps(props, ['class', 'title']);
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
@@ -132,6 +132,7 @@ $icon-size-map: (
 );
 
 :deep(.celeste-popover-content-wrapper) {
+  z-index: 50;
   min-width: 300px;
   max-width: 400px;
   transform-origin: var(--radix-popover-content-transform-origin);
