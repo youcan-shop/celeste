@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Button from '@/components/button/button.vue';
 import LinkButton from '@/components/button/link-button.vue';
 import TextInput from '@/components/input/text-input.vue';
