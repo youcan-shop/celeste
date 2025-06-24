@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Checkbox from '../checkbox.vue';
 
 const meta: Meta<typeof Checkbox> = {
@@ -12,25 +12,7 @@ type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
   args: {
-    checked: false,
-    flip: true,
-    label: 'Label',
-    sublabel: 'Sublabel',
-    description: 'Insert the checkbox description here.',
-    badgeProps: {
-      size: 'sm',
-      variant: 'light',
-      label: 'Badge',
-      state: 'information',
-      type: 'basic',
-    },
-    linkButtonProps: {
-      size: 'sm',
-      as: 'a',
-      type: 'primary',
-    },
-    link: 'https://google.com',
-    linkText: 'Link button',
+    defaultChecked: true,
   },
 
   render: args => ({
@@ -39,8 +21,81 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <div style="width: 30%">
+      <div>
         <Checkbox v-bind="args" />
+      </div>
+    `,
+  }),
+};
+
+export const Indeterminate: Story = {
+  args: {
+    defaultChecked: true,
+    checked: 'indeterminate',
+  },
+
+  render: args => ({
+    components: { Checkbox },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div>
+        <Checkbox v-bind="args" />
+      </div>
+    `,
+  }),
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+
+  render: args => ({
+    components: { Checkbox },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: flex; gap: 1em;">
+        <Checkbox v-bind="args" />
+        <Checkbox v-bind="args" checked />
+        <Checkbox v-bind="args" checked="indeterminate" />
+      </div>
+    `,
+  }),
+};
+
+export const WithLabel: Story = {
+  args: {
+  },
+
+  render: args => ({
+    components: { Checkbox },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: flex; justify-content: center;">
+        <div style="display: grid; gap: 1em;">
+          <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
+            <Checkbox v-bind="args" />
+            SMS Verification
+          </label>
+          <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
+            <Checkbox v-bind="args" />
+            Authenticator App
+          </label>
+          <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
+            <Checkbox v-bind="args" disabled />
+            Disabled
+          </label>
+         <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
+            <Checkbox v-bind="args" checked disabled />
+            Disabled but default checked
+          </label>
+        </div>
       </div>
     `,
   }),

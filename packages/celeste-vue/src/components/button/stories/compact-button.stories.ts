@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import CompactButton from '../compact-button.vue';
 
 const meta: Meta<typeof CompactButton> = {
