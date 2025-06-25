@@ -63,7 +63,12 @@ export const toolbarActions = ref<ToolbarItem[]>([
   { slug: 'clear', name: 'Clear', icon: 'format-clear', active: 'clear' },
 ]);
 
-export function onActionClick(editor: Editor, slug: string, option: string | null = null): void {
+export function onActionClick(
+  editor: Editor,
+  slug: string,
+  option: string | null = null,
+  showLinkBubble?: () => void,
+): void {
   const chain = editor.chain().focus();
 
   if (!chain) {
@@ -94,7 +99,11 @@ export function onActionClick(editor: Editor, slug: string, option: string | nul
     bulletList: () => chain.toggleBulletList().run(),
     orderedList: () => chain.toggleOrderedList().run(),
     align: () => chain.setTextAlign(option ?? 'left').run(),
-    link: () => chain.toggleLink({ href: '' }).run(),
+    link: () => {
+      if (showLinkBubble) {
+        showLinkBubble();
+      }
+    },
     undo: () => chain.undo().run(),
     redo: () => chain.redo().run(),
     clear: () => chain.clearNodes().unsetAllMarks().run(),
