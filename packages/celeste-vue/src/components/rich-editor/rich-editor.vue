@@ -11,6 +11,7 @@ import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { isFontSizeActive, onActionClick, toolbarActions } from './config';
 import { FontSize } from './extensions/font-size';
+import LinkBubble from './link-bubble.vue';
 
 const props = defineProps({
   modelValue: {
@@ -25,10 +26,14 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const editor = ref<Editor | null>(null);
+const editor = ref<Editor | undefined>();
+const showSetLinkFromToolbar = ref<boolean>(false);
+
+function openLinkBubbleFromToolbar() {
+  showSetLinkFromToolbar.value = true;
+}
 
 const charactersCount = computed(() => editor.value?.storage.characterCount.characters() || 0);
-
 const limitWarning = computed(() => {
   const isCloseToMax = charactersCount.value >= (props.maxLimit - 20);
   const isMax = charactersCount.value === props.maxLimit;
@@ -56,7 +61,7 @@ onMounted(() => {
       Underline,
       Link.configure({
         openOnClick: false,
-        autolink: true,
+        autolink: false,
         defaultProtocol: 'https',
         HTMLAttributes: {
           class: 'celeste-rich-editor-link',
@@ -90,20 +95,20 @@ onBeforeUnmount(() => {
             :icon="`i-celeste-${item.icon}`"
             variant="ghost"
             :class="{ active: typeof item.active === 'string' && editor.isActive(item.active) }"
-            @click="onActionClick(editor as Editor, item.slug)"
+            @click="onActionClick(editor, item.slug, null, openLinkBubbleFromToolbar)"
           />
         </Tooltip>
 
         <Tooltip v-else-if="item.type !== 'divider' && item.children" :title="item.name">
           <select
-            @change="onActionClick(editor as Editor, item.slug, ($event.target as HTMLSelectElement)?.value)"
+            @change="onActionClick(editor, item.slug, ($event.target as HTMLSelectElement)?.value)"
           >
             <option
               v-for="child in item.children"
               :key="child.option"
               :value="child.option"
               :selected="item.slug === 'fontSize'
-                ? isFontSizeActive(editor as Editor, child.active)
+                ? isFontSizeActive(editor, child.active)
                 : editor.isActive(child.active || '')"
             >
               {{ child.name }}
@@ -120,7 +125,7 @@ onBeforeUnmount(() => {
 
     <div class="text-field">
       <EditorContent
-        :editor="editor as Editor"
+        :editor="editor"
       />
 
       <div
@@ -134,6 +139,11 @@ onBeforeUnmount(() => {
         {{ charactersCount }}/{{ maxLimit }}
       </div>
     </div>
+    <LinkBubble
+      :editor="editor"
+      :show-set-link-from-toolbar="showSetLinkFromToolbar"
+      @set-link-closed="showSetLinkFromToolbar = false"
+    />
   </div>
 </template>
 
