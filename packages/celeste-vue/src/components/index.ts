@@ -8,6 +8,7 @@ export * from './dropdown-menu';
 export * from './hint-text';
 export * from './input';
 export * from './label';
+export * from './modal';
 export * from './popover';
 export * from './scroll-area';
 export * from './segmented-control';
