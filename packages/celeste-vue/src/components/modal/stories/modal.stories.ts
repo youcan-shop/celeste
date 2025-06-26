@@ -32,7 +32,7 @@ export const Default: Story = {
     template: `
       <Modal v-bind="args">
         <ModalTrigger>
-          <Button variant="stroke" type="neutral">Click to open</Button>
+          <Button variant="stroke" intent="neutral">Click to open</Button>
         </ModalTrigger>
         <ModalContent style="width: 400px">
           <ModalHeader
@@ -48,7 +48,7 @@ export const Default: Story = {
           </ModalBody>
           <ModalFooter style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
             <ModalClose>
-              <Button type="neutral" variant="stroke" size="sm">Cancel</Button>
+              <Button intent="neutral" variant="stroke" size="sm">Cancel</Button>
             </ModalClose>
             <Button size="sm">Send Code</Button>
           </ModalFooter>
@@ -70,7 +70,7 @@ export const WithoutDescription: Story = {
     template: `
       <Modal v-bind="args">
         <ModalTrigger>
-          <Button variant="stroke" type="neutral">Click to open</Button>
+          <Button variant="stroke" intent="neutral">Click to open</Button>
         </ModalTrigger>
         <ModalContent style="width: 400px">
           <ModalHeader
@@ -85,7 +85,7 @@ export const WithoutDescription: Story = {
           </ModalBody>
           <ModalFooter style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
             <ModalClose>
-              <Button type="neutral" variant="stroke" size="sm">Cancel</Button>
+              <Button intent="neutral" variant="stroke" size="sm">Cancel</Button>
             </ModalClose>
             <Button size="sm">Send Code</Button>
           </ModalFooter>
@@ -107,7 +107,7 @@ export const WithoutIcon: Story = {
     template: `
       <Modal v-bind="args">
         <ModalTrigger>
-          <Button variant="stroke" type="neutral">Click to open</Button>
+          <Button variant="stroke" intent="neutral">Click to open</Button>
         </ModalTrigger>
         <ModalContent style="width: 400px">
           <ModalHeader title="Email Verification"/>
@@ -119,12 +119,70 @@ export const WithoutIcon: Story = {
           </ModalBody>
           <ModalFooter style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
             <ModalClose>
-              <Button type="neutral" variant="stroke" size="sm">Cancel</Button>
+              <Button intent="neutral" variant="stroke" size="sm">Cancel</Button>
             </ModalClose>
             <Button size="sm">Send Code</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
+    `,
+  }),
+};
+
+export const Alignment: Story = {
+  args: {
+  },
+
+  render: args => ({
+    components: { Modal, ModalTrigger, ModalContent, ModalHeader, ModalFooter, ModalClose, TextInput, Label, LinkButton, Button },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: flex; align-items: center; justify-content: center; gap: 16px;">
+        <Modal v-bind="args">
+          <ModalTrigger>
+            <Button variant="stroke" intent="neutral">Horizontal</Button>
+          </ModalTrigger>
+          <ModalContent style="width: 440px">
+            <ModalHeader
+              :dismissible="false"
+              alignment="horizontal"
+              type="error"
+              icon="i-celeste-error-warning-fill"
+              title="Delete account?"
+              description="If you delete your account, you will not be able to log in again. Are you sure?"
+            />
+            <ModalFooter style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+              <ModalClose>
+                <Button intent="neutral" variant="stroke" size="sm">No, thanks</Button>
+              </ModalClose>
+              <Button intent="error" size="sm">Delete</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+        <Modal v-bind="args">
+          <ModalTrigger>
+            <Button variant="stroke" intent="neutral">Vertical</Button>
+          </ModalTrigger>
+          <ModalContent style="width: 440px">
+            <ModalHeader
+              :dismissible="false"
+              alignment="vertical"
+              type="error"
+              icon="i-celeste-error-warning-fill"
+              title="Delete account?"
+              description="If you delete your account, you will not be able to log in again. Are you sure?"
+            />
+            <ModalFooter style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+              <ModalClose>
+                <Button intent="neutral" variant="stroke" size="sm">No, thanks</Button>
+              </ModalClose>
+              <Button intent="error" size="sm">Delete</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </div>
     `,
   }),
 };
@@ -142,7 +200,7 @@ export const Status: Story = {
       <div style="display: flex; align-items: center; justify-content: center; gap: 16px;">
         <Modal v-bind="args">
           <ModalTrigger>
-            <Button variant="stroke" type="neutral">Success</Button>
+            <Button variant="stroke" intent="neutral">Success</Button>
           </ModalTrigger>
           <ModalContent style="width: 440px">
             <ModalHeader
@@ -154,7 +212,7 @@ export const Status: Story = {
             />
             <ModalFooter style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
               <ModalClose>
-                <Button type="neutral" variant="stroke" size="sm">Cancel</Button>
+                <Button intent="neutral" variant="stroke" size="sm">Cancel</Button>
               </ModalClose>
               <Button size="sm">View Receipt</Button>
             </ModalFooter>
@@ -162,7 +220,7 @@ export const Status: Story = {
         </Modal>
         <Modal v-bind="args">
           <ModalTrigger>
-            <Button variant="stroke" type="neutral">Information</Button>
+            <Button variant="stroke" intent="neutral">Information</Button>
           </ModalTrigger>
           <ModalContent style="width: 440px">
             <ModalHeader
@@ -176,7 +234,7 @@ export const Status: Story = {
               <LinkButton type="gray">I'm not interested</LinkButton>
               <div style="display: flex; gap: 12px; justify-content: end;">
                 <ModalClose>
-                  <Button type="neutral" variant="stroke" size="sm">Cancel</Button>
+                  <Button intent="neutral" variant="stroke" size="sm">Cancel</Button>
                 </ModalClose>
                 <Button size="sm">Learn More</Button>
               </div>
@@ -185,7 +243,7 @@ export const Status: Story = {
         </Modal>
         <Modal v-bind="args">
           <ModalTrigger>
-            <Button variant="stroke" type="neutral">Warning</Button>
+            <Button variant="stroke" intent="neutral">Warning</Button>
           </ModalTrigger>
           <ModalContent style="width: 440px">
             <ModalHeader
@@ -200,13 +258,13 @@ export const Status: Story = {
               <ModalClose>
                 <LinkButton type="gray">Don't show it again</LinkButton>
               </ModalClose>
-              <Button type="neutral" size="sm">Learn More</Button>
+              <Button intent="neutral" size="sm">Learn More</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
         <Modal v-bind="args">
           <ModalTrigger>
-            <Button variant="stroke" type="neutral">Error</Button>
+            <Button variant="stroke" intent="neutral">Error</Button>
           </ModalTrigger>
           <ModalContent style="width: 440px">
             <ModalHeader
@@ -219,9 +277,9 @@ export const Status: Story = {
             />
             <ModalFooter style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
               <ModalClose>
-                <Button type="neutral" variant="stroke" size="sm">No, thanks</Button>
+                <Button intent="neutral" variant="stroke" size="sm">No, thanks</Button>
               </ModalClose>
-              <Button type="error" size="sm">Delete</Button>
+              <Button intent="error" size="sm">Delete</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
