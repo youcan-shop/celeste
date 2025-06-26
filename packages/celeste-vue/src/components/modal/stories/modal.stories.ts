@@ -248,7 +248,6 @@ export const Status: Story = {
           <ModalContent style="width: 440px">
             <ModalHeader
               :dismissible="false"
-              alignment="vertical"
               type="warning"
               icon="i-celeste-alert-fill"
               title="Server Maintenance"
@@ -269,7 +268,6 @@ export const Status: Story = {
           <ModalContent style="width: 440px">
             <ModalHeader
               :dismissible="false"
-              alignment="vertical"
               type="error"
               icon="i-celeste-error-warning-fill"
               title="Delete account?"
