@@ -32,6 +32,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style scoped lang="scss">
 .celeste-modal-overlay {
   position: fixed;
+  z-index: 50;
   background: var(--color-overlay-overlay);
   backdrop-filter: blur(5px);
   inset: 0;
@@ -39,6 +40,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 .celeste-modal-content {
   position: fixed;
+  z-index: 51;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-20);
   background: var(--color-bg-white-0);
