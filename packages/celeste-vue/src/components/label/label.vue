@@ -23,7 +23,8 @@ const delegatedProps = useDelegatedProps(props, 'class');
     :aria-disabled="disabled"
     :class="clsx('celeste-label', props.class)"
   >
-    <slot />
+    <slot name="text" />
+    <slot name="button" class="celeste-label-button" />
     <span v-if="sublabel" class="celeste-sublabel">{{ sublabel }}</span>
     <Tooltip
       v-if="information"
@@ -82,6 +83,10 @@ const delegatedProps = useDelegatedProps(props, 'class');
     border: none;
     background-color: transparent;
     color: var(--color-icon-disabled-300);
+  }
+
+  .celeste-label-button {
+    order: 5;
   }
 
   &[aria-disabled='true'] {
