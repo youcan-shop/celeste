@@ -82,53 +82,55 @@ onMounted(() => {
     ref="bubbleRef"
     :should-show="showBubble"
     :editor="editor"
-    :tippy-options="{ placement: 'bottom', duration: 100, offset: [0, 12], onClickOutside: reset }"
+    :tippy-options="{ placement: 'bottom', duration: [200, 200], offset: [0, 12], onHidden: reset }"
     class="link-bubble set-link-bubble"
   >
-    <template v-if="editing || (props.showSetLinkFromToolbar && isTextSelected())">
-      <div class="link-bubble-content">
-        <input
-          v-model="href"
-          type="url"
-          placeholder="Paste or type a link"
-          class="link-input"
-          @keydown.enter="applyLink"
-          @keydown.esc="cancelEdit"
-        >
-        <label>
-          <input v-model="openInNewTab" type="checkbox">
-          Open in new tab
-        </label>
-        <div class="bubble-actions">
-          <button @click="applyLink">
-            Apply
+    <Transition name="fade" mode="out-in">
+      <template v-if="editing || (props.showSetLinkFromToolbar && isTextSelected())">
+        <div class="link-bubble-content">
+          <input
+            v-model="href"
+            type="url"
+            placeholder="Paste or type a link"
+            class="link-input"
+            @keydown.enter="applyLink"
+            @keydown.esc="cancelEdit"
+          >
+          <label>
+            <input v-model="openInNewTab" type="checkbox">
+            Open in new tab
+          </label>
+          <div class="bubble-actions">
+            <button @click="applyLink">
+              Apply
+            </button>
+            <button @click="cancelEdit">
+              Cancel
+            </button>
+            <button v-if="editor.isActive('link')" @click="removeLink">
+              Remove
+            </button>
+          </div>
+        </div>
+      </template>
+
+      <template v-else-if="props.editor.isActive('link')">
+        <div class="link-view-mode">
+          <a
+            :href="editor.getAttributes('link').href"
+            target="_blank"
+          >
+            {{ editor.getAttributes('link').href }}
+          </a>
+          <button title="Edit" @click="startEdit">
+            ✏️
           </button>
-          <button @click="cancelEdit">
-            Cancel
-          </button>
-          <button v-if="editor.isActive('link')" @click="removeLink">
-            Remove
+          <button title="Remove" @click="removeLink">
+            🗑️
           </button>
         </div>
-      </div>
-    </template>
-
-    <template v-else-if="props.editor.isActive('link')">
-      <div class="link-view-mode">
-        <a
-          :href="editor.getAttributes('link').href"
-          target="_blank"
-        >
-          {{ editor.getAttributes('link').href }}
-        </a>
-        <button title="Edit" @click="startEdit">
-          ✏️
-        </button>
-        <button title="Remove" @click="removeLink">
-          🗑️
-        </button>
-      </div>
-    </template>
+      </template>
+    </Transition>
   </BubbleMenu>
 </template>
 
@@ -148,5 +150,23 @@ onMounted(() => {
 .bubble-actions {
   display: flex;
   gap: 0.5rem;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scale(0.97) translateY(4px);
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+  transform: scale(1) translateY(0);
 }
 </style>
