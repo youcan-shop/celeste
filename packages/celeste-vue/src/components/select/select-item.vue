@@ -32,7 +32,8 @@ const delegatedProps = useDelegatedProps(props, 'class');
   font: var(--paragraph-sm);
   cursor: pointer;
 
-  &:deep(i) {
+  &:deep(.celeste-select-icon) {
+    flex-shrink: 0;
     color: var(--color-icon-sub-600);
   }
 
