@@ -206,49 +206,49 @@ onBeforeUnmount(() => {
       h5,
       h6,
       p {
-        margin-bottom: 0px;
+        margin-bottom: 0;
       }
 
       h1 {
-        font-size: 1.71429em;
-        line-height: 1.16667;
         margin-top: 2em;
+        font-size: 1.7143em;
+        line-height: 1.1667;
       }
 
       h2 {
-        font-size: 1.42857em;
-        line-height: 1.2;
         margin-top: 1.8em;
+        font-size: 1.4286em;
+        line-height: 1.2;
       }
 
       h3 {
-        font-size: 1.42857em;
-        line-height: 1.2;
         margin-top: 1.8em;
+        font-size: 1.4286em;
+        line-height: 1.2;
       }
 
       h4 {
-        font-size: 1em;
-        line-height: 1.14286;
         margin-top: 1.357em;
+        font-size: 1em;
+        line-height: 1.1429;
       }
 
       h5 {
-        font-size: 0.857143em;
-        line-height: 1.33333;
         margin-top: 1.667em;
+        font-size: 0.8571em;
+        line-height: 1.3333;
       }
 
       h6 {
-        font-size: 0.785714em;
-        line-height: 1.45455;
         margin-top: 1.455em;
+        font-size: 0.7857em;
+        line-height: 1.4546;
       }
 
       p {
+        margin-top: 0.75rem;
         font-size: 1em;
         line-height: 1.714;
-        margin-top: 0.75rem;
       }
 
       ul,
