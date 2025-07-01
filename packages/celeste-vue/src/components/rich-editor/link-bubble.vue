@@ -136,17 +136,19 @@ onMounted(() => {
 
 <style scoped>
 .link-bubble {
-  background: white;
+  padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
-  padding: 0.75rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
 }
+
 .link-bubble-content input.link-input {
   width: 100%;
-  padding: 0.25rem;
   margin-bottom: 0.5rem;
+  padding: 0.25rem;
 }
+
 .bubble-actions {
   display: flex;
   gap: 0.5rem;
@@ -160,13 +162,13 @@ onMounted(() => {
 
 .fade-enter-from,
 .fade-leave-to {
-  opacity: 0;
   transform: scale(0.97) translateY(4px);
+  opacity: 0;
 }
 
 .fade-enter-to,
 .fade-leave-from {
-  opacity: 1;
   transform: scale(1) translateY(0);
+  opacity: 1;
 }
 </style>
