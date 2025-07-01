@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Button from '@/components/button/button.vue';
 import LinkButton from '@/components/button/link-button.vue';
-import TextInput from '@/components/input/text-input.vue';
 import Label from '@/components/label/label.vue';
+import TextInput from '@/components/text-input/text-input.vue';
 import ModalBody from '../modal-body.vue';
 import ModalClose from '../modal-close.vue';
 import ModalContent from '../modal-content.vue';
