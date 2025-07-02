@@ -8,7 +8,7 @@ const props = withDefaults(
   { size: 'xs', variant: 'fill', state: 'information', dismissable: false },
 );
 
-defineEmits(['dismiss', 'primary', 'secondary']);
+defineEmits(['dismiss']);
 
 const labelledby = uniqid();
 const describedby = uniqid();
@@ -24,10 +24,6 @@ const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
 
 <script lang="ts">
 export interface AlertProps {
-  title: string;
-  description?: string;
-  primary?: string;
-  secondary?: string;
   class?: HTMLAttributes['class'];
   size?: 'xs' | 'sm' | 'lg';
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
@@ -40,7 +36,7 @@ export interface AlertProps {
   <div
     :aria-labelledby="labelledby"
     :aria-describedby="describedby"
-    :role="primary || secondary ? 'alert-dialog' : 'alert'"
+    :role="$slots.primary || $slots.secondary ? 'alert-dialog' : 'alert'"
     class="celeste-alert"
     :class="clsx(
       `celeste-alert--${size}`,
@@ -55,44 +51,36 @@ export interface AlertProps {
 
     <div class="celeste-alert-inner" role="presentation">
       <div role="presentation" class="celeste-alert-content">
-        <h5 :id="labelledby" class="celeste-alert-title">
-          {{ title }}
-        </h5>
-        <div
-          v-if="size === 'lg' && description"
-          :id="describedby"
-          class="celeste-alert-description"
-        >
-          {{ description }}
-        </div>
+        <slot>
+          <h5 :id="labelledby" class="celeste-alert-title">
+            <slot name="title" />
+          </h5>
+          <div
+            v-if="size === 'lg' && $slots.description"
+            :id="describedby"
+            class="celeste-alert-description"
+          >
+            <slot name="description" />
+          </div>
+        </slot>
       </div>
 
       <div
-        v-if="primary || secondary"
+        v-if="$slots.primary || $slots.secondary"
         class="celeste-alert-actions"
         role="presentation"
       >
-        <a
-          v-if="primary"
-          class="celeste-alert-action-primary"
-          href="#"
-          @click.prevent="$emit('primary')"
-        >
-          {{ primary }}
-        </a>
+        <div v-if="$slots.primary" class="celeste-alert-action-primary">
+          <slot name="primary" />
+        </div>
 
-        <div v-if="primary && secondary && size === 'lg'" class="celeste-alert-action-divider">
+        <div v-if="$slots.primary && $slots.secondary && size === 'lg'" class="celeste-alert-action-divider">
           ∙
         </div>
 
-        <a
-          v-if="secondary && size === 'lg'"
-          class="celeste-alert-action-secondary"
-          href="#"
-          @click.prevent="$emit('secondary')"
-        >
-          {{ secondary }}
-        </a>
+        <div v-if="$slots.secondary && size === 'lg'" class="celeste-alert-action-secondary">
+          <slot name="secondary" />
+        </div>
       </div>
     </div>
 
@@ -274,25 +262,10 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
     gap: var(--spacing-8);
   }
 
-  &-action-primary {
-    font: var(--action-font);
-    text-decoration: underline;
-  }
-
   &-action-divider {
     opacity: 0.48;
     font: var(--paragraph-sm);
     text-align: center;
-  }
-
-  &-action-secondary {
-    font: var(--action-font);
-    text-decoration: none;
-
-    &:focus,
-    &:hover {
-      text-decoration-line: underline;
-    }
   }
 
   &--xs {
