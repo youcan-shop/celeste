@@ -18,6 +18,7 @@ import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { onActionClick, selectedOption, toolbarActions } from './config';
 import { FontSize } from './extensions/font-size';
+import ExtraSettings from './extra-settings.vue';
 import LinkBubble from './link-bubble.vue';
 
 const props = defineProps({
@@ -28,6 +29,10 @@ const props = defineProps({
   maxLimit: {
     type: Number,
     default: null,
+  },
+  showExtraSettings: {
+    type: Boolean,
+    default: true,
   },
 });
 
@@ -97,7 +102,7 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="editor" class="celeste-rich-editor">
     <div class="toolbar">
-      <template v-for="(item, index) in toolbarActions" :key="index">
+      <div v-for="(item, parentIndex) in toolbarActions" :key="parentIndex">
         <Tooltip v-if="item.type !== 'divider' && !item.children" :title="item.name">
           <CompactButton
             :icon="`i-celeste-${item.icon}`"
@@ -118,8 +123,8 @@ onBeforeUnmount(() => {
               </SelectTrigger>
               <SelectContent align="end" width="fit">
                 <SelectItem
-                  v-for="child in item.children"
-                  :key="child.option"
+                  v-for="(child, childIndex) in item.children"
+                  :key="childIndex"
                   :value="child.option"
                 >
                   <template v-if="item.slug === 'color'">
@@ -140,11 +145,15 @@ onBeforeUnmount(() => {
           </div>
         </Tooltip>
 
-        <div
-          v-else
-          class="divider"
+        <div v-else class="divider" />
+      </div>
+
+      <div v-if="showExtraSettings" class="extra-settings-wrapper">
+        <div class="divider" />
+        <ExtraSettings
+          :editor="editor"
         />
-      </template>
+      </div>
     </div>
 
     <div class="text-field">
@@ -204,6 +213,11 @@ onBeforeUnmount(() => {
       height: 16px;
       margin: 0 3px;
       background: var(--color-stroke-soft-200);
+    }
+
+    .extra-settings-wrapper {
+      display: flex;
+      align-items: center;
     }
   }
 
