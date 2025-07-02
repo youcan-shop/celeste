@@ -8,6 +8,7 @@ import SelectValue from '@/components/select/select-value.vue';
 import Select from '@/components/select/select.vue';
 import Tooltip from '@/components/tooltip/tooltip.vue';
 import CharacterCount from '@tiptap/extension-character-count';
+import Color from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
@@ -64,6 +65,7 @@ onMounted(() => {
       StarterKit,
       TextStyle,
       FontSize,
+      Color,
       Underline,
       Link.configure({
         openOnClick: false,
@@ -120,9 +122,17 @@ onBeforeUnmount(() => {
                   :key="child.option"
                   :value="child.option"
                 >
-                  <SelectIcon v-if="child.icon">
-                    <i :class="`i-celeste-${child.icon}`" />
-                  </SelectIcon>
+                  <template v-if="item.slug === 'color'">
+                    <SelectIcon>
+                      <i :class="`i-celeste-${child.icon}`" :style="{ background: child.option }" />
+                    </SelectIcon>
+                    <span>{{ child.name }}</span>
+                  </template>
+                  <template v-else-if="item.slug === 'align'">
+                    <SelectIcon>
+                      <i :class="`i-celeste-${child.icon}`" />
+                    </SelectIcon>
+                  </template>
                   <span v-else>{{ child.name }}</span>
                 </SelectItem>
               </SelectContent>
