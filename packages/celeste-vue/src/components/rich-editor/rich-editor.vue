@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import CompactButton from '@/components/button/compact-button.vue';
+import SelectContent from '@/components/select/select-content.vue';
+import SelectIcon from '@/components/select/select-icon.vue';
+import SelectItem from '@/components/select/select-item.vue';
+import SelectTrigger from '@/components/select/select-trigger.vue';
+import SelectValue from '@/components/select/select-value.vue';
+import Select from '@/components/select/select.vue';
 import Tooltip from '@/components/tooltip/tooltip.vue';
 import CharacterCount from '@tiptap/extension-character-count';
 import Link from '@tiptap/extension-link';
@@ -9,7 +15,7 @@ import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { isFontSizeActive, onActionClick, toolbarActions } from './config';
+import { onActionClick, selectedOption, toolbarActions } from './config';
 import { FontSize } from './extensions/font-size';
 import LinkBubble from './link-bubble.vue';
 
@@ -100,20 +106,28 @@ onBeforeUnmount(() => {
         </Tooltip>
 
         <Tooltip v-else-if="item.type !== 'divider' && item.children" :title="item.name">
-          <select
-            @change="onActionClick(editor, item.slug, ($event.target as HTMLSelectElement)?.value)"
-          >
-            <option
-              v-for="child in item.children"
-              :key="child.option"
-              :value="child.option"
-              :selected="item.slug === 'fontSize'
-                ? isFontSizeActive(editor, child.active)
-                : editor.isActive(child.active || '')"
+          <div class="select-menu-wrapper">
+            <Select
+              :model-value="selectedOption(editor, item.children)"
+              @update:model-value="onActionClick(editor, item.slug, $event)"
             >
-              {{ child.name }}
-            </option>
-          </select>
+              <SelectTrigger variant="inline">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent align="end" width="fit">
+                <SelectItem
+                  v-for="child in item.children"
+                  :key="child.option"
+                  :value="child.option"
+                >
+                  <SelectIcon v-if="child.icon">
+                    <i :class="`i-celeste-${child.icon}`" />
+                  </SelectIcon>
+                  <span v-else>{{ child.name }}</span>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </Tooltip>
 
         <div
@@ -287,6 +301,16 @@ onBeforeUnmount(() => {
     &.danger {
       color: var(--color-state-error-base);
     }
+  }
+
+  .select-menu-wrapper {
+    padding: 0 var(--spacing-4);
+  }
+}
+
+.celeste-select-item[data-state='checked'] {
+  &:deep(.i-celeste-check-line) {
+    display: none;
   }
 }
 </style>
