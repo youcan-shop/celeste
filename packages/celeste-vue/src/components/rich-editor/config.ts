@@ -37,6 +37,19 @@ export const toolbarActions = ref<ToolbarItem[]>([
     ],
   },
   { type: 'divider' },
+  {
+    slug: 'color',
+    name: 'Text color',
+    children: [
+      { option: '#000000', name: 'Black', icon: 'circle-fill', active: { color: '#000000' } },
+      { option: '#7B7B7B', name: 'Gray', icon: 'circle-fill', active: { color: '#7B7B7B' } },
+      { option: '#335CFF', name: 'Blue', icon: 'circle-fill', active: { color: '#335CFF' } },
+      { option: '#FA7319', name: 'Orange', icon: 'circle-fill', active: { color: '#FA7319' } },
+      { option: '#7D52F4', name: 'Purple', icon: 'circle-fill', active: { color: '#7D52F4' } },
+      { option: '#47C2FF', name: 'Sky', icon: 'circle-fill', active: { color: '#47C2FF' } },
+    ],
+  },
+  { type: 'divider' },
   { slug: 'bold', name: 'Bold', icon: 'bold', active: 'bold' },
   { slug: 'italic', name: 'Italic', icon: 'italic', active: 'italic' },
   { slug: 'underline', name: 'Underline', icon: 'underline', active: 'underline' },
@@ -91,6 +104,9 @@ export function onActionClick(
     },
     fontSize: () => {
       editor.chain().focus().setMark('textStyle', { fontSize: option }).run();
+    },
+    color: () => {
+      editor.chain().focus().setColor(option ?? '#000000').run();
     },
     bold: () => chain.toggleBold().run(),
     italic: () => chain.toggleItalic().run(),
