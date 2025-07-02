@@ -112,8 +112,21 @@ export function onActionClick(
   actionTriggers[slug]?.();
 }
 
-export function isFontSizeActive(editor: Editor, active: ToolbarChildOption['active']): boolean {
-  const currentFontSize = editor.getAttributes('textStyle').fontSize || '16px';
+export function selectedOption(editor: Editor, children: ToolbarChildOption[]): string {
+  if (!Array.isArray(children)) {
+    return '';
+  }
 
-  return typeof active === 'object' && active.fontSize === currentFontSize;
+  for (const child of children) {
+    if (Object.prototype.hasOwnProperty.call(child.active, 'fontSize')) {
+      const currentFontSize = editor.getAttributes('textStyle').fontSize || '16px';
+      return currentFontSize;
+    }
+
+    if (editor.isActive(child.active)) {
+      return child.option;
+    }
+  }
+
+  return children[0].option;
 }
