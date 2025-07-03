@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import AlphaSlider from '@/components/color-picker/alpha-slider.vue';
-import ColorSwatch from '@/components/color-picker/color-swatch.vue';
+import type tinycolor from 'tinycolor2';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
-import tinycolor from 'tinycolor2';
-import { computed, type HTMLAttributes, ref, watch } from 'vue';
-import Button from '../button/button.vue';
-import ColorArea from './color-area.vue';
+import { type HTMLAttributes, ref, watch } from 'vue';
+import { ColorArea, HueSlider } from './';
 import { defineColorModel } from './composable/use-color-model';
-import HueSlider from './hue-slider.vue';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
@@ -20,9 +16,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const tinyColorRef = defineColorModel(props, emit);
-
 const hueRef = ref(tinyColorRef.value.toHsl().h);
-
 const eyeDropper = ref<EyeDropper | null>(null);
 
 watch(tinyColorRef, (tinyColorInstance) => {
@@ -36,74 +30,51 @@ watch(tinyColorRef, (tinyColorInstance) => {
   hueRef.value = newHue;
 }, { immediate: true });
 
-const HSVA = computed({
-  get: () => tinyColorRef.value.toHsv(),
-  set: (newValue: tinycolor.ColorFormats.HSVA) => {
-    hue.value = newValue.h;
-    saturation.value = newValue.s;
-    value.value = newValue.v;
-    alpha.value = newValue.a;
-  },
-});
-
-const hue = ref(HSVA.value.h);
-const saturation = ref(HSVA.value.s);
-const value = ref(HSVA.value.v);
-const alpha = ref(HSVA.value.a);
-
 if (window.EyeDropper) {
   eyeDropper.value = new window.EyeDropper();
 }
 
-watch([hue, saturation, value, alpha], () => {
-  tinyColorRef.value = tinycolor({
-    h: hue.value,
-    s: saturation.value,
-    v: value.value,
-    a: alpha.value,
-  });
-});
+// function sipColor() {
+//   if (!eyeDropper.value) {
+//     return;
+//   }
 
-function sipColor() {
-  if (!eyeDropper.value) {
-    return;
-  }
+//   eyeDropper.value.open().then((result: any) => {
+//     // TODO: Color sip
+//     // const hsv = tinycolor(result.sRGBHex).toHsv();
+//     // tinyColorRef.value = hsv;
+//   }).catch((e: Error) => {
+//     // Do nothing, this prevents an error from being thrown if the user cancels the color selection.
+//   });
+// }
 
-  eyeDropper.value.open().then((result: any) => {
-    const hsv = tinycolor(result.sRGBHex).toHsv();
-    HSVA.value = hsv;
-  }).catch((e: Error) => {
-    // Do nothing, this prevents an error from being thrown if the user cancels the color selection.
-  });
-}
+// function inputChangeHex(event: Event) {
+//   const data = (event.target as HTMLInputElement)?.value;
+//   if (!data) {
+//     return;
+//   }
 
-function inputChangeHex(event: Event) {
-  const data = (event.target as HTMLInputElement)?.value;
-  if (!data) {
-    return;
-  }
+//   const color = tinycolor(data);
 
-  const color = tinycolor(data);
+//   if (color.isValid()) {
+//     const { h, s, v, a } = color.toHsv();
 
-  if (color.isValid()) {
-    const { h, s, v, a } = color.toHsv();
+//     hue.value = h;
+//     saturation.value = s;
+//     value.value = v;
+//     alpha.value = a;
+//   }
+// }
 
-    hue.value = h;
-    saturation.value = s;
-    value.value = v;
-    alpha.value = a;
-  }
-}
+// function inputChangeAlpha(event: Event) {
+//   const data = Number((event.target as HTMLInputElement)?.value);
 
-function inputChangeAlpha(event: Event) {
-  const data = Number((event.target as HTMLInputElement)?.value);
+//   if (!data || Number.isNaN(data)) {
+//     return;
+//   }
 
-  if (!data || Number.isNaN(data)) {
-    return;
-  }
-
-  alpha.value = data;
-}
+//   alpha.value = data;
+// }
 </script>
 
 <script lang="ts">
@@ -143,17 +114,17 @@ declare global {
   <div class="celeste-color-picker-wrapper" v-bind="forwarded">
     <div class="celeste-color-picker">
       <ColorArea
-        v-model="HSVA"
-        :hue="hue"
+        v-model="tinyColorRef"
+        :hue="hueRef"
       />
-      <HueSlider v-model="hue" />
-      <AlphaSlider v-model="alpha" :color="HSVA" />
-      <div class="celeste-color-controls">
+      <HueSlider v-model="hueRef" />
+      <!-- <AlphaSlider v-model="tinyColorRef" /> -->
+      <!-- <div class="celeste-color-controls">
         <Button
           v-if="eyeDropper"
           variant="stroke"
           size="xxs"
-          type="neutral"
+          intent="neutral"
           @click="sipColor"
         >
           <i i-celeste-sip-line />
@@ -180,10 +151,10 @@ declare global {
           @focusout="inputChangeAlpha"
           @keydown.enter.prevent="inputChangeAlpha"
         >
-      </div>
+      </div> -->
     </div>
     <div class="celeste-color-swatches">
-      <ColorSwatch v-model="HSVA" :hue="hueRef" />
+      <!-- <ColorSwatch v-model="HSVA" :hue="hueRef" /> -->
     </div>
     <!-- <div v-if="$slots.swatches" class="celeste-color-swatches">
       <slot name="swatches" />
