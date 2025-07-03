@@ -62,6 +62,16 @@ function inputChangeHex(event: Event) {
   tinyColorRef.value = tinycolor(colorInput);
 }
 
+function validateAlphaInput(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const value = input.value;
+  const validPattern = /^\d*\s?%?$/;
+
+  if (!validPattern.test(value)) {
+    input.value = `${(tinyColorRef.value.getAlpha() * 100).toFixed()} %`;
+  }
+}
+
 function inputChangeAlpha(event: Event) {
   const alphaValue = (event.target as HTMLInputElement)?.value;
   const alphaInput = Math.trunc(Number(alphaValue.replace('%', '').trim())) / 100;
@@ -161,6 +171,7 @@ declare global {
           class="color-input"
           size="xs"
           :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
+          @input="validateAlphaInput"
           @focusout="inputChangeAlpha"
           @keydown.enter.prevent.stop="inputChangeAlpha"
           @keydown.up.prevent.stop="handleKeyDown"
@@ -206,8 +217,6 @@ declare global {
         box-sizing: border-box;
         height: 100%;
       }
-
-      // gap: var(--spacing-4);
 
       & > *:first-child {
         border-end-end-radius: 0;
