@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type tinycolor from 'tinycolor2';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
+import tinycolor from 'tinycolor2';
 import { type HTMLAttributes, ref, watch } from 'vue';
+import { Button } from '../button';
 import { ColorArea, HueSlider } from './';
 import AlphaSlider from './alpha-slider.vue';
 import ColorSwatch from './color-swatch.vue';
@@ -36,47 +37,38 @@ if (window.EyeDropper) {
   eyeDropper.value = new window.EyeDropper();
 }
 
-// function sipColor() {
-//   if (!eyeDropper.value) {
-//     return;
-//   }
+function sipColor() {
+  if (!eyeDropper.value) {
+    return;
+  }
 
-//   eyeDropper.value.open().then((result: any) => {
-//     // TODO: Color sip
-//     // const hsv = tinycolor(result.sRGBHex).toHsv();
-//     // tinyColorRef.value = hsv;
-//   }).catch((e: Error) => {
-//     // Do nothing, this prevents an error from being thrown if the user cancels the color selection.
-//   });
-// }
+  eyeDropper.value.open().then((result: any) => {
+    const newColor = tinycolor(result.sRGBHex);
+    tinyColorRef.value = newColor;
+  }).catch((e: Error) => {
+    // Do nothing, this prevents an error from being thrown if the user cancels the color selection.
+  });
+}
 
-// function inputChangeHex(event: Event) {
-//   const data = (event.target as HTMLInputElement)?.value;
-//   if (!data) {
-//     return;
-//   }
+function inputChangeHex(event: Event) {
+  const colorInput = (event.target as HTMLInputElement)?.value;
 
-//   const color = tinycolor(data);
+  if (!colorInput) {
+    return;
+  }
 
-//   if (color.isValid()) {
-//     const { h, s, v, a } = color.toHsv();
+  tinyColorRef.value = tinycolor(colorInput);
+}
 
-//     hue.value = h;
-//     saturation.value = s;
-//     value.value = v;
-//     alpha.value = a;
-//   }
-// }
+function inputChangeAlpha(event: Event) {
+  const alphaInput = Number((event.target as HTMLInputElement)?.value);
 
-// function inputChangeAlpha(event: Event) {
-//   const data = Number((event.target as HTMLInputElement)?.value);
+  if (!alphaInput || Number.isNaN(alphaInput)) {
+    return;
+  }
 
-//   if (!data || Number.isNaN(data)) {
-//     return;
-//   }
-
-//   alpha.value = data;
-// }
+  tinyColorRef.value = tinyColorRef.value.setAlpha(alphaInput);
+}
 </script>
 
 <script lang="ts">
@@ -121,7 +113,7 @@ declare global {
       />
       <HueSlider v-model="hueRef" />
       <AlphaSlider v-model="tinyColorRef" />
-      <!-- <div class="celeste-color-controls">
+      <div class="celeste-color-controls">
         <Button
           v-if="eyeDropper"
           variant="stroke"
@@ -153,7 +145,7 @@ declare global {
           @focusout="inputChangeAlpha"
           @keydown.enter.prevent="inputChangeAlpha"
         >
-      </div> -->
+      </div>
     </div>
     <div class="celeste-color-swatches">
       <ColorSwatch v-model="tinyColorRef" :hue="hueRef" />

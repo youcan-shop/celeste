@@ -8,15 +8,15 @@ import { defineColorModel } from './composable/use-color-model';
 const props = defineProps<AlphaSliderProps>();
 const emit = defineEmits<AlphaSliderEmits>();
 
-const colorRef = defineColorModel(props, emit);
+const tinyColorRef = defineColorModel(props, emit);
 
 const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
 
 const containerRef = useTemplateRef('slider-track');
 
-const alpha = computed(() => colorRef.value.getAlpha());
+const alpha = computed(() => tinyColorRef.value.getAlpha());
 const alphaSliderBG = computed(() => {
-  const { r, g, b } = colorRef.value.toRgb();
+  const { r, g, b } = tinyColorRef.value.toRgb();
 
   return `
     linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0), rgba(${r}, ${g}, ${b}, 1)),
@@ -30,7 +30,7 @@ const alphaSliderBG = computed(() => {
 });
 
 const trackThumbBG = computed(() => {
-  const { r, g, b, a } = colorRef.value.toRgb();
+  const { r, g, b, a } = tinyColorRef.value.toRgb();
   const rgbaString = [r, g, b, a].join(',');
 
   return `rgba(${rgbaString})`;
@@ -63,7 +63,7 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
   }
 
   if (alpha.value !== a) {
-    colorRef.value = colorRef.value.setAlpha(a).clone();
+    tinyColorRef.value = tinyColorRef.value.setAlpha(a).clone();
   }
 }
 
@@ -101,7 +101,7 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
   if (typeof newValue !== 'undefined') {
-    colorRef.value = colorRef.value.setAlpha(newValue).clone();
+    tinyColorRef.value = tinyColorRef.value.setAlpha(newValue).clone();
   }
 }
 
