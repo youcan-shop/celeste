@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="editor" class="celeste-rich-editor">
     <div class="toolbar">
-      <div v-for="(item, parentIndex) in toolbarActions" :key="parentIndex">
+      <template v-for="(item, parentIndex) in toolbarActions" :key="parentIndex">
         <Tooltip v-if="item.type !== 'divider' && !item.children" :title="item.name">
           <CompactButton
             :icon="`i-celeste-${item.icon}`"
@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
         </Tooltip>
 
         <div v-else class="divider" />
-      </div>
+      </template>
 
       <div v-if="showExtraSettings" class="extra-settings-wrapper">
         <div class="divider" />
@@ -329,6 +329,13 @@ onBeforeUnmount(() => {
 
   .select-menu-wrapper {
     padding: 0 var(--spacing-4);
+  }
+
+  &:dir(rtl) {
+    :deep(.i-celeste-arrow-go-back-line),
+    :deep(.i-celeste-arrow-go-forward-line) {
+      transform: scaleX(-1);
+    }
   }
 }
 
