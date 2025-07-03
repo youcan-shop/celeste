@@ -60,17 +60,18 @@ export function getAbsolutePosition(container: HTMLElement): any {
 }
 
 export function resolveArrowDirection(e: KeyboardEvent): string | null {
-  if (e.code === 'ArrowUp' || e.keyCode === 38) {
+  if (e.code === 'ArrowUp') {
     return 'up';
   }
-  if (e.code === 'ArrowDown' || e.keyCode === 40) {
+  if (e.code === 'ArrowDown') {
     return 'down';
   }
-  if (e.code === 'ArrowLeft' || e.keyCode === 37) {
+  if (e.code === 'ArrowLeft') {
     return 'left';
   }
-  if (e.code === 'ArrowRight' || e.keyCode === 39) {
+  if (e.code === 'ArrowRight') {
     return 'right';
   }
+
   return null;
 }
