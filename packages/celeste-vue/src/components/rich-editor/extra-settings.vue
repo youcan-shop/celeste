@@ -44,12 +44,13 @@ async function copySelectionToClipboard(editor: Editor) {
     return;
   };
 
-  try {
-    await navigator.clipboard.writeText(text);
-  }
-  catch (err) {
-    console.error('Clipboard failed:', err);
-  }
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      console.warn('Copied to clipboard!');
+    })
+    .catch((err) => {
+      console.error('Failed to copy:', err);
+    });
 }
 
 function cutSelection(editor: Editor) {
@@ -60,9 +61,13 @@ function cutSelection(editor: Editor) {
     return;
   };
 
-  navigator.clipboard.writeText(text).then(() => {
-    editor.chain().focus().deleteSelection().run();
-  }).catch(console.error);
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      editor.chain().focus().deleteSelection().run();
+    })
+    .catch((err) => {
+      console.error('Failed to copy:', err);
+    });
 }
 
 function deleteSelection(editor: Editor) {
