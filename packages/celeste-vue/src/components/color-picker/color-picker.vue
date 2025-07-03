@@ -4,10 +4,12 @@ import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { type HTMLAttributes, ref, watch } from 'vue';
 import { Button } from '../button';
+import { TextInput } from '../text-input';
 import { ColorArea, HueSlider } from './';
 import AlphaSlider from './alpha-slider.vue';
 import ColorSwatch from './color-swatch.vue';
 import { defineColorModel } from './composable/use-color-model';
+import { resolveArrowDirection } from './utils';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
@@ -61,13 +63,32 @@ function inputChangeHex(event: Event) {
 }
 
 function inputChangeAlpha(event: Event) {
-  const alphaInput = Number((event.target as HTMLInputElement)?.value);
+  const alphaValue = (event.target as HTMLInputElement)?.value;
+  const alphaInput = Math.trunc(Number(alphaValue.replace('%', '').trim())) / 100;
 
-  if (!alphaInput || Number.isNaN(alphaInput)) {
+  if (Number.isNaN(alphaInput)) {
     return;
   }
 
-  tinyColorRef.value = tinyColorRef.value.setAlpha(alphaInput);
+  tinyColorRef.value = tinyColorRef.value.setAlpha(Math.max(0, Math.min(1, alphaInput)));
+}
+
+function handleKeyDown(event: KeyboardEvent) {
+  const direction = resolveArrowDirection(event);
+  const currentAlpha = tinyColorRef.value.getAlpha() * 100;
+
+  let multiplier = 1;
+
+  switch (direction) {
+    case 'down':
+      multiplier = -1;
+      break;
+    case 'up':
+      multiplier = 1;
+      break;
+  }
+
+  tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
 }
 </script>
 
@@ -123,28 +144,28 @@ declare global {
         >
           <i i-celeste-sip-line />
         </Button>
-        <input
-          name="Hex input"
+        <TextInput
+          name="hex"
           placeholder="#FFFFFF"
-          type="basic"
+          type="text"
           class="color-input"
           size="xs"
           :value="tinyColorRef.toHexString().toUpperCase()"
           @focusout="inputChangeHex"
           @keydown.enter.prevent="inputChangeHex"
-        >
-        <input
+        />
+        <TextInput
+          name="alpha"
           placeholder="100"
-          type="number"
-          min="0"
-          step="0.01"
-          max="1"
+          type="text"
           class="color-input"
           size="xs"
-          :value="tinyColorRef.getAlpha()"
+          :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
           @focusout="inputChangeAlpha"
-          @keydown.enter.prevent="inputChangeAlpha"
-        >
+          @keydown.enter.prevent.stop="inputChangeAlpha"
+          @keydown.up.prevent.stop="handleKeyDown"
+          @keydown.down.prevent.stop="handleKeyDown"
+        />
       </div>
     </div>
     <div class="celeste-color-swatches">

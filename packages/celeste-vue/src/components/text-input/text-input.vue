@@ -74,6 +74,7 @@ const props = withDefaults(defineProps<TextInputProps>(), {
   }
 
   .celeste-text-input {
+    width: 100%;
     height: calc(100% - var(--spacing-2));
     border: none;
     outline: none;

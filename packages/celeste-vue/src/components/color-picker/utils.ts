@@ -11,7 +11,6 @@ export const DEFAULT_SWATCH = [
 ];
 
 // MATH
-
 export function getFractionDigit(data: number | string): number {
   const str = data.toString();
   if (str.includes('.')) {
@@ -59,7 +58,7 @@ export function getAbsolutePosition(container: HTMLElement): any {
   };
 }
 
-export function resolveArrowDirection(e: KeyboardEvent): string | null {
+export function resolveArrowDirection(e: KeyboardEvent): ('up' | 'down' | 'left' | 'right') | null {
   if (e.code === 'ArrowUp') {
     return 'up';
   }
