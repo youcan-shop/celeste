@@ -33,41 +33,37 @@ const extraSettings = [
   },
 ];
 
-async function copySelectionToClipboard(editor: Editor) {
-  const text = editor.state.doc.textBetween(
-    editor.state.selection.from,
-    editor.state.selection.to,
-    '\n',
-  );
-
-  if (!text) {
-    return;
-  };
-
-  navigator.clipboard.writeText(text)
-    .then(() => {
-      console.warn('Copied to clipboard!');
-    })
-    .catch((err) => {
-      console.error('Failed to copy:', err);
-    });
-}
-
-function cutSelection(editor: Editor) {
+function selectedText(editor: Editor) {
   const { from, to } = editor.state.selection;
   const text = editor.state.doc.textBetween(from, to, '\n');
 
   if (!text) {
-    return;
+    return null;
   };
 
-  navigator.clipboard.writeText(text)
-    .then(() => {
-      editor.chain().focus().deleteSelection().run();
-    })
-    .catch((err) => {
-      console.error('Failed to copy:', err);
-    });
+  return text;
+}
+
+async function copySelectionToClipboard(editor: Editor) {
+  const el = document.createElement('textarea');
+
+  if (!selectedText(editor)) {
+    return;
+  }
+
+  el.value = selectedText(editor) as string;
+  el.style.opacity = '0';
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy'); // using this method because the trigger context is indirect (navigator.clipboard) will not work
+  document.body.removeChild(el);
+}
+
+function cutSelection(editor: Editor) {
+  copySelectionToClipboard(editor);
+  deleteSelection(editor);
 }
 
 function deleteSelection(editor: Editor) {
@@ -75,14 +71,13 @@ function deleteSelection(editor: Editor) {
 }
 
 function duplicateSelection(editor: Editor) {
-  const { from, to } = editor.state.selection;
-  const text = editor.state.doc.textBetween(from, to, '\n');
+  const { to } = editor.state.selection;
 
-  if (!text) {
+  if (!selectedText(editor)) {
     return;
   }
 
-  return editor.commands.insertContentAt(to, text);
+  return editor.commands.insertContentAt(to, selectedText(editor));
 }
 
 function clearSelectedValue() {
