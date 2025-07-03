@@ -4,6 +4,7 @@ import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import { type HTMLAttributes, ref, watch } from 'vue';
 import { ColorArea, HueSlider } from './';
+import AlphaSlider from './alpha-slider.vue';
 import { defineColorModel } from './composable/use-color-model';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
@@ -118,7 +119,7 @@ declare global {
         :hue="hueRef"
       />
       <HueSlider v-model="hueRef" />
-      <!-- <AlphaSlider v-model="tinyColorRef" /> -->
+      <AlphaSlider v-model="tinyColorRef" />
       <!-- <div class="celeste-color-controls">
         <Button
           v-if="eyeDropper"
