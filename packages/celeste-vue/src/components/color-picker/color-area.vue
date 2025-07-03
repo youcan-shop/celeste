@@ -1,26 +1,31 @@
 <script setup lang="ts">
 import tinycolor from 'tinycolor2';
 import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
-import { ColorPickerEmits } from './composable/use-color-model.ts';
+import { ColorPickerEmits, defineColorModel } from './composable/use-color-model.ts';
 import { useUserPageSelection } from './composable/use-user-select.ts';
 import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from './utils.ts';
 
 const props = defineProps<ColorAreaProps>();
 const emit = defineEmits(['change'].concat(ColorPickerEmits));
 
+const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
+
 const pointerRef = ref(0);
+const tinyColorRef = defineColorModel(props, emit);
 
 const containerRef = useTemplateRef('color-area');
-
-const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
 
 const color = computed({
   get: () => props.modelValue,
   set: newColor => emit('update:modelValue', newColor),
 });
 
+const hsv = computed(() => {
+  return tinyColorRef.value.toHsv();
+});
+
 const hue = computed(() => {
-  return props.hue ?? color.value.h; ;
+  return props.hue ?? hsv.value.h;
 });
 
 const colorAreaBG = computed(() => {
@@ -32,29 +37,26 @@ const colorAreaThumbBG = computed(() => {
 });
 
 const pointerTop = computed(() => {
-  const newColor = tinycolor(color.value).toHsv();
-  return `${(-(newColor.v * 100)) + 100}%`;
+  return `${(-(hsv.value.v * 100) + 1) + 100}%`;
 });
 
 const pointerLeft = computed(() => {
-  const newColor = tinycolor(color.value).toHsv();
-
-  if (newColor.v <= 0.01) {
-    return `${(pointerRef.value * 100)}%`;
+  if (hsv.value.v <= 0.01) {
+    return `${pointerRef.value * 100}%`;
   }
 
-  return `${newColor.s * 100}%`;
+  return `${hsv.value.s * 100}%`;
 });
 
 watch(() => props.hue, (newHue, oldHue) => {
   if (newHue !== oldHue) {
-    const currentHsv = color.value;
+    const { s, v, a } = hsv.value;
 
     onChange({
       h: newHue,
-      s: Math.round(currentHsv.s * 100),
-      v: Math.round(currentHsv.v * 100),
-      a: currentHsv.a,
+      s: Math.round(s * 100),
+      v: Math.round(v * 100),
+      a,
     });
   }
 });
@@ -95,22 +97,12 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
     h: hue.value,
     s,
     v,
-    a: color.value.a,
+    a: hsv.value.a,
   });
 }
 
 function onChange(newColor: tinycolor.ColorFormats.HSVA) {
-  const currentHsv = color.value;
-  const preserveHue = newColor.v <= 0.1 || newColor.s <= 0.1;
-
-  const finalColor = {
-    h: preserveHue ? (currentHsv.h || hue.value) : newColor.h,
-    s: newColor.s,
-    v: newColor.v,
-    a: newColor.a,
-  };
-
-  color.value = finalColor;
+  tinyColorRef.value = newColor;
 }
 
 function handleMouseDown() {
@@ -137,33 +129,33 @@ function handleKeyDown(e: KeyboardEvent) {
   const direction = resolveArrowDirection(e);
   switch (direction) {
     case 'left': {
-      const newSaturation = color.value.s - 0.01;
+      const newSaturation = hsv.value.s - 0.01;
       onChange({
-        ...color.value,
+        ...hsv.value,
         s: newSaturation >= 0 ? newSaturation : 0,
       });
       break;
     }
     case 'right': {
-      const newSaturation = color.value.s + 0.01;
+      const newSaturation = hsv.value.s + 0.01;
       onChange({
-        ...color.value,
+        ...hsv.value,
         s: newSaturation > 1 ? 1 : newSaturation,
       });
       break;
     }
     case 'up': {
-      const newBrightness = color.value.v + 0.01;
+      const newBrightness = hsv.value.v + 0.01;
       onChange({
-        ...color.value,
+        ...hsv.value,
         v: newBrightness > 1 ? 1 : newBrightness,
       });
       break;
     }
     case 'down': {
-      const newBrightness = color.value.v - 0.01;
+      const newBrightness = hsv.value.v - 0.01;
       onChange({
-        ...color.value,
+        ...hsv.value,
         v: newBrightness < 0 ? 0 : newBrightness,
       });
       break;
@@ -179,7 +171,7 @@ onUnmounted(() => {
 <script lang="ts">
 export interface ColorAreaProps {
   hue: number;
-  modelValue: tinycolor.ColorFormats.HSVA;
+  modelValue: tinycolor.Instance;
 }
 </script>
 
