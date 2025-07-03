@@ -1,35 +1,23 @@
 <script setup lang="ts">
 import tinycolor from 'tinycolor2';
 import { computed } from 'vue';
+import { defineColorModel } from './composable/use-color-model';
 import { DEFAULT_SWATCH } from './utils';
 
 const props = withDefaults(defineProps<ColorSwatchProps>(), {
   label: 'Recommended Colors',
   swatch: () => DEFAULT_SWATCH,
-  modelValue: () => tinycolor(DEFAULT_SWATCH[0]).toHsv(),
 });
+const emit = defineEmits<ColorSwatchEmits>();
 
-const emit = defineEmits<{
-  'update:modelValue': [value: tinycolor.ColorFormats.HSVA];
-}>();
-
-const color = computed({
-  get: () => props.modelValue,
-  set: newColor => emit('update:modelValue', newColor),
-});
-
-const tinyColorRef = computed(() => {
-  const { h, s, v, a } = color.value;
-
-  return tinycolor({ h, s, v, a });
-});
+const tinyColorRef = defineColorModel(props, emit);
 
 const activeSwatchColorBG = computed(() => {
   return `0 0 0 2px var(--color-bg-white-0), 0 0 0 4px ${tinyColorRef.value.toRgbString()}`;
 });
 
-function handlePreset(newColor: string) {
-  color.value = tinycolor(newColor).toHsv();
+function handleSwatchColorClick(newColor: string) {
+  tinyColorRef.value = tinycolor(newColor);
 }
 
 function isSwatchColorSelected(color: string) {
@@ -39,14 +27,14 @@ function isSwatchColorSelected(color: string) {
 
 <script lang="ts">
 export interface ColorSwatchProps {
-  modelValue: tinycolor.ColorFormats.HSVA;
+  modelValue: tinycolor.Instance;
   label?: string;
   swatch?: string[];
   defaultColor?: string;
 }
 
-export interface ColorPickerEmits {
-  'update:modelValue': [value: string];
+export interface ColorSwatchEmits {
+  modelValue: tinycolor.Instance;
 }
 </script>
 
@@ -66,8 +54,8 @@ export interface ColorPickerEmits {
         :aria-label="`Color:${swatchColor}`"
         role="option"
         tabindex="0"
-        @click="handlePreset(swatchColor)"
-        @keydown.space="handlePreset(swatchColor)"
+        @click="handleSwatchColorClick(swatchColor)"
+        @keydown.space="handleSwatchColorClick(swatchColor)"
       />
     </div>
   </div>

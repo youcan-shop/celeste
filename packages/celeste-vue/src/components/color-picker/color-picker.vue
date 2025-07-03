@@ -5,6 +5,7 @@ import { useForwardPropsEmits } from 'radix-vue';
 import { type HTMLAttributes, ref, watch } from 'vue';
 import { ColorArea, HueSlider } from './';
 import AlphaSlider from './alpha-slider.vue';
+import ColorSwatch from './color-swatch.vue';
 import { defineColorModel } from './composable/use-color-model';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
@@ -155,7 +156,7 @@ declare global {
       </div> -->
     </div>
     <div class="celeste-color-swatches">
-      <!-- <ColorSwatch v-model="HSVA" :hue="hueRef" /> -->
+      <ColorSwatch v-model="tinyColorRef" :hue="hueRef" />
     </div>
     <!-- <div v-if="$slots.swatches" class="celeste-color-swatches">
       <slot name="swatches" />
