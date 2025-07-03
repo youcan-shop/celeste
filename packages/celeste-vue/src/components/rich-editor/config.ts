@@ -73,7 +73,7 @@ export const toolbarActions = ref<ToolbarItem[]>([
   { type: 'divider' },
   { slug: 'undo', name: 'Undo', icon: 'arrow-go-back-line', active: 'undo' },
   { slug: 'redo', name: 'Redo', icon: 'arrow-go-forward-line', active: 'redo' },
-  { slug: 'clear', name: 'Clear', icon: 'format-clear', active: 'clear' },
+  { slug: 'clear', name: 'Clear style', icon: 'format-clear', active: 'clear' },
 ]);
 
 export function onActionClick(
