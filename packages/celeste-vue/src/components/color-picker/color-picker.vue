@@ -257,7 +257,9 @@ declare global {
   height: 12px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  box-shadow: 0 0 0 2px var(--color-bg-white-0);
+  box-shadow:
+    0 0 0 2px var(--color-bg-white-0),
+    var(--shadow-toggle-switch);
 }
 
 :deep(.celeste-color-slider) {
