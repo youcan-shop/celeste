@@ -59,9 +59,10 @@ const hsv = computed(() => {
 
 watch(tinyColorRef, (tinyColorInstance) => {
   const newHue = tinyColorInstance.toHsl().h;
+  const saturation = tinyColorInstance.toHsl().s;
 
-  // Preserve hue when color becomes grayscale
-  if (newHue === 0 && hueRef.value !== 0) {
+  // Preserve hue when color becomes grayscale (saturation is 0)
+  if (saturation === 0 && hueRef.value !== 0) {
     return;
   }
 
