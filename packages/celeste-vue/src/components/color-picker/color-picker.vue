@@ -4,6 +4,7 @@ import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { type HTMLAttributes, ref, watch } from 'vue';
 import { Button } from '../button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
 import { TextInput } from '../text-input';
 import { ColorArea, HueSlider } from './';
 import AlphaSlider from './alpha-slider.vue';
@@ -13,6 +14,7 @@ import { resolveArrowDirection } from './utils';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
+  formats: () => ['hex', 'rgb', 'hsl', 'hsb'],
 });
 
 const emit = defineEmits<ColorPickerEmits>();
@@ -22,6 +24,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const tinyColorRef = defineColorModel(props, emit);
 const hueRef = ref(tinyColorRef.value.toHsl().h);
+const currentColorFormat = ref(props.formats[0] || 'hex');
 const eyeDropper = ref<EyeDropper | null>(null);
 
 watch(tinyColorRef, (tinyColorInstance) => {
@@ -103,9 +106,12 @@ function handleKeyDown(event: KeyboardEvent) {
 </script>
 
 <script lang="ts">
+export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsb';
+
 export interface ColorPickerProps {
-  class?: HTMLAttributes['class'];
   modelValue: string | tinycolor.ColorInput;
+  class?: HTMLAttributes['class'];
+  formats?: ColorFormats[];
 }
 
 export interface ColorPickerEmits {
@@ -144,47 +150,90 @@ declare global {
       />
       <HueSlider v-model="hueRef" />
       <AlphaSlider v-model="tinyColorRef" />
-      <div class="celeste-color-controls">
-        <Button
-          v-if="eyeDropper"
-          variant="stroke"
-          size="xxs"
-          intent="neutral"
-          @click="sipColor"
+      <div class="celeste-color-control-panel">
+        <Select v-model="currentColorFormat">
+          <SelectTrigger variant="inline">
+            <SelectValue placeholder="HEX" class="celeste-selected-color-format">
+              {{ currentColorFormat }}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent width="fit">
+            <SelectItem
+              v-for="format in props.formats"
+              :key="format"
+              :value="format"
+            >
+              <span class="celeste-color-format">
+                {{ format }}
+              </span>
+            </SelectItem>
+          </SelectContent>
+        </Select>
+        <div
+          v-show="currentColorFormat === 'hex'"
+          class="celeste-color-controls"
         >
-          <i i-celeste-sip-line />
-        </Button>
-        <TextInput
-          name="hex"
-          placeholder="#FFFFFF"
-          type="text"
-          class="color-input"
-          size="xs"
-          :value="tinyColorRef.toHexString().toUpperCase()"
-          @focusout="inputChangeHex"
-          @keydown.enter.prevent="inputChangeHex"
-        />
-        <TextInput
-          name="alpha"
-          placeholder="100"
-          type="text"
-          class="color-input"
-          size="xs"
-          :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
-          @input="validateAlphaInput"
-          @focusout="inputChangeAlpha"
-          @keydown.enter.prevent.stop="inputChangeAlpha"
-          @keydown.up.prevent.stop="handleKeyDown"
-          @keydown.down.prevent.stop="handleKeyDown"
-        />
+          <Button
+            v-if="eyeDropper"
+            variant="stroke"
+            size="xxs"
+            intent="neutral"
+            @click="sipColor"
+          >
+            <i i-celeste-sip-line />
+          </Button>
+          <TextInput
+            name="hex"
+            placeholder="#FFFFFF"
+            type="text"
+            class="color-input"
+            size="xs"
+            :value="tinyColorRef.toHexString().toUpperCase()"
+            @focusout="inputChangeHex"
+            @keydown.enter.prevent="inputChangeHex"
+          />
+          <TextInput
+            name="alpha"
+            placeholder="100"
+            type="text"
+            class="color-input"
+            size="xs"
+            :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
+            @input="validateAlphaInput"
+            @focusout="inputChangeAlpha"
+            @keydown.enter.prevent.stop="inputChangeAlpha"
+            @keydown.up.prevent.stop="handleKeyDown"
+            @keydown.down.prevent.stop="handleKeyDown"
+          />
+        </div>
+        <div
+          v-show="currentColorFormat === 'rgb'"
+          class="celeste-color-controls"
+        >
+          TODO: RGB Controls
+        </div>
+        <div
+          v-show="currentColorFormat === 'hsl'"
+          class="celeste-color-controls"
+        >
+          TODO: HSL Controls
+        </div>
+        <div
+          v-show="currentColorFormat === 'hsb'"
+          class="celeste-color-controls"
+        >
+          TODO: HSB Controls
+        </div>
       </div>
     </div>
     <div class="celeste-color-swatches">
-      <ColorSwatch v-model="tinyColorRef" :hue="hueRef" />
+      <slot v-if="$slots.swatches" name="swatches" />
+      <ColorSwatch
+        v-else
+        v-model="tinyColorRef"
+        :hue="hueRef"
+      />
     </div>
-    <!-- <div v-if="$slots.swatches" class="celeste-color-swatches">
-      <slot name="swatches" />
-    </div> -->
   </div>
 </template>
 
@@ -208,36 +257,47 @@ declare global {
       box-sizing: border-box;
     }
 
-    .celeste-color-controls {
+    .celeste-color-control-panel {
       display: flex;
+      flex-direction: column;
       width: 100%;
-      height: 32px;
+      gap: var(--spacing-4);
 
-      & > * {
-        box-sizing: border-box;
-        height: 100%;
+      .celeste-selected-color-format {
+        text-transform: uppercase;
       }
 
-      & > *:first-child {
-        border-end-end-radius: 0;
-        border-start-end-radius: 0;
-        margin-inline-end: -1px;
-      }
+      .celeste-color-controls {
+        display: flex;
+        width: 100%;
+        height: 32px;
 
-      & > *:last-child {
-        z-index: 1;
-        flex: 1;
-        margin-inline-start: -1px;
-        border-start-start-radius: 0;
-        border-end-start-radius: 0;
-      }
+        & > * {
+          box-sizing: border-box;
+          height: 100%;
+        }
 
-      & > *:not(:last-child, :first-child) {
-        flex: 3;
-        border-radius: 0;
+        & > *:first-child {
+          border-end-end-radius: 0;
+          border-start-end-radius: 0;
+          margin-inline-end: -1px;
+        }
 
-        &:focus-within {
-          z-index: 2;
+        & > *:last-child {
+          z-index: 1;
+          flex: 1;
+          margin-inline-start: -1px;
+          border-start-start-radius: 0;
+          border-end-start-radius: 0;
+        }
+
+        & > *:not(:last-child, :first-child) {
+          flex: 3;
+          border-radius: 0;
+
+          &:focus-within {
+            z-index: 2;
+          }
         }
       }
     }
@@ -249,6 +309,10 @@ declare global {
     padding: var(--radius-16);
     border-block-start: 1px solid var(--color-stroke-soft-200);
   }
+}
+
+:deep(.celeste-color-format) {
+  text-transform: uppercase;
 }
 
 :deep(.celeste-color-thumb) {
