@@ -19,6 +19,8 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
 
 const emit = defineEmits<ColorPickerEmits>();
 
+const COLOR_NUMBER_VALIDATION_PATTERN = /^\d*\s?%?$/;
+
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
@@ -41,10 +43,10 @@ const rgb = computed(() => {
 // });
 
 watch(tinyColorRef, (tinyColorInstance) => {
-  const { h: newHue, s: saturation } = tinyColorInstance.toHsl();
+  const newHue = tinyColorInstance.toHsl().h;
 
-  // Preserve hue when color becomes grayscale (saturation = 0)
-  if (saturation === 0 && hueRef.value !== 0) {
+  // Preserve hue when color becomes grayscale
+  if (newHue === 0 && hueRef.value !== 0) {
     return;
   }
 
@@ -78,7 +80,7 @@ function inputChangeHex(event: Event) {
   tinyColorRef.value = tinycolor(colorInput);
 }
 
-function inputChangeRGB(event: Event, key: 'r' | 'g' | 'b') {
+function inputChangeRGB(event: Event, key: RGBKey) {
   const value = Number((event.target as HTMLInputElement)?.value);
   const currentRgb = rgb.value;
   const newRgb = { ...currentRgb, [key]: value };
@@ -86,12 +88,20 @@ function inputChangeRGB(event: Event, key: 'r' | 'g' | 'b') {
   tinyColorRef.value = tinycolor(newRgb);
 }
 
+function validateRGBInput(event: Event, key: RGBKey) {
+  const input = event.target as HTMLInputElement;
+  const value = input.value;
+
+  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(value)) {
+    input.value = String(tinyColorRef.value.toRgb()[key]);
+  }
+}
+
 function validateAlphaInput(event: Event) {
   const input = event.target as HTMLInputElement;
   const value = input.value;
-  const validPattern = /^\d*\s?%?$/;
 
-  if (!validPattern.test(value)) {
+  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(value)) {
     input.value = `${(tinyColorRef.value.getAlpha() * 100).toFixed()} %`;
   }
 }
@@ -128,6 +138,8 @@ function handleKeyDown(event: KeyboardEvent) {
 
 <script lang="ts">
 export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsb';
+
+export type RGBKey = 'r' | 'g' | 'b';
 
 export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;
@@ -222,6 +234,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="tinyColorRef.toRgb().r"
+                @input="e => validateRGBInput(e, 'r')"
                 @focusout="e => inputChangeRGB(e, 'r')"
                 @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
               />
@@ -231,6 +244,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="tinyColorRef.toRgb().g"
+                @input="e => validateRGBInput(e, 'g')"
                 @focusout="e => inputChangeRGB(e, 'g')"
                 @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
               />
@@ -240,6 +254,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="tinyColorRef.toRgb().b"
+                @input="e => validateRGBInput(e, 'b')"
                 @focusout="e => inputChangeRGB(e, 'b')"
                 @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
               />
