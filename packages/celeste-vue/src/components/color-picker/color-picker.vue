@@ -4,6 +4,7 @@ import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, ref, watch } from 'vue';
 import { Button } from '../button';
+import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
 import { TextInput } from '../text-input';
 import { ColorArea, HueSlider } from './';
@@ -241,180 +242,187 @@ declare global {
 </script>
 
 <template>
-  <div class="celeste-color-picker-wrapper" v-bind="forwarded">
-    <div class="celeste-color-picker">
-      <ColorArea
-        v-model="tinyColorRef"
-        :hue="hueRef"
-      />
-      <HueSlider v-model="hueRef" />
-      <AlphaSlider v-model="tinyColorRef" />
-      <div class="celeste-color-control-panel">
-        <Select v-model="currentColorFormat">
-          <SelectTrigger variant="inline">
-            <SelectValue placeholder="HEX" class="celeste-selected-color-format">
-              {{ currentColorFormat }}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent width="fit">
-            <SelectItem
-              v-for="format in props.formats"
-              :key="format"
-              :value="format"
+  <Popover>
+    <PopoverTrigger>
+      Click me
+    </PopoverTrigger>
+    <PopoverContent :dismissible="false">
+      <div class="celeste-color-picker-wrapper" v-bind="forwarded">
+        <div class="celeste-color-picker">
+          <ColorArea
+            v-model="tinyColorRef"
+            :hue="hueRef"
+          />
+          <HueSlider v-model="hueRef" />
+          <AlphaSlider v-model="tinyColorRef" />
+          <div class="celeste-color-control-panel">
+            <Select v-model="currentColorFormat">
+              <SelectTrigger variant="inline">
+                <SelectValue placeholder="HEX" class="celeste-selected-color-format">
+                  {{ currentColorFormat }}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent width="fit">
+                <SelectItem
+                  v-for="format in props.formats"
+                  :key="format"
+                  :value="format"
+                >
+                  <span class="celeste-color-format">
+                    {{ format }}
+                  </span>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <div
+              class="celeste-color-controls"
             >
-              <span class="celeste-color-format">
-                {{ format }}
-              </span>
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <div
-          class="celeste-color-controls"
-        >
-          <Button
-            v-if="eyeDropper"
-            variant="stroke"
-            size="xxs"
-            intent="neutral"
-            @click="sipColor"
-          >
-            <i i-celeste-sip-line />
-          </Button>
-          <div class="celeste-color-format-inputs">
-            <template v-if="currentColorFormat === 'hex'">
+              <Button
+                v-if="eyeDropper"
+                variant="stroke"
+                size="xxs"
+                intent="neutral"
+                @click="sipColor"
+              >
+                <i i-celeste-sip-line />
+              </Button>
+              <div class="celeste-color-format-inputs">
+                <template v-if="currentColorFormat === 'hex'">
+                  <TextInput
+                    name="hex"
+                    placeholder="#FFFFFF"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="hex"
+                    @focusout="inputChangeHex"
+                    @keydown.enter.prevent="inputChangeHex"
+                  />
+                </template>
+                <template v-else-if="currentColorFormat === 'rgb'">
+                  <TextInput
+                    name="red"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="rgb.r"
+                    @input="e => validateRGBInput(e, 'r')"
+                    @focusout="e => inputChangeRGB(e, 'r')"
+                    @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
+                  />
+                  <TextInput
+                    name="green"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="rgb.g"
+                    @input="e => validateRGBInput(e, 'g')"
+                    @focusout="e => inputChangeRGB(e, 'g')"
+                    @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
+                  />
+                  <TextInput
+                    name="blue"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="rgb.b"
+                    @input="e => validateRGBInput(e, 'b')"
+                    @focusout="e => inputChangeRGB(e, 'b')"
+                    @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
+                  />
+                </template>
+                <template v-else-if="currentColorFormat === 'hsl'">
+                  <TextInput
+                    name="hue"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="hsl.h"
+                    @input="e => validateHSLInput(e, 'h')"
+                    @focusout="e => inputChangeHSL(e, 'h')"
+                    @keydown.enter.prevent="e => inputChangeHSL(e, 'h')"
+                  />
+                  <TextInput
+                    name="saturation"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="hsl.s"
+                    @input="e => validateHSLInput(e, 's')"
+                    @focusout="e => inputChangeHSL(e, 's')"
+                    @keydown.enter.prevent="e => inputChangeHSL(e, 's')"
+                  />
+                  <TextInput
+                    name="lightness"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="hsl.l"
+                    @input="e => validateHSLInput(e, 'l')"
+                    @focusout="e => inputChangeHSL(e, 'l')"
+                    @keydown.enter.prevent="e => inputChangeHSL(e, 'l')"
+                  />
+                </template>
+                <template v-else-if="currentColorFormat === 'hsb'">
+                  <TextInput
+                    name="hue"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="hsv.h"
+                    @input="e => validateHSBInput(e, 'h')"
+                    @focusout="e => inputChangeHSB(e, 'h')"
+                    @keydown.enter.prevent="e => inputChangeHSB(e, 'h')"
+                  />
+                  <TextInput
+                    name="saturation"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="hsv.s"
+                    @input="e => validateHSBInput(e, 's')"
+                    @focusout="e => inputChangeHSB(e, 's')"
+                    @keydown.enter.prevent="e => inputChangeHSB(e, 's')"
+                  />
+                  <TextInput
+                    name="brightness"
+                    type="text"
+                    class="color-input"
+                    size="xs"
+                    :value="hsv.v"
+                    @input="e => validateHSBInput(e, 'v')"
+                    @focusout="e => inputChangeHSB(e, 'v')"
+                    @keydown.enter.prevent="e => inputChangeHSB(e, 'v')"
+                  />
+                </template>
+              </div>
               <TextInput
-                name="hex"
-                placeholder="#FFFFFF"
+                name="alpha"
+                placeholder="100"
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="hex"
-                @focusout="inputChangeHex"
-                @keydown.enter.prevent="inputChangeHex"
+                :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
+                @input="validateAlphaInput"
+                @focusout="inputChangeAlpha"
+                @keydown.enter.prevent.stop="inputChangeAlpha"
+                @keydown.up.prevent.stop="handleAlphaKeyDown"
+                @keydown.down.prevent.stop="handleAlphaKeyDown"
               />
-            </template>
-            <template v-else-if="currentColorFormat === 'rgb'">
-              <TextInput
-                name="red"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="rgb.r"
-                @input="e => validateRGBInput(e, 'r')"
-                @focusout="e => inputChangeRGB(e, 'r')"
-                @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
-              />
-              <TextInput
-                name="green"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="rgb.g"
-                @input="e => validateRGBInput(e, 'g')"
-                @focusout="e => inputChangeRGB(e, 'g')"
-                @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
-              />
-              <TextInput
-                name="blue"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="rgb.b"
-                @input="e => validateRGBInput(e, 'b')"
-                @focusout="e => inputChangeRGB(e, 'b')"
-                @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
-              />
-            </template>
-            <template v-else-if="currentColorFormat === 'hsl'">
-              <TextInput
-                name="hue"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="hsl.h"
-                @input="e => validateHSLInput(e, 'h')"
-                @focusout="e => inputChangeHSL(e, 'h')"
-                @keydown.enter.prevent="e => inputChangeHSL(e, 'h')"
-              />
-              <TextInput
-                name="saturation"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="hsl.s"
-                @input="e => validateHSLInput(e, 's')"
-                @focusout="e => inputChangeHSL(e, 's')"
-                @keydown.enter.prevent="e => inputChangeHSL(e, 's')"
-              />
-              <TextInput
-                name="lightness"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="hsl.l"
-                @input="e => validateHSLInput(e, 'l')"
-                @focusout="e => inputChangeHSL(e, 'l')"
-                @keydown.enter.prevent="e => inputChangeHSL(e, 'l')"
-              />
-            </template>
-            <template v-else-if="currentColorFormat === 'hsb'">
-              <TextInput
-                name="hue"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="hsv.h"
-                @input="e => validateHSBInput(e, 'h')"
-                @focusout="e => inputChangeHSB(e, 'h')"
-                @keydown.enter.prevent="e => inputChangeHSB(e, 'h')"
-              />
-              <TextInput
-                name="saturation"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="hsv.s"
-                @input="e => validateHSBInput(e, 's')"
-                @focusout="e => inputChangeHSB(e, 's')"
-                @keydown.enter.prevent="e => inputChangeHSB(e, 's')"
-              />
-              <TextInput
-                name="brightness"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="hsv.v"
-                @input="e => validateHSBInput(e, 'v')"
-                @focusout="e => inputChangeHSB(e, 'v')"
-                @keydown.enter.prevent="e => inputChangeHSB(e, 'v')"
-              />
-            </template>
+            </div>
           </div>
-          <TextInput
-            name="alpha"
-            placeholder="100"
-            type="text"
-            class="color-input"
-            size="xs"
-            :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
-            @input="validateAlphaInput"
-            @focusout="inputChangeAlpha"
-            @keydown.enter.prevent.stop="inputChangeAlpha"
-            @keydown.up.prevent.stop="handleAlphaKeyDown"
-            @keydown.down.prevent.stop="handleAlphaKeyDown"
+        </div>
+        <div class="celeste-color-swatches">
+          <slot v-if="$slots.swatches" name="swatches" />
+          <ColorSwatch
+            v-else
+            v-model="tinyColorRef"
+            :hue="hueRef"
           />
         </div>
       </div>
-    </div>
-    <div class="celeste-color-swatches">
-      <slot v-if="$slots.swatches" name="swatches" />
-      <ColorSwatch
-        v-else
-        v-model="tinyColorRef"
-        :hue="hueRef"
-      />
-    </div>
-  </div>
+    </PopoverContent>
+  </Popover>
 </template>
 
 <style scoped lang="scss">
@@ -422,8 +430,6 @@ declare global {
   display: grid;
   box-sizing: border-box;
   width: 272px;
-  border: 1px solid var(--color-stroke-soft-200);
-  border-radius: var(--radius-16);
 
   .celeste-color-picker {
     display: flex;
