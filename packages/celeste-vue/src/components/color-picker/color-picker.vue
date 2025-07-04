@@ -41,10 +41,10 @@ const rgb = computed(() => {
 // });
 
 watch(tinyColorRef, (tinyColorInstance) => {
-  const newHue = tinyColorInstance.toHsl().h;
+  const { h: newHue, s: saturation } = tinyColorInstance.toHsl();
 
-  // Preserve hue when color becomes grayscale
-  if (newHue === 0 && hueRef.value !== 0) {
+  // Preserve hue when color becomes grayscale (saturation = 0)
+  if (saturation === 0 && hueRef.value !== 0) {
     return;
   }
 
