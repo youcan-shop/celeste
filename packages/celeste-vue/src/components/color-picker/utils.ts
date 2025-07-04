@@ -23,6 +23,10 @@ export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
+export function truncColorValue(value: string): number {
+  return Math.trunc(Number(value.replace('%', '').trim()));
+}
+
 // DOM
 // TODO: Return type
 export function getPageXYFromEvent(e: MouseEvent | TouchEvent): any {

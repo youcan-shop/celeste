@@ -10,7 +10,7 @@ import { ColorArea, HueSlider } from './';
 import AlphaSlider from './alpha-slider.vue';
 import ColorSwatch from './color-swatch.vue';
 import { defineColorModel } from './composable/use-color-model';
-import { resolveArrowDirection } from './utils';
+import { resolveArrowDirection, truncColorValue } from './utils';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
@@ -29,18 +29,32 @@ const hueRef = ref(tinyColorRef.value.toHsl().h);
 const currentColorFormat = ref(props.formats[0] || 'hex');
 const eyeDropper = ref<EyeDropper | null>(null);
 
+const hex = computed(() => {
+  return tinyColorRef.value.toHexString().toUpperCase();
+});
+
 const rgb = computed(() => {
   return tinyColorRef.value.toRgb();
 });
 
-// const hsl = computed(() => {
-//   const { h, s, l } = tinyColorRef.value.toHsl();
-//   return {
-//     h: h.toFixed(),
-//     s: `${(s * 100).toFixed()}%`,
-//     l: `${(l * 100).toFixed()}%`,
-//   };
-// });
+const hsl = computed(() => {
+  const { h, s, l } = tinyColorRef.value.toHsl();
+  return {
+    h: h.toFixed(),
+    s: `${(s * 100).toFixed()}%`,
+    l: `${(l * 100).toFixed()}%`,
+    a: tinyColorRef.value.getAlpha(),
+  };
+});
+
+const hsv = computed(() => {
+  const { h, s, v } = tinyColorRef.value.toHsv();
+  return {
+    h: h.toFixed(),
+    s: `${(s * 100).toFixed()}%`,
+    v: `${(v * 100).toFixed()}%`,
+  };
+});
 
 watch(tinyColorRef, (tinyColorInstance) => {
   const newHue = tinyColorInstance.toHsl().h;
@@ -88,6 +102,67 @@ function inputChangeRGB(event: Event, key: RGBKey) {
   tinyColorRef.value = tinycolor(newRgb);
 }
 
+function inputChangeHSL(event: Event, key: HSLKey) {
+  const HSLInput = (event.target as HTMLInputElement)?.value;
+  const newHSLValue = truncColorValue(HSLInput);
+
+  if (Number.isNaN(newHSLValue)) {
+    return;
+  }
+
+  const newHSL = { [key]: newHSLValue };
+
+  tinyColorRef.value = {
+    ...tinyColorRef.value.toHsl(),
+    ...newHSL,
+  };
+}
+
+function inputChangeHSB(event: Event, key: HSBKey) {
+  const HSBInput = (event.target as HTMLInputElement)?.value;
+  const HSBValue = truncColorValue(HSBInput);
+
+  if (Number.isNaN(HSBValue)) {
+    return;
+  }
+
+  const newHSB = { [key]: HSBValue };
+
+  tinyColorRef.value = {
+    ...tinyColorRef.value.toHsv(),
+    ...newHSB,
+  };
+}
+
+function inputChangeAlpha(event: Event) {
+  const alphaInput = (event.target as HTMLInputElement)?.value;
+  const alphaValue = truncColorValue(alphaInput) / 100;
+
+  if (Number.isNaN(alphaValue)) {
+    return;
+  }
+
+  tinyColorRef.value = tinyColorRef.value.setAlpha(Math.max(0, Math.min(1, alphaValue)));
+}
+
+function handleAlphaKeyDown(event: KeyboardEvent) {
+  const direction = resolveArrowDirection(event);
+  const currentAlpha = tinyColorRef.value.getAlpha() * 100;
+
+  let multiplier = 1;
+
+  switch (direction) {
+    case 'down':
+      multiplier = -1;
+      break;
+    case 'up':
+      multiplier = 1;
+      break;
+  }
+
+  tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
+}
+
 function validateRGBInput(event: Event, key: RGBKey) {
   const input = event.target as HTMLInputElement;
   const value = input.value;
@@ -105,41 +180,14 @@ function validateAlphaInput(event: Event) {
     input.value = `${(tinyColorRef.value.getAlpha() * 100).toFixed()} %`;
   }
 }
-
-function inputChangeAlpha(event: Event) {
-  const alphaValue = (event.target as HTMLInputElement)?.value;
-  const alphaInput = Math.trunc(Number(alphaValue.replace('%', '').trim())) / 100;
-
-  if (Number.isNaN(alphaInput)) {
-    return;
-  }
-
-  tinyColorRef.value = tinyColorRef.value.setAlpha(Math.max(0, Math.min(1, alphaInput)));
-}
-
-function handleKeyDown(event: KeyboardEvent) {
-  const direction = resolveArrowDirection(event);
-  const currentAlpha = tinyColorRef.value.getAlpha() * 100;
-
-  let multiplier = 1;
-
-  switch (direction) {
-    case 'down':
-      multiplier = -1;
-      break;
-    case 'up':
-      multiplier = 1;
-      break;
-  }
-
-  tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
-}
 </script>
 
 <script lang="ts">
 export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsb';
 
 export type RGBKey = 'r' | 'g' | 'b';
+export type HSLKey = 'h' | 's' | 'l';
+export type HSBKey = 'h' | 's' | 'b';
 
 export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;
@@ -222,7 +270,7 @@ declare global {
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toHexString().toUpperCase()"
+                :value="hex"
                 @focusout="inputChangeHex"
                 @keydown.enter.prevent="inputChangeHex"
               />
@@ -233,7 +281,7 @@ declare global {
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toRgb().r"
+                :value="rgb.r"
                 @input="e => validateRGBInput(e, 'r')"
                 @focusout="e => inputChangeRGB(e, 'r')"
                 @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
@@ -243,7 +291,7 @@ declare global {
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toRgb().g"
+                :value="rgb.g"
                 @input="e => validateRGBInput(e, 'g')"
                 @focusout="e => inputChangeRGB(e, 'g')"
                 @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
@@ -253,7 +301,7 @@ declare global {
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toRgb().b"
+                :value="rgb.b"
                 @input="e => validateRGBInput(e, 'b')"
                 @focusout="e => inputChangeRGB(e, 'b')"
                 @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
@@ -265,27 +313,27 @@ declare global {
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toHexString().toUpperCase()"
-                @focusout="inputChangeHex"
-                @keydown.enter.prevent="inputChangeHex"
+                :value="hsl.h"
+                @focusout="e => inputChangeHSL(e, 'h')"
+                @keydown.enter.prevent="e => inputChangeHSL(e, 'h')"
               />
               <TextInput
                 name="saturation"
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toHexString().toUpperCase()"
-                @focusout="inputChangeHex"
-                @keydown.enter.prevent="inputChangeHex"
+                :value="hsl.s"
+                @focusout="e => inputChangeHSL(e, 's')"
+                @keydown.enter.prevent="e => inputChangeHSL(e, 's')"
               />
               <TextInput
                 name="lightness"
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toHexString().toUpperCase()"
-                @focusout="inputChangeHex"
-                @keydown.enter.prevent="inputChangeHex"
+                :value="hsl.l"
+                @focusout="e => inputChangeHSL(e, 'l')"
+                @keydown.enter.prevent="e => inputChangeHSL(e, 'l')"
               />
             </template>
             <template v-else-if="currentColorFormat === 'hsb'">
@@ -294,27 +342,27 @@ declare global {
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toHexString().toUpperCase()"
-                @focusout="inputChangeHex"
-                @keydown.enter.prevent="inputChangeHex"
+                :value="hsv.h"
+                @focusout="e => inputChangeHSB(e, 'h')"
+                @keydown.enter.prevent="e => inputChangeHSB(e, 'h')"
               />
               <TextInput
                 name="saturation"
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toHexString().toUpperCase()"
-                @focusout="inputChangeHex"
-                @keydown.enter.prevent="inputChangeHex"
+                :value="hsv.s"
+                @focusout="e => inputChangeHSB(e, 's')"
+                @keydown.enter.prevent="e => inputChangeHSB(e, 's')"
               />
               <TextInput
                 name="brightness"
                 type="text"
                 class="color-input"
                 size="xs"
-                :value="tinyColorRef.toHexString().toUpperCase()"
-                @focusout="inputChangeHex"
-                @keydown.enter.prevent="inputChangeHex"
+                :value="hsv.v"
+                @focusout="e => inputChangeHSB(e, 'b')"
+                @keydown.enter.prevent="e => inputChangeHSB(e, 'b')"
               />
             </template>
           </div>
@@ -328,8 +376,8 @@ declare global {
             @input="validateAlphaInput"
             @focusout="inputChangeAlpha"
             @keydown.enter.prevent.stop="inputChangeAlpha"
-            @keydown.up.prevent.stop="handleKeyDown"
-            @keydown.down.prevent.stop="handleKeyDown"
+            @keydown.up.prevent.stop="handleAlphaKeyDown"
+            @keydown.down.prevent.stop="handleAlphaKeyDown"
           />
         </div>
       </div>
