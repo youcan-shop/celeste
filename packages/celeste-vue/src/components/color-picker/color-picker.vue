@@ -26,7 +26,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const tinyColorRef = defineColorModel(props, emit);
 const hueRef = ref(tinyColorRef.value.toHsl().h);
-const currentColorFormat = ref(props.formats[0] || 'hex');
+const currentColorFormat = ref('hsl');
 const eyeDropper = ref<EyeDropper | null>(null);
 
 const hex = computed(() => {
@@ -39,6 +39,7 @@ const rgb = computed(() => {
 
 const hsl = computed(() => {
   const { h, s, l } = tinyColorRef.value.toHsl();
+
   return {
     h: h.toFixed(),
     s: `${(s * 100).toFixed()}%`,
@@ -104,7 +105,11 @@ function inputChangeRGB(event: Event, key: RGBKey) {
 
 function inputChangeHSL(event: Event, key: HSLKey) {
   const HSLInput = (event.target as HTMLInputElement)?.value;
-  const newHSLValue = truncColorValue(HSLInput);
+  let newHSLValue = truncColorValue(HSLInput);
+
+  if (key === 's' || key === 'l') {
+    newHSLValue /= 100;
+  }
 
   if (Number.isNaN(newHSLValue)) {
     return;
@@ -163,22 +168,33 @@ function handleAlphaKeyDown(event: KeyboardEvent) {
   tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
 }
 
-function validateRGBInput(event: Event, key: RGBKey) {
+function validateColorInput<T extends RGBKey | HSLKey | HSBKey | AlphaKey>(
+  event: Event,
+  key: T,
+  getFallbackValue: (key: T) => string | number,
+) {
   const input = event.target as HTMLInputElement;
   const value = input.value;
 
   if (!COLOR_NUMBER_VALIDATION_PATTERN.test(value)) {
-    input.value = String(tinyColorRef.value.toRgb()[key]);
+    input.value = String(getFallbackValue(key));
   }
 }
 
-function validateAlphaInput(event: Event) {
-  const input = event.target as HTMLInputElement;
-  const value = input.value;
+function validateRGBInput(event: Event, key: RGBKey) {
+  validateColorInput(event, key, k => tinyColorRef.value.toRgb()[k]);
+}
 
-  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(value)) {
-    input.value = `${(tinyColorRef.value.getAlpha() * 100).toFixed()} %`;
-  }
+function validateHSLInput(event: Event, key: HSLKey) {
+  validateColorInput(event, key, k => `${(tinyColorRef.value.toHsl()[k] * 100).toFixed()} %`);
+}
+
+function validateHSBInput(event: Event, key: HSBKey) {
+  validateColorInput(event, key, k => `${(tinyColorRef.value.toHsv()[k] * 100).toFixed()} %`);
+}
+
+function validateAlphaInput(event: Event) {
+  validateColorInput(event, 'a', () => `${(tinyColorRef.value.getAlpha() * 100).toFixed()} %`);
 }
 </script>
 
@@ -187,7 +203,8 @@ export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsb';
 
 export type RGBKey = 'r' | 'g' | 'b';
 export type HSLKey = 'h' | 's' | 'l';
-export type HSBKey = 'h' | 's' | 'b';
+export type HSBKey = 'h' | 's' | 'v';
+export type AlphaKey = 'a';
 
 export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;
@@ -314,6 +331,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="hsl.h"
+                @input="e => validateHSLInput(e, 'h')"
                 @focusout="e => inputChangeHSL(e, 'h')"
                 @keydown.enter.prevent="e => inputChangeHSL(e, 'h')"
               />
@@ -323,6 +341,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="hsl.s"
+                @input="e => validateHSLInput(e, 's')"
                 @focusout="e => inputChangeHSL(e, 's')"
                 @keydown.enter.prevent="e => inputChangeHSL(e, 's')"
               />
@@ -332,6 +351,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="hsl.l"
+                @input="e => validateHSLInput(e, 'l')"
                 @focusout="e => inputChangeHSL(e, 'l')"
                 @keydown.enter.prevent="e => inputChangeHSL(e, 'l')"
               />
@@ -343,6 +363,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="hsv.h"
+                @input="e => validateHSBInput(e, 'h')"
                 @focusout="e => inputChangeHSB(e, 'h')"
                 @keydown.enter.prevent="e => inputChangeHSB(e, 'h')"
               />
@@ -352,6 +373,7 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="hsv.s"
+                @input="e => validateHSBInput(e, 's')"
                 @focusout="e => inputChangeHSB(e, 's')"
                 @keydown.enter.prevent="e => inputChangeHSB(e, 's')"
               />
@@ -361,8 +383,9 @@ declare global {
                 class="color-input"
                 size="xs"
                 :value="hsv.v"
-                @focusout="e => inputChangeHSB(e, 'b')"
-                @keydown.enter.prevent="e => inputChangeHSB(e, 'b')"
+                @input="e => validateHSBInput(e, 'v')"
+                @focusout="e => inputChangeHSB(e, 'v')"
+                @keydown.enter.prevent="e => inputChangeHSB(e, 'v')"
               />
             </template>
           </div>
