@@ -137,6 +137,9 @@ importers:
       radix-vue:
         specifier: ^1.9.12
         version: 1.9.12(vue@3.5.13(typescript@5.8.3))
+      tinycolor2:
+        specifier: ^1.6.0
+        version: 1.6.0
       uniqid:
         specifier: ^5.4.0
         version: 5.4.0
@@ -159,6 +162,9 @@ importers:
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
+      '@types/tinycolor2':
+        specifier: ^1.4.6
+        version: 1.4.6
       '@types/uniqid':
         specifier: ^5.3.4
         version: 5.3.4
@@ -1460,6 +1466,9 @@ packages:
 
   '@types/tar@6.1.13':
     resolution: {integrity: sha512-IznnlmU5f4WcGTh2ltRu/Ijpmk8wiWXfF0VA4s+HPjHZgvFggk1YaIkbo5krX/zUCzWF8N/l4+W/LNxnvAJ8nw==}
+
+  '@types/tinycolor2@1.4.6':
+    resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -6400,6 +6409,8 @@ snapshots:
     dependencies:
       '@types/node': 22.10.5
       minipass: 4.2.8
+
+  '@types/tinycolor2@1.4.6': {}
 
   '@types/tough-cookie@4.0.5': {}
 
