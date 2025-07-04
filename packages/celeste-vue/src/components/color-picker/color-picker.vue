@@ -170,7 +170,6 @@ declare global {
           </SelectContent>
         </Select>
         <div
-          v-show="currentColorFormat === 'hex'"
           class="celeste-color-controls"
         >
           <Button
@@ -182,16 +181,39 @@ declare global {
           >
             <i i-celeste-sip-line />
           </Button>
-          <TextInput
-            name="hex"
-            placeholder="#FFFFFF"
-            type="text"
-            class="color-input"
-            size="xs"
-            :value="tinyColorRef.toHexString().toUpperCase()"
-            @focusout="inputChangeHex"
-            @keydown.enter.prevent="inputChangeHex"
-          />
+          <div
+            v-show="currentColorFormat === 'hex'"
+            class="celeste-color-format-inputs"
+          >
+            <TextInput
+              name="hex"
+              placeholder="#FFFFFF"
+              type="text"
+              class="color-input"
+              size="xs"
+              :value="tinyColorRef.toHexString().toUpperCase()"
+              @focusout="inputChangeHex"
+              @keydown.enter.prevent="inputChangeHex"
+            />
+          </div>
+          <div
+            v-show="currentColorFormat === 'rgb'"
+            class="celeste-color-format-inputs"
+          >
+            rgb
+          </div>
+          <div
+            v-show="currentColorFormat === 'hsl'"
+            class="celeste-color-format-inputs"
+          >
+            hsl
+          </div>
+          <div
+            v-show="currentColorFormat === 'hsb'"
+            class="celeste-color-format-inputs"
+          >
+            hsb
+          </div>
           <TextInput
             name="alpha"
             placeholder="100"
@@ -205,24 +227,6 @@ declare global {
             @keydown.up.prevent.stop="handleKeyDown"
             @keydown.down.prevent.stop="handleKeyDown"
           />
-        </div>
-        <div
-          v-show="currentColorFormat === 'rgb'"
-          class="celeste-color-controls"
-        >
-          TODO: RGB Controls
-        </div>
-        <div
-          v-show="currentColorFormat === 'hsl'"
-          class="celeste-color-controls"
-        >
-          TODO: HSL Controls
-        </div>
-        <div
-          v-show="currentColorFormat === 'hsb'"
-          class="celeste-color-controls"
-        >
-          TODO: HSB Controls
         </div>
       </div>
     </div>
@@ -297,6 +301,12 @@ declare global {
 
           &:focus-within {
             z-index: 2;
+          }
+        }
+
+        .celeste-color-format-inputs {
+          & > .color-input {
+            border-radius: 0;
           }
         }
       }
