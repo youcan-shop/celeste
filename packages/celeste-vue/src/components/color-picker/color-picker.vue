@@ -2,7 +2,7 @@
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
-import { type HTMLAttributes, ref, watch } from 'vue';
+import { computed, type HTMLAttributes, ref, watch } from 'vue';
 import { Button } from '../button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
 import { TextInput } from '../text-input';
@@ -26,6 +26,19 @@ const tinyColorRef = defineColorModel(props, emit);
 const hueRef = ref(tinyColorRef.value.toHsl().h);
 const currentColorFormat = ref(props.formats[0] || 'hex');
 const eyeDropper = ref<EyeDropper | null>(null);
+
+const rgb = computed(() => {
+  return tinyColorRef.value.toRgb();
+});
+
+// const hsl = computed(() => {
+//   const { h, s, l } = tinyColorRef.value.toHsl();
+//   return {
+//     h: h.toFixed(),
+//     s: `${(s * 100).toFixed()}%`,
+//     l: `${(l * 100).toFixed()}%`,
+//   };
+// });
 
 watch(tinyColorRef, (tinyColorInstance) => {
   const newHue = tinyColorInstance.toHsl().h;
@@ -63,6 +76,14 @@ function inputChangeHex(event: Event) {
   }
 
   tinyColorRef.value = tinycolor(colorInput);
+}
+
+function inputChangeRGB(event: Event, key: 'r' | 'g' | 'b') {
+  const value = Number((event.target as HTMLInputElement)?.value);
+  const currentRgb = rgb.value;
+  const newRgb = { ...currentRgb, [key]: value };
+
+  tinyColorRef.value = tinycolor(newRgb);
 }
 
 function validateAlphaInput(event: Event) {
@@ -181,38 +202,106 @@ declare global {
           >
             <i i-celeste-sip-line />
           </Button>
-          <div
-            v-show="currentColorFormat === 'hex'"
-            class="celeste-color-format-inputs"
-          >
-            <TextInput
-              name="hex"
-              placeholder="#FFFFFF"
-              type="text"
-              class="color-input"
-              size="xs"
-              :value="tinyColorRef.toHexString().toUpperCase()"
-              @focusout="inputChangeHex"
-              @keydown.enter.prevent="inputChangeHex"
-            />
-          </div>
-          <div
-            v-show="currentColorFormat === 'rgb'"
-            class="celeste-color-format-inputs"
-          >
-            rgb
-          </div>
-          <div
-            v-show="currentColorFormat === 'hsl'"
-            class="celeste-color-format-inputs"
-          >
-            hsl
-          </div>
-          <div
-            v-show="currentColorFormat === 'hsb'"
-            class="celeste-color-format-inputs"
-          >
-            hsb
+          <div class="celeste-color-format-inputs">
+            <template v-if="currentColorFormat === 'hex'">
+              <TextInput
+                name="hex"
+                placeholder="#FFFFFF"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toHexString().toUpperCase()"
+                @focusout="inputChangeHex"
+                @keydown.enter.prevent="inputChangeHex"
+              />
+            </template>
+            <template v-else-if="currentColorFormat === 'rgb'">
+              <TextInput
+                name="red"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toRgb().r"
+                @focusout="e => inputChangeRGB(e, 'r')"
+                @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
+              />
+              <TextInput
+                name="green"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toRgb().g"
+                @focusout="e => inputChangeRGB(e, 'g')"
+                @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
+              />
+              <TextInput
+                name="blue"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toRgb().b"
+                @focusout="e => inputChangeRGB(e, 'b')"
+                @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
+              />
+            </template>
+            <template v-else-if="currentColorFormat === 'hsl'">
+              <TextInput
+                name="hue"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toHexString().toUpperCase()"
+                @focusout="inputChangeHex"
+                @keydown.enter.prevent="inputChangeHex"
+              />
+              <TextInput
+                name="saturation"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toHexString().toUpperCase()"
+                @focusout="inputChangeHex"
+                @keydown.enter.prevent="inputChangeHex"
+              />
+              <TextInput
+                name="lightness"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toHexString().toUpperCase()"
+                @focusout="inputChangeHex"
+                @keydown.enter.prevent="inputChangeHex"
+              />
+            </template>
+            <template v-else-if="currentColorFormat === 'hsb'">
+              <TextInput
+                name="hue"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toHexString().toUpperCase()"
+                @focusout="inputChangeHex"
+                @keydown.enter.prevent="inputChangeHex"
+              />
+              <TextInput
+                name="saturation"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toHexString().toUpperCase()"
+                @focusout="inputChangeHex"
+                @keydown.enter.prevent="inputChangeHex"
+              />
+              <TextInput
+                name="brightness"
+                type="text"
+                class="color-input"
+                size="xs"
+                :value="tinyColorRef.toHexString().toUpperCase()"
+                @focusout="inputChangeHex"
+                @keydown.enter.prevent="inputChangeHex"
+              />
+            </template>
           </div>
           <TextInput
             name="alpha"
@@ -305,8 +394,15 @@ declare global {
         }
 
         .celeste-color-format-inputs {
+          display: flex;
+
           & > .color-input {
+            margin-inline-start: -1px;
             border-radius: 0;
+
+            &:focus-within {
+              z-index: 2;
+            }
           }
         }
       }
