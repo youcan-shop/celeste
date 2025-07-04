@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import tinycolor from 'tinycolor2';
+import type tinycolor from 'tinycolor2';
 import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import { ColorPickerEmits, defineColorModel } from './composable/use-color-model.ts';
 import { useUserPageSelection } from './composable/use-user-select.ts';
@@ -15,11 +15,6 @@ const tinyColorRef = defineColorModel(props, emit);
 
 const containerRef = useTemplateRef('color-area');
 
-const color = computed({
-  get: () => props.modelValue,
-  set: newColor => emit('update:modelValue', newColor),
-});
-
 const hsv = computed(() => {
   return tinyColorRef.value.toHsv();
 });
@@ -33,7 +28,8 @@ const colorAreaBG = computed(() => {
 });
 
 const colorAreaThumbBG = computed(() => {
-  return tinycolor(color.value).toRgbString();
+  const { r, g, b } = tinyColorRef.value.toRgb();
+  return `rgb(${r}, ${g}, ${b})`;
 });
 
 const pointerTop = computed(() => {
