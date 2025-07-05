@@ -26,9 +26,9 @@ const handleAction = () => {
 export interface BannerProps {
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
   state?: 'information' | 'warning' | 'error' | 'success' | 'faded';
-  title?: string;
-  description?: string;
-  actionText?: string;
+  title: string;
+  description: string;
+  actionText: string;
   dismissible?: boolean;
   class?: HTMLAttributes['class'];
 }
@@ -43,7 +43,6 @@ export interface BannerProps {
       props.class,
     )"
     role="banner"
-    :aria-label="title"
   >
     <!-- Icon -->
     <i 
@@ -57,19 +56,14 @@ export interface BannerProps {
       )"
     />
 
-    <!-- Content -->
-    <div class="celeste-banner-content">
-      <div v-if="title" class="celeste-banner-title">
-        {{ title }}
-      </div>
-      <div v-if="description" class="celeste-banner-description">
-        {{ description }}
-      </div>
-    </div>
+    <!-- Content - inline text -->
+    <span class="celeste-banner-content">
+      <strong class="celeste-banner-title">{{ title }}</strong>
+      {{ description }}
+    </span>
 
-    <!-- Action Button -->
+    <!-- Action Link -->
     <button 
-      v-if="actionText"
       class="celeste-banner-action"
       @click="handleAction"
       type="button"
@@ -95,39 +89,30 @@ $states: information, warning, error, success, faded;
 
 .celeste-banner {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   padding: var(--spacing-12) var(--spacing-16);
   border-radius: var(--radius-8);
   transition-property: background-color, color, border-color;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
   border: 1px solid transparent;
-  gap: var(--spacing-12);
+  gap: var(--spacing-8);
   min-height: 48px;
 
   &-icon {
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-    margin-top: 2px; // Align with text baseline
   }
 
   &-content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-4);
+    font: var(--paragraph-sm);
+    line-height: 1.4;
   }
 
   &-title {
-    font: var(--label-sm);
     font-weight: 600;
-    line-height: 1.4;
-  }
-
-  &-description {
-    font: var(--paragraph-sm);
-    line-height: 1.4;
   }
 
   &-action {
@@ -135,19 +120,18 @@ $states: information, warning, error, success, faded;
     background: none;
     border: none;
     padding: 0;
-    font: var(--label-sm);
+    font: var(--paragraph-sm);
     font-weight: 600;
     text-decoration: underline;
     cursor: pointer;
     transition: opacity var(--animation-fast) ease-out;
-    margin-top: 2px; // Align with text baseline
 
     &:hover {
       opacity: 0.8;
     }
 
     &:focus {
-      outline: 2px solid var(--color-state-information-base);
+      outline: 2px solid currentColor;
       outline-offset: 2px;
       border-radius: var(--radius-4);
     }
@@ -172,11 +156,11 @@ $states: information, warning, error, success, faded;
     }
 
     &:hover {
-      background-color: var(--color-bg-soft-200);
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     &:focus {
-      outline: 2px solid var(--color-state-information-base);
+      outline: 2px solid currentColor;
       outline-offset: 2px;
     }
   }
