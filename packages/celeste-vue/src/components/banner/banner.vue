@@ -9,8 +9,9 @@ const props = withDefaults(
     variant: 'fill',
     state: 'information',
     dismissable: true,
-    alignment: 'left',
+    alignment: 'center',
     actionUnderline: true,
+    rounded: true,
     title: 'Insert your alert title here!',
     description: 'Insert your description here.',
     actionText: 'Upgrade',
@@ -39,6 +40,7 @@ export interface BannerProps {
   dismissable?: boolean;
   alignment?: 'left' | 'center' | 'right';
   actionUnderline?: boolean;
+  rounded?: boolean;
   title?: string;
   description?: string;
   actionText?: string;
@@ -54,41 +56,44 @@ export interface BannerProps {
     :class="clsx(
       `celeste-banner--${variant}--${state}`,
       `celeste-banner--align-${alignment}`,
+      { 'celeste-banner--rounded': rounded },
       props.class,
     )"
   >
-    <i
-      class="celeste-banner-icon"
-      :class="[`celeste-banner-icon--${variant}--${state}`, ICON_MAP[props.state]]"
-    />
+    <div class="celeste-banner-main">
+      <i
+        class="celeste-banner-icon"
+        :class="[`celeste-banner-icon--${variant}--${state}`, ICON_MAP[props.state]]"
+      />
 
-    <div class="celeste-banner-content" role="presentation">
-      <div :id="labelledby" class="celeste-banner-title">
-        <slot name="title">
-          {{ title }}
-        </slot>
-      </div>
+      <div class="celeste-banner-content" role="presentation">
+        <div :id="labelledby" class="celeste-banner-title">
+          <slot name="title">
+            {{ title }}
+          </slot>
+        </div>
 
-      <div class="celeste-banner-separator">
-        ·
-      </div>
+        <div class="celeste-banner-separator">
+          ·
+        </div>
 
-      <div :id="describedby" class="celeste-banner-description">
-        <slot name="description">
-          {{ description }}
-        </slot>
-      </div>
+        <div :id="describedby" class="celeste-banner-description">
+          <slot name="description">
+            {{ description }}
+          </slot>
+        </div>
 
-      <div v-if="$slots.action || actionText" class="celeste-banner-action">
-        <slot name="action">
-          <a
-            href="#"
-            :class="{ underline: actionUnderline }"
-            @click.prevent
-          >
-            {{ actionText }}
-          </a>
-        </slot>
+        <div v-if="$slots.action || actionText" class="celeste-banner-action">
+          <slot name="action">
+            <a
+              href="#"
+              :class="{ underline: actionUnderline }"
+              @click.prevent
+            >
+              {{ actionText }}
+            </a>
+          </slot>
+        </div>
       </div>
     </div>
 
@@ -171,14 +176,31 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
 
 .celeste-banner {
   display: flex;
+  position: relative;
   box-sizing: border-box;
+  flex-direction: row;
   align-items: center;
   width: 100%;
+  height: 44px;
   padding: var(--spacing-12) var(--spacing-48);
   gap: var(--spacing-12);
-  border-radius: var(--radius-10);
+  isolation: isolate;
+
+  &--rounded {
+    border-radius: var(--radius-10);
+  }
+
+  &-main {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    height: 20px;
+    gap: var(--spacing-12);
+  }
 
   &-icon {
+    z-index: 0;
     flex-shrink: 0;
     width: 20px;
     height: 20px;
@@ -194,34 +216,54 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
 
   &-content {
     display: flex;
-    flex: 1;
+    z-index: 1;
+    flex-direction: row;
     align-items: center;
+    height: 20px;
     gap: var(--spacing-8);
-    min-width: 0;
   }
 
   &-title {
+    display: flex;
     flex-shrink: 0;
+    align-items: center;
+    height: 20px;
     font: var(--label-sm);
     white-space: nowrap;
   }
 
   &-separator {
+    display: flex;
     flex-shrink: 0;
-    font: var(--paragraph-sm);
+    align-items: center;
+    justify-content: center;
+    width: 4px;
+    height: 20px;
+    font: var(--label-sm);
   }
 
   &-description {
+    display: flex;
     flex-shrink: 0;
+    align-items: center;
+    height: 20px;
     font: var(--paragraph-sm);
     white-space: nowrap;
   }
 
   &-action {
+    display: flex;
+    z-index: 2;
+    flex-direction: row;
     flex-shrink: 0;
-    margin-inline-start: var(--spacing-8);
+    align-items: center;
+    height: 20px;
+    gap: var(--spacing-4);
 
     :deep(a) {
+      display: flex;
+      align-items: center;
+      height: 20px;
       color: inherit;
       font: var(--label-sm);
       text-decoration: none;
@@ -239,8 +281,14 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
   }
 
   &-close {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    right: var(--spacing-12);
     flex-shrink: 0;
-    margin-inline-start: auto;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
     transition: opacity var(--animation-fast) ease-out;
 
     i {
@@ -255,17 +303,29 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
     }
   }
 
-  // Alignment variants
+  // Alignment variants - affects the main content positioning
   &--align-left {
     justify-content: flex-start;
+
+    .celeste-banner-content {
+      justify-content: flex-start;
+    }
   }
 
   &--align-center {
     justify-content: center;
+
+    .celeste-banner-content {
+      justify-content: center;
+    }
   }
 
   &--align-right {
     justify-content: flex-end;
+
+    .celeste-banner-content {
+      justify-content: flex-end;
+    }
   }
 
   @each $style in ('fill', 'light', 'lighter', 'stroke') {
