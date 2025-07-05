@@ -9,6 +9,11 @@ const props = withDefaults(
     variant: 'fill',
     state: 'information',
     dismissable: true,
+    alignment: 'left',
+    actionUnderline: true,
+    title: 'Insert your alert title here!',
+    description: 'Insert your description here.',
+    actionText: 'Upgrade',
   },
 );
 
@@ -32,6 +37,11 @@ export interface BannerProps {
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
   state?: 'information' | 'success' | 'warning' | 'error' | 'faded';
   dismissable?: boolean;
+  alignment?: 'left' | 'center' | 'right';
+  actionUnderline?: boolean;
+  title?: string;
+  description?: string;
+  actionText?: string;
 }
 </script>
 
@@ -43,6 +53,7 @@ export interface BannerProps {
     class="celeste-banner"
     :class="clsx(
       `celeste-banner--${variant}--${state}`,
+      `celeste-banner--align-${alignment}`,
       props.class,
     )"
   >
@@ -54,7 +65,7 @@ export interface BannerProps {
     <div class="celeste-banner-content" role="presentation">
       <div :id="labelledby" class="celeste-banner-title">
         <slot name="title">
-          Insert your alert title here!
+          {{ title }}
         </slot>
       </div>
 
@@ -64,12 +75,20 @@ export interface BannerProps {
 
       <div :id="describedby" class="celeste-banner-description">
         <slot name="description">
-          Insert your description here.
+          {{ description }}
         </slot>
       </div>
 
-      <div v-if="$slots.action" class="celeste-banner-action">
-        <slot name="action" />
+      <div v-if="$slots.action || actionText" class="celeste-banner-action">
+        <slot name="action">
+          <a
+            href="#"
+            :class="{ underline: actionUnderline }"
+            @click.prevent
+          >
+            {{ actionText }}
+          </a>
+        </slot>
       </div>
     </div>
 
@@ -154,7 +173,6 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  justify-content: center;
   width: 100%;
   padding: var(--spacing-12) var(--spacing-48);
   gap: var(--spacing-12);
@@ -194,10 +212,8 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
   }
 
   &-description {
-    flex: 1;
-    overflow: hidden;
+    flex-shrink: 0;
     font: var(--paragraph-sm);
-    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -208,17 +224,23 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
     :deep(a) {
       color: inherit;
       font: var(--label-sm);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      text-decoration: none;
+
+      &.underline {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
 
       &:hover {
-        text-decoration: none;
+        text-decoration: underline;
+        text-underline-offset: 2px;
       }
     }
   }
 
   &-close {
     flex-shrink: 0;
+    margin-inline-start: auto;
     transition: opacity var(--animation-fast) ease-out;
 
     i {
@@ -231,6 +253,19 @@ $banner-states: ('error' 'warning' 'success' 'information' 'faded');
         @include close-style($style);
       }
     }
+  }
+
+  // Alignment variants
+  &--align-left {
+    justify-content: flex-start;
+  }
+
+  &--align-center {
+    justify-content: center;
+  }
+
+  &--align-right {
+    justify-content: flex-end;
   }
 
   @each $style in ('fill', 'light', 'lighter', 'stroke') {

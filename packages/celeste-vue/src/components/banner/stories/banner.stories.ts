@@ -13,8 +13,24 @@ const meta: Meta<typeof Banner> = {
       control: { type: 'select' },
       options: ['information', 'success', 'warning', 'error', 'faded'],
     },
+    alignment: {
+      control: { type: 'select' },
+      options: ['left', 'center', 'right'],
+    },
     dismissable: {
       control: { type: 'boolean' },
+    },
+    actionUnderline: {
+      control: { type: 'boolean' },
+    },
+    title: {
+      control: { type: 'text' },
+    },
+    description: {
+      control: { type: 'text' },
+    },
+    actionText: {
+      control: { type: 'text' },
     },
   },
 };
@@ -28,22 +44,12 @@ export const Default: Story = {
     dismissable: true,
     state: 'error',
     variant: 'fill',
+    alignment: 'left',
+    actionUnderline: true,
+    title: 'Alert Error!',
+    description: 'Something went wrong. Please try again.',
+    actionText: 'Upgrade',
   },
-  render: args => ({
-    components: { Banner },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Banner v-bind="args">
-        <template #title>Alert Error!</template>
-        <template #description>Something went wrong. Please try again.</template>
-        <template #action>
-          <a href="#">Upgrade</a>
-        </template>
-      </Banner>
-    `,
-  }),
 };
 
 export const Information: Story = {
@@ -51,22 +57,12 @@ export const Information: Story = {
     dismissable: true,
     state: 'information',
     variant: 'fill',
+    alignment: 'left',
+    actionUnderline: true,
+    title: 'Insert your alert title here!',
+    description: 'Insert your description here.',
+    actionText: 'Upgrade',
   },
-  render: args => ({
-    components: { Banner },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Banner v-bind="args">
-        <template #title>Insert your alert title here!</template>
-        <template #description>Insert your description here.</template>
-        <template #action>
-          <a href="#">Upgrade</a>
-        </template>
-      </Banner>
-    `,
-  }),
 };
 
 export const Warning: Story = {
@@ -74,22 +70,12 @@ export const Warning: Story = {
     dismissable: true,
     state: 'warning',
     variant: 'fill',
+    alignment: 'left',
+    actionUnderline: true,
+    title: 'Insert your alert title here!',
+    description: 'Insert your description here.',
+    actionText: 'Upgrade',
   },
-  render: args => ({
-    components: { Banner },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Banner v-bind="args">
-        <template #title>Insert your alert title here!</template>
-        <template #description>Insert your description here.</template>
-        <template #action>
-          <a href="#">Upgrade</a>
-        </template>
-      </Banner>
-    `,
-  }),
 };
 
 export const Success: Story = {
@@ -97,22 +83,12 @@ export const Success: Story = {
     dismissable: true,
     state: 'success',
     variant: 'fill',
+    alignment: 'left',
+    actionUnderline: true,
+    title: 'Insert your alert title here!',
+    description: 'Insert your description here.',
+    actionText: 'Upgrade',
   },
-  render: args => ({
-    components: { Banner },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Banner v-bind="args">
-        <template #title>Insert your alert title here!</template>
-        <template #description>Insert your description here.</template>
-        <template #action>
-          <a href="#">Upgrade</a>
-        </template>
-      </Banner>
-    `,
-  }),
 };
 
 export const Faded: Story = {
@@ -120,22 +96,12 @@ export const Faded: Story = {
     dismissable: true,
     state: 'faded',
     variant: 'fill',
+    alignment: 'left',
+    actionUnderline: true,
+    title: 'Insert your alert title here!',
+    description: 'Insert your description here.',
+    actionText: 'Upgrade',
   },
-  render: args => ({
-    components: { Banner },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Banner v-bind="args">
-        <template #title>Insert your alert title here!</template>
-        <template #description>Insert your description here.</template>
-        <template #action>
-          <a href="#">Upgrade</a>
-        </template>
-      </Banner>
-    `,
-  }),
 };
 
 export const LightVariants: Story = {
@@ -143,45 +109,11 @@ export const LightVariants: Story = {
     components: { Banner },
     template: `
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <Banner state="error" variant="light" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="warning" variant="light" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="success" variant="light" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="information" variant="light" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="faded" variant="light" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
+        <Banner state="error" variant="light" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="warning" variant="light" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="success" variant="light" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="information" variant="light" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="faded" variant="light" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
       </div>
     `,
   }),
@@ -192,45 +124,11 @@ export const LighterVariants: Story = {
     components: { Banner },
     template: `
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <Banner state="error" variant="lighter" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="warning" variant="lighter" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="success" variant="lighter" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="information" variant="lighter" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="faded" variant="lighter" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
+        <Banner state="error" variant="lighter" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="warning" variant="lighter" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="success" variant="lighter" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="information" variant="lighter" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="faded" variant="lighter" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
       </div>
     `,
   }),
@@ -241,45 +139,24 @@ export const StrokeVariants: Story = {
     components: { Banner },
     template: `
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <Banner state="error" variant="stroke" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="warning" variant="stroke" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="success" variant="stroke" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="information" variant="stroke" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
-        
-        <Banner state="faded" variant="stroke" :dismissable="true">
-          <template #title>Insert your alert title here!</template>
-          <template #description>Insert your description here.</template>
-          <template #action>
-            <a href="#">Upgrade</a>
-          </template>
-        </Banner>
+        <Banner state="error" variant="stroke" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="warning" variant="stroke" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="success" variant="stroke" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="information" variant="stroke" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+        <Banner state="faded" variant="stroke" :dismissable="true" title="Insert your alert title here!" description="Insert your description here." actionText="Upgrade" />
+      </div>
+    `,
+  }),
+};
+
+export const AlignmentVariants: Story = {
+  render: () => ({
+    components: { Banner },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <Banner state="information" variant="fill" alignment="left" :dismissable="true" title="Left Aligned" description="This banner is aligned to the left." actionText="Action" />
+        <Banner state="success" variant="fill" alignment="center" :dismissable="true" title="Center Aligned" description="This banner is centered." actionText="Action" />
+        <Banner state="warning" variant="fill" alignment="right" :dismissable="true" title="Right Aligned" description="This banner is aligned to the right." actionText="Action" />
       </div>
     `,
   }),
@@ -290,19 +167,11 @@ export const WithoutAction: Story = {
     dismissable: true,
     state: 'information',
     variant: 'fill',
+    alignment: 'left',
+    title: 'Insert your alert title here!',
+    description: 'Insert your description here.',
+    actionText: '',
   },
-  render: args => ({
-    components: { Banner },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Banner v-bind="args">
-        <template #title>Insert your alert title here!</template>
-        <template #description>Insert your description here.</template>
-      </Banner>
-    `,
-  }),
 };
 
 export const NotDismissable: Story = {
@@ -310,20 +179,23 @@ export const NotDismissable: Story = {
     dismissable: false,
     state: 'warning',
     variant: 'fill',
+    alignment: 'left',
+    actionUnderline: true,
+    title: 'Insert your alert title here!',
+    description: 'Insert your description here.',
+    actionText: 'Upgrade',
   },
-  render: args => ({
-    components: { Banner },
-    setup() {
-      return { args };
-    },
-    template: `
-      <Banner v-bind="args">
-        <template #title>Insert your alert title here!</template>
-        <template #description>Insert your description here.</template>
-        <template #action>
-          <a href="#">Upgrade</a>
-        </template>
-      </Banner>
-    `,
-  }),
+};
+
+export const NoUnderline: Story = {
+  args: {
+    dismissable: true,
+    state: 'error',
+    variant: 'fill',
+    alignment: 'left',
+    actionUnderline: false,
+    title: 'No Underline Action',
+    description: 'The action link has no underline by default.',
+    actionText: 'Upgrade',
+  },
 };
