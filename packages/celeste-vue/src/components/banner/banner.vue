@@ -1,122 +1,210 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
+import uniqid from 'uniqid';
 
-const props = withDefaults(defineProps<BannerProps>(), {
-  variant: 'fill',
-  state: 'information',
-  dismissible: true,
-});
+const props = withDefaults(
+  defineProps<BannerProps>(),
+  { variant: 'fill', state: 'information', dismissible: true },
+);
 
-const emit = defineEmits<{
-  dismiss: [];
-  action: [];
-}>();
+defineEmits(['dismiss', 'action']);
 
-const handleDismiss = () => {
-  emit('dismiss');
-};
+const labelledby = uniqid();
+const describedby = uniqid();
 
-const handleAction = () => {
-  emit('action');
+const ICON_MAP: Record<NonNullable<BannerProps['state']>, string> = {
+  warning: 'i-celeste-alert-triangle-fill',
+  error: 'i-celeste-error-warning-fill',
+  success: 'i-celeste-checkbox-circle-fill',
+  information: 'i-celeste-information-circle-fill',
+  faded: 'i-celeste-star-fill',
 };
 </script>
 
 <script lang="ts">
 export interface BannerProps {
-  variant?: 'fill' | 'light' | 'lighter' | 'stroke';
-  state?: 'information' | 'warning' | 'error' | 'success' | 'faded';
-  title: string;
-  description: string;
-  actionText: string;
-  dismissible?: boolean;
   class?: HTMLAttributes['class'];
+  variant?: 'fill' | 'light' | 'lighter' | 'stroke';
+  state?: 'information' | 'success' | 'warning' | 'error' | 'faded';
+  dismissible?: boolean;
 }
 </script>
 
 <template>
   <div
+    :aria-labelledby="labelledby"
+    :aria-describedby="describedby"
+    role="banner"
+    class="celeste-banner"
     :class="clsx(
-      'celeste-banner',
-      `celeste-banner-${variant}`,
-      `celeste-banner-${state}`,
+      `celeste-banner--${variant}--${state}`,
       props.class,
     )"
-    role="banner"
   >
-    <!-- Icon -->
-    <i 
-      :class="clsx(
-        'celeste-banner-icon',
-        state === 'information' && 'i-celeste-information-circle-fill',
-        state === 'warning' && 'i-celeste-alert-triangle-fill',
-        state === 'error' && 'i-celeste-error-warning-fill',
-        state === 'success' && 'i-celeste-checkbox-circle-fill',
-        state === 'faded' && 'i-celeste-star-fill',
-      )"
+    <i
+      class="celeste-banner-icon"
+      :class="[`celeste-banner-icon--${variant}--${state}`, ICON_MAP[props.state]]"
     />
-
-    <!-- Content - inline text -->
-    <span class="celeste-banner-content">
-      <strong class="celeste-banner-title">{{ title }}</strong>
-      {{ description }}
-    </span>
-
-    <!-- Action Link -->
-    <button 
-      class="celeste-banner-action"
-      @click="handleAction"
-      type="button"
-    >
-      {{ actionText }}
-    </button>
-
-    <!-- Dismiss Button -->
-    <button 
+    
+    <div class="celeste-banner-inner" role="presentation">
+      <div role="presentation" class="celeste-banner-content">
+        <span :id="labelledby" class="celeste-banner-title">
+          <slot name="title" />
+        </span>
+        <span :id="describedby" class="celeste-banner-description">
+          <slot name="description" />
+        </span>
+      </div>
+      
+      <div v-if="$slots.action" class="celeste-banner-actions" role="presentation">
+        <button 
+          class="celeste-banner-action"
+          :class="[`celeste-banner-action--${variant}--${state}`]"
+          @click="$emit('action')"
+          type="button"
+        >
+          <slot name="action" />
+        </button>
+      </div>
+    </div>
+    
+    <button
       v-if="dismissible"
-      class="celeste-banner-dismiss"
-      @click="handleDismiss"
+      aria-label="close"
+      class="celeste-banner-close"
+      :class="[`celeste-banner-close--${variant}`]"
+      @click="$emit('dismiss')"
       type="button"
-      aria-label="Dismiss banner"
     >
       <i class="i-celeste-close" />
     </button>
   </div>
 </template>
 
-<style scoped lang="scss">
-$states: information, warning, error, success, faded;
+<style lang="scss" scoped>
+@use 'sass:map';
+
+$banner-style-map: (
+  'fill': 'base',
+  'light': 'light',
+  'lighter': 'lighter',
+);
+
+$banner-styles: ('fill', 'light', 'lighter', 'stroke');
+$banner-states: ('error', 'faded', 'warning', 'success', 'information');
+
+@mixin banner-style($style, $state) {
+  @if $style == 'stroke' {
+    border: 1px solid var(--color-stroke-soft-200);
+    background-color: var(--color-bg-white-0);
+    color: var(--color-text-strong-950);
+    
+    & .celeste-banner-description {
+      color: var(--color-text-sub-600);
+    }
+  } @else {
+    border: 1px solid transparent;
+    background-color: var(--color-state-#{$state}-#{map.get($banner-style-map, $style)});
+    color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
+    
+    & .celeste-banner-description {
+      opacity: if($style == 'fill', 0.9, 0.8);
+      color: if($style == 'fill', var(--color-static-white), var(--color-text-strong-950));
+    }
+  }
+}
+
+@mixin icon-style($style, $state) {
+  @if $style == 'fill' {
+    color: var(--color-static-white);
+  } @else {
+    color: var(--color-state-#{$state}-base);
+  }
+}
+
+@mixin action-style($style, $state) {
+  @if $style == 'fill' {
+    color: var(--color-static-white);
+  } @else {
+    color: var(--color-state-#{$state}-base);
+  }
+}
+
+@mixin close-style($style) {
+  @if $style == 'fill' {
+    opacity: 0.8;
+    color: var(--color-static-white);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  } @else {
+    opacity: 0.6;
+    color: var(--color-icon-strong-950);
+    
+    &:hover {
+      background-color: var(--color-bg-soft-200);
+    }
+  }
+}
 
 .celeste-banner {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
+  width: 100%;
   padding: var(--spacing-12) var(--spacing-16);
   border-radius: var(--radius-8);
-  transition-property: background-color, color, border-color;
-  transition-duration: var(--animation-fast);
-  transition-timing-function: ease-out;
-  border: 1px solid transparent;
   gap: var(--spacing-8);
   min-height: 48px;
+
+  &-inner {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+    gap: var(--spacing-12);
+  }
+
+  &-content {
+    flex: 1;
+    min-width: 0;
+    font: var(--paragraph-sm);
+    line-height: 1.4;
+  }
 
   &-icon {
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-  }
-
-  &-content {
-    flex: 1;
-    font: var(--paragraph-sm);
-    line-height: 1.4;
+    
+    @each $style in $banner-styles {
+      @each $state in $banner-states {
+        &--#{$style}--#{$state} {
+          @include icon-style($style, $state);
+        }
+      }
+    }
   }
 
   &-title {
     font-weight: 600;
+    margin-right: var(--spacing-4);
+  }
+
+  &-description {
+    font-weight: 400;
+  }
+
+  &-actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
   }
 
   &-action {
-    flex-shrink: 0;
     background: none;
     border: none;
     padding: 0;
@@ -135,9 +223,17 @@ $states: information, warning, error, success, faded;
       outline-offset: 2px;
       border-radius: var(--radius-4);
     }
+
+    @each $style in $banner-styles {
+      @each $state in $banner-states {
+        &--#{$style}--#{$state} {
+          @include action-style($style, $state);
+        }
+      }
+    }
   }
 
-  &-dismiss {
+  &-close {
     flex-shrink: 0;
     background: none;
     border: none;
@@ -145,7 +241,7 @@ $states: information, warning, error, success, faded;
     margin: calc(var(--spacing-4) * -1);
     cursor: pointer;
     border-radius: var(--radius-4);
-    transition: background-color var(--animation-fast) ease-out;
+    transition: all var(--animation-fast) ease-out;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -155,68 +251,23 @@ $states: information, warning, error, success, faded;
       height: 16px;
     }
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
     &:focus {
       outline: 2px solid currentColor;
       outline-offset: 2px;
     }
+
+    @each $style in $banner-styles {
+      &--#{$style} {
+        @include close-style($style);
+      }
+    }
   }
 
-  // State variants
-  @each $state in $states {
-    &-fill.celeste-banner-#{$state} {
-      background-color: var(--color-state-#{$state}-base);
-      color: var(--color-text-white-0);
-
-      .celeste-banner-action {
-        color: var(--color-text-white-0);
-      }
-
-      .celeste-banner-dismiss:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-    }
-
-    &-light.celeste-banner-#{$state} {
-      background-color: var(--color-state-#{$state}-light);
-      color: var(--color-state-#{$state}-dark);
-
-      .celeste-banner-icon {
-        color: var(--color-state-#{$state}-base);
-      }
-
-      .celeste-banner-action {
-        color: var(--color-state-#{$state}-dark);
-      }
-    }
-
-    &-lighter.celeste-banner-#{$state} {
-      background-color: var(--color-state-#{$state}-lighter);
-      color: var(--color-state-#{$state}-base);
-
-      .celeste-banner-icon {
-        color: var(--color-state-#{$state}-base);
-      }
-
-      .celeste-banner-action {
-        color: var(--color-state-#{$state}-base);
-      }
-    }
-
-    &-stroke.celeste-banner-#{$state} {
-      border-color: var(--color-state-#{$state}-base);
-      background-color: var(--color-bg-white-0);
-      color: var(--color-text-strong-950);
-
-      .celeste-banner-icon {
-        color: var(--color-state-#{$state}-base);
-      }
-
-      .celeste-banner-action {
-        color: var(--color-state-#{$state}-base);
+  // Generate all style combinations
+  @each $style in ('fill', 'light', 'lighter', 'stroke') {
+    @each $state in $banner-states {
+      &--#{$style}--#{$state} {
+        @include banner-style($style, $state);
       }
     }
   }
