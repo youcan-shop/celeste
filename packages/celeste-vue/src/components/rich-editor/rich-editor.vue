@@ -75,7 +75,6 @@ onMounted(() => {
       Link.configure({
         openOnClick: false,
         autolink: false,
-        defaultProtocol: 'https',
         HTMLAttributes: {
           class: 'celeste-rich-editor-link',
           rel: null,
@@ -336,6 +335,10 @@ onBeforeUnmount(() => {
     :deep(.i-celeste-arrow-go-forward-line) {
       transform: scaleX(-1);
     }
+  }
+
+  :deep(.tippy-box[data-theme='custom']) {
+    max-width: 400px !important;
   }
 }
 
