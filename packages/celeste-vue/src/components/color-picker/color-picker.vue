@@ -266,7 +266,7 @@ declare global {
           <HueSlider v-model="hueRef" />
           <AlphaSlider v-model="tinyColorRef" />
           <div class="celeste-color-control-panel">
-            <Select v-model="currentColorFormat">
+            <Select v-model="currentColorFormat" name="color-format">
               <SelectTrigger variant="inline">
                 <SelectValue placeholder="HEX" class="celeste-selected-color-format">
                   {{ currentColorFormat }}
@@ -289,6 +289,7 @@ declare global {
             >
               <Button
                 v-if="eyeDropper"
+                class="celeste-color-sip"
                 variant="stroke"
                 size="xxs"
                 intent="neutral"
@@ -481,6 +482,12 @@ declare global {
         display: flex;
         width: 100%;
         height: 32px;
+
+        .celeste-color-sip {
+          &:focus-within {
+            z-index: 2;
+          }
+        }
 
         & > * {
           box-sizing: border-box;
