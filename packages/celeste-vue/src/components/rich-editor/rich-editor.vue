@@ -247,45 +247,59 @@ onBeforeUnmount(() => {
       }
 
       h1 {
-        margin-top: 2em;
-        font-size: 1.7143em;
-        line-height: 1.1667;
+        margin-top: 40px;
+        font-size: 56px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        line-height: 64px;
       }
 
       h2 {
-        margin-top: 1.8em;
-        font-size: 1.4286em;
-        line-height: 1.2;
+        margin-top: 36px;
+        font-size: 48px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        line-height: 56px;
       }
 
       h3 {
-        margin-top: 1.8em;
-        font-size: 1.4286em;
-        line-height: 1.2;
+        margin-top: 32px;
+        font-size: 40px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        line-height: 48px;
       }
 
       h4 {
-        margin-top: 1.357em;
-        font-size: 1em;
-        line-height: 1.1429;
+        margin-top: 20px;
+        font-size: 32px;
+        font-weight: 500;
+        letter-spacing: -0.005em;
+        line-height: 40px;
       }
 
       h5 {
-        margin-top: 1.667em;
-        font-size: 0.8571em;
-        line-height: 1.3333;
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 32px;
       }
 
       h6 {
-        margin-top: 1.455em;
-        font-size: 0.7857em;
-        line-height: 1.4546;
+        margin-top: 16px;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 28px;
       }
 
       p {
-        margin-top: 0.75rem;
-        font-size: 1em;
-        line-height: 1.714;
+        margin-top: 12px;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: -0.011em;
+        line-height: 24px;
       }
 
       ul,
