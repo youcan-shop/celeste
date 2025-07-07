@@ -15,7 +15,7 @@ const { preventPageUserSelect, allowPageUserSelect } = useUserPageSelection();
 const containerRef = useTemplateRef('slider-track');
 
 const alpha = computed(() => tinyColorRef.value.getAlpha());
-const alphaSliderBG = computed(() => {
+const alphaSliderBg = computed(() => {
   const { r, g, b } = tinyColorRef.value.toRgb();
 
   return `
@@ -29,7 +29,7 @@ const alphaSliderBG = computed(() => {
   `;
 });
 
-const trackThumbBG = computed(() => {
+const trackThumbBg = computed(() => {
   const { r, g, b, a } = tinyColorRef.value.toRgb();
   const rgbaString = [r, g, b, a].join(',');
 
@@ -125,7 +125,7 @@ export interface AlphaSliderEmits {
     <div
       ref="slider-track"
       class="slider-track"
-      :style="{ background: alphaSliderBG }"
+      :style="{ background: alphaSliderBg }"
       role="slider"
       aria-label="Transparency"
       aria-valuemax="1"
@@ -137,7 +137,7 @@ export interface AlphaSliderEmits {
       @touchstart.passive="handleChange"
       @keydown="handleKeydown"
     >
-      <div class="celeste-color-thumb" :style="{ left: `${alpha * 100}%`, background: trackThumbBG }" />
+      <div class="celeste-color-thumb" :style="{ left: `${alpha * 100}%`, background: trackThumbBg }" />
     </div>
   </div>
 </template>

@@ -23,11 +23,11 @@ const hue = computed(() => {
   return props.hue ?? hsv.value.h;
 });
 
-const colorAreaBG = computed(() => {
+const colorAreaBg = computed(() => {
   return `hsl(${hue.value}, 100%, 50%)`;
 });
 
-const colorAreaThumbBG = computed(() => {
+const colorAreaThumbBg = computed(() => {
   const { r, g, b } = tinyColorRef.value.toRgb();
   return `rgb(${r}, ${g}, ${b})`;
 });
@@ -183,7 +183,7 @@ export interface ColorAreaProps {
   >
     <div
       class="celeste-color-thumb"
-      :style="{ top: pointerTop, left: pointerLeft, background: colorAreaThumbBG }"
+      :style="{ top: pointerTop, left: pointerLeft, background: colorAreaThumbBg }"
       role="slider"
       tabindex="0"
       aria-valuemin="0"
@@ -202,6 +202,6 @@ export interface ColorAreaProps {
   height: 232px;
   border-radius: var(--radius-8);
   background: linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent),
-    v-bind(colorAreaBG);
+    v-bind(colorAreaBg);
 }
 </style>

@@ -12,7 +12,7 @@ const emit = defineEmits<ColorSwatchEmits>();
 
 const tinyColorRef = defineColorModel(props, emit);
 
-const activeSwatchColorBG = computed(() => {
+const activeSwatchColorBg = computed(() => {
   return `0 0 0 2px var(--color-bg-white-0), 0 0 0 4px ${tinyColorRef.value.toRgbString()}`;
 });
 
@@ -86,7 +86,7 @@ export interface ColorSwatchEmits {
       border-radius: 50%;
 
       &[aria-selected='true'] {
-        box-shadow: v-bind('activeSwatchColorBG');
+        box-shadow: v-bind('activeSwatchColorBg');
       }
 
       &:hover {

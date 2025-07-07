@@ -28,7 +28,7 @@ const pointerLeft = computed(() => {
 },
 );
 
-const trackThumbBG = computed(() => {
+const trackThumbBg = computed(() => {
   return `hsl(${hue.value}, 100%, 50%)`;
 });
 
@@ -134,7 +134,7 @@ onUnmounted(() => {
     >
       <div
         class="celeste-color-thumb"
-        :style="{ left: pointerLeft, background: trackThumbBG }"
+        :style="{ left: pointerLeft, background: trackThumbBg }"
         role="presentation"
       />
     </div>
