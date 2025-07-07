@@ -203,7 +203,6 @@ onMounted(() => {
   border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-xs);
-  max-width: 400px;
 
   .set-mode {
     display: flex;
@@ -240,9 +239,9 @@ onMounted(() => {
 
     & :deep(.celeste-link-button) {
       display: flex;
-      gap: var(--spacing-8);
-      color: var(--color-neutral-700);
       border-radius: var(--radius-8);
+      color: var(--color-neutral-700);
+      gap: var(--spacing-8);
     }
   }
 
