@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDelegatedProps } from '@/composables/use-delegated-props';
+import { resolveArrowDirection, truncColorValue } from '@/utils/color';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, ref, watch } from 'vue';
@@ -11,7 +12,6 @@ import { ColorArea, HueSlider } from './';
 import AlphaSlider from './alpha-slider.vue';
 import ColorSwatch from './color-swatch.vue';
 import { defineColorModel } from './composable/use-color-model';
-import { resolveArrowDirection, truncColorValue } from './utils';
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',

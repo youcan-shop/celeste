@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type tinycolor from 'tinycolor2';
+import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from '@/utils/color.ts';
 import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import { ColorPickerEmits, defineColorModel } from './composable/use-color-model.ts';
 import { useUserPageSelection } from './composable/use-user-select.ts';
-import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from './utils.ts';
 
 const props = defineProps<ColorAreaProps>();
 const emit = defineEmits(['change'].concat(ColorPickerEmits));

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type tinycolor from 'tinycolor2';
 import { useUserPageSelection } from '@/components/color-picker/composable/use-user-select';
-import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from '@/components/color-picker/utils';
+import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from '@/utils/color';
 import { computed, onUnmounted, useTemplateRef } from 'vue';
 import { defineColorModel } from './composable/use-color-model';
 

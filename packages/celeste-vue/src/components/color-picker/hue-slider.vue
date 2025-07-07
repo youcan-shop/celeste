@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from '@/utils/color.ts';
 import { computed, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import { useUserPageSelection } from './composable/use-user-select.ts';
-import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from './utils';
 
 const hue = defineModel({
   default: 0,
