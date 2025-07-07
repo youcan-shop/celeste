@@ -406,20 +406,20 @@ declare global {
                     @keydown.enter.prevent="e => inputChangeHSB(e, 'v')"
                   />
                 </template>
+                <TextInput
+                  name="alpha"
+                  placeholder="100"
+                  type="text"
+                  class="color-input"
+                  size="xs"
+                  :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
+                  @input="validateAlphaInput"
+                  @focusout="inputChangeAlpha"
+                  @keydown.enter.prevent.stop="inputChangeAlpha"
+                  @keydown.up.prevent.stop="handleAlphaKeyDown"
+                  @keydown.down.prevent.stop="handleAlphaKeyDown"
+                />
               </div>
-              <TextInput
-                name="alpha"
-                placeholder="100"
-                type="text"
-                class="color-input"
-                size="xs"
-                :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
-                @input="validateAlphaInput"
-                @focusout="inputChangeAlpha"
-                @keydown.enter.prevent.stop="inputChangeAlpha"
-                @keydown.up.prevent.stop="handleAlphaKeyDown"
-                @keydown.down.prevent.stop="handleAlphaKeyDown"
-              />
             </div>
           </div>
         </div>
@@ -484,6 +484,9 @@ declare global {
         height: 32px;
 
         .celeste-color-sip {
+          border-start-end-radius: 0;
+          border-end-end-radius: 0;
+
           &:focus-within {
             z-index: 2;
           }
@@ -494,38 +497,40 @@ declare global {
           height: 100%;
         }
 
-        & > *:first-child {
-          border-end-end-radius: 0;
-          border-start-end-radius: 0;
-          margin-inline-end: -1px;
-        }
-
-        & > *:last-child {
-          z-index: 1;
-          flex: 1;
-          margin-inline-start: -1px;
-          border-start-start-radius: 0;
-          border-end-start-radius: 0;
-        }
-
-        & > *:not(:last-child, :first-child) {
-          flex: 3;
-          border-radius: 0;
-
-          &:focus-within {
-            z-index: 2;
-          }
-        }
-
         .celeste-color-format-inputs {
           display: flex;
 
-          & > .color-input {
+          .color-input {
             margin-inline-start: -1px;
             border-radius: 0;
 
             &:focus-within {
               z-index: 2;
+            }
+
+            &:last-child {
+              border-start-end-radius: var(--radius-8);
+              border-end-end-radius: var(--radius-8);
+            }
+
+            &:first-child:nth-last-child(4),
+            &:first-child:nth-last-child(4) ~ * {
+              flex: 1;
+            }
+
+            &:first-child:nth-last-child(2) {
+              flex: 3;
+            }
+
+            &:last-child:nth-child(2) {
+              flex: 1;
+            }
+          }
+
+          &:first-child:last-child {
+            .color-input:first-child {
+              border-start-start-radius: var(--radius-8);
+              border-end-start-radius: var(--radius-8);
             }
           }
         }
