@@ -37,17 +37,14 @@ function selectedText(editor: Editor) {
   const { from, to } = editor.state.selection;
   const text = editor.state.doc.textBetween(from, to, '\n');
 
-  if (!text) {
-    return null;
-  };
-
-  return text;
+  return text || null;
 }
 
 async function copySelectionToClipboard(editor: Editor) {
   const el = document.createElement('textarea');
+  const text = selectedText(editor);
 
-  if (!selectedText(editor)) {
+  if (!text) {
     return;
   }
 
@@ -57,7 +54,7 @@ async function copySelectionToClipboard(editor: Editor) {
   el.style.left = '-9999px';
   document.body.appendChild(el);
   el.select();
-  document.execCommand('copy'); // using this method because the trigger context is indirect (navigator.clipboard) will not work
+  document.execCommand('copy');
   document.body.removeChild(el);
 }
 
@@ -72,12 +69,13 @@ function deleteSelection(editor: Editor) {
 
 function duplicateSelection(editor: Editor) {
   const { to } = editor.state.selection;
+  const text = selectedText(editor);
 
-  if (!selectedText(editor)) {
+  if (!text) {
     return;
   }
 
-  return editor.commands.insertContentAt(to, selectedText(editor));
+  return editor.commands.insertContentAt(to, text);
 }
 
 function clearSelectedValue() {
