@@ -28,7 +28,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const tinyColorRef = defineColorModel(props, emit);
 const hueRef = ref(tinyColorRef.value.toHsl().h);
-const currentColorFormat = ref('hsl');
+const currentColorFormat = ref(props.defaultFormat || 'hex');
 const eyeDropper = ref<EyeDropper | null>(null);
 
 const hex = computed(() => {
@@ -202,7 +202,7 @@ function validateAlphaInput(event: Event) {
 </script>
 
 <script lang="ts">
-export type ColorFormats = 'hex' | 'rgb' | 'hsl' | 'hsb';
+export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsb';
 
 export type RGBKey = 'r' | 'g' | 'b';
 export type HSLKey = 'h' | 's' | 'l';
@@ -213,7 +213,8 @@ export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;
   label: string;
   class?: HTMLAttributes['class'];
-  formats?: ColorFormats[];
+  formats?: ColorFormat[];
+  defaultFormat?: ColorFormat;
 }
 
 export interface ColorPickerEmits {
