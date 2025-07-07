@@ -4,6 +4,8 @@ export interface Coordinates {
   y: number;
 }
 
+export type ArrowDirection = 'up' | 'down' | 'left' | 'right';
+
 // VALUES
 export const DEFAULT_SWATCH = [
   '#717784ff',
@@ -70,19 +72,13 @@ export function getAbsolutePosition(container: HTMLElement): Coordinates {
   };
 }
 
-export function resolveArrowDirection(e: KeyboardEvent): ('up' | 'down' | 'left' | 'right') | null {
-  if (e.code === 'ArrowUp') {
-    return 'up';
-  }
-  if (e.code === 'ArrowDown') {
-    return 'down';
-  }
-  if (e.code === 'ArrowLeft') {
-    return 'left';
-  }
-  if (e.code === 'ArrowRight') {
-    return 'right';
-  }
+export function resolveArrowDirection(e: KeyboardEvent): ArrowDirection | null {
+  const arrowMap: Record<string, ArrowDirection> = {
+    ArrowUp: 'up',
+    ArrowDown: 'down',
+    ArrowLeft: 'left',
+    ArrowRight: 'right',
+  };
 
-  return null;
+  return arrowMap[e.code] || null;
 }
