@@ -16,7 +16,7 @@ import { resolveArrowDirection, truncColorValue } from './utils';
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
   formats: () => ['hex', 'rgb', 'hsl', 'hsb'],
-  label: 'Pick color',
+  label: 'Pick Color',
 });
 
 const emit = defineEmits<ColorPickerEmits>();
