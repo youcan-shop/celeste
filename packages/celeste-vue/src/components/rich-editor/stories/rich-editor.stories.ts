@@ -16,6 +16,7 @@ const content = ref('<p>Hello Tiptap 👋</p>');
 export const Default: Story = {
   args: {
     modelValue: content.value,
+    customToolbarAction: [],
     maxLimit: 200,
   },
 
