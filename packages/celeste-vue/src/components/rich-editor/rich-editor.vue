@@ -15,7 +15,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
 import { onActionClick, selectedOption, toolbarActions } from './config';
 import { FontSize } from './extensions/font-size';
 import ExtraSettings from './extra-settings.vue';
@@ -25,6 +25,10 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: '',
+  },
+  customToolbarAction: {
+    type: Array as PropType<string[]>,
+    default: () => [],
   },
   maxLimit: {
     type: Number,
@@ -37,6 +41,20 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+const filteredToolbar = computed(() => {
+  if (!props.customToolbarAction || props.customToolbarAction.length === 0) {
+    return toolbarActions.value;
+  }
+
+  return toolbarActions.value.filter((item) => {
+    if (item.type === 'divider') {
+      return props.customToolbarAction?.includes('divider');
+    }
+
+    return item.slug && props.customToolbarAction.includes(item.slug);
+  });
+});
 
 const editor = ref<Editor | undefined>();
 const showSetLinkFromToolbar = ref<boolean>(false);
@@ -101,7 +119,7 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="editor" class="celeste-rich-editor">
     <div class="toolbar">
-      <template v-for="(item, parentIndex) in toolbarActions" :key="parentIndex">
+      <template v-for="(item, parentIndex) in filteredToolbar" :key="parentIndex">
         <Tooltip v-if="item.type !== 'divider' && !item.children" :title="item.name">
           <CompactButton
             :icon="`i-celeste-${item.icon}`"
@@ -314,11 +332,11 @@ onBeforeUnmount(() => {
       }
 
       a {
-        color: var(--color-purple-600);
+        color: var(--color-blue-700);
         cursor: pointer;
 
         &:hover {
-          color: var(--color-purple-700);
+          color: var(--color-blue-500);
         }
       }
     }
