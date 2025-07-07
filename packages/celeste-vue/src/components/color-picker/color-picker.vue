@@ -16,6 +16,7 @@ import { resolveArrowDirection, truncColorValue } from './utils';
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
   formats: () => ['hex', 'rgb', 'hsl', 'hsb'],
+  label: 'Pick color',
 });
 
 const emit = defineEmits<ColorPickerEmits>();
@@ -210,6 +211,7 @@ export type AlphaKey = 'a';
 
 export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;
+  label: string;
   class?: HTMLAttributes['class'];
   formats?: ColorFormats[];
 }
@@ -244,7 +246,14 @@ declare global {
 <template>
   <Popover>
     <PopoverTrigger>
-      Click me
+      <Button
+        class="celeste-picker-trigger"
+        intent="neutral"
+        variant="stroke"
+      >
+        <span class="celeste-selected-color" />
+        {{ label }}
+      </Button>
     </PopoverTrigger>
     <PopoverContent :dismissible="false">
       <div class="celeste-color-picker-wrapper" v-bind="forwarded">
@@ -426,6 +435,20 @@ declare global {
 </template>
 
 <style scoped lang="scss">
+.celeste-picker-trigger {
+  gap: var(--spacing-12);
+
+  .celeste-selected-color {
+    --color-tile-size: 20px;
+
+    display: block;
+    width: var(--color-tile-size);
+    height: var(--color-tile-size);
+    border-radius: var(--radius-4);
+    background-color: v-bind(modelValue);
+  }
+}
+
 .celeste-color-picker-wrapper {
   display: grid;
   box-sizing: border-box;

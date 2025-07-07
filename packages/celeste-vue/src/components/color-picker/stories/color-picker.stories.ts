@@ -25,7 +25,6 @@ export const Default: Story = {
       return { args, color };
     },
     template: `
-      {{ color }}
       <ColorPicker v-model="color" />
     `,
   }),
