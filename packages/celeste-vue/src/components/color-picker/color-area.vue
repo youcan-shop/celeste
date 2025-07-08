@@ -50,8 +50,8 @@ watch(() => props.hue, (newHue, oldHue) => {
 
     onChange({
       h: newHue,
-      s: Math.round(s * 100),
-      v: Math.round(v * 100),
+      s: s * 100,
+      v: v * 100,
       a,
     });
   }
