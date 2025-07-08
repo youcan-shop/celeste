@@ -23,7 +23,6 @@
     "build-storybook": "NODE_ENV=dev storybook build"
   },
   "dependencies": {
-    "@vueuse/core": "10.11.1",
     "@youcan/celeste-icons": "workspace:*",
     "@youcan/celeste-tokens": "workspace:*",
     "clsx": "^2.1.1",

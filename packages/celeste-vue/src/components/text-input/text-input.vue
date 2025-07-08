@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import type { InputHTMLAttributes } from 'vue';
-import { useVModel } from '@vueuse/core';
 import clsx from 'clsx';
-
-interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
-  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
-  size?: 'xs' | 'sm' | 'md';
-  hasError?: boolean;
-  defaultValue?: string | number;
-  modelValue?: string | number;
-}
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
@@ -17,14 +8,15 @@ const props = withDefaults(defineProps<TextInputProps>(), {
   hasError: false,
 });
 
-const emits = defineEmits<{
-  (e: 'update:modelValue', payload: string | number): void;
-}>();
+const modelValue = defineModel<string | number>();
+</script>
 
-const modelValue = useVModel(props, 'modelValue', emits, {
-  passive: true,
-  defaultValue: props.defaultValue,
-});
+<script lang="ts">
+export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
+  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+  size?: 'xs' | 'sm' | 'md';
+  hasError?: boolean;
+}
 </script>
 
 <template>
