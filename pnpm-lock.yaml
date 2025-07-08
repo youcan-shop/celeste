@@ -137,6 +137,9 @@ importers:
       '@tiptap/extension-link':
         specifier: ^2.23.1
         version: 2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)
+      '@tiptap/extension-placeholder':
+        specifier: ^2.23.1
+        version: 2.25.0(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)
       '@tiptap/extension-text-align':
         specifier: ^2.23.1
         version: 2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))
@@ -1610,6 +1613,12 @@ packages:
     resolution: {integrity: sha512-LLEPizt1ALE7Ek6prlJ1uhoUCT8C/a3PdZpCh3DshM1L3Kv9TENlaJL2GhFl8SVUCwHmWHvXg30+4tIRFBedaQ==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
+
+  '@tiptap/extension-placeholder@2.25.0':
+    resolution: {integrity: sha512-BUJnp/WQt/8iMJ9wn1xGlA+RiXCsP24u5n+ecxw+DBTgFq7RRL9I1nDQ/IJBrfWMJGOrMEq6tg8rmg1NVLGfWw==}
+    peerDependencies:
+      '@tiptap/core': ^2.7.0
+      '@tiptap/pm': ^2.7.0
 
   '@tiptap/extension-strike@2.23.1':
     resolution: {integrity: sha512-hAT9peYkKezRGp/EcPQKtyYQT+2XGUbb26toTr9XIBQIeQCuCpT+FirPrDMrMVWPwcJt7Rv+AzoVjDuBs9wE0A==}
@@ -6926,6 +6935,11 @@ snapshots:
   '@tiptap/extension-paragraph@2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))':
     dependencies:
       '@tiptap/core': 2.23.1(@tiptap/pm@2.23.1)
+
+  '@tiptap/extension-placeholder@2.25.0(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))(@tiptap/pm@2.23.1)':
+    dependencies:
+      '@tiptap/core': 2.23.1(@tiptap/pm@2.23.1)
+      '@tiptap/pm': 2.23.1
 
   '@tiptap/extension-strike@2.23.1(@tiptap/core@2.23.1(@tiptap/pm@2.23.1))':
     dependencies:
