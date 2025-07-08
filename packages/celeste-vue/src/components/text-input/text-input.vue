@@ -3,16 +3,28 @@ import type { InputHTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
 interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
+  modelValue?: string;
   type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
   size?: 'xs' | 'sm' | 'md';
+  onKeypress?: (e: KeyboardEvent) => void;
   hasError?: boolean;
 }
 
 const props = withDefaults(defineProps<TextInputProps>(), {
+  modelValue: '',
   type: 'text',
   size: 'sm',
   hasError: false,
 });
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+}>();
+
+function onInput(e: Event) {
+  const target = e.target as HTMLInputElement;
+  emit('update:modelValue', target.value);
+}
 </script>
 
 <template>
@@ -23,8 +35,11 @@ const props = withDefaults(defineProps<TextInputProps>(), {
   >
     <input
       v-bind="$attrs"
+      :value="modelValue"
       :type="type"
       :class="clsx('celeste-text-input', props.class)"
+      @input="onInput"
+      @keypress="props.onKeypress"
     >
     <slot />
   </label>
