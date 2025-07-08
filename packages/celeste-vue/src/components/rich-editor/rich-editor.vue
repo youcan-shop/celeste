@@ -11,6 +11,7 @@ import Tooltip from '@/components/tooltip/tooltip.vue';
 import CharacterCount from '@tiptap/extension-character-count';
 import Color from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
@@ -24,6 +25,10 @@ import LinkBubble from './link-bubble.vue';
 
 const props = defineProps({
   modelValue: {
+    type: String,
+    default: '',
+  },
+  placeholder: {
     type: String,
     default: '',
   },
@@ -97,6 +102,10 @@ onMounted(() => {
     content: props.modelValue,
     extensions: [
       StarterKit,
+      Placeholder.configure({
+        placeholder: props.placeholder,
+        emptyEditorClass: 'is-editor-empty',
+      }),
       TextStyle,
       FontSize,
       Color,
@@ -271,6 +280,13 @@ onBeforeUnmount(() => {
 
       :first-child {
         margin-top: 0;
+      }
+
+      p.is-editor-empty:first-child::before {
+        content: attr(data-placeholder);
+        height: 0;
+        color: var(--color-neutral-300);
+        pointer-events: none;
       }
 
       h1,
