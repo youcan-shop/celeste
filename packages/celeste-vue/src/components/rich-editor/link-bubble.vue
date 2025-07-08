@@ -4,6 +4,8 @@ import CompactButton from '@/components/button/compact-button.vue';
 import LinkButton from '@/components/button/link-button.vue';
 import Label from '@/components/label/label.vue';
 import Switch from '@/components/switch/switch.vue';
+import TextInputAffix from '@/components/text-input/text-input-affix.vue';
+import TextInput from '@/components/text-input/text-input.vue';
 import { BubbleMenu, type Editor } from '@tiptap/vue-3';
 import { computed, onMounted, ref } from 'vue';
 
@@ -19,6 +21,12 @@ const openInNewTab = ref(false);
 const editing = ref(false);
 const isTextSelected = () => props.editor.state.selection.from !== props.editor.state.selection.to;
 
+const showBubble = computed(() => {
+  return editing.value
+    || props.editor.isActive('link')
+    || (props.showSetLinkFromToolbar && isTextSelected());
+});
+
 async function startEdit() {
   editing.value = true;
 
@@ -32,21 +40,11 @@ function removeLink() {
   reset();
 }
 
-function cancelEdit() {
-  reset();
-}
-
 function reset() {
   editing.value = false;
   href.value = '';
   openInNewTab.value = false;
   emit('set-link-closed');
-}
-
-function showBubble() {
-  return editing.value
-    || props.editor.isActive('link')
-    || (props.showSetLinkFromToolbar && isTextSelected());
 }
 
 function truncateMiddleUrl(str: string) {
@@ -128,7 +126,8 @@ onMounted(() => {
 
 <template>
   <BubbleMenu
-    :should-show="showBubble"
+    v-show="showBubble"
+    :should-show="() => showBubble"
     :editor="editor"
     :tippy-options="{
       theme: 'custom',
@@ -143,17 +142,22 @@ onMounted(() => {
       <template v-if="editing || (props.showSetLinkFromToolbar && isTextSelected())">
         <div class="set-mode">
           <div class="set-link">
-            <input
+            <TextInput
               v-model="href"
               type="url"
+              size="xs"
               placeholder="Paste or type a link"
               class="link-input"
               @keydown.enter="applyLink"
-              @keydown.esc="cancelEdit"
+              @keydown.esc="reset"
             >
+              <TextInputAffix>
+                <i class="i-celeste-link" />
+              </TextInputAffix>
+            </TextInput>
             <Button
               intent="neutral"
-              size="xxs"
+              size="xs"
               variant="stroke"
               :disabled="!isValidUrl"
               @click="applyLink"
@@ -174,8 +178,7 @@ onMounted(() => {
             :href="editor.getAttributes('link').href"
             :target="editor.getAttributes('link').target"
           >
-            <i class="i-celeste-link" />
-            <span>{{ truncateMiddleUrl(editor.getAttributes('link').href) }}</span>
+            {{ truncateMiddleUrl(editor.getAttributes('link').href) }}
           </LinkButton>
           <div class="divider" />
           <CompactButton
