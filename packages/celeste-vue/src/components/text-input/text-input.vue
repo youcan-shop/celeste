@@ -1,17 +1,29 @@
 <script setup lang="ts">
 import type { InputHTMLAttributes } from 'vue';
+import { useVModel } from '@vueuse/core';
 import clsx from 'clsx';
 
 interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
   size?: 'xs' | 'sm' | 'md';
   hasError?: boolean;
+  defaultValue?: string | number;
+  modelValue?: string | number;
 }
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
   size: 'sm',
   hasError: false,
+});
+
+const emits = defineEmits<{
+  (e: 'update:modelValue', payload: string | number): void;
+}>();
+
+const modelValue = useVModel(props, 'modelValue', emits, {
+  passive: true,
+  defaultValue: props.defaultValue,
 });
 </script>
 
@@ -22,6 +34,7 @@ const props = withDefaults(defineProps<TextInputProps>(), {
     class="celeste-text-input-wrapper"
   >
     <input
+      v-model="modelValue"
       v-bind="$attrs"
       :type="type"
       :class="clsx('celeste-text-input', props.class)"

@@ -1,7 +1,11 @@
-import type { PathLike } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-function getAbsolutePath(value): PathLike {
+const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+function getAbsolutePath(value: string): string {
   return dirname(require.resolve(join(value, 'package.json')));
 }
 
@@ -35,7 +39,7 @@ const config = {
     };
 
     config.plugins = config.plugins || [];
-    config.plugins.push(await import('unocss/vite'));
+    config.plugins.push((await import('unocss/vite')).default());
 
     config.optimizeDeps = {
       ...config.optimizeDeps,
