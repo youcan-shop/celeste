@@ -2,7 +2,7 @@ import type { Editor } from '@tiptap/vue-3';
 import type { ToolbarChildOption, ToolbarItem } from './types';
 import { ref } from 'vue';
 
-export const toolbarActions = ref<ToolbarItem[]>([
+export const fullToolbar = ref<ToolbarItem[]>([
   {
     slug: 'heading',
     name: 'Text styles',

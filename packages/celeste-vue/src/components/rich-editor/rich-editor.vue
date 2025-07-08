@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ToolbarItem } from './types';
 import CompactButton from '@/components/button/compact-button.vue';
 import SelectContent from '@/components/select/select-content.vue';
 import SelectIcon from '@/components/select/select-icon.vue';
@@ -16,7 +17,7 @@ import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
-import { onActionClick, selectedOption, toolbarActions } from './config';
+import { fullToolbar, onActionClick, selectedOption } from './config';
 import { FontSize } from './extensions/font-size';
 import ExtraSettings from './extra-settings.vue';
 import LinkBubble from './link-bubble.vue';
@@ -26,7 +27,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  customToolbarAction: {
+  customToolbar: {
     type: Array as PropType<string[]>,
     default: () => [],
   },
@@ -43,17 +44,27 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const filteredToolbar = computed(() => {
-  if (!props.customToolbarAction || props.customToolbarAction.length === 0) {
-    return toolbarActions.value;
+  const customToolbar = props.customToolbar;
+
+  if (!customToolbar || customToolbar.length === 0) {
+    return fullToolbar.value;
   }
 
-  return toolbarActions.value.filter((item) => {
-    if (item.type === 'divider') {
-      return props.customToolbarAction?.includes('divider');
-    }
+  const toolbarMap = new Map(
+    fullToolbar.value
+      .filter(item => item.type !== 'divider' && 'slug' in item)
+      .map(item => [item.slug!, item]),
+  );
 
-    return item.slug && props.customToolbarAction.includes(item.slug);
-  });
+  return customToolbar
+    .map((key) => {
+      if (key === 'divider') {
+        return { type: 'divider' };
+      }
+
+      return toolbarMap.get(key);
+    })
+    .filter((item): item is ToolbarItem => Boolean(item));
 });
 
 const editor = ref<Editor | undefined>();
@@ -120,7 +131,11 @@ onBeforeUnmount(() => {
   <div v-if="editor" class="celeste-rich-editor">
     <div class="toolbar">
       <template v-for="(item, parentIndex) in filteredToolbar" :key="parentIndex">
-        <Tooltip v-if="item.type !== 'divider' && !item.children" :title="item.name">
+        <Tooltip
+          v-if="item.type !== 'divider' && !item.children"
+          :title="item.name"
+          variant="dark"
+        >
           <CompactButton
             :icon="`i-celeste-${item.icon}`"
             variant="ghost"
@@ -129,7 +144,11 @@ onBeforeUnmount(() => {
           />
         </Tooltip>
 
-        <Tooltip v-else-if="item.type !== 'divider' && item.children" :title="item.name">
+        <Tooltip
+          v-else-if="item.type !== 'divider' && item.children"
+          :title="item.name"
+          variant="dark"
+        >
           <div class="select-menu-wrapper">
             <Select
               :model-value="selectedOption(editor, item.children)"
@@ -344,10 +363,13 @@ onBeforeUnmount(() => {
 
   .characters-count {
     position: fixed;
-    bottom: 22px;
-    inset-inline-end: 35px;
+    bottom: 20px;
+    padding: var(--spacing-4);
+    border-radius: var(--radius-4);
+    background: var(--color-bg-white-0);
     color: var(--color-text-soft-400);
     font: var(--subheading-xxs);
+    inset-inline-end: 35px;
 
     &.warning {
       color: var(--color-state-warning-base);

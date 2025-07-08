@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ref } from 'vue';
 import RichEditor from '../rich-editor.vue';
 
 const meta: Meta<typeof RichEditor> = {
@@ -11,13 +10,37 @@ export default meta;
 
 type Story = StoryObj<typeof RichEditor>;
 
-const content = ref('<p>Hello Tiptap 👋</p>');
-
 export const Default: Story = {
   args: {
-    modelValue: content.value,
-    customToolbarAction: [],
+    modelValue: '',
+  },
+
+  render: args => ({
+    components: { RichEditor },
+    setup() {
+      return { args };
+    },
+    template: `
+      <RichEditor v-bind="args" />
+    `,
+  }),
+};
+
+export const CustomToolbar: Story = {
+  args: {
+    modelValue: 'Hello world 👋',
+    customToolbar: [
+      'heading',
+      'divider',
+      'fontSize',
+      'divider',
+      'bold',
+      'underline',
+      'divider',
+      'align',
+    ],
     maxLimit: 200,
+    showExtraSettings: false,
   },
 
   render: args => ({
