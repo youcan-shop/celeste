@@ -110,7 +110,7 @@ function onActionClick(name: string, editor: Editor) {
       @update:open="clearSelectedValue"
     >
       <SelectTrigger variant="inline">
-        <Tooltip title="Extra settings">
+        <Tooltip title="Extra settings" variant="dark">
           <CompactButton
             icon="i-celeste-more-2-line"
             variant="ghost"
