@@ -81,19 +81,25 @@ function openLinkBubbleFromToolbar() {
 
 const charactersCount = computed(() => editor.value?.storage.characterCount.characters() || 0);
 const limitWarning = computed(() => {
-  const isCloseToMax = charactersCount.value >= (props.maxLimit - 20);
-  const isMax = charactersCount.value === props.maxLimit;
+  const isCloseToMaxCharacter = charactersCount.value >= (props.maxLimit - 20);
+  const isMaxCharacter = charactersCount.value === props.maxLimit;
 
-  if (isCloseToMax && !isMax)
+  if (isCloseToMaxCharacter && !isMaxCharacter) {
     return 'warning';
-  if (isMax)
+  }
+
+  if (isMaxCharacter) {
     return 'danger';
+  }
+
   return '';
 });
 
 watch(() => props.modelValue, (value) => {
-  if (editor.value?.getHTML() === value)
+  if (editor.value?.getHTML() === value) {
     return;
+  }
+
   editor.value?.commands.setContent(value, false);
 });
 
@@ -205,17 +211,16 @@ onBeforeUnmount(() => {
       <EditorContent
         :editor="editor"
       />
-
-      <div
-        v-if="maxLimit"
-        class="characters-count"
-        :class="{
-          warning: limitWarning === 'warning',
-          danger: limitWarning === 'danger',
-        }"
-      >
-        {{ charactersCount }}/{{ maxLimit }}
-      </div>
+    </div>
+    <div
+      v-if="maxLimit"
+      class="characters-count"
+      :class="{
+        warning: limitWarning === 'warning',
+        danger: limitWarning === 'danger',
+      }"
+    >
+      {{ charactersCount }}/{{ maxLimit }}
     </div>
     <LinkBubble
       :editor="editor"
@@ -227,6 +232,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .celeste-rich-editor {
+  position: relative;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--spacing-12);
   background: var(--color-bg-white-0);
@@ -267,7 +273,6 @@ onBeforeUnmount(() => {
   }
 
   .text-field {
-    position: relative;
     min-height: 88px;
     margin: var(--spacing-12);
     padding-inline-end: var(--spacing-12);
@@ -378,14 +383,15 @@ onBeforeUnmount(() => {
   }
 
   .characters-count {
-    position: fixed;
-    bottom: 20px;
+    position: absolute;
+    bottom: 7px;
+    inset-inline-end: 22px;
+    max-width: max-content;
     padding: var(--spacing-4);
     border-radius: var(--radius-4);
     background: var(--color-bg-white-0);
     color: var(--color-text-soft-400);
     font: var(--subheading-xxs);
-    inset-inline-end: 35px;
 
     &.warning {
       color: var(--color-state-warning-base);

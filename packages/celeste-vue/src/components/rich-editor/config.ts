@@ -136,6 +136,7 @@ export function selectedOption(editor: Editor, children: ToolbarChildOption[]): 
   for (const child of children) {
     if (Object.prototype.hasOwnProperty.call(child.active, 'fontSize')) {
       const currentFontSize = editor.getAttributes('textStyle').fontSize || '16px';
+
       return currentFontSize;
     }
 
