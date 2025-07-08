@@ -34,7 +34,7 @@ export interface ColorSwatchProps {
 }
 
 export interface ColorSwatchEmits {
-  modelValue: tinycolor.Instance;
+  'update:modelValue': [value: string];
 }
 </script>
 
