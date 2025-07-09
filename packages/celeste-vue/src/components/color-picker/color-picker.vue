@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
 
 const emit = defineEmits<ColorPickerEmits>();
 
-const COLOR_NUMBER_VALIDATION_PATTERN = /^\d*\s?%?$/;
+const COLOR_NUMBER_VALIDATION_PATTERN = /^\d*\s?[%°]?$/;
 
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
@@ -171,7 +171,7 @@ function handleAlphaKeyDown(event: KeyboardEvent) {
   tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
 }
 
-function validateColorInput<T extends RGBKey | HSLKey | HSBKey | AlphaKey>(
+function validateColorInput<T extends ColorKey>(
   event: Event,
   key: T,
   getFallbackValue: (key: T) => string | number,
@@ -189,15 +189,35 @@ function validateRGBInput(event: Event, key: RGBKey) {
 }
 
 function validateHSLInput(event: Event, key: HSLKey) {
-  validateColorInput(event, key, k => `${(tinyColorRef.value.toHsl()[k] * 100).toFixed()} %`);
+  validateColorInput(event, key, (k) => {
+    const unit = key === 'h' ? '°' : '%';
+
+    let previousValue = (tinyColorRef.value.toHsl()[k]).toFixed();
+
+    if (k !== 'h') {
+      previousValue = (tinyColorRef.value.toHsl()[k] * 100).toFixed();
+    }
+
+    return `${previousValue}${unit}`;
+  });
 }
 
 function validateHSBInput(event: Event, key: HSBKey) {
-  validateColorInput(event, key, k => `${(tinyColorRef.value.toHsv()[k] * 100).toFixed()} %`);
+  validateColorInput(event, key, (k) => {
+    const unit = key === 'h' ? '°' : '%';
+
+    let previousValue = (tinyColorRef.value.toHsv()[k]).toFixed();
+
+    if (k !== 'h') {
+      previousValue = (tinyColorRef.value.toHsv()[k] * 100).toFixed();
+    }
+
+    return `${previousValue}${unit}`;
+  });
 }
 
 function validateAlphaInput(event: Event) {
-  validateColorInput(event, 'a', () => `${(tinyColorRef.value.getAlpha() * 100).toFixed()} %`);
+  validateColorInput(event, 'a', () => `${(tinyColorRef.value.getAlpha()).toFixed()}%`);
 }
 </script>
 
@@ -208,6 +228,8 @@ export type RGBKey = 'r' | 'g' | 'b';
 export type HSLKey = 'h' | 's' | 'l';
 export type HSBKey = 'h' | 's' | 'v';
 export type AlphaKey = 'a';
+
+export type ColorKey = RGBKey | HSLKey | HSBKey | AlphaKey;
 
 export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;

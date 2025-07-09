@@ -34,7 +34,7 @@ export function clamp(value: number, min: number, max: number): number {
 }
 
 export function truncColorValue(value: string): number {
-  return Math.trunc(Number(value.replace('%', '').trim()));
+  return Math.trunc(Number(value.replace(/[%°]/g, '').trim()));
 }
 
 // DOM
