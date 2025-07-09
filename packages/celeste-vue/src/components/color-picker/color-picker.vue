@@ -172,15 +172,16 @@ function handleAlphaKeyDown(event: KeyboardEvent) {
   tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
 }
 
-function validateInut<T extends ColorKey>(
+function validateInput<T extends ColorKey>(
   event: Event,
   key: T,
-  getFallbackValue: (key: T) => string | number,
 ) {
   const input = event.target as HTMLInputElement;
+  const inputEvent = event as InputEvent;
+  const newValue = truncColorValue(input.value) + (inputEvent.data ?? '');
 
-  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(input.value)) {
-    input.value = String(getFallbackValue(key));
+  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(newValue)) {
+    event.preventDefault();
   }
 }
 
@@ -192,42 +193,6 @@ function validateHexInput(event: Event) {
   if (!HEX_VALIDATION_PATTERN.test(newValue)) {
     event.preventDefault();
   }
-}
-
-function validateRGBInput(event: Event, key: RGBKey) {
-  validateInut(event, key, k => tinyColorRef.value.toRgb()[k]);
-}
-
-function validateHSLInput(event: Event, key: HSLKey) {
-  validateInut(event, key, (k) => {
-    const unit = key === 'h' ? '°' : '%';
-
-    let previousValue = (tinyColorRef.value.toHsl()[k]).toFixed();
-
-    if (k !== 'h') {
-      previousValue = (tinyColorRef.value.toHsl()[k] * 100).toFixed();
-    }
-
-    return `${previousValue}${unit}`;
-  });
-}
-
-function validateHSBInput(event: Event, key: HSBKey) {
-  validateInut(event, key, (k) => {
-    const unit = key === 'h' ? '°' : '%';
-
-    let previousValue = (tinyColorRef.value.toHsv()[k]).toFixed();
-
-    if (k !== 'h') {
-      previousValue = (tinyColorRef.value.toHsv()[k] * 100).toFixed();
-    }
-
-    return `${previousValue}${unit}`;
-  });
-}
-
-function validateAlphaInput(event: Event) {
-  validateInut(event, 'a', () => `${(tinyColorRef.value.getAlpha()).toFixed()}%`);
 }
 </script>
 
@@ -350,7 +315,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="rgb.r"
-                    @input="e => validateRGBInput(e, 'r')"
+                    @beforeinput="e => validateInput(e, 'r')"
                     @focusout="e => inputChangeRGB(e, 'r')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
                   />
@@ -360,7 +325,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="rgb.g"
-                    @input="e => validateRGBInput(e, 'g')"
+                    @beforeinput="e => validateInput(e, 'g')"
                     @focusout="e => inputChangeRGB(e, 'g')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
                   />
@@ -370,7 +335,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="rgb.b"
-                    @input="e => validateRGBInput(e, 'b')"
+                    @beforeinput="e => validateInput(e, 'b')"
                     @focusout="e => inputChangeRGB(e, 'b')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
                   />
@@ -382,7 +347,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="hsl.h"
-                    @input="e => validateHSLInput(e, 'h')"
+                    @beforeinput="e => validateInput(e, 'h')"
                     @focusout="e => inputChangeHSL(e, 'h')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 'h')"
                   />
@@ -392,7 +357,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="hsl.s"
-                    @input="e => validateHSLInput(e, 's')"
+                    @beforeinput="e => validateInput(e, 's')"
                     @focusout="e => inputChangeHSL(e, 's')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 's')"
                   />
@@ -402,7 +367,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="hsl.l"
-                    @input="e => validateHSLInput(e, 'l')"
+                    @beforeinput="e => validateInput(e, 'l')"
                     @focusout="e => inputChangeHSL(e, 'l')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 'l')"
                   />
@@ -414,7 +379,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="hsv.h"
-                    @input="e => validateHSBInput(e, 'h')"
+                    @beforeinput="e => validateInput(e, 'h')"
                     @focusout="e => inputChangeHSB(e, 'h')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 'h')"
                   />
@@ -424,7 +389,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="hsv.s"
-                    @input="e => validateHSBInput(e, 's')"
+                    @beforeinput="e => validateInput(e, 's')"
                     @focusout="e => inputChangeHSB(e, 's')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 's')"
                   />
@@ -434,7 +399,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="hsv.v"
-                    @input="e => validateHSBInput(e, 'v')"
+                    @beforeinput="e => validateInput(e, 'v')"
                     @focusout="e => inputChangeHSB(e, 'v')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 'v')"
                   />
@@ -446,7 +411,7 @@ declare global {
                   class="color-input"
                   size="xs"
                   :value="`${(tinyColorRef.getAlpha() * 100).toFixed()}%`"
-                  @input="validateAlphaInput"
+                  @beforeinput="e => validateInput(e, 'a')"
                   @focusout="inputChangeAlpha"
                   @keydown.enter.prevent.stop="inputChangeAlpha"
                   @keydown.up.prevent.stop="handleAlphaKeyDown"
