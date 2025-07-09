@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
 const emit = defineEmits<ColorPickerEmits>();
 
 const COLOR_NUMBER_VALIDATION_PATTERN = /^\d*\s?[%°]?$/;
+const HEX_VALIDATION_PATTERN = /^#?[0-9a-f]{0,6}$/i;
 
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
@@ -171,25 +172,34 @@ function handleAlphaKeyDown(event: KeyboardEvent) {
   tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
 }
 
-function validateColorInput<T extends ColorKey>(
+function validateInut<T extends ColorKey>(
   event: Event,
   key: T,
   getFallbackValue: (key: T) => string | number,
 ) {
   const input = event.target as HTMLInputElement;
-  const value = input.value;
 
-  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(value)) {
+  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(input.value)) {
     input.value = String(getFallbackValue(key));
   }
 }
 
+function validateHexInput(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const inputEvent = event as InputEvent;
+  const newValue = input.value + (inputEvent.data ?? '');
+
+  if (!HEX_VALIDATION_PATTERN.test(newValue)) {
+    event.preventDefault();
+  }
+}
+
 function validateRGBInput(event: Event, key: RGBKey) {
-  validateColorInput(event, key, k => tinyColorRef.value.toRgb()[k]);
+  validateInut(event, key, k => tinyColorRef.value.toRgb()[k]);
 }
 
 function validateHSLInput(event: Event, key: HSLKey) {
-  validateColorInput(event, key, (k) => {
+  validateInut(event, key, (k) => {
     const unit = key === 'h' ? '°' : '%';
 
     let previousValue = (tinyColorRef.value.toHsl()[k]).toFixed();
@@ -203,7 +213,7 @@ function validateHSLInput(event: Event, key: HSLKey) {
 }
 
 function validateHSBInput(event: Event, key: HSBKey) {
-  validateColorInput(event, key, (k) => {
+  validateInut(event, key, (k) => {
     const unit = key === 'h' ? '°' : '%';
 
     let previousValue = (tinyColorRef.value.toHsv()[k]).toFixed();
@@ -217,7 +227,7 @@ function validateHSBInput(event: Event, key: HSBKey) {
 }
 
 function validateAlphaInput(event: Event) {
-  validateColorInput(event, 'a', () => `${(tinyColorRef.value.getAlpha()).toFixed()}%`);
+  validateInut(event, 'a', () => `${(tinyColorRef.value.getAlpha()).toFixed()}%`);
 }
 </script>
 
@@ -328,6 +338,7 @@ declare global {
                     class="color-input"
                     size="xs"
                     :value="hex"
+                    @beforeinput="validateHexInput"
                     @focusout="inputChangeHex"
                     @keydown.enter.prevent="inputChangeHex"
                   />
