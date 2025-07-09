@@ -43,7 +43,7 @@ const hsl = computed(() => {
   const { h, s, l } = tinyColorRef.value.toHsl();
 
   return {
-    h: h.toFixed(),
+    h: `${h.toFixed()}°`,
     s: `${(s * 100).toFixed()}%`,
     l: `${(l * 100).toFixed()}%`,
     a: tinyColorRef.value.getAlpha(),
@@ -53,7 +53,7 @@ const hsl = computed(() => {
 const hsv = computed(() => {
   const { h, s, v } = tinyColorRef.value.toHsv();
   return {
-    h: h.toFixed(),
+    h: `${h.toFixed()}°`,
     s: `${(s * 100).toFixed()}%`,
     v: `${(v * 100).toFixed()}%`,
   };
@@ -412,7 +412,7 @@ declare global {
                   type="text"
                   class="color-input"
                   size="xs"
-                  :value="`${(tinyColorRef.getAlpha() * 100).toFixed()} %`"
+                  :value="`${(tinyColorRef.getAlpha() * 100).toFixed()}%`"
                   @input="validateAlphaInput"
                   @focusout="inputChangeAlpha"
                   @keydown.enter.prevent.stop="inputChangeAlpha"
