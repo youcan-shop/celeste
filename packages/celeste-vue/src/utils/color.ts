@@ -56,7 +56,7 @@ export function getColorConstraints(key: ColorKey): { min: number; max: number }
   }
 
   if (key === 'h') {
-    max = 360;
+    max = 359;
   }
 
   if (['s', 'l', 'v', 'a'].includes(key)) {
