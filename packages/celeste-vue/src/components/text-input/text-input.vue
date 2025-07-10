@@ -2,17 +2,21 @@
 import type { InputHTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
-  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
-  size?: 'xs' | 'sm' | 'md';
-  hasError?: boolean;
-}
-
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
   size: 'sm',
   hasError: false,
 });
+
+const modelValue = defineModel<string | number>();
+</script>
+
+<script lang="ts">
+export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
+  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+  size?: 'xs' | 'sm' | 'md';
+  hasError?: boolean;
+}
 </script>
 
 <template>
@@ -22,6 +26,7 @@ const props = withDefaults(defineProps<TextInputProps>(), {
     class="celeste-text-input-wrapper"
   >
     <input
+      v-model="modelValue"
       v-bind="$attrs"
       :type="type"
       :class="clsx('celeste-text-input', props.class)"
