@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
+import { uid } from '@/utils/crypto';
 import clsx from 'clsx';
-import uniqid from 'uniqid';
 
 const props = withDefaults(
   defineProps<AlertProps>(),
@@ -10,8 +10,8 @@ const props = withDefaults(
 
 defineEmits(['dismiss']);
 
-const labelledby = uniqid();
-const describedby = uniqid();
+const labelledby = uid();
+const describedby = uid();
 
 const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
   warning: 'i-celeste-alert-fill',
