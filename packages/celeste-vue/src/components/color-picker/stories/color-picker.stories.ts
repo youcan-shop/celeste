@@ -18,16 +18,15 @@ type Story = StoryObj<typeof ColorPicker>;
 
 export const Default: Story = {
   args: {
-    modelValue: 'hsla(228, 100%, 60%, 1)',
   },
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
-      const color = ref('hsla(228, 100%, 60%, 1)');
+      const color = ref('hsl(228, 100%, 60%)');
       return { args, color };
     },
     template: `
-      <ColorPicker v-bind="args" />
+      <ColorPicker v-bind="args" v-model="color" @update:modelValue="val => color.value = val"/>
     `,
   }),
 };
