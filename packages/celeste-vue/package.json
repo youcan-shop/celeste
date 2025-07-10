@@ -9,7 +9,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/es/index.js",
       "require": "./dist/cjs/index.cjs"
     },
@@ -17,7 +17,7 @@
   },
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/es/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -26,8 +26,7 @@
     "node": ">=20.10.0"
   },
   "scripts": {
-    "build": "pnpm type-check && pnpm build-only",
-    "build-only": "rimraf dist && vite build",
+    "build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly -p tsconfig.build.json && vite build",
     "watch": "vite build --watch",
     "type-check": "vue-tsc -p tsconfig.check.json --noEmit",
     "type-gen": "vue-tsc --declaration  --emitDeclarationOnly",
