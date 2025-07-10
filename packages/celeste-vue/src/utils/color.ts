@@ -1,10 +1,19 @@
 // TYPES
+export type ArrowDirection = 'up' | 'down' | 'left' | 'right';
+
+export type RGBKey = 'r' | 'g' | 'b';
+export type HSLKey = 'h' | 's' | 'l';
+export type HSBKey = 'h' | 's' | 'v';
+export type AlphaKey = 'a';
+export type ColorKey = RGBKey | HSLKey | HSBKey | AlphaKey;
 export interface Coordinates {
   x: number;
   y: number;
 }
 
-export type ArrowDirection = 'up' | 'down' | 'left' | 'right';
+// VALIDATION
+export const COLOR_NUMBER_VALIDATION_PATTERN = /^\d*\s?[%°]?$/;
+export const HEX_VALIDATION_PATTERN = /^#?[0-9a-f]{0,6}$/i;
 
 // VALUES
 export const DEFAULT_SWATCH = [
@@ -35,6 +44,43 @@ export function clamp(value: number, min: number, max: number): number {
 
 export function truncColorValue(value: string): number {
   return Math.trunc(Number(value.replace(/[%°]/g, '').trim()));
+}
+
+export function getColorConstraints(key: ColorKey): { min: number; max: number } {
+  const min = 0;
+  let max = 0;
+
+  if (key === 'r' || key === 'g' || key === 'b') {
+    max = 255;
+  }
+
+  if (key === 'h') {
+    max = 360;
+  }
+
+  if (['s', 'l', 'v', 'a'].includes(key)) {
+    max = 100;
+  }
+
+  return {
+    min,
+    max,
+  };
+}
+
+export function bumpColorValue(value: number, direction: Omit<ArrowDirection, 'left' | 'right'> | null): number {
+  let multiplier = 0;
+
+  switch (direction) {
+    case 'down':
+      multiplier = -1;
+      break;
+    case 'up':
+      multiplier = 1;
+      break;
+  }
+
+  return value + multiplier;
 }
 
 // DOM
@@ -72,7 +118,7 @@ export function getAbsolutePosition(container: HTMLElement): Coordinates {
   };
 }
 
-export function resolveArrowDirection(e: KeyboardEvent): ArrowDirection | null {
+export function resolveArrowDirection(e: KeyboardEvent): ArrowDirection {
   const arrowMap: Record<string, ArrowDirection> = {
     ArrowUp: 'up',
     ArrowDown: 'down',
@@ -80,5 +126,5 @@ export function resolveArrowDirection(e: KeyboardEvent): ArrowDirection | null {
     ArrowRight: 'right',
   };
 
-  return arrowMap[e.code] || null;
+  return arrowMap[e.code];
 }

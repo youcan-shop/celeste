@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDelegatedProps } from '@/composables/use-delegated-props';
-import { resolveArrowDirection, truncColorValue } from '@/utils/color';
+import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, type ColorKey, getColorConstraints, HEX_VALIDATION_PATTERN, type HSBKey, type HSLKey, resolveArrowDirection, type RGBKey, truncColorValue } from '@/utils/color';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, ref, watch } from 'vue';
@@ -20,9 +20,6 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
 });
 
 const emit = defineEmits<ColorPickerEmits>();
-
-const COLOR_NUMBER_VALIDATION_PATTERN = /^\d*\s?[%°]?$/;
-const HEX_VALIDATION_PATTERN = /^#?[0-9a-f]{0,6}$/i;
 
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
@@ -87,6 +84,52 @@ function sipColor() {
   }).catch((e: Error) => {
     // Do nothing, this prevents an error from being thrown if the user cancels the color selection.
   });
+}
+
+function getCurrentColorValue(key: ColorKey) {
+  let currentValue = 0;
+
+  if (key === 'r' || key === 'g' || key === 'b') {
+    currentValue = rgb.value[key];
+  }
+  else if (key === 'h') {
+    currentValue = tinyColorRef.value.toHsl().h;
+  }
+  else if (key === 's' || key === 'l' || key === 'v') {
+    if (currentColorFormat.value === 'hsl') {
+      const currentHsl = tinyColorRef.value.toHsl();
+      currentValue = key === 's' ? currentHsl.s * 100 : currentHsl.l * 100;
+    }
+    else {
+      const currentHsv = tinyColorRef.value.toHsv();
+      currentValue = key === 's' ? currentHsv.s * 100 : currentHsv.v * 100;
+    }
+  }
+  else if (key === 'a') {
+    currentValue = tinyColorRef.value.getAlpha() * 100;
+  }
+
+  return currentValue;
+}
+
+function validateInput(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const inputEvent = event as InputEvent;
+  const newValue = truncColorValue(input.value) + (inputEvent.data ?? '');
+
+  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(newValue)) {
+    event.preventDefault();
+  }
+}
+
+function validateHexInput(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const inputEvent = event as InputEvent;
+  const newValue = input.value + (inputEvent.data ?? '');
+
+  if (!HEX_VALIDATION_PATTERN.test(newValue)) {
+    event.preventDefault();
+  }
 }
 
 function inputChangeHex(event: Event) {
@@ -154,57 +197,46 @@ function inputChangeAlpha(event: Event) {
   tinyColorRef.value = tinyColorRef.value.setAlpha(Math.max(0, Math.min(1, alphaValue)));
 }
 
-function handleAlphaKeyDown(event: KeyboardEvent) {
+function handleColorValueKeyDown(event: KeyboardEvent, key: ColorKey) {
   const direction = resolveArrowDirection(event);
-  const currentAlpha = tinyColorRef.value.getAlpha() * 100;
+  const currentValue = getCurrentColorValue(key);
+  const { min, max } = getColorConstraints(key);
+  const newValue = clamp(bumpColorValue(currentValue, direction), min, max);
 
-  let multiplier = 1;
-
-  switch (direction) {
-    case 'down':
-      multiplier = -1;
-      break;
-    case 'up':
-      multiplier = 1;
-      break;
+  if (key === 'r' || key === 'g' || key === 'b') {
+    const newColor = tinycolor({ ...rgb.value, [key]: newValue });
+    emit('update:modelValue', newColor.toString());
   }
-
-  tinyColorRef.value = tinyColorRef.value.setAlpha((currentAlpha + multiplier) / 100);
-}
-
-function validateInput<T extends ColorKey>(
-  event: Event,
-  key: T,
-) {
-  const input = event.target as HTMLInputElement;
-  const inputEvent = event as InputEvent;
-  const newValue = truncColorValue(input.value) + (inputEvent.data ?? '');
-
-  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(newValue)) {
-    event.preventDefault();
+  else if (key === 'h') {
+    if (currentColorFormat.value === 'hsl') {
+      const newColor = tinycolor({ ...tinyColorRef.value.toHsl(), h: newValue });
+      emit('update:modelValue', newColor.toString());
+    }
+    else {
+      const newColor = tinycolor({ ...tinyColorRef.value.toHsv(), h: newValue });
+      emit('update:modelValue', newColor.toString());
+    }
   }
-}
-
-function validateHexInput(event: Event) {
-  const input = event.target as HTMLInputElement;
-  const inputEvent = event as InputEvent;
-  const newValue = input.value + (inputEvent.data ?? '');
-
-  if (!HEX_VALIDATION_PATTERN.test(newValue)) {
-    event.preventDefault();
+  else if (key === 's' || key === 'l' || key === 'v') {
+    if (currentColorFormat.value === 'hsl') {
+      const newColor = tinycolor({ ...tinyColorRef.value.toHsl(), [key]: newValue / 100 });
+      emit('update:modelValue', newColor.toString());
+    }
+    else {
+      const currentHsv = tinyColorRef.value.toHsv();
+      const newColor = tinycolor({ ...currentHsv, [key]: newValue / 100 });
+      emit('update:modelValue', newColor.toString());
+    }
+  }
+  else if (key === 'a') {
+    const newColor = tinyColorRef.value.setAlpha(newValue / 100);
+    emit('update:modelValue', newColor.toString());
   }
 }
 </script>
 
 <script lang="ts">
 export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsb';
-
-export type RGBKey = 'r' | 'g' | 'b';
-export type HSLKey = 'h' | 's' | 'l';
-export type HSBKey = 'h' | 's' | 'v';
-export type AlphaKey = 'a';
-
-export type ColorKey = RGBKey | HSLKey | HSBKey | AlphaKey;
 
 export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;
@@ -297,6 +329,7 @@ declare global {
               <div class="celeste-color-format-inputs">
                 <template v-if="currentColorFormat === 'hex'">
                   <TextInput
+                    autocomplete="off"
                     name="hex"
                     placeholder="#FFFFFF"
                     type="text"
@@ -310,112 +343,140 @@ declare global {
                 </template>
                 <template v-else-if="currentColorFormat === 'rgb'">
                   <TextInput
+                    autocomplete="off"
                     name="red"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="rgb.r"
-                    @beforeinput="e => validateInput(e, 'r')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeRGB(e, 'r')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'r')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'r')"
                   />
                   <TextInput
+                    autocomplete="off"
                     name="green"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="rgb.g"
-                    @beforeinput="e => validateInput(e, 'g')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeRGB(e, 'g')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'g')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'g')"
                   />
                   <TextInput
+                    autocomplete="off"
                     name="blue"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="rgb.b"
-                    @beforeinput="e => validateInput(e, 'b')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeRGB(e, 'b')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'b')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'b')"
                   />
                 </template>
                 <template v-else-if="currentColorFormat === 'hsl'">
                   <TextInput
+                    autocomplete="off"
                     name="hue"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="hsl.h"
-                    @beforeinput="e => validateInput(e, 'h')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeHSL(e, 'h')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 'h')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'h')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'h')"
                   />
                   <TextInput
+                    autocomplete="off"
                     name="saturation"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="hsl.s"
-                    @beforeinput="e => validateInput(e, 's')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeHSL(e, 's')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 's')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 's')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 's')"
                   />
                   <TextInput
+                    autocomplete="off"
                     name="lightness"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="hsl.l"
-                    @beforeinput="e => validateInput(e, 'l')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeHSL(e, 'l')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 'l')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'l')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'l')"
                   />
                 </template>
                 <template v-else-if="currentColorFormat === 'hsb'">
                   <TextInput
+                    autocomplete="off"
                     name="hue"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="hsv.h"
-                    @beforeinput="e => validateInput(e, 'h')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeHSB(e, 'h')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 'h')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'h')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'h')"
                   />
                   <TextInput
+                    autocomplete="off"
                     name="saturation"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="hsv.s"
-                    @beforeinput="e => validateInput(e, 's')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeHSB(e, 's')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 's')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 's')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 's')"
                   />
                   <TextInput
+                    autocomplete="off"
                     name="brightness"
                     type="text"
                     class="color-input"
                     size="xs"
                     :value="hsv.v"
-                    @beforeinput="e => validateInput(e, 'v')"
+                    @beforeinput="validateInput"
                     @focusout="e => inputChangeHSB(e, 'v')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 'v')"
+                    @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'v')"
+                    @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'v')"
                   />
                 </template>
                 <TextInput
+                  autocomplete="off"
                   name="alpha"
                   placeholder="100"
                   type="text"
                   class="color-input"
                   size="xs"
                   :value="`${(tinyColorRef.getAlpha() * 100).toFixed()}%`"
-                  @beforeinput="e => validateInput(e, 'a')"
+                  @beforeinput="validateInput"
                   @focusout="inputChangeAlpha"
                   @keydown.enter.prevent.stop="inputChangeAlpha"
-                  @keydown.up.prevent.stop="handleAlphaKeyDown"
-                  @keydown.down.prevent.stop="handleAlphaKeyDown"
+                  @keydown.up.prevent.stop="e => handleColorValueKeyDown(e, 'a')"
+                  @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'a')"
                 />
               </div>
             </div>
