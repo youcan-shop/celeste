@@ -58,7 +58,10 @@ export interface PopoverContentProps {
         )
       "
     >
-      <div class="celeste-popover-content">
+      <div
+        class="celeste-popover-content"
+        :style="{ padding: !$slots.default ? 'var(--spacing-16)' : '' }"
+      >
         <template v-if="!$slots.default">
           <span
             v-if="icon"
