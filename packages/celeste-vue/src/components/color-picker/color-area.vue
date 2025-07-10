@@ -122,6 +122,7 @@ function unbindEventListeners() {
 
 function handleKeyDown(e: KeyboardEvent) {
   const direction = resolveArrowDirection(e);
+
   if (!direction) {
     return;
   }
