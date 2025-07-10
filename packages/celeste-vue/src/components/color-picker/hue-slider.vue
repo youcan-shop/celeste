@@ -91,12 +91,18 @@ function unbindEventListeners() {
 }
 
 function handleKeyDown(e: KeyboardEvent) {
+  const direction = resolveArrowDirection(e);
+
+  if (!direction) {
+    return;
+  }
+
   e.preventDefault();
-  const keyDirection = resolveArrowDirection(e);
+
   const currentValue = hue.value;
   let newValue;
 
-  switch (keyDirection) {
+  switch (direction) {
     case 'left': {
       newValue = currentValue - 1 < 0 ? 0 : Math.floor(currentValue - 1);
       break;

@@ -86,11 +86,17 @@ function unbindEventListeners() {
 }
 
 function handleKeydown(e: KeyboardEvent) {
+  const direction = resolveArrowDirection(e);
+
+  if (!direction) {
+    return;
+  }
+
   e.preventDefault();
-  const keyDirection = resolveArrowDirection(e);
+
   const currentValue = alpha.value;
   let newValue;
-  switch (keyDirection) {
+  switch (direction) {
     case 'left': {
       newValue = currentValue - 0.1 < 0 ? 0 : currentValue - 0.1;
       break;

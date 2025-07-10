@@ -121,8 +121,13 @@ function unbindEventListeners() {
 }
 
 function handleKeyDown(e: KeyboardEvent) {
-  e.preventDefault();
   const direction = resolveArrowDirection(e);
+  if (!direction) {
+    return;
+  }
+
+  e.preventDefault();
+
   switch (direction) {
     case 'left': {
       const newSaturation = hsv.value.s - 0.01;

@@ -17,11 +17,7 @@ export default meta;
 type Story = StoryObj<typeof ColorPicker>;
 
 export const Default: Story = {
-  args: {
-    label: 'Pick Color',
-    defaultFormat: 'hex',
-    formats: ['hex', 'rgb', 'hsl', 'hsb'],
-  },
+  args: {},
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
@@ -29,17 +25,13 @@ export const Default: Story = {
       return { args, color };
     },
     template: `
-      <ColorPicker v-model="color" v-bind="args" />
+      <ColorPicker v-model="color"  />
     `,
   }),
 };
 
 export const WithRGBDefault: Story = {
-  args: {
-    label: 'Pick Color',
-    defaultFormat: 'rgb',
-    formats: ['hex', 'rgb', 'hsl', 'hsb'],
-  },
+  args: {},
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
@@ -53,11 +45,7 @@ export const WithRGBDefault: Story = {
 };
 
 export const WithHSLDefault: Story = {
-  args: {
-    label: 'Pick Color',
-    defaultFormat: 'hsl',
-    formats: ['hex', 'rgb', 'hsl', 'hsb'],
-  },
+  args: {},
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
@@ -71,11 +59,7 @@ export const WithHSLDefault: Story = {
 };
 
 export const HexOnly: Story = {
-  args: {
-    label: 'Pick Color',
-    defaultFormat: 'hex',
-    formats: ['hex'],
-  },
+  args: {},
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
@@ -89,11 +73,7 @@ export const HexOnly: Story = {
 };
 
 export const RGBAndHSL: Story = {
-  args: {
-    label: 'Pick Color',
-    defaultFormat: 'rgb',
-    formats: ['rgb', 'hsl'],
-  },
+  args: {},
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
@@ -107,11 +87,7 @@ export const RGBAndHSL: Story = {
 };
 
 export const WithTransparentColor: Story = {
-  args: {
-    label: 'Pick Color',
-    defaultFormat: 'hex',
-    formats: ['hex', 'rgb', 'hsl', 'hsb'],
-  },
+  args: {},
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
@@ -125,11 +101,7 @@ export const WithTransparentColor: Story = {
 };
 
 export const CustomLabel: Story = {
-  args: {
-    label: 'Choose your brand color',
-    defaultFormat: 'hex',
-    formats: ['hex', 'rgb', 'hsl', 'hsb'],
-  },
+  args: {},
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {

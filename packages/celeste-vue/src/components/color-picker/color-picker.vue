@@ -240,7 +240,7 @@ export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsb';
 
 export interface ColorPickerProps {
   modelValue: string | tinycolor.ColorInput;
-  label: string;
+  label?: string;
   class?: HTMLAttributes['class'];
   formats?: ColorFormat[];
   defaultFormat?: ColorFormat;
