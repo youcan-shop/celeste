@@ -1,4 +1,3 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, type ColorKey, getColorConstraints, HEX_VALIDATION_PATTERN, type HSBKey, type HSLKey, resolveArrowDirection, type RGBKey, truncColorValue } from '@/utils/color';
@@ -21,42 +20,18 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
 });
 
 const emit = defineEmits<ColorPickerEmits>();
-console.log('Props modelValue:', props.modelValue);
-console.log('Props modelValue type:', typeof props.modelValue);
 
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emit);
 
 const tinyColorRef = defineColorModel(props, emit);
 
-console.log('tinyColorRef.value:', tinyColorRef.value);
-console.log('tinyColorRef.value.isValid():', tinyColorRef.value?.isValid?.());
-
 const hueRef = ref(tinyColorRef.value.toHsl().h);
 const currentColorFormat = ref(props.defaultFormat || 'hex');
 const eyeDropper = ref<EyeDropper | null>(null);
 
 const hex = computed(() => {
-  console.log('HEX COMPUTED CALLED');
-  console.log('Computing hex, tinyColorRef.value:', tinyColorRef.value);
-  console.log('tinyColorRef.value exists:', !!tinyColorRef.value);
-  console.log('toHexString method exists:', !!tinyColorRef.value?.toHexString);
-
-  try {
-    const result = tinyColorRef.value.toHexString().toUpperCase();
-    console.log('Hex result:', result);
-    return result;
-  }
-  catch (error) {
-    console.error('Error in hex computed:', error);
-    return '#000000';
-  }
-});
-
-// eslint-disable-next-line unused-imports/no-unused-vars
-const randomHex = computed(() => {
-  console.log('🎯 SIMPLE HEX COMPUTED CALLED');
-  return '#FF0000'; // Hard-coded red
+  return tinyColorRef.value.toHexString().toUpperCase();
 });
 
 const rgb = computed(() => {
