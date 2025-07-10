@@ -6,6 +6,7 @@ export type HSLKey = 'h' | 's' | 'l';
 export type HSBKey = 'h' | 's' | 'v';
 export type AlphaKey = 'a';
 export type ColorKey = RGBKey | HSLKey | HSBKey | AlphaKey;
+
 export interface Coordinates {
   x: number;
   y: number;
