@@ -345,12 +345,12 @@ declare global {
                 </template>
                 <template v-else-if="currentColorFormat === 'rgb'">
                   <TextInput
+                    v-model="rgb.r"
                     autocomplete="off"
                     name="red"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="rgb.r"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeRGB(e, 'r')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'r')"
@@ -358,12 +358,12 @@ declare global {
                     @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'r')"
                   />
                   <TextInput
+                    v-model="rgb.g"
                     autocomplete="off"
                     name="green"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="rgb.g"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeRGB(e, 'g')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'g')"
@@ -371,12 +371,12 @@ declare global {
                     @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'g')"
                   />
                   <TextInput
+                    v-model="rgb.b"
                     autocomplete="off"
                     name="blue"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="rgb.b"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeRGB(e, 'b')"
                     @keydown.enter.prevent="e => inputChangeRGB(e, 'b')"
@@ -386,12 +386,12 @@ declare global {
                 </template>
                 <template v-else-if="currentColorFormat === 'hsl'">
                   <TextInput
+                    v-model="hsl.h"
                     autocomplete="off"
                     name="hue"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="hsl.h"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeHSL(e, 'h')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 'h')"
@@ -399,12 +399,12 @@ declare global {
                     @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'h')"
                   />
                   <TextInput
+                    v-model="hsl.s"
                     autocomplete="off"
                     name="saturation"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="hsl.s"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeHSL(e, 's')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 's')"
@@ -412,12 +412,12 @@ declare global {
                     @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 's')"
                   />
                   <TextInput
+                    v-model="hsl.l"
                     autocomplete="off"
                     name="lightness"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="hsl.l"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeHSL(e, 'l')"
                     @keydown.enter.prevent="e => inputChangeHSL(e, 'l')"
@@ -427,12 +427,12 @@ declare global {
                 </template>
                 <template v-else-if="currentColorFormat === 'hsb'">
                   <TextInput
+                    v-model="hsv.h"
                     autocomplete="off"
                     name="hue"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="hsv.h"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeHSB(e, 'h')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 'h')"
@@ -440,12 +440,12 @@ declare global {
                     @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 'h')"
                   />
                   <TextInput
+                    v-model="hsv.s"
                     autocomplete="off"
                     name="saturation"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="hsv.s"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeHSB(e, 's')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 's')"
@@ -453,12 +453,12 @@ declare global {
                     @keydown.down.prevent.stop="e => handleColorValueKeyDown(e, 's')"
                   />
                   <TextInput
+                    v-model="hsv.v"
                     autocomplete="off"
                     name="brightness"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="hsv.v"
                     @beforeinput="validateInput"
                     @focusout="e => inputChangeHSB(e, 'v')"
                     @keydown.enter.prevent="e => inputChangeHSB(e, 'v')"
