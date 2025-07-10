@@ -38,9 +38,10 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 <style scoped lang="scss">
 .celeste-text-input-wrapper {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   width: fit-content;
-  height: calc(var(--input-height) - var(--spacing-2));
+  height: var(--input-height);
   padding-inline: calc(var(--input-padding) + var(--spacing-2)) var(--input-padding);
   transition: all var(--animation-fast) ease-out;
   border: 1px solid var(--color-stroke-soft-200);
@@ -79,7 +80,9 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   }
 
   .celeste-text-input {
+    width: 100%;
     height: calc(100% - var(--spacing-2));
+    padding: 0;
     border: none;
     outline: none;
     background-color: transparent;

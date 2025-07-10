@@ -31,6 +31,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <style scoped lang="scss">
 :deep(.celeste-select-content) {
+  z-index: 50;
   max-height: var(--radix-select-content-available-height);
   overflow-y: scroll;
   animation: var(--animation-fast) forwards;

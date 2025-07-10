@@ -67,7 +67,7 @@ export const Default: Story = {
     template: `
       <Popover>
         <PopoverTrigger>
-          <Button variant="stroke" type="neutral">
+          <Button variant="stroke" intent="neutral">
             Open Popover
           </Button>
         </PopoverTrigger>
@@ -89,7 +89,7 @@ export const WithIcon: Story = {
     template: `
       <Popover v-bind="args">
         <PopoverTrigger>
-          <Button variant="stroke" type="neutral">
+          <Button variant="stroke" intent="neutral">
             Show Info
           </Button>
         </PopoverTrigger>
@@ -114,7 +114,7 @@ export const IconSizes: Story = {
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <Popover v-bind="args">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral">
+            <Button variant="stroke" intent="neutral">
               Small Icon
             </Button>
           </PopoverTrigger>
@@ -128,7 +128,7 @@ export const IconSizes: Story = {
 
         <Popover v-bind="args">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral">
+            <Button variant="stroke" intent="neutral">
               Medium Icon
             </Button>
           </PopoverTrigger>
@@ -142,7 +142,7 @@ export const IconSizes: Story = {
 
         <Popover v-bind="args">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral">
+            <Button variant="stroke" intent="neutral">
               Large Icon
             </Button>
           </PopoverTrigger>
@@ -156,7 +156,7 @@ export const IconSizes: Story = {
 
         <Popover v-bind="args">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral">
+            <Button variant="stroke" intent="neutral">
               Extra Large
             </Button>
           </PopoverTrigger>
@@ -170,7 +170,7 @@ export const IconSizes: Story = {
 
         <Popover v-bind="args">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral">
+            <Button variant="stroke" intent="neutral">
               Extra Extra Large
             </Button>
           </PopoverTrigger>
@@ -196,7 +196,7 @@ export const WithFooter: Story = {
     template: `
       <Popover v-bind="args">
         <PopoverTrigger>
-          <Button variant="stroke" type="neutral">
+          <Button variant="stroke" intent="neutral">
             Show Actions
           </Button>
         </PopoverTrigger>
@@ -207,10 +207,10 @@ export const WithFooter: Story = {
         >
           <template #footer>
             <div style="display: flex; gap: 8px; justify-content: flex-end; width: 100%;">
-              <Button variant="stroke" type="neutral">
+              <Button variant="stroke" intent="neutral">
                 Cancel
               </Button>
-              <Button variant="fill" type="primary" type="button">
+              <Button variant="fill" intent="primary" type="button">
                 Confirm
               </Button>
             </div>
@@ -231,7 +231,7 @@ export const NotDismissible: Story = {
     template: `
       <Popover v-bind="args">
         <PopoverTrigger>
-          <Button variant="stroke" type="neutral">
+          <Button variant="stroke" intent="neutral">
             No Close Button
           </Button>
         </PopoverTrigger>
@@ -256,7 +256,7 @@ export const NoTail: Story = {
     template: `
       <Popover v-bind="args">
         <PopoverTrigger>
-          <Button variant="stroke" type="neutral">
+          <Button variant="stroke" intent="neutral">
             No Tail
           </Button>
         </PopoverTrigger>
@@ -283,7 +283,7 @@ export const Positioning: Story = {
         <div />
         <Popover v-bind="args" style="grid-column-start: 2;">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral" style="width: 100%;">
+            <Button variant="stroke" intent="neutral" style="width: 100%;">
               Top
             </Button>
           </PopoverTrigger>
@@ -297,7 +297,7 @@ export const Positioning: Story = {
         <div />
         <Popover v-bind="args" style="grid-column-start: 3; grid-row-start: 2;">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral" style="width: 100%;">
+            <Button variant="stroke" intent="neutral" style="width: 100%;">
               Left
             </Button>
           </PopoverTrigger>
@@ -311,7 +311,7 @@ export const Positioning: Story = {
         <div />
         <Popover v-bind="args" style="grid-column-start: 2; grid-row-start: 3;">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral" style="width: 100%;">
+            <Button variant="stroke" intent="neutral" style="width: 100%;">
               Right
             </Button>
           </PopoverTrigger>
@@ -325,7 +325,7 @@ export const Positioning: Story = {
         <div />
         <Popover v-bind="args" style="grid-column-start: 1; grid-row-start: 2;">
           <PopoverTrigger>
-            <Button variant="stroke" type="neutral" style="width: 100%;">
+            <Button variant="stroke" intent="neutral" style="width: 100%;">
               Bottom
             </Button>
           </PopoverTrigger>

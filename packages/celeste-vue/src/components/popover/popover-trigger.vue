@@ -6,9 +6,17 @@ const props = defineProps<PopoverTriggerProps>();
 
 <template>
   <PopoverTrigger
+    class="celeste-popover-trigger"
     v-bind="props"
     as="div"
   >
     <slot />
   </PopoverTrigger>
 </template>
+
+<style scoped lang="scss">
+.celeste-popover-trigger {
+  width: fit-content;
+  cursor: pointer;
+}
+</style>
