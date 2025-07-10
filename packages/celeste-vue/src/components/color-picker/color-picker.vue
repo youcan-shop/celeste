@@ -30,8 +30,9 @@ const hueRef = ref(tinyColorRef.value.toHsl().h);
 const currentColorFormat = ref(props.defaultFormat || 'hex');
 const eyeDropper = ref<EyeDropper | null>(null);
 
-const hex = computed(() => {
-  return tinyColorRef.value.toHexString().toUpperCase();
+const hex = computed({
+  get: () => tinyColorRef.value.toHexString().toUpperCase(),
+  set: () => {},
 });
 
 const rgb = computed(() => {
@@ -329,18 +330,14 @@ declare global {
               </Button>
               <div class="celeste-color-format-inputs">
                 <template v-if="currentColorFormat === 'hex'">
-                  <div style=" padding: 4px; background: yellow;font-size: 10px;">
-                    DEBUG: hex = "{{ hex }}" | type = {{ typeof hex }}
-                  </div>
-
                   <TextInput
+                    v-model="hex"
                     autocomplete="off"
                     name="hex"
                     placeholder="#FFFFFF"
                     type="text"
                     class="color-input"
                     size="xs"
-                    :value="hex"
                     @beforeinput="validateHexInput"
                     @focusout="inputChangeHex"
                     @keydown.enter.prevent="inputChangeHex"
