@@ -17,7 +17,9 @@ export default meta;
 type Story = StoryObj<typeof ColorPicker>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    modelValue: 'hsla(228, 100%, 60%, 1)',
+  },
   render: (args: Story['args']) => ({
     components: { ColorPicker },
     setup() {
@@ -25,7 +27,7 @@ export const Default: Story = {
       return { args, color };
     },
     template: `
-      <ColorPicker v-model="color"  />
+      <ColorPicker v-bind="args" />
     `,
   }),
 };
