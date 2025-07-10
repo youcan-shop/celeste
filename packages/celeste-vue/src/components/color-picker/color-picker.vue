@@ -37,9 +37,26 @@ const currentColorFormat = ref(props.defaultFormat || 'hex');
 const eyeDropper = ref<EyeDropper | null>(null);
 
 const hex = computed(() => {
+  console.log('HEX COMPUTED CALLED');
   console.log('Computing hex, tinyColorRef.value:', tinyColorRef.value);
+  console.log('tinyColorRef.value exists:', !!tinyColorRef.value);
+  console.log('toHexString method exists:', !!tinyColorRef.value?.toHexString);
 
-  return tinyColorRef.value.toHexString().toUpperCase();
+  try {
+    const result = tinyColorRef.value.toHexString().toUpperCase();
+    console.log('Hex result:', result);
+    return result;
+  }
+  catch (error) {
+    console.error('Error in hex computed:', error);
+    return '#000000';
+  }
+});
+
+// eslint-disable-next-line unused-imports/no-unused-vars
+const randomHex = computed(() => {
+  console.log('🎯 SIMPLE HEX COMPUTED CALLED');
+  return '#FF0000'; // Hard-coded red
 });
 
 const rgb = computed(() => {
@@ -337,6 +354,10 @@ declare global {
               </Button>
               <div class="celeste-color-format-inputs">
                 <template v-if="currentColorFormat === 'hex'">
+                  <div style=" padding: 4px; background: yellow;font-size: 10px;">
+                    DEBUG: hex = "{{ hex }}" | type = {{ typeof hex }}
+                  </div>
+
                   <TextInput
                     autocomplete="off"
                     name="hex"
