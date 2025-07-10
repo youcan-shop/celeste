@@ -136,6 +136,7 @@ $icon-size-map: (
 
 :deep(.celeste-popover-content-wrapper) {
   z-index: 50;
+  min-width: 200px;
   max-width: 400px;
   transform-origin: var(--radix-popover-content-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
