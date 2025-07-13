@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Button from '../button.vue';
 
 const meta: Meta<typeof Button> = {
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     size: 'md',
-    type: 'primary',
+    intent: 'primary',
   },
 
   render: args => ({
