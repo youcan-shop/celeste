@@ -25,7 +25,7 @@ export const Default: Story = {
     template: `
       <div style="display: grid; gap: 4px; width: 300px; justify-center: center;">
         <Label v-bind="args">
-          <template #text>Email Address</template>
+          Email Address
         </Label>
         <TextInput placeholder="hello@live.fr" type="email" size="sm" id="email" />
       </div>
@@ -47,7 +47,7 @@ export const Required: Story = {
     template: `
       <div style="display: grid; gap: 4px; width: 300px; justify-center: center;">
         <Label v-bind="args">
-          <template #text>Date</template>
+          Date
         </Label>
         <TextInput placeholder="DD / MM / YYYY" type="text" size="sm" id="date" />
       </div>
@@ -69,7 +69,7 @@ export const Sublabel: Story = {
     template: `
       <div style="display: grid; gap: 4px; width: 300px; justify-center: center;">
         <Label v-bind="args">
-          <template #text>Phone Number</template>
+          Phone Number
         </Label>
         <TextInput placeholder="+1 (555) 000-000" type="text" size="sm" id="number" />
       </div>
@@ -92,7 +92,7 @@ export const Information: Story = {
     template: `
       <div style="display: grid; gap: 4px; width: 300px; justify-center: center;">
         <Label v-bind="args">
-          <template #text>Amount</template>
+          Amount
         </Label>
         <TextInput placeholder="€ 0.00" type="text" size="sm" id="amount" />
       </div>
@@ -113,7 +113,7 @@ export const Button: Story = {
     template: `
       <div style="display: grid; gap: 4px; width: 300px; justify-center: center;">
         <Label v-bind="args">
-          <template #text>Search</template>
+          Search
           <template #button>
             <LinkButton intent="gray" href="https://l9aleb-editor.netlify.app/celeste" target="_blank">
               Help?
