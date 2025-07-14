@@ -5,7 +5,7 @@ import { Primitive, type PrimitiveProps } from 'radix-vue';
 
 const props = withDefaults(defineProps<FancyButtonProps>(), {
   size: 'md',
-  type: 'primary',
+  intent: 'primary',
   as: 'button',
 });
 </script>
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<FancyButtonProps>(), {
 export interface FancyButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'xs' | 'sm' | 'md';
-  type?: 'primary' | 'neutral' | 'error' | 'basic';
+  intent?: 'primary' | 'neutral' | 'error' | 'basic';
 }
 </script>
 
@@ -24,7 +24,7 @@ export interface FancyButtonProps extends PrimitiveProps {
     :as-child
     :class="clsx(
       'celeste-fbutton',
-      `celeste-fbutton-${type}`,
+      `celeste-fbutton-${intent}`,
       `celeste-fbutton-${size}`,
       props.class,
     )"
@@ -68,7 +68,7 @@ $size-map: (
     gap: var(--spacing-6),
   ),
 );
-$type-map: (
+$intent-map: (
   'primary': (
     bg: var(--color-primary-base),
   ),
@@ -120,7 +120,7 @@ $type-map: (
     }
   }
 
-  @each $k, $v in $type-map {
+  @each $k, $v in $intent-map {
     &-#{$k}:not(&-basic, :disabled) {
       --celeste-fbutton-bg-start: rgb(255 255 255 / 16%);
       --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
