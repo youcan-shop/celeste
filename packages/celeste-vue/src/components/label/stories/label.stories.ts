@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { LinkButton } from '@/components/button';
-import TextInput from '@/components/input/text-input.vue';
+import TextInput from '@/components/text-input/text-input.vue';
 import Label from '../label.vue';
 
 const meta: Meta<typeof Label> = {
@@ -27,7 +27,7 @@ export const Default: Story = {
         <Label v-bind="args">
           Email Address
         </Label>
-        <TextInput placeholder="hello@live.fr" type="email" size="sm" id="email" />
+        <TextInput placeholder="hello@live.fr" type="email" size="sm" id="email" style="width: 100%;" />
       </div>
     `,
   }),
@@ -49,7 +49,7 @@ export const Required: Story = {
         <Label v-bind="args">
           Date
         </Label>
-        <TextInput placeholder="DD / MM / YYYY" type="text" size="sm" id="date" />
+        <TextInput placeholder="DD / MM / YYYY" type="text" size="sm" id="date" style="width: 100%;" />
       </div>
     `,
   }),
@@ -71,7 +71,7 @@ export const Sublabel: Story = {
         <Label v-bind="args">
           Phone Number
         </Label>
-        <TextInput placeholder="+1 (555) 000-000" type="text" size="sm" id="number" />
+        <TextInput placeholder="+1 (555) 000-000" type="text" size="sm" id="number" style="width: 100%;" />
       </div>
     `,
   }),
@@ -94,7 +94,7 @@ export const Information: Story = {
         <Label v-bind="args">
           Amount
         </Label>
-        <TextInput placeholder="€ 0.00" type="text" size="sm" id="amount" />
+        <TextInput placeholder="€ 0.00" type="text" size="sm" id="amount" style="width: 100%;" />
       </div>
     `,
   }),
@@ -120,7 +120,7 @@ export const Button: Story = {
             </LinkButton>
           </template>
         </Label>
-        <TextInput placeholder="Search.." type="text" size="sm" id="search" />
+        <TextInput placeholder="Search.." type="text" size="sm" id="search" style="width: 100%;" />
       </div>
     `,
   }),
