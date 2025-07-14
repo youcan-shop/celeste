@@ -58,7 +58,10 @@ export interface PopoverContentProps {
         )
       "
     >
-      <div class="celeste-popover-content">
+      <div
+        class="celeste-popover-content"
+        :style="{ padding: !$slots.default ? 'var(--spacing-16)' : '' }"
+      >
         <template v-if="!$slots.default">
           <span
             v-if="icon"
@@ -133,7 +136,7 @@ $icon-size-map: (
 
 :deep(.celeste-popover-content-wrapper) {
   z-index: 50;
-  min-width: 300px;
+  min-width: 200px;
   max-width: 400px;
   transform-origin: var(--radix-popover-content-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
@@ -184,7 +187,6 @@ $icon-size-map: (
   .celeste-popover-content {
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-16);
     gap: var(--spacing-8);
 
     .celeste-popover-title,
