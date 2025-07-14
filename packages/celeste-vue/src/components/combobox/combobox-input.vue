@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import { ComboboxInput, type ComboboxInputProps } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
-import TextInput, { type TextInputProps } from '../input/text-input.vue';
+import TextInput, { type TextInputProps } from '../text-input/text-input.vue';
 
 const props = defineProps<ComboboxInputProps & {
   class?: HTMLAttributes['class'];
