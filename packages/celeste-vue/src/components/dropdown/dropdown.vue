@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxItem, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from 'radix-vue';
 import { computed, ref, watch } from 'vue';
 import Badge from '../badge/badge.vue';
-import TextInput from '../input/text-input.vue';
+import TextInput from '../text-input/text-input.vue';
 import DropdownItem from './dropdown-item.vue';
 
 const props = withDefaults(defineProps<Dropdown>(), {

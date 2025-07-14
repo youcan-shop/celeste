@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     size: 'md',
-    type: 'primary',
+    intent: 'primary',
   },
 
   render: args => ({

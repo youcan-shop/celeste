@@ -25,7 +25,7 @@ export const Default: Story = {
       type: 'basic',
     },
     buttonProps: {
-      type: 'primary',
+      intent: 'primary',
     },
     shortcut: '⌘ ⇧ Z',
     rightIcon: 'i-celeste-arrow-right-s-line',
