@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import RadioGroupItem from '../radio-group-item.vue';
 import RadioGroup from '../radio-group.vue';
 
