@@ -12,6 +12,7 @@ type Story = StoryObj<typeof ProgressCircular>;
 
 export const Default: Story = {
   args: {
+    modelValue: 45,
   },
 
   render: args => ({
