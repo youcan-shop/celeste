@@ -81,7 +81,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
   .celeste-text-input {
     width: 100%;
-    height: calc(100% - var(--spacing-2));
+    height: 100%;
     padding: 0;
     border: none;
     outline: none;
