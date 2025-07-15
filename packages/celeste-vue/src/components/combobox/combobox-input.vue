@@ -59,10 +59,11 @@ const textInputProps = computed((): TextInputProps => {
   gap: var(--spacing-4);
   background-color: var(--color-bg-white-0);
 
-  &:deep(.celeste-input-wrapper) {
+  &:deep(.celeste-text-input-wrapper) {
     width: 100%;
     border: none;
-    border-radius: 0;
+    border-radius: var(--radius-8) var(--radius-8) 0 0;
+    outline: none;
     box-shadow: none;
 
     .celeste-input-prefix,
@@ -80,16 +81,6 @@ const textInputProps = computed((): TextInputProps => {
     .celeste-input-suffix {
       cursor: pointer;
     }
-  }
-
-  &:deep(.celeste-input-wrapper-type-search) {
-    border-top-left-radius: var(--radius-8);
-    border-top-right-radius: var(--radius-8);
-  }
-
-  &:deep(.celeste-input-wrapper:focus-within) {
-    border: none;
-    box-shadow: none;
   }
 }
 </style>
