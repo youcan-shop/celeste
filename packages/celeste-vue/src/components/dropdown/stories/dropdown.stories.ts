@@ -43,13 +43,11 @@ export const Default: Story = {
       return { args };
     },
     template: `
-    <div style="height: 50vh; width: 90vw; display: flex; align-items: center; justify-content: center;">
       <Dropdown v-model="" v-bind="args">
          <template #prefix>
            <i class="i-celeste-global-line" />
          </template>
       </Dropdown>
-    </div>
     `,
   }),
 };
