@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import { ComboboxInput, type ComboboxInputProps } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
+import TextInputIcon from '../text-input/text-input-icon.vue';
 import TextInput, { type TextInputProps } from '../text-input/text-input.vue';
 
 const props = defineProps<ComboboxInputProps & {
@@ -38,16 +39,7 @@ const textInputProps = computed((): TextInputProps => {
       v-bind="textInputProps"
       v-model="model"
     >
-      <template #prefix>
-        <i class="i-celeste-search-2-line" />
-      </template>
-      <template #suffix>
-        <div
-          @click="() => model = ''"
-        >
-          <i class="i-celeste-close-line" />
-        </div>
-      </template>
+      <TextInputIcon icon="i-celeste-search-2-line" />
     </TextInput>
   </ComboboxInput>
 </template>
@@ -65,22 +57,6 @@ const textInputProps = computed((): TextInputProps => {
     border-radius: var(--radius-8) var(--radius-8) 0 0;
     outline: none;
     box-shadow: none;
-
-    .celeste-input-prefix,
-    .celeste-input-suffix > div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      border: none;
-      background: none;
-      color: var(--color-icon-sub-600);
-    }
-
-    .celeste-input-suffix {
-      cursor: pointer;
-    }
   }
 }
 </style>
