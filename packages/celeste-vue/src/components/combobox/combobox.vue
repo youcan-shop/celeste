@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ComboboxRoot, type ComboboxRootEmits, type ComboboxRootProps, useForwardPropsEmits } from 'radix-vue';
+import { type ComboboxRootEmits, type ComboboxRootProps, useForwardPropsEmits } from 'radix-vue';
 import { computed, ref } from 'vue';
 import Badge, { type BadgeProps } from '../badge/badge.vue';
 import ComboboxAnchor from './combobox-anchor.vue';
@@ -8,7 +8,8 @@ import ComboboxGroup from './combobox-group.vue';
 import ComboboxInput from './combobox-input.vue';
 import ComboboxItem, { type ComboboxItemPropsType } from './combobox-item.vue';
 import ComboboxList from './combobox-list.vue';
-import ComboboxSeparator from './combobox-seperator.vue';
+import ComboboxRoot from './combobox-root.vue';
+import ComboboxSeparator from './combobox-separator.vue';
 import ComboboxTrigger from './combobox-trigger.vue';
 
 const props = withDefaults(defineProps<ComboboxPropsType>(), {
