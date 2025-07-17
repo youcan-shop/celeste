@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ComboboxItemEmits, ComboboxItemProps } from 'radix-vue';
+import type { ComboboxItemEmits } from 'radix-vue';
 import clsx from 'clsx';
 import { ComboboxItem, useForwardPropsEmits } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
@@ -20,7 +20,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <script lang="ts">
-export interface ComboboxItemPropsType extends ComboboxItemProps {
+export interface ComboboxItemPropsType {
   class?: HTMLAttributes['class'];
   label: string;
   size?: 'sm' | 'lg';
@@ -32,6 +32,7 @@ export interface ComboboxItemPropsType extends ComboboxItemProps {
   value: string | number | boolean | Record<string, any>;
   icon?: string;
   image?: string;
+  disabled?: boolean;
 }
 </script>
 
