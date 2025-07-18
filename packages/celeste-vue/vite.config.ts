@@ -1,8 +1,36 @@
 import { resolve } from 'node:path';
-import vue from '@vitejs/plugin-vue';
+import { fileURLToPath } from 'node:url';
+import { glob } from 'glob';
 import uno from 'unocss/vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import pkg from './package.json';
+import vue from './plugins/vue';
+
+function createEntries() {
+  const entries = new Map<string, string>();
+  const excludeExtensions = ['.spec.ts', '.stories.ts'];
+
+  for (const file of glob.sync(['src/**/*.{ts,vue}'])) {
+    const fileName = file.split('/').at(-1)?.split('.')[0];
+
+    if (excludeExtensions.some(excludeFile => file.endsWith(excludeFile))) {
+      continue;
+    }
+
+    if (!fileName) {
+      continue;
+    }
+
+    entries.set(`${fileName}`, fileURLToPath(new URL(file, import.meta.url)));
+  }
+
+  entries.set('index', fileURLToPath(new URL('src/index.ts', import.meta.url)));
+
+  const res = Object.fromEntries(entries);
+
+  return res;
+}
 
 export default defineConfig({
   plugins: [
@@ -14,6 +42,11 @@ export default defineConfig({
       exclude: ['src/test/**', 'src/**/stories/**', 'src/**/*.stories.vue'],
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: { api: 'modern-compiler' },
+    },
+  },
   resolve: {
     alias: {
       '@': resolve(import.meta.dirname, 'src'),
@@ -21,31 +54,29 @@ export default defineConfig({
     dedupe: ['vue'],
   },
   build: {
-    cssCodeSplit: true,
+    minify: false,
+    copyPublicDir: false,
+    emptyOutDir: false,
     lib: {
       name: 'celeste-vue',
-      fileName: (format, name) => {
-        return `${name}.${format === 'es' ? 'js' : 'umd.cjs'}`;
-      },
-      entry: {
-        index: resolve(__dirname, 'src/index.ts'),
-      },
+      formats: ['es', 'cjs'],
+      entry: createEntries(),
     },
     rollupOptions: {
-      external: ['vue'],
+      external: [...Object.keys(pkg.peerDependencies), 'unocss'],
       output: {
-        exports: 'named',
-        globals: {
-          vue: 'Vue',
-        },
-        assetFileNames: (chunkInfo) => {
-          if (chunkInfo.name === 'style.css')
-            return 'index.css';
+        assetFileNames: '[name][extname]',
+        entryFileNames: '[format]/[name].js',
+        chunkFileNames: (assetInfo) => {
+          const suffixToRemove = '.vue_vue_type_script_setup_true_lang';
 
-          return chunkInfo.name as string;
+          if (assetInfo.name?.endsWith(suffixToRemove)) {
+            return `[format]/chunks/${assetInfo.name.slice(0, -suffixToRemove.length)}.js`;
+          }
+
+          return '[format]/chunks/[name].js';
         },
       },
     },
-    emptyOutDir: true,
   },
 });

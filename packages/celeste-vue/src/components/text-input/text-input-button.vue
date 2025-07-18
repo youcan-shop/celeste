@@ -26,7 +26,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
 <style scoped lang="scss">
 .celeste-text-input-button {
-  height: inherit;
+  height: calc(var(--input-height) - var(--spacing-2));
   border: none;
 
   &[inline='false'] {
