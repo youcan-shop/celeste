@@ -1,2 +1,2 @@
-export * from './progress-circular.vue';
-export { default as ProgressCircular } from './progress-circular.vue';
+export * from './progress-circle.vue';
+export { default as ProgressCircle } from './progress-circle.vue';

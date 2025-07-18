@@ -14,25 +14,31 @@ const props = withDefaults(
     ProgressRootProps & {
       class?: HTMLAttributes['class'];
       size?: 80 | 72 | 64 | 56 | 48;
-      strokeWidth?: number;
-      showLabel?: boolean;
     }
   >(),
   {
     modelValue: 0,
     size: 80,
-    strokeWidth: 6.4,
-    showLabel: true,
+    max: 100,
   },
 );
 
 const delegatedProps = useDelegatedProps(props, 'class');
 
-const radius = computed(() => (props.size - props.strokeWidth) / 2);
+const STROKE_WIDTH = 6.4;
+const radius = computed(() => (props.size - STROKE_WIDTH) / 2);
 const circumference = computed(() => 2 * Math.PI * radius.value);
+
+const percentage = computed(() => {
+  if (props.max === 0)
+    return 0;
+
+  const value = Math.min(Math.max(props.modelValue ?? 0, 0), props.max);
+  return (value / props.max) * 100;
+});
+
 const offset = computed(() => {
-  const value = Math.min(Math.max(props.modelValue ?? 0, 0), 100);
-  return circumference.value * (1 - value / 100);
+  return circumference.value * (1 - percentage.value / 100);
 });
 </script>
 
@@ -55,7 +61,7 @@ const offset = computed(() => {
           :cx="props.size / 2"
           :cy="props.size / 2"
           :r="radius"
-          :stroke-width="props.strokeWidth"
+          :stroke-width="STROKE_WIDTH"
           fill="transparent"
         />
         <circle
@@ -63,7 +69,7 @@ const offset = computed(() => {
           :cx="props.size / 2"
           :cy="props.size / 2"
           :r="radius"
-          :stroke-width="props.strokeWidth"
+          :stroke-width="STROKE_WIDTH"
           fill="transparent"
           :stroke-dasharray="circumference"
           :stroke-dashoffset="offset"
@@ -73,10 +79,12 @@ const offset = computed(() => {
 
     <!-- Label -->
     <div
-      v-if="props.showLabel && props.size !== 48"
+      v-if="props.size !== 48"
       class="celeste-progress-circular-label"
     >
-      {{ Math.round(props.modelValue ?? 0) }}%
+      <slot>
+        {{ Math.round(percentage) }}%
+      </slot>
     </div>
   </ProgressRoot>
 </template>
@@ -109,6 +117,7 @@ const offset = computed(() => {
   transform: translate(-50%, -50%);
   color: var(--color-text-strong-950);
   font: var(--label-sm);
+  text-align: center;
   pointer-events: none;
   user-select: none;
 }
