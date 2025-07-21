@@ -32,53 +32,51 @@ function createEntries() {
   return res;
 }
 
-export default defineConfig(() => {
-  return {
-    plugins: [
-      uno(),
-      vue(),
-      dts({
-        cleanVueFileName: true,
-        tsconfigPath: 'tsconfig.build.json',
-        exclude: ['src/test/**', 'src/**/stories/**', 'src/**/*.stories.vue'],
-      }),
-    ],
-    css: {
-      preprocessorOptions: {
-        scss: { api: 'modern-compiler' },
-      },
+export default defineConfig({
+  plugins: [
+    uno(),
+    vue(),
+    dts({
+      cleanVueFileName: true,
+      tsconfigPath: 'tsconfig.build.json',
+      exclude: ['src/test/**', 'src/**/stories/**', 'src/**/*.stories.vue'],
+    }),
+  ],
+  css: {
+    preprocessorOptions: {
+      scss: { api: 'modern-compiler' },
     },
-    resolve: {
-      alias: {
-        '@': resolve(import.meta.dirname, 'src'),
-      },
-      dedupe: ['vue'],
+  },
+  resolve: {
+    alias: {
+      '@': resolve(import.meta.dirname, 'src'),
     },
-    build: {
-      minify: false,
-      copyPublicDir: false,
-      emptyOutDir: false,
-      lib: {
-        name: 'celeste',
-        formats: ['es', 'cjs'],
-        entry: createEntries(),
-      },
-      rollupOptions: {
-        external: [...Object.keys(pkg.peerDependencies), 'unocss'],
-        output: {
-          assetFileNames: '[name][extname]',
-          entryFileNames: '[format]/[name].js',
-          chunkFileNames: (assetInfo) => {
-            const suffixToRemove = '.vue_vue_type_script_setup_true_lang';
+    dedupe: ['vue'],
+  },
+  build: {
+    minify: false,
+    copyPublicDir: false,
+    emptyOutDir: false,
+    lib: {
+      name: 'celeste',
+      formats: ['es', 'cjs'],
+      entry: createEntries(),
+    },
+    rollupOptions: {
+      external: [...Object.keys(pkg.peerDependencies), 'unocss'],
+      output: {
+        assetFileNames: '[name][extname]',
+        entryFileNames: '[format]/[name].js',
+        chunkFileNames: (assetInfo) => {
+          const suffixToRemove = '.vue_vue_type_script_setup_true_lang';
 
-            if (assetInfo.name?.endsWith(suffixToRemove)) {
-              return `[format]/chunks/${assetInfo.name.slice(0, -suffixToRemove.length)}.js`;
-            }
+          if (assetInfo.name?.endsWith(suffixToRemove)) {
+            return `[format]/chunks/${assetInfo.name.slice(0, -suffixToRemove.length)}.js`;
+          }
 
-            return '[format]/chunks/[name].js';
-          },
+          return '[format]/chunks/[name].js';
         },
       },
     },
-  };
+  },
 });
