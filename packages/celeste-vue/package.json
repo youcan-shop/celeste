@@ -12,8 +12,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/es/index.js",
       "require": "./dist/cjs/index.cjs"
-    },
-    "./assets/celeste.css": "./dist/celeste.css"
+    }
   },
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/es/index.js",
