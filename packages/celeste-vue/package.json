@@ -1,7 +1,7 @@
 {
-  "name": "@youcan/celeste-vue",
+  "name": "@youcan/celeste",
   "type": "module",
-  "version": "0.6.2",
+  "version": "0.6.7",
   "author": "YouCan <tech@youcan.shop>",
   "keywords": [
     "youcan",
@@ -13,7 +13,7 @@
       "import": "./dist/es/index.js",
       "require": "./dist/cjs/index.cjs"
     },
-    "./assets/celeste-vue.css": "./dist/celeste-vue.css"
+    "./assets/celeste.css": "./dist/celeste.css"
   },
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/es/index.js",

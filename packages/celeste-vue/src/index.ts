@@ -1,6 +1,5 @@
 import type { App } from 'vue';
 import * as components from '@/components';
-import 'virtual:uno.css';
 
 export const Celeste = {
   install(vue: App) {

@@ -58,7 +58,7 @@ export default defineConfig({
     copyPublicDir: false,
     emptyOutDir: false,
     lib: {
-      name: 'celeste-vue',
+      name: 'celeste',
       formats: ['es', 'cjs'],
       entry: createEntries(),
     },
