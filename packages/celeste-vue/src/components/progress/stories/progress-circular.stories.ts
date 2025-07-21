@@ -135,15 +135,15 @@ export const EdgeCases: Story = {
     template: `
       <div style="display: flex; align-items: center; gap: 24px;">
         <div>
-          <p style="text-align: center; margin-bottom: 8px;">Over Max</p>
+          <p style="text-align: center; margin-bottom: 8px; font: var(--label-sm);">Over Max</p>
           <ProgressCircle :modelValue="150" :max="100" />
         </div>
         <div>
-          <p style="text-align: center; margin-bottom: 8px;">Negative Value</p>
+          <p style="text-align: center; margin-bottom: 8px; font: var(--label-sm);">Negative Value</p>
           <ProgressCircle :modelValue="-50" />
         </div>
         <div>
-          <p style="text-align: center; margin-bottom: 8px;">Max is Zero</p>
+          <p style="text-align: center; margin-bottom: 8px; font: var(--label-sm);">Max is Zero</p>
           <ProgressCircle :modelValue="0" :max="0" />
         </div>
       </div>
