@@ -1,5 +1,4 @@
 import { resolve } from 'node:path';
-import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
 import uno from 'unocss/vite';
@@ -33,25 +32,17 @@ function createEntries() {
   return res;
 }
 
-export default defineConfig(({ mode }) => {
-  const plugins = [];
-
-  // Only include UnoCSS during development (storybook) but not during library builds
-  if (mode === 'development' || process.env.NODE_ENV === 'dev') {
-    plugins.push(uno());
-  }
-
-  plugins.push(
-    vue(),
-    dts({
-      cleanVueFileName: true,
-      tsconfigPath: 'tsconfig.build.json',
-      exclude: ['src/test/**', 'src/**/stories/**', 'src/**/*.stories.vue'],
-    }),
-  );
-
+export default defineConfig(() => {
   return {
-    plugins,
+    plugins: [
+      uno(),
+      vue(),
+      dts({
+        cleanVueFileName: true,
+        tsconfigPath: 'tsconfig.build.json',
+        exclude: ['src/test/**', 'src/**/stories/**', 'src/**/*.stories.vue'],
+      }),
+    ],
     css: {
       preprocessorOptions: {
         scss: { api: 'modern-compiler' },
