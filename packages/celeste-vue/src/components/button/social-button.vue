@@ -81,8 +81,9 @@ $brand-map: (
   border: 1px solid transparent;
   border-radius: var(--radius-10);
   font: var(--label-sm);
-  gap: var(--spacing-8);
+  text-decoration: none;
   cursor: pointer;
+  gap: var(--spacing-8);
 
   span {
     padding-inline-end: var(--spacing-6);
