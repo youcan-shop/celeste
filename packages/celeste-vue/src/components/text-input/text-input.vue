@@ -20,7 +20,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 </script>
 
 <template>
-  <div
+  <label
     :size="size"
     role="presentation"
     :has-error="hasError"
@@ -33,7 +33,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
       class="celeste-text-input"
     >
     <slot />
-  </div>
+  </label>
 </template>
 
 <style scoped lang="scss">
