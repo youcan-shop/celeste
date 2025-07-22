@@ -41,7 +41,6 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  width: fit-content;
   height: var(--input-height);
   padding-inline: calc(var(--input-padding) + var(--spacing-2)) var(--input-padding);
   transition: all var(--animation-fast) ease-out;
