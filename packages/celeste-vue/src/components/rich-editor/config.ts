@@ -1,6 +1,7 @@
 import type { Editor } from '@tiptap/vue-3';
 import type { ToolbarChildOption, ToolbarItem } from './types';
 import { ref } from 'vue';
+// @unocss-include
 
 export const fullToolbar = ref<ToolbarItem[]>([
   {
@@ -41,39 +42,39 @@ export const fullToolbar = ref<ToolbarItem[]>([
     slug: 'color',
     name: 'Text color',
     children: [
-      { option: '#000000', name: 'Black', icon: 'circle-fill', active: { color: '#000000' } },
-      { option: '#7B7B7B', name: 'Gray', icon: 'circle-fill', active: { color: '#7B7B7B' } },
-      { option: '#335CFF', name: 'Blue', icon: 'circle-fill', active: { color: '#335CFF' } },
-      { option: '#FA7319', name: 'Orange', icon: 'circle-fill', active: { color: '#FA7319' } },
-      { option: '#7D52F4', name: 'Purple', icon: 'circle-fill', active: { color: '#7D52F4' } },
-      { option: '#47C2FF', name: 'Sky', icon: 'circle-fill', active: { color: '#47C2FF' } },
+      { option: '#000000', name: 'Black', icon: 'i-celeste-circle-fill', active: { color: '#000000' } },
+      { option: '#7B7B7B', name: 'Gray', icon: 'i-celeste-circle-fill', active: { color: '#7B7B7B' } },
+      { option: '#335CFF', name: 'Blue', icon: 'i-celeste-circle-fill', active: { color: '#335CFF' } },
+      { option: '#FA7319', name: 'Orange', icon: 'i-celeste-circle-fill', active: { color: '#FA7319' } },
+      { option: '#7D52F4', name: 'Purple', icon: 'i-celeste-circle-fill', active: { color: '#7D52F4' } },
+      { option: '#47C2FF', name: 'Sky', icon: 'i-celeste-circle-fill', active: { color: '#47C2FF' } },
     ],
   },
   { type: 'divider' },
-  { slug: 'bold', name: 'Bold', icon: 'bold', active: 'bold' },
-  { slug: 'italic', name: 'Italic', icon: 'italic', active: 'italic' },
-  { slug: 'underline', name: 'Underline', icon: 'underline', active: 'underline' },
-  { slug: 'strike', name: 'Strike', icon: 'strikethrough', active: 'strike' },
+  { slug: 'bold', name: 'Bold', icon: 'i-celeste-bold', active: 'bold' },
+  { slug: 'italic', name: 'Italic', icon: 'i-celeste-italic', active: 'italic' },
+  { slug: 'underline', name: 'Underline', icon: 'i-celeste-underline', active: 'underline' },
+  { slug: 'strike', name: 'Strike', icon: 'i-celeste-strikethrough', active: 'strike' },
   { type: 'divider' },
-  { slug: 'bulletList', name: 'Bulleted list', icon: 'list-unordered', active: 'bulletList' },
-  { slug: 'orderedList', name: 'Numbered list', icon: 'list-ordered', active: 'orderedList' },
+  { slug: 'bulletList', name: 'Bulleted list', icon: 'i-celeste-list-unordered', active: 'bulletList' },
+  { slug: 'orderedList', name: 'Numbered list', icon: 'i-celeste-list-ordered', active: 'orderedList' },
   { type: 'divider' },
   {
     slug: 'align',
     name: 'Text alignment',
     children: [
-      { option: 'left', name: 'Left align', icon: 'align-left', active: { textAlign: 'left' } },
-      { option: 'center', name: 'Center align', icon: 'align-center', active: { textAlign: 'center' } },
-      { option: 'right', name: 'Right align', icon: 'align-right', active: { textAlign: 'right' } },
-      { option: 'justify', name: 'Justify', icon: 'align-justify', active: { textAlign: 'justify' } },
+      { option: 'left', name: 'Left align', icon: 'i-celeste-align-left', active: { textAlign: 'left' } },
+      { option: 'center', name: 'Center align', icon: 'i-celeste-align-center', active: { textAlign: 'center' } },
+      { option: 'right', name: 'Right align', icon: 'i-celeste-align-right', active: { textAlign: 'right' } },
+      { option: 'justify', name: 'Justify', icon: 'i-celeste-align-justify', active: { textAlign: 'justify' } },
     ],
   },
   { type: 'divider' },
-  { slug: 'link', name: 'Insert Link', icon: 'link', active: 'link' },
+  { slug: 'link', name: 'Insert Link', icon: 'i-celeste-link', active: 'link' },
   { type: 'divider' },
-  { slug: 'undo', name: 'Undo', icon: 'arrow-go-back-line', active: 'undo' },
-  { slug: 'redo', name: 'Redo', icon: 'arrow-go-forward-line', active: 'redo' },
-  { slug: 'clear', name: 'Clear style', icon: 'format-clear', active: 'clear' },
+  { slug: 'undo', name: 'Undo', icon: 'i-celeste-arrow-go-back-line', active: 'undo' },
+  { slug: 'redo', name: 'Redo', icon: 'i-celeste-arrow-go-forward-line', active: 'redo' },
+  { slug: 'clear', name: 'Clear style', icon: 'i-celeste-format-clear', active: 'clear' },
 ]);
 
 export function onActionClick(

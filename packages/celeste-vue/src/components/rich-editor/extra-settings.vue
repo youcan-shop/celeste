@@ -17,19 +17,19 @@ const defaultValue = ref('');
 const extraSettings = [
   {
     name: 'Copy',
-    icon: 'file-copy-line',
+    icon: 'i-celeste-file-copy-line',
   },
   {
     name: 'Cut',
-    icon: 'scissors-line',
+    icon: 'i-celeste-scissors-line',
   },
   {
     name: 'Delete',
-    icon: 'delete-bin-4-line',
+    icon: 'i-celeste-delete-bin-4-line',
   },
   {
     name: 'Duplicate',
-    icon: 'add-circle-line',
+    icon: 'i-celeste-add-circle-line',
   },
 ];
 
@@ -124,7 +124,7 @@ function onActionClick(name: string, editor: Editor) {
           :value="item.name"
         >
           <SelectIcon>
-            <i :class="`i-celeste-${item.icon}`" />
+            <i :class="item.icon" />
           </SelectIcon>
           <span>{{ item.name }}</span>
         </SelectItem>

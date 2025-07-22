@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
           variant="dark"
         >
           <CompactButton
-            :icon="`i-celeste-${item.icon}`"
+            :icon="item.icon"
             variant="ghost"
             :class="{ active: typeof item.active === 'string' && editor.isActive(item.active) }"
             @click="onActionClick(editor, item.slug, null, openLinkBubbleFromToolbar)"
@@ -180,13 +180,13 @@ onBeforeUnmount(() => {
                 >
                   <template v-if="item.slug === 'color'">
                     <SelectIcon>
-                      <i :class="`i-celeste-${child.icon}`" :style="{ background: child.option }" />
+                      <i :class="child.icon" :style="{ background: child.option }" />
                     </SelectIcon>
                     <span>{{ child.name }}</span>
                   </template>
                   <template v-else-if="item.slug === 'align'">
                     <SelectIcon>
-                      <i :class="`i-celeste-${child.icon}`" />
+                      <i :class="child.icon" />
                     </SelectIcon>
                   </template>
                   <span v-else>{{ child.name }}</span>

@@ -81,7 +81,7 @@
     "rimraf": "^6.0.1",
     "sass": "^1.83.1",
     "storybook": "^9.0.17",
-    "unocss": "^0.65.4",
+    "unocss": "^66.3.3",
     "vite": "^6.0.7",
     "vite-plugin-dts": "^4.4.0",
     "vitest": "^2.1.8",
