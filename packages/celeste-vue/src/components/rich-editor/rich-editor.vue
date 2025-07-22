@@ -1,13 +1,5 @@
 <script setup lang="ts">
 import type { ToolbarItem } from './types';
-import CompactButton from '@/components/button/compact-button.vue';
-import SelectContent from '@/components/select/select-content.vue';
-import SelectIcon from '@/components/select/select-icon.vue';
-import SelectItem from '@/components/select/select-item.vue';
-import SelectTrigger from '@/components/select/select-trigger.vue';
-import SelectValue from '@/components/select/select-value.vue';
-import Select from '@/components/select/select.vue';
-import Tooltip from '@/components/tooltip/tooltip.vue';
 import CharacterCount from '@tiptap/extension-character-count';
 import Color from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
@@ -18,6 +10,14 @@ import Underline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
+import CompactButton from '@/components/button/compact-button.vue';
+import SelectContent from '@/components/select/select-content.vue';
+import SelectIcon from '@/components/select/select-icon.vue';
+import SelectItem from '@/components/select/select-item.vue';
+import SelectTrigger from '@/components/select/select-trigger.vue';
+import SelectValue from '@/components/select/select-value.vue';
+import Select from '@/components/select/select.vue';
+import Tooltip from '@/components/tooltip/tooltip.vue';
 import { fullToolbar, onActionClick, selectedOption } from './config';
 import { FontSize } from './extensions/font-size';
 import ExtraSettings from './extra-settings.vue';
