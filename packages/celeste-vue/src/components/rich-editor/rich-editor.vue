@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
           variant="dark"
         >
           <CompactButton
-            :icon="item.icon"
+            :icon="`${item.icon}`"
             variant="ghost"
             :class="{ active: typeof item.active === 'string' && editor.isActive(item.active) }"
             @click="onActionClick(editor, item.slug, null, openLinkBubbleFromToolbar)"
