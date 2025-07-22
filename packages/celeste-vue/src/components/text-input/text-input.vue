@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
-  size: 'sm',
+  size: 'md',
   hasError: false,
 });
 
@@ -22,14 +22,15 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 <template>
   <label
     :size="size"
+    role="presentation"
     :has-error="hasError"
-    class="celeste-text-input-wrapper"
+    :class="clsx('celeste-text-input-wrapper', props.class)"
   >
     <input
       v-model="modelValue"
       v-bind="$attrs"
       :type="type"
-      :class="clsx('celeste-text-input', props.class)"
+      class="celeste-text-input"
     >
     <slot />
   </label>
@@ -40,7 +41,6 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  width: fit-content;
   height: var(--input-height);
   padding-inline: calc(var(--input-padding) + var(--spacing-2)) var(--input-padding);
   transition: all var(--animation-fast) ease-out;

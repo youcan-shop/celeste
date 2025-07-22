@@ -5,6 +5,9 @@ import '@youcan/celeste-tokens/tokens.css';
 
 const preview: Preview = {
   parameters: {
+    docs: {
+      codePanel: true,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
