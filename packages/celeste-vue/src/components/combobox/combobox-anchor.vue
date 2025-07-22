@@ -23,9 +23,3 @@ const forwarded = useForwardProps(delegatedProps);
     <slot />
   </ComboboxAnchor>
 </template>
-
-<style lang="scss" scoped>
-.celeste-dropdown-anchor {
-  width: fit-content;
-}
-</style>

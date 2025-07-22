@@ -6,7 +6,7 @@ import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<ComboboxContentProps & { class?: HTMLAttributes['class'] }>(), {
   position: 'popper',
-  align: 'center',
+  align: 'start',
   sideOffset: 4,
 });
 const emits = defineEmits<ComboboxContentEmits>();
@@ -36,15 +36,16 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style lang="scss" scoped>
 .celeste-dropdown-content,
 div:deep(.celeste-dropdown-content) {
-  --dropdown-width: 100%;
+  --dropdown-width: fit-content;
   --dropdown-height: 300px;
+  --dropdown-min-width: var(--radix-combobox-trigger-width, 300px);
 
   display: flex;
   z-index: 50;
   box-sizing: border-box;
   flex-direction: column;
   width: var(--dropdown-width);
-  min-width: 300px;
+  min-width: var(--dropdown-min-width);
   max-height: var(--dropdown-height);
   margin-top: var(--spacing-10);
   padding: var(--spacing-8);
