@@ -2,12 +2,15 @@ import icons from '@youcan/celeste-icons/icons.json';
 import info from '@youcan/celeste-icons/info.json';
 import { defineConfig, presetIcons } from 'unocss';
 
+const dynamicIconsSafeList = Object.keys(icons.icons).map(k => `i-${info.prefix}-${k}`);
 const brandIconsSafelist = Object.keys(icons.icons)
   .filter(k => k.startsWith('brand-'))
   .map(k => `i-${info.prefix}-${k}`);
 
+const iconsSafeList = [...dynamicIconsSafeList, ...brandIconsSafelist];
+
 export default defineConfig({
-  safelist: brandIconsSafelist,
+  safelist: iconsSafeList,
   presets: [
     presetIcons({
       warn: true,
