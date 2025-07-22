@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
-  size: 'sm',
+  size: 'md',
   hasError: false,
 });
 
