@@ -20,7 +20,7 @@ const delegatedProps = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-  .celeste-dropdown-empty-list {
+.celeste-dropdown-empty-list {
   display: flex;
   align-items: center;
   padding: var(--spacing-8);

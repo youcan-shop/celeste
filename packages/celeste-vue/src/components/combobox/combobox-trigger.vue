@@ -70,10 +70,15 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     color: var(--color-icon-soft-400);
   }
 
+  &:hover {
+    background: var(--color-bg-weak-50);
+  }
+
   &:focus,
   &:focus-visible,
   &:focus-within {
     outline: none;
+    box-shadow: var(--shadow-buttons-important-focus);
   }
 
   .celeste-dropdown-anchor-trigger-prefix {
@@ -115,10 +120,6 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     :deep(.celeste-dropdown-trigger) {
       transform: rotate(180deg);
     }
-  }
-
-  &:hover {
-    background: var(--color-bg-weak-50);
   }
 
   &-error:not(.celeste-dropdown-anchor-trigger-type-compact) {

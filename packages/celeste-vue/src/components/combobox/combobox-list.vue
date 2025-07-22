@@ -41,6 +41,7 @@ div:deep(.celeste-dropdown-content) {
   --dropdown-height: 300px;
 
   display: flex;
+  z-index: 50;
   box-sizing: border-box;
   flex-direction: column;
   width: var(--dropdown-width);
