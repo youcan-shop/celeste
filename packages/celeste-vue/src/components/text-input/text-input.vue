@@ -23,13 +23,13 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   <label
     :size="size"
     :has-error="hasError"
-    class="celeste-text-input-wrapper"
+    :class="clsx('celeste-text-input-wrapper', props.class)"
   >
     <input
       v-model="modelValue"
       v-bind="$attrs"
       :type="type"
-      :class="clsx('celeste-text-input', props.class)"
+      class="celeste-text-input"
     >
     <slot />
   </label>
