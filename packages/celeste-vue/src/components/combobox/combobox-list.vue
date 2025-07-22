@@ -24,7 +24,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   <ComboboxPortal>
     <ComboboxContent
       v-bind="forwarded"
-      force-mount
       :class="clsx('celeste-dropdown-content', props.class)"
     >
       <ComboboxViewport class="celeste-dropdown-items-viewport">
@@ -49,25 +48,22 @@ div:deep(.celeste-dropdown-content) {
   max-height: var(--dropdown-height);
   margin-top: var(--spacing-10);
   padding: var(--spacing-8);
-  overflow: hidden;
-  transition-property: background-color, transform, opacity;
-  transition-duration: var(--animation-fast);
-  transition-timing-function: ease-out;
+  overflow: visible;
+  transform-origin: var(--radix-combobox-content-transform-origin);
+  animation-duration: var(--animation-fast);
+  animation-timing-function: ease-out;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
   gap: var(--spacing-4);
 
-  &[data-state='closed'] {
-    transform: translateY(10px);
-    opacity: 0;
-    pointer-events: none;
+  &[data-state='open'] {
+    animation-name: slide-up-and-fade;
   }
 
-  &[data-state='open'] {
-    transform: translateY(0);
-    opacity: 1;
+  &[data-state='closed'] {
+    animation-name: slide-down-and-fade;
   }
 }
 
@@ -75,5 +71,29 @@ div:deep(.celeste-dropdown-items-viewport) {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
+}
+
+@keyframes slide-up-and-fade {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down-and-fade {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(10px);
+    opacity: 0;
+  }
 }
 </style>
