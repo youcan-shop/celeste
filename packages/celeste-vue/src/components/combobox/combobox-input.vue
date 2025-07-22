@@ -8,6 +8,7 @@ import TextInput, { type TextInputProps } from '../text-input/text-input.vue';
 const props = defineProps<ComboboxInputProps & {
   class?: HTMLAttributes['class'];
   textInputProps?: Partial<TextInputProps>;
+  searchable?: boolean;
 }>();
 
 const model = defineModel<string | undefined>();
@@ -31,15 +32,16 @@ const textInputProps = computed((): TextInputProps => {
   <ComboboxInput
     v-bind="comboboxInputProps"
     :class="clsx('celeste-dropdown-input', props.class)"
+    :readonly="!props.searchable"
     as="div"
   >
-    <slot v-if="$slots.default" />
     <TextInput
-      v-else
       v-bind="textInputProps"
       v-model="model"
+      :readonly="!props.searchable"
+      :style="!props.searchable ? 'opacity: 0; height: 1px; padding: 0; border: none;' : ''"
     >
-      <TextInputIcon icon="i-celeste-search-2-line" />
+      <TextInputIcon v-if="props.searchable" icon="i-celeste-search-2-line" />
     </TextInput>
   </ComboboxInput>
 </template>

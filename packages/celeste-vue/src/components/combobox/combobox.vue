@@ -99,59 +99,53 @@ export interface ComboboxPropsType extends ComboboxRootProps {
       :filter-function="filterFunction"
     >
       <ComboboxAnchor>
-        <ComboboxInput :disabled="disabled">
-          <template #default>
-            <ComboboxTrigger
-              :type="type"
-              :filled="Boolean(selected)"
-              :size="size"
-            >
-              <!-- Prefix - Icon & Image - -->
-              <div class="celeste-dropdown-anchor-trigger-prefix">
-                <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-trigger-prefix-selected">
-                  <i v-if="selected.icon" :class="selected.icon" />
-                  <div v-if="selected.image">
-                    <slot name="image" v-bind="{ selected }">
-                      <img
-                        :src="selected.image"
-                        alt="Selected option"
-                        class="selected-dropdown-image"
-                      >
-                    </slot>
-                  </div>
-                </div>
-                <slot
-                  v-else
-                  name="prefix"
-                  class="celeste-dropdown-anchor-trigger-prefix-default"
-                />
+        <ComboboxTrigger
+          :type="type"
+          :filled="Boolean(selected)"
+          :size="size"
+        >
+          <div class="celeste-dropdown-anchor-trigger-prefix">
+            <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-trigger-prefix-selected">
+              <i v-if="selected.icon" :class="selected.icon" />
+              <div v-if="selected.image">
+                <slot name="image" v-bind="{ selected }">
+                  <img
+                    :src="selected.image"
+                    alt="Selected option"
+                    class="selected-dropdown-image"
+                  >
+                </slot>
               </div>
+            </div>
+            <slot
+              v-else
+              name="prefix"
+              class="celeste-dropdown-anchor-trigger-prefix-default"
+            />
+          </div>
 
-              <!-- Selected value  -->
-              <div
-                v-if="type !== 'inline'"
-                class="celeste-dropdown-input"
-              >
-                <span v-if="multiple">{{ placeholder }}</span>
-                <span v-else>
-                  {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
-                </span>
-                <span v-if="mergedBadgeProps && badgeProps" class="celeste-input-badge">
-                  <Badge v-bind="mergedBadgeProps" />
-                </span>
-              </div>
-              <div class="celeste-dropdown-trigger">
-                <i class="i-celeste-arrow-down-s-line" />
-              </div>
-            </ComboboxTrigger>
-          </template>
-        </ComboboxInput>
+          <div
+            v-if="type !== 'inline'"
+            class="celeste-dropdown-input"
+          >
+            <span v-if="multiple">{{ placeholder }}</span>
+            <span v-else>
+              {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
+            </span>
+            <span v-if="mergedBadgeProps && badgeProps" class="celeste-input-badge">
+              <Badge v-bind="mergedBadgeProps" />
+            </span>
+          </div>
+          <div class="celeste-dropdown-trigger">
+            <i class="i-celeste-arrow-down-s-line" />
+          </div>
+        </ComboboxTrigger>
       </ComboboxAnchor>
 
       <ComboboxList>
-        <div v-if="searchable" class="celeste-dropdown-inner-input">
-          <ComboboxInput />
-          <ComboboxSeparator />
+        <div class="celeste-dropdown-inner-input" :class="{ 'sr-only': !searchable }">
+          <ComboboxInput :searchable="searchable" />
+          <ComboboxSeparator v-if="searchable" />
         </div>
 
         <ComboboxEmpty>
@@ -247,5 +241,17 @@ export interface ComboboxPropsType extends ComboboxRootProps {
   flex-direction: column;
   gap: var(--spacing-4);
   background-color: var(--color-bg-white-0);
+
+  &.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    white-space: nowrap;
+  }
 }
 </style>
