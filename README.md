@@ -1,6 +1,6 @@
 # Celeste
 
-[![npm version](https://img.shields.io/npm/v/@youcan/celeste-vue.svg?label=@youcan/celeste-vue)](https://www.npmjs.com/package/@youcan/celeste-vue)
+[![npm version](https://img.shields.io/npm/v/@youcan/celeste-vue.svg?label=@youcan/celeste-vue)](https://www.npmjs.com/package/@youcan/celeste)
 [![CI](https://github.com/youcan-shop/celeste/workflows/Build/badge.svg)](https://github.com/youcan-shop/celeste/actions?query=branch%3Amain)
 [![storybook](https://shields.io/badge/storybook-grey?logo=storybook&style=flat)](https://main--677f37bbe9cfbdfdf743f0ab.chromatic.com)
 
