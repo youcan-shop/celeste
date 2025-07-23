@@ -23,7 +23,19 @@ const props = withDefaults(defineProps<ComboboxPropsType>(), {
 const emits = defineEmits<ComboboxRootEmits>();
 
 const delegatedProps = computed(() => {
-  const { open, filterFunction, ...delegated } = props;
+  const {
+    open,
+    filterFunction,
+    options,
+    valueBy,
+    placeholder,
+    type,
+    size,
+    emptyLabel,
+    badgeProps,
+    searchable,
+    ...delegated
+  } = props;
 
   return delegated;
 });
@@ -90,6 +102,10 @@ export interface ComboboxPropsType extends ComboboxRootProps {
   badgeProps?: BadgeProps;
   searchable?: boolean;
 }
+
+export default {
+  inheritAttrs: false,
+};
 </script>
 
 <template>
