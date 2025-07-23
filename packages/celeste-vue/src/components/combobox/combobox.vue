@@ -53,6 +53,26 @@ function isSelected(value: ComboboxItemPropsType['value']): boolean | undefined 
   });
 }
 
+function filterFunction(list: any[], searchTerm: string) {
+  return list.filter((option: ComboboxItemPropsType) => {
+    const { value, label } = option;
+
+    if (!value || !label)
+      return false;
+
+    if (
+      props.valueBy
+      && typeof value === 'object'
+      && props.valueBy in value) {
+      return String(value[props.valueBy]).toLowerCase().includes(searchTerm.toLowerCase())
+        || label.toString().toLowerCase().includes(searchTerm.toLowerCase());
+    }
+
+    return value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      || label.toString().toLowerCase().includes(searchTerm.toLowerCase());
+  });
+}
+
 const mergedBadgeProps = computed(() => ({
   ...props.badgeProps,
   disabled: props.disabled,
