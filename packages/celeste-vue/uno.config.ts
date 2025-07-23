@@ -5,7 +5,7 @@ import { defineConfig, presetIcons } from 'unocss';
 
 const safelist = process.env.NODE_ENV === 'dev'
   ? Object.keys(icons.icons).map(k => `i-${info.prefix}-${k}`)
-  : [];
+  : Object.keys(icons.icons).filter(k => k.startsWith('brand')).map(k => `i-${info.prefix}-${k}`);
 
 export default defineConfig({
   safelist,
