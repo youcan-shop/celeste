@@ -3,14 +3,12 @@ import type { HTMLAttributes } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   class?: HTMLAttributes['class'];
-  variant?: 'prefix' | 'suffix';
   inline?: boolean;
   asKbd?: boolean;
-}>(), {
-  variant: 'prefix',
-});
+}>();
+
 const delegatedProps = useDelegatedProps(props, 'class');
 </script>
 

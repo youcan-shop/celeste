@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import TextInputAffix from '../text-input-affix.vue';
 import TextInputButton from '../text-input-button.vue';
-import TextInputIcon from '../text-input-icon.vue';
 import TextInput from '../text-input.vue';
 
 const meta: Meta<typeof TextInput> = {
@@ -18,7 +17,7 @@ export const Default: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -36,7 +35,7 @@ export const Icon: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -64,7 +63,7 @@ export const Size: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -91,7 +90,7 @@ export const Affix: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -118,7 +117,7 @@ export const InlineAffix: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -133,7 +132,7 @@ export const InlineAffix: Story = {
         </TextInput>
         <TextInput v-bind="args" style="width: 300px" placeholder="0.00">
           <template #trailingInlineNode>
-            <TextInputAffix variant="suffix" inline>
+            <TextInputAffix inline>
               €
             </TextInputAffix>
           </template>
@@ -149,17 +148,22 @@ export const WithKbd: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px">
-          <TextInputIcon icon="i-celeste-search-2-line" />
-          <TextInputAffix variant="suffix" asKbd>
-            ⌘1
-          </TextInputAffix>
+          <template #leadingIcon>
+            <i class="i-celeste-search-2-line"/>
+          </template>
+
+          <template #trailingInlineNode>
+            <TextInputAffix asKbd>
+              ⌘1
+            </TextInputAffix>
+          </template>
         </TextInput>
       </div>
     `,
@@ -173,7 +177,7 @@ export const Disabled: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -194,7 +198,7 @@ export const HasError: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -214,7 +218,7 @@ export const WithButton: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
@@ -238,14 +242,17 @@ export const WithInlineButton: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputIcon, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton },
     setup() {
       return { args };
     },
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px">
-          <TextInputIcon icon="i-celeste-lock-2-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-lock-2-line" />
+          </template>
+
           <TextInputButton inline>
             <i class="i-celeste-eye-line" />
           </TextInputButton>
