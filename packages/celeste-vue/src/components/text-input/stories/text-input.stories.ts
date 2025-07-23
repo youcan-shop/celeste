@@ -47,8 +47,11 @@ export const Icon: Story = {
             <i class="i-celeste-user-6-line" />
           </template>
         </TextInput>
+
         <TextInput v-bind="args" style="width: 300px">
-          <TextInputIcon icon="i-celeste-search-2-line" position="end" />
+          <template #trailingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
       </div>
     `,
@@ -70,9 +73,11 @@ export const Size: Story = {
         <TextInput v-bind="args" style="width: 300px" size="md">
           <TextInputIcon icon="i-celeste-user-6-line" />
         </TextInput>
-        <TextInput v-bind="args" style="width: 300px">
+
+        <TextInput v-bind="args" style="width: 300px" size="sm">
           <TextInputIcon icon="i-celeste-user-6-line" />
         </TextInput>
+        
         <TextInput v-bind="args" style="width: 300px" size="xs">
           <TextInputIcon icon="i-celeste-user-6-line" />
         </TextInput>
@@ -92,15 +97,16 @@ export const Affix: Story = {
     },
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
-        <TextInput v-bind="args" style="width: 300px" placeholder="www.example.com">
-          <TextInputAffix>
-            https://
-          </TextInputAffix>
+        <TextInput v-bind="args" placeholder="www.example.com">
+          <template #leadingNode>
+           <TextInputAffix>https://</TextInputAffix>
+          </template>
         </TextInput>
-        <TextInput v-bind="args" style="width: 300px" placeholder="example">
-          <TextInputAffix variant="suffix">
-            @gmail.com
-          </TextInputAffix>
+
+        <TextInput v-bind="args" placeholder="example">
+          <template #trailingNode>
+            <TextInputAffix>@gmail.com</TextInputAffix>
+          </template>
         </TextInput>
       </div>
     `,
