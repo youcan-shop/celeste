@@ -4,7 +4,7 @@ import type { BadgeProps } from '../badge/badge.vue';
 import type { ComboboxItemPropsType } from './combobox-item.vue';
 
 import { useForwardPropsEmits } from 'radix-vue';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import Badge from '../badge/badge.vue';
 import ComboboxAnchor from './combobox-anchor.vue';
 import ComboboxEmpty from './combobox-empty.vue';
@@ -23,22 +23,23 @@ const props = withDefaults(defineProps<ComboboxPropsType>(), {
 const emits = defineEmits<ComboboxRootEmits>();
 
 const delegatedProps = computed(() => {
-  const { open, modelValue, filterFunction, ...delegated } = props;
+  const { open, filterFunction, ...delegated } = props;
 
   return delegated;
 });
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
-const selected = ref<ComboboxItemPropsType[] | ComboboxItemPropsType | undefined>(props.multiple ? [] : undefined);
+
+const model = computed(() => props.modelValue as ComboboxItemPropsType[] | ComboboxItemPropsType | undefined);
 
 function isSelected(value: ComboboxItemPropsType['value']): boolean | undefined {
-  if (!Array.isArray(selected.value) || !props.multiple)
+  if (!Array.isArray(props.modelValue) || !props.multiple)
     return;
 
   if (value === undefined || value === null)
     return false;
 
-  return selected.value.some((selectedItem: ComboboxItemPropsType) => {
+  return props.modelValue.some((selectedItem: ComboboxItemPropsType) => {
     const { value: selectedValue } = selectedItem;
 
     if (
@@ -49,26 +50,6 @@ function isSelected(value: ComboboxItemPropsType['value']): boolean | undefined 
     }
 
     return selectedValue === value;
-  });
-}
-
-function filterFunction(list: any[], searchTerm: string) {
-  return list.filter((option: ComboboxItemPropsType) => {
-    const { value, label } = option;
-
-    if (!value || !label)
-      return false;
-
-    if (
-      props.valueBy
-      && typeof value === 'object'
-      && props.valueBy in value) {
-      return String(value[props.valueBy]).toLowerCase().includes(searchTerm.toLowerCase())
-        || label.toString().toLowerCase().includes(searchTerm.toLowerCase());
-    }
-
-    return value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      || label.toString().toLowerCase().includes(searchTerm.toLowerCase());
   });
 }
 
@@ -92,93 +73,90 @@ export interface ComboboxPropsType extends ComboboxRootProps {
 </script>
 
 <template>
-  <div class="root">
-    <ComboboxRoot
-      v-bind="forwarded"
-      v-model:model-value="selected"
-      :filter-function="filterFunction"
-    >
-      <ComboboxAnchor as-child>
-        <ComboboxTrigger
-          :type="type"
-          :filled="!!selected"
-          :size="size"
-        >
-          <div class="celeste-dropdown-anchor-trigger-prefix">
-            <div v-if="selected && !Array.isArray(selected)" class="celeste-dropdown-anchor-trigger-prefix-selected">
-              <i v-if="selected.icon" :class="selected.icon" />
-              <div v-if="selected.image">
-                <slot name="image" v-bind="{ selected }">
-                  <img
-                    :src="selected.image"
-                    alt="Selected option"
-                    class="selected-dropdown-image"
-                  >
-                </slot>
-              </div>
+  <ComboboxRoot
+    v-bind="forwarded"
+    :filter-function="filterFunction"
+  >
+    <ComboboxAnchor as-child>
+      <ComboboxTrigger
+        :type="type"
+        :filled="!!model"
+        :size="size"
+      >
+        <div class="celeste-dropdown-anchor-trigger-prefix">
+          <div v-if="model && !Array.isArray(model)" class="celeste-dropdown-anchor-trigger-prefix-selected">
+            <i v-if="model.icon" :class="model.icon" />
+            <div v-if="model.image">
+              <slot name="image" v-bind="{ selected: model }">
+                <img
+                  :src="model.image"
+                  alt="Selected option"
+                  class="selected-dropdown-image"
+                >
+              </slot>
             </div>
-            <slot
-              v-else
-              name="prefix"
-              class="celeste-dropdown-anchor-trigger-prefix-default"
-            />
           </div>
-
-          <div
-            v-if="type !== 'inline'"
-            class="celeste-dropdown-input"
-          >
-            <span v-if="multiple">{{ placeholder }}</span>
-            <span v-else>
-              {{ selected && !Array.isArray(selected) ? selected.label : props.placeholder }}
-            </span>
-            <span v-if="mergedBadgeProps && badgeProps" class="celeste-input-badge">
-              <Badge v-bind="mergedBadgeProps" />
-            </span>
-          </div>
-          <div class="celeste-dropdown-trigger">
-            <i class="i-celeste-arrow-down-s-line" />
-          </div>
-        </ComboboxTrigger>
-      </ComboboxAnchor>
-
-      <ComboboxList>
-        <div class="celeste-dropdown-inner-input" :class="{ 'sr-only': !searchable }">
-          <ComboboxInput :searchable="searchable" />
-          <ComboboxSeparator v-if="searchable" />
+          <slot
+            v-else
+            name="prefix"
+            class="celeste-dropdown-anchor-trigger-prefix-default"
+          />
         </div>
 
-        <ComboboxEmpty>
-          <template v-if="emptyLabel" #default>
-            {{ emptyLabel }}
-          </template>
-        </ComboboxEmpty>
+        <div
+          v-if="type !== 'inline'"
+          class="celeste-dropdown-input"
+        >
+          <span v-if="multiple">{{ placeholder }}</span>
+          <span v-else>
+            {{ model && !Array.isArray(model) ? model.label : props.placeholder }}
+          </span>
+          <span v-if="mergedBadgeProps && badgeProps" class="celeste-input-badge">
+            <Badge v-bind="mergedBadgeProps" />
+          </span>
+        </div>
+        <div class="celeste-dropdown-trigger">
+          <i class="i-celeste-arrow-down-s-line" />
+        </div>
+      </ComboboxTrigger>
+    </ComboboxAnchor>
 
-        <ComboboxGroup>
-          <ComboboxItem
-            v-for="option in props.options"
-            :key="option.label"
-            :label="option.label"
-            :sublabel="option.sublabel"
-            :description="option.description"
-            :checkbox="props.multiple"
-            :value="option"
-            :selected="isSelected(option.value)"
-          >
-            <template #prefix>
-              <i v-if="option.icon" :class="option.icon" />
-              <img
-                v-if="option.image"
-                :src="option.image"
-                alt="option"
-                class="celeste-dropdown-item-image"
-              >
-            </template>
-          </ComboboxItem>
-        </ComboboxGroup>
-      </ComboboxList>
-    </ComboboxRoot>
-  </div>
+    <ComboboxList>
+      <div class="celeste-dropdown-inner-input" :class="{ 'sr-only': !searchable }">
+        <ComboboxInput :searchable="searchable" />
+        <ComboboxSeparator v-if="searchable" />
+      </div>
+
+      <ComboboxEmpty>
+        <template v-if="emptyLabel" #default>
+          {{ emptyLabel }}
+        </template>
+      </ComboboxEmpty>
+
+      <ComboboxGroup>
+        <ComboboxItem
+          v-for="option in props.options"
+          :key="option.label"
+          :label="option.label"
+          :sublabel="option.sublabel"
+          :description="option.description"
+          :checkbox="props.multiple"
+          :value="option"
+          :selected="isSelected(option.value)"
+        >
+          <template #prefix>
+            <i v-if="option.icon" :class="option.icon" />
+            <img
+              v-if="option.image"
+              :src="option.image"
+              alt="option"
+              class="celeste-dropdown-item-image"
+            >
+          </template>
+        </ComboboxItem>
+      </ComboboxGroup>
+    </ComboboxList>
+  </ComboboxRoot>
 </template>
 
 <style lang="scss" scoped>
