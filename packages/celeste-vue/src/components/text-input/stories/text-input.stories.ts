@@ -125,14 +125,18 @@ export const InlineAffix: Story = {
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px" placeholder="0.00">
-          <TextInputAffix inline>
-            €
-          </TextInputAffix>
+          <template #leadingInlineNode>
+            <TextInputAffix inline>
+              €
+            </TextInputAffix>
+          </template>
         </TextInput>
         <TextInput v-bind="args" style="width: 300px" placeholder="0.00">
-          <TextInputAffix variant="suffix" inline>
-            MAD
-          </TextInputAffix>
+          <template #trailingInlineNode>
+            <TextInputAffix variant="suffix" inline>
+              €
+            </TextInputAffix>
+          </template>
         </TextInput>
       </div>
     `,

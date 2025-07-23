@@ -28,11 +28,11 @@ const delegatedProps = useDelegatedProps(props, 'class');
   display: flex;
   align-items: center;
   height: calc(var(--input-height) - var(--spacing-2));
-  background-color: var(--celeste-text-input-affix-background-color);
   color: var(--celeste-text-input-affix-color);
 
   &[inline='false'] {
     padding-inline: var(--spacing-10);
+    background-color: var(--celeste-text-input-affix-background-color);
   }
 
   &[askbd='true'] {
