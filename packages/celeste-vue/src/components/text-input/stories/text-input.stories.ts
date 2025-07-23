@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import Button from '@/components/button/button.vue';
+import Combobox from '@/components/combobox/combobox.vue';
+import { ref } from 'vue';
 import TextInputAffix from '../text-input-affix.vue';
 import TextInputButton from '../text-input-button.vue';
 import TextInput from '../text-input.vue';
@@ -70,15 +73,15 @@ export const Size: Story = {
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px" size="md">
-          <TextInputIcon icon="i-celeste-user-6-line" />
+          <i class="i-celeste-user-6-line" />
         </TextInput>
 
         <TextInput v-bind="args" style="width: 300px" size="sm">
-          <TextInputIcon icon="i-celeste-user-6-line" />
+          <i class="i-celeste-user-6-line" />
         </TextInput>
         
         <TextInput v-bind="args" style="width: 300px" size="xs">
-          <TextInputIcon icon="i-celeste-user-6-line" />
+          <i class="i-celeste-user-6-line" />
         </TextInput>
       </div>
     `,
@@ -184,7 +187,9 @@ export const Disabled: Story = {
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px">
-          <TextInputIcon icon="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
       </div>
     `,
@@ -205,7 +210,9 @@ export const HasError: Story = {
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px">
-          <TextInputIcon icon="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
       </div>
     `,
@@ -218,17 +225,22 @@ export const WithButton: Story = {
   },
 
   render: args => ({
-    components: { TextInput, TextInputAffix, TextInputButton },
+    components: { TextInput, TextInputAffix, TextInputButton, Button },
     setup() {
       return { args };
     },
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px">
-          <TextInputIcon icon="i-celeste-links-line" />
-          <TextInputButton>
-            <i class="i-celeste-file-copy-line" />
-          </TextInputButton>
+          <template #leadingIcon>
+            <i class="i-celeste-links-line" />
+          </template>
+
+          <template #trailingNode>
+            <TextInputButton>
+              <i class="i-celeste-file-copy-line" />
+            </TextInputButton>
+          </template>
         </TextInput>
       </div>
     `,
@@ -253,9 +265,75 @@ export const WithInlineButton: Story = {
             <i class="i-celeste-lock-2-line" />
           </template>
 
-          <TextInputButton inline>
-            <i class="i-celeste-eye-line" />
-          </TextInputButton>
+          <template #trailingInlineNode>
+            <TextInputButton>
+              <i class="i-celeste-eye-line" />
+            </TextInputButton>
+          </template>
+        </TextInput>
+      </div>
+    `,
+  }),
+};
+
+const OPTIONS = [
+  { value: { id: 1 }, label: 'MAD', icon: 'i-celeste-bank-card-2-line' },
+  { value: { id: 2 }, label: 'EUR', icon: 'i-celeste-bank-card-2-line' },
+  { value: { id: 3 }, label: 'USD', icon: 'i-celeste-bank-card-2-line' },
+];
+
+export const WithLeadingCombobox: Story = {
+  args: {
+    placeholder: 'Search...',
+  },
+
+  render: args => ({
+    components: { TextInput, TextInputAffix, TextInputButton, Combobox },
+    setup() {
+      const model = ref();
+
+      return { args, OPTIONS, model };
+    },
+    template: `
+      <div style="display: grid; gap: 20px; justify-content: center;">
+        <TextInput v-bind="args">
+          <template #trailingNode>
+            <Combobox
+              v-model="model"
+              type="compact-input"
+              :options="OPTIONS"
+              value-by="id"
+            />
+          </template>
+        </TextInput>
+      </div>
+    `,
+  }),
+};
+
+export const WithTrailingCombobox: Story = {
+  args: {
+    placeholder: 'Search...',
+  },
+
+  render: args => ({
+    components: { TextInput, TextInputAffix, TextInputButton, Combobox },
+    setup() {
+      const model = ref();
+
+      return { args, OPTIONS, model };
+    },
+    template: `
+      <div style="display: grid; gap: 20px; justify-content: center;">
+        <TextInput v-bind="args">
+          <template #leadingNode>
+            <Combobox
+              v-model="model"
+              type="compact-input"
+              :options="OPTIONS"
+              value-by="id"
+            />
+          </template>
         </TextInput>
       </div>
     `,

@@ -2,7 +2,6 @@
 import clsx from 'clsx';
 import { ComboboxInput, type ComboboxInputProps } from 'radix-vue';
 import { computed, type HTMLAttributes } from 'vue';
-import TextInputIcon from '../text-input/text-input-icon.vue';
 import TextInput, { type TextInputProps } from '../text-input/text-input.vue';
 
 const props = defineProps<ComboboxInputProps & {
@@ -41,7 +40,9 @@ const textInputProps = computed((): TextInputProps => {
       :readonly="!props.searchable"
       :style="!props.searchable ? 'opacity: 0; height: 1px; padding: 0; border: none;' : ''"
     >
-      <TextInputIcon v-if="props.searchable" icon="i-celeste-search-2-line" />
+      <template v-if="props.searchable" #leadingIcon>
+        <i class="i-celeste-search-2-line" />
+      </template>
     </TextInput>
   </ComboboxInput>
 </template>

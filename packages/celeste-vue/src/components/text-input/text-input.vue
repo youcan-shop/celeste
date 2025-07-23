@@ -35,7 +35,11 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
       <slot name="leadingNode" />
     </Primitive>
 
-    <Primitive as-child class="celeste-text-input-inline-node celeste-text-input-leading-inline-node">
+    <Primitive
+      inline
+      as-child
+      class="celeste-text-input-inline-node celeste-text-input-leading-inline-node"
+    >
       <slot name="leadingInlineNode" />
     </Primitive>
 
@@ -54,7 +58,11 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
       <slot name="trailingNode" />
     </Primitive>
 
-    <Primitive as-child class="celeste-text-input-inline-node celeste-text-input-trailing-inline-node">
+    <Primitive
+      inline
+      as-child
+      class="celeste-text-input-inline-node celeste-text-input-trailing-inline-node"
+    >
       <slot name="trailingInlineNode" />
     </Primitive>
   </label>
@@ -174,10 +182,12 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
       --celeste-text-input-border-color: transparent;
     }
 
-    --celeste-text-input-icon-color: var(--color-text-sub-600);
-    --celeste-text-input-placeholder-color: var(--color-text-sub-600);
+    &:not(:has(.celeste-text-input-node:hover)) {
+      --celeste-text-input-icon-color: var(--color-text-sub-600);
+      --celeste-text-input-placeholder-color: var(--color-text-sub-600);
 
-    background-color: var(--color-bg-weak-50);
+      background-color: var(--color-bg-weak-50);
+    }
   }
 
   .celeste-text-input-icon {
@@ -188,20 +198,21 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
     color: var(--celeste-text-input-icon-color);
   }
 
-  .celeste-text-input-node {
-    border-radius: var(--input-radius);
+  :deep(.celeste-text-input-node) {
+    height: calc(var(--input-height) - var(--spacing-2));
+    border-radius: var(--input-radius) !important;
   }
 
-  .celeste-text-input-leading-node {
-    border-end-end-radius: 0;
-    border-start-end-radius: 0;
-    border-inline-end: 1px solid var(--color-stroke-soft-200);
+  :deep(.celeste-text-input-leading-node) {
+    border-end-end-radius: 0 !important;
+    border-start-end-radius: 0 !important;
+    border-inline-end: 1px solid var(--color-stroke-soft-200) !important;
   }
 
-  .celeste-text-input-trailing-node {
-    border-inline-start: 1px solid var(--color-stroke-soft-200);
-    border-end-start-radius: 0;
-    border-start-start-radius: 0;
+  :deep(.celeste-text-input-trailing-node) {
+    border-inline-start: 1px solid var(--color-stroke-soft-200) !important;
+    border-end-start-radius: 0 !important;
+    border-start-start-radius: 0 !important;
   }
 }
 </style>

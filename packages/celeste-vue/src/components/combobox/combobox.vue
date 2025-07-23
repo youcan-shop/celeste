@@ -18,7 +18,7 @@ import ComboboxTrigger from './combobox-trigger.vue';
 
 const props = withDefaults(defineProps<ComboboxPropsType>(), {
   placeholder: 'Select',
-  size: 'sm',
+  size: 'md',
 });
 const emits = defineEmits<ComboboxRootEmits>();
 
@@ -101,6 +101,7 @@ export interface ComboboxPropsType extends ComboboxRootProps {
   emptyLabel?: string;
   badgeProps?: BadgeProps;
   searchable?: boolean;
+  class?: string;
 }
 
 export default {
@@ -110,6 +111,7 @@ export default {
 
 <template>
   <ComboboxRoot
+    as-child
     v-bind="forwarded"
     :filter-function="filterFunction"
   >

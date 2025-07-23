@@ -25,7 +25,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
 .celeste-text-input-affix {
   display: flex;
   align-items: center;
-  height: calc(var(--input-height) - var(--spacing-2));
   color: var(--celeste-text-input-affix-color);
 
   &[inline='false'] {
