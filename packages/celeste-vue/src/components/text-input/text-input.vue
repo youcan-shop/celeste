@@ -62,8 +62,10 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
 <style scoped lang="scss">
 .celeste-text-input-wrapper {
-  --celeste-input-wrapper-border-color: var(--color-stroke-soft-200);
+  --celeste-text-input-border-color: var(--color-stroke-soft-200);
+  --celeste-text-input-drop-shadow: var(--shadow-regular-xs);
   --celeste-text-input-icon-color: var(--color-text-soft-400);
+  --celeste-text-input-placeholder-color: var(--color-text-soft-400);
 
   display: flex;
   box-sizing: border-box;
@@ -76,8 +78,8 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   outline-offset: 2px;
   background-color: var(--color-bg-white-0);
   box-shadow:
-    inset 0 0 0 1px var(--celeste-input-wrapper-border-color),
-    var(--shadow-regular-xs);
+    inset 0 0 0 1px var(--celeste-text-input-border-color),
+    var(--celeste-text-input-drop-shadow);
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
   gap: var(--input-gap);
@@ -104,7 +106,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   }
 
   &[has-error='true'] {
-    --celeste-input-wrapper-border-color: var(--color-state-error-base);
+    --celeste-text-input-border-color: var(--color-state-error-base);
   }
 
   .celeste-text-input {
@@ -119,24 +121,27 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
     &::placeholder {
       transition: color var(--animation-fast) ease-out;
-      color: var(--color-text-soft-400);
+      color: var(--celeste-text-input-placeholder-color);
     }
   }
 
   &:has(.celeste-text-input:focus) {
-    --celeste-input-wrapper-border-color: var(--color-stroke-strong-950);
+    --celeste-text-input-border-color: var(--color-stroke-strong-950);
+    --celeste-text-input-placeholder-color: var(--color-text-sub-600);
+    --celeste-text-input-icon-color: var(--color-text-sub-600);
 
     outline-color: var(--color-stroke-soft-200);
 
     &[has-error='true'] {
-      --celeste-input-wrapper-border-color: var(--color-state-error-base);
+      --celeste-text-input-border-color: var(--color-state-error-base);
 
       outline-color: var(--color-state-error-lighter);
     }
   }
 
   &:has(.celeste-text-input:disabled) {
-    --celeste-input-wrapper-border-color: transparent;
+    --celeste-text-input-border-color: transparent;
+    --celeste-text-input-drop-shadow: none;
 
     background-color: var(--color-bg-weak-50);
     box-shadow: none;
@@ -149,14 +154,11 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   }
 
   &:has(.celeste-text-input:hover:not(:focus, :disabled)) {
-    --celeste-input-wrapper-border-color: transparent;
+    --celeste-text-input-border-color: transparent;
     --celeste-text-input-icon-color: var(--color-text-sub-600);
+    --celeste-text-input-placeholder-color: var(--color-text-sub-600);
 
     background-color: var(--color-bg-weak-50);
-
-    .celeste-text-input::placeholder {
-      color: var(--color-text-sub-600);
-    }
   }
 
   .celeste-text-input-icon {
