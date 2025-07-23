@@ -32,18 +32,11 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
   &[variant='prefix'] {
     order: -1;
-    border-end-start-radius: var(--input-radius);
-    border-start-start-radius: var(--input-radius);
-  }
-
-  &[variant='suffix'] {
-    border-end-end-radius: var(--input-radius);
-    border-start-end-radius: var(--input-radius);
   }
 
   &[inline='false'] {
     padding-inline: var(--spacing-10);
-    background-color: var(--color-bg-white-0);
+    background-color: transparent;
   }
 
   &[askbd='true'] {

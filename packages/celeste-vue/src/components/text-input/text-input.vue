@@ -38,18 +38,21 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
 <style scoped lang="scss">
 .celeste-text-input-wrapper {
+  --celeste-input-wrapper-border-color: var(--color-stroke-soft-200);
+
   display: flex;
   box-sizing: border-box;
   align-items: center;
   height: var(--input-height);
   padding-inline: calc(var(--input-padding) + var(--spacing-2)) var(--input-padding);
   transition: all var(--animation-fast) ease-out;
-  border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--input-radius);
   outline: 2px solid transparent;
   outline-offset: 2px;
   background-color: var(--color-bg-white-0);
-  box-shadow: var(--shadow-regular-xs);
+  box-shadow:
+    inset 0 0 0 1px var(--celeste-input-wrapper-border-color),
+    var(--shadow-regular-xs);
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
   gap: var(--input-gap);
@@ -76,7 +79,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   }
 
   &[has-error='true'] {
-    border-color: var(--color-state-error-base);
+    --celeste-input-wrapper-border-color: var(--color-state-error-base);
   }
 
   .celeste-text-input {
@@ -96,17 +99,20 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   }
 
   &:has(.celeste-text-input:focus) {
-    border-color: var(--color-stroke-strong-950);
+    --celeste-input-wrapper-border-color: var(--color-stroke-strong-950);
+
     outline-color: var(--color-stroke-soft-200);
 
     &[has-error='true'] {
-      border-color: var(--color-state-error-base);
+      --celeste-input-wrapper-border-color: var(--color-state-error-base);
+
       outline-color: var(--color-state-error-lighter);
     }
   }
 
   &:has(.celeste-text-input:disabled) {
-    border-color: transparent;
+    --celeste-input-wrapper-border-color: transparent;
+
     background-color: var(--color-bg-weak-50);
     box-shadow: none;
     color: var(--color-text-disabled-300);
@@ -134,7 +140,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
     &:has(.celeste-text-input-button[inline='false'], .celeste-text-input-affix[variant='suffix']) {
       .celeste-text-input {
         padding-inline-end: var(--input-padding);
-        border-inline-end: 1px solid var(--color-stroke-soft-200);
+        border-inline-end: 1px solid var(--celeste-input-wrapper-border-color);
       }
     }
 
@@ -143,7 +149,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
       .celeste-text-input {
         padding-inline-start: var(--input-padding);
-        border-inline-start: 1px solid var(--color-stroke-soft-200);
+        border-inline-start: 1px solid var(--celeste-input-wrapper-border-color);
       }
     }
 
@@ -161,7 +167,8 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   &:has(.celeste-text-input:hover:not(:focus, :disabled)) {
     /* stylelint-disable-next-line no-descending-specificity */
     &:not(:has(.celeste-text-input-button, .celeste-text-input-affix)) {
-      border-color: transparent;
+      --celeste-input-wrapper-border-color: transparent;
+
       background-color: var(--color-bg-weak-50);
     }
 
