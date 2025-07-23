@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { BubbleMenu, type Editor } from '@tiptap/vue-3';
-import { computed, onMounted, ref } from 'vue';
+import type { Editor } from '@tiptap/vue-3';
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
 import Button from '@/components/button/button.vue';
 import CompactButton from '@/components/button/compact-button.vue';
 import LinkButton from '@/components/button/link-button.vue';
@@ -15,6 +15,10 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(['set-link-closed']);
+
+const BubbleMenu = defineAsyncComponent(() =>
+  import('@tiptap/vue-3/menus').then(m => m.BubbleMenu),
+);
 
 const href = ref('');
 const openInNewTab = ref(false);
@@ -126,76 +130,79 @@ onMounted(() => {
 
 <template>
   <BubbleMenu
-    v-show="showBubble"
-    :should-show="() => showBubble"
-    :editor="editor"
-    :tippy-options="{
-      theme: 'custom',
-      placement: 'bottom',
-      duration: [200, 200],
-      offset: [0, 12],
-      onHidden: reset,
+    :should-show="() => {
+      return showBubble
     }"
-    class="link-bubble"
+    :editor="editor"
+    :options="{
+      placement: 'bottom',
+      offset: {
+        mainAxis: 0,
+        crossAxis: 12,
+      },
+      onHide: reset,
+    }"
   >
-    <Transition name="fade" mode="out-in">
-      <template v-if="editing || (props.showSetLinkFromToolbar && isTextSelected())">
-        <div class="set-mode">
-          <div class="set-link">
-            <TextInput
-              v-model="href"
-              type="url"
-              size="xs"
-              placeholder="Paste or type a link"
-              class="link-input"
-              @keydown.enter="applyLink"
-              @keydown.esc="reset"
-            >
-              <TextInputAffix>
-                <i class="i-celeste-link" />
-              </TextInputAffix>
-            </TextInput>
-            <Button
-              intent="neutral"
-              size="xs"
-              variant="stroke"
-              :disabled="!isValidUrl"
-              @click="applyLink"
-            >
-              Set link
-            </Button>
+    <div class="link-bubble">
+      <Transition name="fade" mode="out-in">
+        <template v-if="editing || (props.showSetLinkFromToolbar && isTextSelected())">
+          <div class="set-mode">
+            <div class="set-link">
+              <TextInput
+                v-model="href"
+                type="url"
+                size="xs"
+                placeholder="Paste or type a link"
+                class="link-input"
+                @keydown.enter="applyLink"
+                @keydown.esc="reset"
+              >
+                <TextInputAffix>
+                  <i class="i-celeste-link" />
+                </TextInputAffix>
+              </TextInput>
+              <Button
+                intent="neutral"
+                size="xs"
+                variant="stroke"
+                :disabled="!isValidUrl"
+                @click="applyLink"
+              >
+                Set link
+              </Button>
+            </div>
+            <div class="switch-button-box">
+              <Label label-text="Open in new tab" />
+              <Switch v-model:checked="openInNewTab" />
+            </div>
           </div>
-          <div class="switch-button-box">
-            <Label label-text="Open in new tab" />
-            <Switch v-model:checked="openInNewTab" />
-          </div>
-        </div>
-      </template>
+        </template>
 
-      <template v-else-if="props.editor.isActive('link')">
-        <div class="edit-mode">
-          <LinkButton
-            :href="editor.getAttributes('link').href"
-            :target="editor.getAttributes('link').target"
-          >
-            {{ truncateMiddleUrl(editor.getAttributes('link').href) }}
-          </LinkButton>
-          <div class="divider" />
-          <CompactButton
-            icon="i-celeste-edit-line"
-            size="lg"
-            variant="ghost"
-            @click="startEdit"
-          />
-          <CompactButton
-            icon="i-celeste-delete-bin-line"
-            size="lg"
-            variant="ghost"
-            @click="removeLink"
-          />
-        </div>
-      </template>
-    </Transition>
+        <template v-else-if="props.editor.isActive('link')">
+          <div class="edit-mode">
+            <LinkButton
+              :href="editor.getAttributes('link').href"
+              :target="editor.getAttributes('link').target"
+            >
+              {{ truncateMiddleUrl(editor.getAttributes('link').href) }}
+            </LinkButton>
+            <div class="divider" />
+            <CompactButton
+              icon="i-celeste-edit-line"
+              size="lg"
+              variant="ghost"
+              @click="startEdit"
+            />
+            <CompactButton
+              icon="i-celeste-delete-bin-line"
+              size="lg"
+              variant="ghost"
+              @click="removeLink"
+            />
+          </div>
+        </template>
+      </Transition>
+    </div>
   </BubbleMenu>
 </template>
 

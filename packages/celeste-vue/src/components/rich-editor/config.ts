@@ -104,7 +104,7 @@ export function onActionClick(
       }
     },
     fontSize: () => {
-      editor.chain().focus().setMark('textStyle', { fontSize: option }).run();
+      editor.chain().focus().setFontSize(option ?? '16px').run();
     },
     color: () => {
       editor.chain().focus().setColor(option ?? '#000000').run();

@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import type { ToolbarItem } from './types';
-import CharacterCount from '@tiptap/extension-character-count';
-import Color from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
-import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
-import TextStyle from '@tiptap/extension-text-style';
-import Underline from '@tiptap/extension-underline';
+import { TextStyleKit } from '@tiptap/extension-text-style';
+import { CharacterCount, Placeholder } from '@tiptap/extensions';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent } from '@tiptap/vue-3';
 import { computed, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
@@ -19,7 +16,6 @@ import SelectValue from '@/components/select/select-value.vue';
 import Select from '@/components/select/select.vue';
 import Tooltip from '@/components/tooltip/tooltip.vue';
 import { fullToolbar, onActionClick, selectedOption } from './config';
-import { FontSize } from './extensions/font-size';
 import ExtraSettings from './extra-settings.vue';
 import LinkBubble from './link-bubble.vue';
 
@@ -100,22 +96,31 @@ watch(() => props.modelValue, (value) => {
     return;
   }
 
-  editor.value?.commands.setContent(value, false);
+  editor.value?.commands.setContent(value);
 });
 
 onMounted(() => {
   editor.value = new Editor({
     content: props.modelValue,
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        link: false,
+      }),
       Placeholder.configure({
         placeholder: props.placeholder,
         emptyEditorClass: 'is-editor-empty',
       }),
-      TextStyle,
-      FontSize,
-      Color,
-      Underline,
+      TextStyleKit.configure({
+        color: {
+          types: ['textStyle'],
+        },
+        fontSize: {
+          types: ['textStyle'],
+        },
+      }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
       Link.configure({
         openOnClick: false,
         autolink: false,
@@ -126,9 +131,6 @@ onMounted(() => {
       }),
       CharacterCount.configure({
         limit: props.maxLimit,
-      }),
-      TextAlign.configure({
-        types: ['heading', 'paragraph'],
       }),
     ],
     onUpdate: () => {
