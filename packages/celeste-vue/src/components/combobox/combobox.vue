@@ -34,6 +34,7 @@ const delegatedProps = computed(() => {
     emptyLabel,
     badgeProps,
     searchable,
+    class: _class,
     ...delegated
   } = props;
 
@@ -111,7 +112,6 @@ export default {
 
 <template>
   <ComboboxRoot
-    as-child
     v-bind="forwarded"
     :filter-function="filterFunction"
   >
@@ -120,6 +120,7 @@ export default {
         :type="type"
         :filled="!!model"
         :size="size"
+        :class="props.class"
       >
         <div class="celeste-dropdown-anchor-trigger-prefix">
           <div v-if="model && !Array.isArray(model)" class="celeste-dropdown-anchor-trigger-prefix-selected">
