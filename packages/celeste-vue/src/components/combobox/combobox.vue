@@ -98,10 +98,10 @@ export interface ComboboxPropsType extends ComboboxRootProps {
       v-model:model-value="selected"
       :filter-function="filterFunction"
     >
-      <ComboboxAnchor>
+      <ComboboxAnchor as-child>
         <ComboboxTrigger
           :type="type"
-          :filled="Boolean(selected)"
+          :filled="!!selected"
           :size="size"
         >
           <div class="celeste-dropdown-anchor-trigger-prefix">
