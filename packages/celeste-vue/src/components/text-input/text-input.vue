@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { InputHTMLAttributes } from 'vue';
 import clsx from 'clsx';
+import { Primitive } from 'radix-vue';
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
@@ -26,19 +27,43 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
     :has-error="hasError"
     :class="clsx('celeste-text-input-wrapper', props.class)"
   >
+    <Primitive as-child class="celeste-text-input-icon celeste-text-input-leading-icon">
+      <slot name="leadingIcon" />
+    </Primitive>
+
+    <Primitive as-child class="celeste-text-input-node celeste-text-input-leading-node">
+      <slot name="leadingNode" />
+    </Primitive>
+
+    <Primitive as-child class="celeste-text-input-inline-node celeste-text-input-leading-inline-node">
+      <slot name="leadingInlineNode" />
+    </Primitive>
+
     <input
       v-model="modelValue"
       v-bind="$attrs"
       :type="type"
       class="celeste-text-input"
     >
-    <slot />
+
+    <Primitive as-child class="celeste-text-input-icon celeste-text-input-trailing-icon">
+      <slot name="trailingIcon" />
+    </Primitive>
+
+    <Primitive as-child class="celeste-text-input-node celeste-text-input-trailing-node">
+      <slot name="trailingNode" />
+    </Primitive>
+
+    <Primitive as-child class="celeste-text-input-inline-node celeste-text-input-trailing-inline-node">
+      <slot name="trailingInlineNode" />
+    </Primitive>
   </label>
 </template>
 
 <style scoped lang="scss">
 .celeste-text-input-wrapper {
   --celeste-input-wrapper-border-color: var(--color-stroke-soft-200);
+  --celeste-text-input-icon-color: var(--color-text-soft-400);
 
   display: flex;
   box-sizing: border-box;
@@ -121,74 +146,24 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
     .celeste-text-input::placeholder {
       color: currentcolor;
     }
-
-    &:deep(.celeste-text-input-icon) {
-      color: var(--color-icon-disabled-300);
-    }
-
-    &:deep(.celeste-text-input-affix),
-    &:deep(.celeste-text-input-button) {
-      background-color: var(--color-bg-weak-50) !important;
-      color: var(--color-text-disabled-300);
-    }
-  }
-
-  &:has(.celeste-text-input-button, .celeste-text-input-affix[inline='false'][askbd='false']) {
-    gap: var(--spacing-0);
-    padding-inline-end: var(--spacing-0);
-
-    &:has(.celeste-text-input-button[inline='false'], .celeste-text-input-affix[variant='suffix']) {
-      .celeste-text-input {
-        padding-inline-end: var(--input-padding);
-        border-inline-end: 1px solid var(--celeste-input-wrapper-border-color);
-      }
-    }
-
-    &:has(.celeste-text-input-affix[variant='prefix']) {
-      padding-inline: var(--spacing-0) var(--input-padding);
-
-      .celeste-text-input {
-        padding-inline-start: var(--input-padding);
-        border-inline-start: 1px solid var(--celeste-input-wrapper-border-color);
-      }
-    }
-
-    &:deep(.celeste-text-input-icon) {
-      &[position='start'] {
-        margin-inline-end: var(--input-gap);
-      }
-
-      &[position='end'] {
-        margin-inline-start: var(--input-gap);
-      }
-    }
   }
 
   &:has(.celeste-text-input:hover:not(:focus, :disabled)) {
-    /* stylelint-disable-next-line no-descending-specificity */
-    &:not(:has(.celeste-text-input-button, .celeste-text-input-affix)) {
-      --celeste-input-wrapper-border-color: transparent;
+    --celeste-input-wrapper-border-color: transparent;
+    --celeste-text-input-icon-color: var(--color-text-sub-600);
 
-      background-color: var(--color-bg-weak-50);
-    }
+    background-color: var(--color-bg-weak-50);
 
-    &:has(.celeste-text-input-button:not(:hover), .celeste-text-input-affix:not(:hover)) {
-      background-color: var(--color-bg-weak-50);
-    }
-
-    &:not(:has(.celeste-text-input-button:hover)) {
-      .celeste-text-input::placeholder {
-        color: var(--color-text-sub-600);
-      }
+    .celeste-text-input::placeholder {
+      color: var(--color-text-sub-600);
     }
   }
 
-  &:has(.celeste-text-input:placeholder-shown:not(:disabled)) {
-    /* stylelint-disable-next-line no-descending-specificity */
-    &:deep(.celeste-text-input-icon),
-    &:deep(.celeste-text-input-affix) {
-      color: var(--color-text-soft-400);
-    }
+  .celeste-text-input-icon {
+    width: 20px;
+    height: 20px;
+    transition: all var(--animation-fast) ease-out;
+    color: var(--celeste-text-input-icon-color);
   }
 }
 </style>
