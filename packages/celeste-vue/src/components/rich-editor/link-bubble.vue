@@ -182,9 +182,11 @@ onUnmounted(() => {
               @keydown.enter="applyLink"
               @keydown.esc="reset"
             >
-              <TextInputAffix>
-                <i class="i-celeste-link" />
-              </TextInputAffix>
+              <template #leadingNode>
+                <TextInputAffix>
+                  <i class="i-celeste-link" />
+                </TextInputAffix>
+              </template>
             </TextInput>
             <Button
               intent="neutral"
