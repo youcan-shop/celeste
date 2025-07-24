@@ -41,25 +41,28 @@ function selectedText(editor: Editor) {
 }
 
 async function copySelectionToClipboard(editor: Editor) {
-  const el = document.createElement('textarea');
   const text = selectedText(editor);
 
   if (!text) {
     return;
   }
 
-  el.value = selectedText(editor) as string;
-  el.style.opacity = '0';
-  el.style.position = 'absolute';
-  el.style.left = '-9999px';
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
+  try {
+    if (!window.isSecureContext) {
+      throw new Error('Clipboard API is not available in insecure contexts');
+    }
+
+    const copyText = await navigator.clipboard.writeText(text);
+
+    return copyText;
+  }
+  catch (error) {
+    console.error(error);
+  }
 }
 
-function cutSelection(editor: Editor) {
-  copySelectionToClipboard(editor);
+async function cutSelection(editor: Editor) {
+  await copySelectionToClipboard(editor);
   deleteSelection(editor);
 }
 
