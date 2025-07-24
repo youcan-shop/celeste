@@ -237,11 +237,11 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .link-bubble {
   position: fixed;
+  z-index: 1000;
   padding: var(--spacing-12);
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
-  z-index: 1000;
   box-shadow: var(--shadow-regular-xs);
 
   .set-mode {
