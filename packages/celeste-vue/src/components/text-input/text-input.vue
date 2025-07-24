@@ -3,6 +3,7 @@ import { uid } from '@/utils/crypto';
 import clsx from 'clsx';
 import { Primitive } from 'radix-vue';
 import { computed, type InputHTMLAttributes } from 'vue';
+import TextInputButton from './text-input-button.vue';
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
@@ -13,6 +14,14 @@ const props = withDefaults(defineProps<TextInputProps>(), {
 const id = computed(() => props.id || uid());
 
 const modelValue = defineModel<string | number>();
+
+const showClearButton = computed(() => {
+  return props.type === 'search' && modelValue.value && String(modelValue.value).length > 0;
+});
+
+function clearInput() {
+  modelValue.value = '';
+}
 </script>
 
 <script lang="ts">
@@ -60,6 +69,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
     </Primitive>
 
     <Primitive as-child class="celeste-text-input-node celeste-text-input-trailing-node">
+
       <slot name="trailingNode" />
     </Primitive>
 
@@ -68,7 +78,15 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
       as-child
       class="celeste-text-input-inline-node celeste-text-input-trailing-inline-node"
     >
-      <slot name="trailingInlineNode" />
+      <TextInputButton
+        v-if="showClearButton"
+        type="button"
+        aria-label="Clear search"
+        @click="clearInput"
+      >
+        <i class="i-celeste-close-line" />
+      </TextInputButton>
+      <slot v-else name="trailingInlineNode" />
     </Primitive>
   </label>
 </template>
@@ -139,6 +157,19 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
       transition: color var(--animation-fast) ease-out;
       color: var(--celeste-text-input-placeholder-color);
     }
+
+    // Hide default webkit search cancel button
+    &[type='search'] {
+      &::-webkit-search-cancel-button {
+        display: none;
+        appearance: none;
+      }
+
+      &::-webkit-search-decoration {
+        display: none;
+        appearance: none;
+      }
+    }
   }
 
   &:has(.celeste-text-input-leading-node) {
@@ -179,6 +210,11 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
     .celeste-text-input::placeholder {
       color: currentcolor;
+    }
+
+    .celeste-text-input-clear-button {
+      color: var(--color-text-disabled-300);
+      pointer-events: none;
     }
   }
 

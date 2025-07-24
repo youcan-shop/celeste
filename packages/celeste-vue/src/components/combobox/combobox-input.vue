@@ -40,8 +40,8 @@ const textInputProps = computed((): TextInputProps => {
       :readonly="!props.searchable"
       :style="!props.searchable ? 'opacity: 0; height: 1px; padding: 0; border: none;' : ''"
     >
-      <template v-if="props.searchable" #leadingIcon>
-        <i class="i-celeste-search-2-line" />
+      <template #leadingIcon>
+        <i i-celeste-search-2-line />
       </template>
     </TextInput>
   </ComboboxInput>
