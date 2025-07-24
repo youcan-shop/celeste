@@ -453,7 +453,7 @@ export interface SelectedType {
     &.celeste-dropdown-anchor-trigger-type-compact-input {
       width: fit-content;
       border: none;
-      border-radius: var(--radius-0);
+      border-radius: 0;
       box-shadow: none;
 
       &:deep(.celeste-dropdown-input) {
