@@ -197,8 +197,10 @@ onUnmounted(() => {
             </Button>
           </div>
           <div class="switch-button-box">
-            <Label label-text="Open in new tab" />
-            <Switch v-model:checked="openInNewTab" />
+            <Label for="open-in-new-tab">
+              Open in new tab
+            </Label>
+            <Switch id="open-in-new-tab" v-model:checked="openInNewTab" />
           </div>
         </div>
       </template>
