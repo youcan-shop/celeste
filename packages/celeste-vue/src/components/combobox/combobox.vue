@@ -28,6 +28,7 @@ const delegatedProps = computed(() => {
     filterFunction,
     options,
     valueBy,
+    labelBy,
     placeholder,
     type,
     size,
@@ -44,6 +45,24 @@ const delegatedProps = computed(() => {
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 const model = computed(() => props.modelValue as ComboboxItemPropsType[] | ComboboxItemPropsType | undefined);
+
+const label = computed(() => {
+  if (!model.value)
+    return props.placeholder;
+
+  if (Array.isArray(model.value)) {
+    if (model.value.length === 0)
+      return props.placeholder;
+
+    return model.value
+      .map(item => props.labelBy
+        ? item[props.labelBy as keyof ComboboxItemPropsType]
+        : item.label)
+      .join(', ');
+  }
+
+  return props.labelBy ? model.value[props.labelBy as keyof ComboboxItemPropsType] : model.value.label;
+});
 
 function isSelected(value: ComboboxItemPropsType['value']): boolean | undefined {
   if (!Array.isArray(props.modelValue) || !props.multiple)
@@ -96,6 +115,7 @@ const mergedBadgeProps = computed(() => ({
 export interface ComboboxPropsType extends ComboboxRootProps {
   options: ComboboxItemPropsType[];
   valueBy?: string;
+  labelBy?: string;
   placeholder?: string;
   type?: 'normal' | 'compact' | 'inline' | 'compact-input';
   size?: 'xs' | 'sm' | 'md';
@@ -148,9 +168,8 @@ export default {
           v-if="type !== 'inline'"
           class="celeste-dropdown-input"
         >
-          <span v-if="multiple">{{ placeholder }}</span>
-          <span v-else>
-            {{ model && !Array.isArray(model) ? model.label : props.placeholder }}
+          <span>
+            {{ label }}
           </span>
           <span v-if="mergedBadgeProps && badgeProps" class="celeste-input-badge">
             <Badge v-bind="mergedBadgeProps" />
