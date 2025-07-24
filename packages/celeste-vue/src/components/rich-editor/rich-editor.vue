@@ -1,12 +1,5 @@
 <script setup lang="ts">
 import type { ToolbarItem } from './types';
-import Link from '@tiptap/extension-link';
-import TextAlign from '@tiptap/extension-text-align';
-import { TextStyleKit } from '@tiptap/extension-text-style';
-import { CharacterCount, Placeholder } from '@tiptap/extensions';
-import StarterKit from '@tiptap/starter-kit';
-import { Editor, EditorContent } from '@tiptap/vue-3';
-import { computed, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
 import CompactButton from '@/components/button/compact-button.vue';
 import SelectContent from '@/components/select/select-content.vue';
 import SelectIcon from '@/components/select/select-icon.vue';
@@ -15,6 +8,13 @@ import SelectTrigger from '@/components/select/select-trigger.vue';
 import SelectValue from '@/components/select/select-value.vue';
 import Select from '@/components/select/select.vue';
 import Tooltip from '@/components/tooltip/tooltip.vue';
+import Link from '@tiptap/extension-link';
+import TextAlign from '@tiptap/extension-text-align';
+import { TextStyleKit } from '@tiptap/extension-text-style';
+import { CharacterCount, Placeholder } from '@tiptap/extensions';
+import StarterKit from '@tiptap/starter-kit';
+import { Editor, EditorContent } from '@tiptap/vue-3';
+import { computed, onBeforeUnmount, onMounted, type PropType, ref, watch } from 'vue';
 import { fullToolbar, onActionClick, selectedOption } from './config';
 import ExtraSettings from './extra-settings.vue';
 import LinkBubble from './link-bubble.vue';

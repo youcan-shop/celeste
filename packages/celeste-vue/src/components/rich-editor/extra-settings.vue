@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
-import { ref } from 'vue';
 import CompactButton from '@/components/button/compact-button.vue';
 import SelectContent from '@/components/select/select-content.vue';
 import SelectIcon from '@/components/select/select-icon.vue';
@@ -8,6 +7,7 @@ import SelectItem from '@/components/select/select-item.vue';
 import SelectTrigger from '@/components/select/select-trigger.vue';
 import Select from '@/components/select/select.vue';
 import Tooltip from '@/components/tooltip/tooltip.vue';
+import { ref } from 'vue';
 
 const props = defineProps<{
   editor: Editor;
