@@ -241,8 +241,8 @@ onUnmounted(() => {
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
-  box-shadow: var(--shadow-regular-xs);
   z-index: 1000;
+  box-shadow: var(--shadow-regular-xs);
 
   .set-mode {
     display: flex;
