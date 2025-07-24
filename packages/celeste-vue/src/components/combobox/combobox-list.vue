@@ -6,9 +6,10 @@ import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<ComboboxContentProps & { class?: HTMLAttributes['class'] }>(), {
   position: 'popper',
-  align: 'start',
+  align: 'center',
   sideOffset: 4,
 });
+
 const emits = defineEmits<ComboboxContentEmits>();
 
 const delegatedProps = computed(() => {
@@ -24,6 +25,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   <ComboboxPortal>
     <ComboboxContent
       v-bind="forwarded"
+      force-mount
       :class="clsx('celeste-dropdown-content', props.class)"
     >
       <ComboboxViewport class="celeste-dropdown-items-viewport">
@@ -36,35 +38,37 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style lang="scss" scoped>
 .celeste-dropdown-content,
 div:deep(.celeste-dropdown-content) {
-  --dropdown-width: fit-content;
+  --dropdown-width: 100%;
   --dropdown-height: 300px;
-  --dropdown-min-width: var(--radix-combobox-trigger-width, 300px);
 
   display: flex;
   z-index: 50;
   box-sizing: border-box;
   flex-direction: column;
   width: var(--dropdown-width);
-  min-width: var(--dropdown-min-width);
+  min-width: 300px;
   max-height: var(--dropdown-height);
   margin-top: var(--spacing-10);
   padding: var(--spacing-8);
-  overflow: visible;
-  transform-origin: var(--radix-combobox-content-transform-origin);
-  animation-duration: var(--animation-fast);
-  animation-timing-function: ease-out;
+  overflow: hidden;
+  transition-property: background-color, transform, opacity;
+  transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
   gap: var(--spacing-4);
 
-  &[data-state='open'] {
-    animation-name: slide-up-and-fade;
+  &[data-state='closed'] {
+    transform: translateY(10px);
+    opacity: 0;
+    pointer-events: none;
   }
 
-  &[data-state='closed'] {
-    animation-name: slide-down-and-fade;
+  &[data-state='open'] {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -72,29 +76,5 @@ div:deep(.celeste-dropdown-items-viewport) {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
-}
-
-@keyframes slide-up-and-fade {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-down-and-fade {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  to {
-    transform: translateY(10px);
-    opacity: 0;
-  }
 }
 </style>

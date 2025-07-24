@@ -30,6 +30,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
 <template>
   <ComboboxTrigger
     v-bind="forwarded"
+    type="button"
     tabindex="0"
     :class="clsx(
       'celeste-dropdown-anchor-trigger',
