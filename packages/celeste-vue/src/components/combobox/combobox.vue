@@ -122,8 +122,8 @@ export default {
         :size="size"
         :class="props.class"
       >
-        <div class="celeste-dropdown-anchor-trigger-prefix">
-          <div v-if="model && !Array.isArray(model)" class="celeste-dropdown-anchor-trigger-prefix-selected">
+        <div v-if="model && !Array.isArray(model) && (model.icon || model.image)" class="celeste-dropdown-anchor-trigger-prefix">
+          <div class="celeste-dropdown-anchor-trigger-prefix-selected">
             <i v-if="model.icon" :class="model.icon" />
             <div v-if="model.image">
               <slot name="image" v-bind="{ selected: model }">
@@ -135,8 +135,10 @@ export default {
               </slot>
             </div>
           </div>
+        </div>
+
+        <div v-else-if="$slots.prefix" class="celeste-dropdown-anchor-trigger-prefix">
           <slot
-            v-else
             name="prefix"
             class="celeste-dropdown-anchor-trigger-prefix-default"
           />
