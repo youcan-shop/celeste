@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
-import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
 import Button from '@/components/button/button.vue';
 import CompactButton from '@/components/button/compact-button.vue';
 import LinkButton from '@/components/button/link-button.vue';
@@ -31,7 +31,7 @@ const showBubble = computed(() => {
     || (props.showSetLinkFromToolbar && isTextSelected());
 });
 
-async function startEdit() {
+function startEdit() {
   editing.value = true;
 
   const attrs = props.editor.getAttributes('link');
@@ -113,6 +113,26 @@ function applyLink() {
   reset();
 }
 
+const bubbleRef = ref<HTMLElement | null>(null);
+
+function handleClickOutside(event: Event): void {
+  const target = event.target as Element;
+
+  if (!bubbleRef.value) {
+    return;
+  }
+
+  if (bubbleRef.value && bubbleRef.value.contains(target)) {
+    return;
+  }
+
+  if (target.closest('.i-celeste-link')) {
+    return;
+  }
+
+  emit('set-link-closed');
+}
+
 onMounted(() => {
   props.editor.on('selectionUpdate', () => {
     if (props.editor.isActive('link') || props.showSetLinkFromToolbar) {
@@ -122,17 +142,20 @@ onMounted(() => {
     }
     else {
       reset();
-      emit('set-link-closed');
     }
   });
+
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
 });
 </script>
 
 <template>
   <BubbleMenu
-    :should-show="() => {
-      return showBubble
-    }"
+    :should-show="() => true"
     :editor="editor"
     :options="{
       placement: 'bottom',
@@ -140,79 +163,82 @@ onMounted(() => {
         mainAxis: 0,
         crossAxis: 12,
       },
-      onHide: reset,
     }"
   >
-    <div class="link-bubble">
-      <Transition name="fade" mode="out-in">
-        <template v-if="editing || (props.showSetLinkFromToolbar && isTextSelected())">
-          <div class="set-mode">
-            <div class="set-link">
-              <TextInput
-                v-model="href"
-                type="url"
-                size="xs"
-                placeholder="Paste or type a link"
-                class="link-input"
-                @keydown.enter="applyLink"
-                @keydown.esc="reset"
-              >
-                <TextInputAffix>
-                  <i class="i-celeste-link" />
-                </TextInputAffix>
-              </TextInput>
-              <Button
-                intent="neutral"
-                size="xs"
-                variant="stroke"
-                :disabled="!isValidUrl"
-                @click="applyLink"
-              >
-                Set link
-              </Button>
-            </div>
-            <div class="switch-button-box">
-              <Label label-text="Open in new tab" />
-              <Switch v-model:checked="openInNewTab" />
-            </div>
-          </div>
-        </template>
-
-        <template v-else-if="props.editor.isActive('link')">
-          <div class="edit-mode">
-            <LinkButton
-              :href="editor.getAttributes('link').href"
-              :target="editor.getAttributes('link').target"
+    <div
+      v-if="showBubble"
+      ref="bubbleRef"
+      class="link-bubble"
+    >
+      <template v-if="editing || (props.showSetLinkFromToolbar && isTextSelected())">
+        <div class="set-mode">
+          <div class="set-link">
+            <TextInput
+              v-model="href"
+              type="url"
+              size="xs"
+              placeholder="Paste or type a link"
+              class="link-input"
+              @keydown.enter="applyLink"
+              @keydown.esc="reset"
             >
-              {{ truncateMiddleUrl(editor.getAttributes('link').href) }}
-            </LinkButton>
-            <div class="divider" />
-            <CompactButton
-              icon="i-celeste-edit-line"
-              size="lg"
-              variant="ghost"
-              @click="startEdit"
-            />
-            <CompactButton
-              icon="i-celeste-delete-bin-line"
-              size="lg"
-              variant="ghost"
-              @click="removeLink"
-            />
+              <TextInputAffix>
+                <i class="i-celeste-link" />
+              </TextInputAffix>
+            </TextInput>
+            <Button
+              intent="neutral"
+              size="xs"
+              variant="stroke"
+              :disabled="!isValidUrl"
+              @click="applyLink"
+            >
+              Set link
+            </Button>
           </div>
-        </template>
-      </Transition>
+          <div class="switch-button-box">
+            <Label label-text="Open in new tab" />
+            <Switch v-model:checked="openInNewTab" />
+          </div>
+        </div>
+      </template>
+
+      <template v-else-if="props.editor.isActive('link')">
+        <div class="edit-mode">
+          <LinkButton
+            :href="editor.getAttributes('link').href"
+            :target="editor.getAttributes('link').target"
+          >
+            {{ truncateMiddleUrl(editor.getAttributes('link').href) }}
+          </LinkButton>
+          <div class="divider" />
+          <CompactButton
+            icon="i-celeste-edit-line"
+            size="lg"
+            variant="ghost"
+            @click="startEdit"
+          />
+          <CompactButton
+            icon="i-celeste-delete-bin-line"
+            size="lg"
+            variant="ghost"
+            @click="removeLink"
+          />
+        </div>
+      </template>
     </div>
   </BubbleMenu>
 </template>
 
 <style scoped lang="scss">
 .link-bubble {
+  position: fixed;
   padding: var(--spacing-12);
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-xs);
+  z-index: 1000;
 
   .set-mode {
     display: flex;
@@ -253,24 +279,6 @@ onMounted(() => {
       color: var(--color-neutral-700);
       gap: var(--spacing-8);
     }
-  }
-
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: all var(--animation-fast) ease-out;
-    will-change: opacity, transform;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    transform: scale(0.97) translateY(4px);
-    opacity: 0;
-  }
-
-  .fade-enter-to,
-  .fade-leave-from {
-    transform: scale(1) translateY(0);
-    opacity: 1;
   }
 }
 </style>
