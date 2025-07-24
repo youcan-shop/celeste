@@ -8,7 +8,13 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <ComboboxRoot v-bind="forwarded">
+  <ComboboxRoot class="celeste-combobox-root" v-bind="forwarded">
     <slot />
   </ComboboxRoot>
 </template>
+
+<style lang="scss" scoped>
+.celeste-combobox-root {
+  flex-shrink: 0;
+}
+</style>

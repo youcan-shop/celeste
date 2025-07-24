@@ -132,7 +132,6 @@ export default {
 
 <template>
   <ComboboxRoot
-    class="shrink-0"
     v-bind="forwarded"
     :filter-function="filterFunction"
   >
