@@ -10,6 +10,7 @@ export * from './hint-text';
 export * from './label';
 export * from './modal';
 export * from './popover';
+export * from './radio-group';
 export * from './scroll-area';
 export * from './segmented-control';
 export * from './select';
