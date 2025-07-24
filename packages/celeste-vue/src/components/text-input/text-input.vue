@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import type { InputHTMLAttributes } from 'vue';
+import { uid } from '@/utils/crypto';
 import clsx from 'clsx';
 import { Primitive } from 'radix-vue';
+import { computed, type InputHTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
   size: 'md',
   hasError: false,
 });
+
+const id = computed(() => props.id || uid());
 
 const modelValue = defineModel<string | number>();
 </script>
@@ -22,6 +25,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
 <template>
   <label
+    :for="id"
     :size="size"
     role="presentation"
     :has-error="hasError"
@@ -44,6 +48,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
     </Primitive>
 
     <input
+      :id="id"
       v-model="modelValue"
       v-bind="$attrs"
       :type="type"
