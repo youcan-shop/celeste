@@ -26,11 +26,16 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
 <style scoped lang="scss">
 .celeste-text-input-button {
-  height: calc(var(--input-height) - var(--spacing-2));
   border: none;
 
+  &:focus,
+  &:hover,
+  &:active {
+    box-shadow: none !important;
+  }
+
   &[inline='false'] {
-    padding: var(--spacing-8);
+    padding: var(--spacing-10);
     border-end-start-radius: 0;
     border-start-start-radius: 0;
 
@@ -46,7 +51,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   &[inline='true'] {
     width: 20px;
     height: 20px;
-    margin-inline-end: var(--input-padding);
+    color: var(--celeste-text-input-icon-color) !important;
 
     &:hover {
       background-color: transparent !important;

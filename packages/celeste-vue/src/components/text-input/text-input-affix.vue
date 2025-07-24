@@ -3,14 +3,12 @@ import type { HTMLAttributes } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   class?: HTMLAttributes['class'];
-  variant?: 'prefix' | 'suffix';
   inline?: boolean;
   asKbd?: boolean;
-}>(), {
-  variant: 'prefix',
-});
+}>();
+
 const delegatedProps = useDelegatedProps(props, 'class');
 </script>
 
@@ -27,16 +25,11 @@ const delegatedProps = useDelegatedProps(props, 'class');
 .celeste-text-input-affix {
   display: flex;
   align-items: center;
-  height: calc(var(--input-height) - var(--spacing-2));
-  color: var(--color-text-sub-600);
-
-  &[variant='prefix'] {
-    order: -1;
-  }
+  color: var(--celeste-text-input-affix-color);
 
   &[inline='false'] {
     padding-inline: var(--spacing-10);
-    background-color: transparent;
+    background-color: var(--celeste-text-input-affix-background-color);
   }
 
   &[askbd='true'] {
