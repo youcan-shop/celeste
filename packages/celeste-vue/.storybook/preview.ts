@@ -3,6 +3,46 @@ import type { Preview } from '@storybook/vue3-vite';
 import 'virtual:uno.css';
 import '@youcan/celeste-tokens/tokens.css';
 
+const globalStyles = `
+.sonner-story-container {
+  font: var(--paragraph-sm);
+  padding: 1rem;
+}
+
+.story-heading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.story-description {
+  font: var(--paragraph-sm);
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+`;
+
+if (typeof document !== 'undefined') {
+  const styleElement = document.createElement('style');
+  styleElement.textContent = globalStyles;
+  document.head.appendChild(styleElement);
+}
+
 const preview: Preview = {
   parameters: {
     docs: {

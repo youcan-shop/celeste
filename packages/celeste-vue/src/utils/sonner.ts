@@ -1,0 +1,60 @@
+import type { SonnerAlertProps } from '@/components/sonner/sonner-alert.vue';
+import SonnerAlert from '@/components/sonner/sonner-alert.vue';
+import { markRaw } from 'vue';
+import { type ExternalToast, toast as sonner } from 'vue-sonner';
+
+export interface ToastOptions extends ExternalToast {
+  state?: SonnerAlertProps['state'];
+  variant?: SonnerAlertProps['variant'];
+  size?: SonnerAlertProps['size'];
+  dismissable?: SonnerAlertProps['dismissable'];
+}
+
+function createToast(title: string, data?: ToastOptions): string | number {
+  const {
+    state = 'success',
+    variant = 'stroke',
+    size = 'lg',
+    dismissable = true,
+    ...externalToastProps
+  } = data || {};
+
+  return sonner.custom(markRaw(SonnerAlert), {
+    ...externalToastProps,
+    componentProps: {
+      title,
+      description: data?.description,
+      state,
+      variant,
+      size,
+      dismissable,
+    },
+  });
+}
+
+export const toast = Object.assign(createToast, {
+  success: (title: string, data?: Omit<ToastOptions, 'state'>): string | number => {
+    return createToast(title, { ...data, state: 'success' });
+  },
+
+  error: (title: string, data?: Omit<ToastOptions, 'state'>): string | number => {
+    return createToast(title, { ...data, state: 'error' });
+  },
+
+  warning: (title: string, data?: Omit<ToastOptions, 'state'>): string | number => {
+    return createToast(title, { ...data, state: 'warning' });
+  },
+
+  info: (title: string, data?: Omit<ToastOptions, 'state'>): string | number => {
+    return createToast(title, { ...data, state: 'information' });
+  },
+
+  feature: (title: string, data?: Omit<ToastOptions, 'state'>): string | number => {
+    return createToast(title, { ...data, state: 'feature' });
+  },
+
+  dismiss: sonner.dismiss,
+  loading: sonner.loading,
+  promise: sonner.promise,
+  custom: sonner.custom,
+});

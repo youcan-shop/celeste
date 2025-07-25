@@ -15,6 +15,7 @@ export * from './scroll-area';
 export * from './segmented-control';
 export * from './select';
 export * from './slider';
+export * from './sonner';
 export * from './switch';
 export * from './tab-menu';
 export * from './text-input';
