@@ -16,9 +16,6 @@ type Story = StoryObj<typeof Sonner>;
 export const Default: Story = {
   args: {
     position: 'top-center',
-    expand: false,
-    richColors: true,
-    closeButton: true,
   },
 
   render: args => ({
