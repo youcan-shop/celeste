@@ -19,7 +19,13 @@ function createToast(title: string, data?: ToastOptions): string | number {
     ...externalToastProps
   } = data || {};
 
-  return sonner.custom(markRaw(SonnerAlert), {
+  let toastId: string | number;
+
+  const dismissToast = (): void => {
+    sonner.dismiss(toastId);
+  };
+
+  toastId = sonner.custom(markRaw(SonnerAlert), {
     ...externalToastProps,
     componentProps: {
       title,
@@ -28,8 +34,11 @@ function createToast(title: string, data?: ToastOptions): string | number {
       variant,
       size,
       dismissable,
+      onDismiss: dismissToast,
     },
   });
+
+  return toastId;
 }
 
 export const toast = Object.assign(createToast, {

@@ -4,6 +4,7 @@ import { Alert, type AlertProps } from '../alert';
 export interface SonnerAlertProps extends /* @vue-ignore */ Partial<AlertProps> {
   title: string;
   description?: string;
+  onDismiss?: () => void;
 }
 
 const props = withDefaults(
@@ -15,10 +16,20 @@ const props = withDefaults(
     dismissable: true,
   },
 );
+
+function handleDismiss(): void {
+  if (props.onDismiss) {
+    props.onDismiss();
+  }
+}
 </script>
 
 <template>
-  <Alert v-bind="props" class="sonner-alert">
+  <Alert
+    v-bind="props"
+    class="sonner-alert"
+    @dismiss="handleDismiss"
+  >
     <template #title>
       {{ props.title }}
     </template>

@@ -25,7 +25,7 @@ export const Default: Story = {
     components: { Sonner, Button },
     setup() {
       const showBasicToast = (): void => {
-        toast('Event has been created');
+        toast('Event has been created', { dismissable: false });
       };
 
       const showToastWithDescription = (): void => {
