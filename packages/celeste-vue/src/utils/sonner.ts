@@ -53,8 +53,11 @@ export const toast = Object.assign(createToast, {
     return createToast(title, { ...data, state: 'feature' });
   },
 
-  dismiss: sonner.dismiss,
-  loading: sonner.loading,
-  promise: sonner.promise,
-  custom: sonner.custom,
+  dismiss: (id?: string | number): void => {
+    sonner.dismiss(id);
+  },
+
+  loading: (title: string, data?: ExternalToast): string | number => {
+    return sonner.loading(title, data);
+  },
 });
