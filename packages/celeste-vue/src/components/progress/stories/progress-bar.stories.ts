@@ -256,6 +256,32 @@ export const LoadingStates: Story = {
   }),
 };
 
+export const EdgeCases: Story = {
+  render: () => ({
+    components: { ProgressBar },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div>
+          <p style="margin-bottom: 8px; font: var(--label-sm);">Over Max Value</p>
+          <ProgressBar layout="inline" :modelValue="150" :max="100" color="red" />
+        </div>
+        <div>
+          <p style="margin-bottom: 8px; font: var(--label-sm);">Negative Value</p>
+          <ProgressBar layout="inline" :modelValue="-20" color="red" />
+        </div>
+        <div>
+          <p style="margin-bottom: 8px; font: var(--label-sm);">Max is Zero</p>
+          <ProgressBar layout="inline" :modelValue="0" :max="0" />
+        </div>
+        <div>
+          <p style="margin-bottom: 8px; font: var(--label-sm);">Very Small Progress</p>
+          <ProgressBar layout="inline" :modelValue="0.5" :max="100" />
+        </div>
+      </div>
+    `,
+  }),
+};
+
 export const RealWorldExamples: Story = {
   name: 'Real World Use Cases',
   render: () => ({
