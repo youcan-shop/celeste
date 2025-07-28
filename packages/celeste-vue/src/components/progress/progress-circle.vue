@@ -76,8 +76,6 @@ const offset = computed(() => {
         />
       </svg>
     </ProgressIndicator>
-
-    <!-- Label -->
     <div
       v-if="props.size !== 48"
       class="celeste-progress-circle-label"
