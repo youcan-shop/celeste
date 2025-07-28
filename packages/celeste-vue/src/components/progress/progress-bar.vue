@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import {
@@ -7,13 +6,13 @@ import {
   ProgressRoot,
   type ProgressRootProps,
 } from 'radix-vue';
+import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(
   defineProps<
     ProgressRootProps & {
       class?: HTMLAttributes['class'];
-      color: 'blue' | 'red' | 'orange' | 'green' | 'primary';
-      percentage?: boolean;
+      color?: 'blue' | 'red' | 'orange' | 'green' | 'primary';
       title?: string;
       layout?: 'default' | 'no-description' | 'inline' | 'bare';
     }
@@ -22,22 +21,41 @@ const props = withDefaults(
     modelValue: 0,
     color: 'primary',
     layout: 'bare',
+    max: 100,
   },
 );
 
 const delegatedProps = useDelegatedProps(props, 'class');
+
+const progress = computed(() => {
+  if (props.max === 0)
+    return 0;
+
+  const value = Math.min(Math.max(props.modelValue ?? 0, 0), props.max);
+
+  return Math.round((value / props.max) * 100);
+});
+
+const progressIndicator = computed(() => {
+  return `-${100 - (props.modelValue ?? 0) / props.max * 100}%`;
+});
 </script>
 
 <template>
-  <div :class="clsx('celeste-progress-bar-wrapper', `celeste-progress-bar-wrapper-${layout}`)">
-    <!-- Label -->
+  <div class="celeste-progress-bar-wrapper" :data-layout="layout">
     <div v-if="layout !== 'bare'" class="celeste-progress-bar-label">
-      <span v-if="props.title && layout !== 'inline'" class="celeste-progress-bar-label-title">{{ title }}</span>
       <span
-        v-if="props.percentage"
-        class="celeste-progress-bar-label-percentage"
+        v-if="props.title && layout !== 'inline'"
+        class="celeste-progress-bar-label-title"
       >
-        {{ Math.round(props.modelValue ?? 0) }}%
+        {{ title }}
+      </span>
+      <span
+        class="celeste-progress-bar-label"
+      >
+        <slot name="label">
+          {{ progress }}%
+        </slot>
       </span>
     </div>
 
@@ -51,8 +69,8 @@ const delegatedProps = useDelegatedProps(props, 'class');
       "
     >
       <ProgressIndicator
-        :class="clsx('celeste-progress-bar-indicator', `celeste-progress-bar-indicator-${color}`)"
-        :style="`transform: translateX(-${100 - (props.modelValue ?? 0)}%);`"
+        class="celeste-progress-bar-indicator"
+        :data-color="color"
       />
     </ProgressRoot>
 
@@ -64,13 +82,14 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
 <style lang="scss" scoped>
 .celeste-progress-bar-wrapper {
+  --bar-height: 6px;
+
   display: flex;
   width: 100%;
-  max-width: 24rem;
-  gap: 6px;
+  gap: var(--spacing-6);
 
   .celeste-progress-bar {
-    height: 6px;
+    height: var(--bar-height);
     overflow: hidden;
     border-radius: var(--radius-full);
     background: var(--color-bg-soft-200);
@@ -79,22 +98,23 @@ const delegatedProps = useDelegatedProps(props, 'class');
   .celeste-progress-bar-indicator {
     width: 100%;
     height: 100%;
+    transform: translateX(v-bind('progressIndicator'));
     border-radius: var(--radius-full);
     background: var(--color-primary-base);
 
-    &-orange {
+    &[data-color='orange'] {
       background: var(--color-state-warning-base);
     }
 
-    &-red {
+    &[data-color='red'] {
       background: var(--color-state-error-base);
     }
 
-    &-blue {
+    &[data-color='blue'] {
       background: var(--color-state-information-base);
     }
 
-    &-green {
+    &[data-color='green'] {
       background: var(--color-state-success-base);
     }
   }
@@ -103,16 +123,13 @@ const delegatedProps = useDelegatedProps(props, 'class');
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 6px;
+    gap: var(--spacing-6);
+    color: var(--color-text-sub-600);
+    font: var(--paragraph-sm);
 
-    &-title {
+    &.celeste-progress-bar-title {
       color: var(--color-text-strong-950);
       font: var(--label-sm);
-    }
-
-    &-percentage {
-      color: var(--color-text-sub-600);
-      font: var(--paragraph-sm);
     }
   }
 
@@ -121,8 +138,8 @@ const delegatedProps = useDelegatedProps(props, 'class');
     font: var(--paragraph-xs);
   }
 
-  &-default,
-  &-no-description {
+  &[data-layout='default'],
+  &[data-layout='no-description'] {
     flex-direction: column;
 
     &:deep(.celeste-progress-bar) {
@@ -130,14 +147,14 @@ const delegatedProps = useDelegatedProps(props, 'class');
     }
   }
 
-  &-inline,
-  &-bare {
+  &[data-layout='inline'],
+  &[data-layout='bare'] {
     flex-direction: row-reverse;
     align-items: center;
     gap: var(--spacing-8);
 
     &:deep(.celeste-progress-bar) {
-      flex: 1 0 0;
+      flex: 1;
     }
   }
 }
