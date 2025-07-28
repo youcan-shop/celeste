@@ -92,7 +92,7 @@ export interface AlertProps {
       :class="[`celeste-alert-close--${variant}`]"
       @click.prevent="$emit('dismiss')"
     >
-      <i i-celeste-close-line />
+      <i class="i-celeste-close-line" />
     </a>
   </div>
 </template>

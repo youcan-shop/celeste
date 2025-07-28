@@ -22,7 +22,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 <template>
   <div class="celeste-command-input" cmdk-input-wrapper>
-    <i i-celeste-search-line class="celeste-command-input-icon" />
+    <i class="celeste-command-input-icon i-celeste-search-line" />
     <ComboboxInput
       v-bind="{ ...forwardedProps, ...$attrs }"
       auto-focus

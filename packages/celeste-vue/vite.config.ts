@@ -1,6 +1,8 @@
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import autoprefixer from 'autoprefixer';
 import { glob } from 'glob';
+import nesting from 'postcss-nesting';
 import uno from 'unocss/vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -43,14 +45,11 @@ export default defineConfig({
     }),
   ],
   css: {
-    preprocessorOptions: {
-      scss: { api: 'modern-compiler' },
-    },
+    postcss: { plugins: [nesting, autoprefixer] },
+    preprocessorOptions: { scss: { api: 'modern-compiler' } },
   },
   resolve: {
-    alias: {
-      '@': resolve(import.meta.dirname, 'src'),
-    },
+    alias: { '@': resolve(import.meta.dirname, 'src') },
     dedupe: ['vue'],
   },
   build: {
@@ -58,7 +57,7 @@ export default defineConfig({
     copyPublicDir: false,
     emptyOutDir: false,
     lib: {
-      name: 'celeste-vue',
+      name: 'celeste',
       formats: ['es', 'cjs'],
       entry: createEntries(),
     },

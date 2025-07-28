@@ -1,7 +1,7 @@
 {
   "name": "celeste",
   "type": "module",
-  "version": "0.6.2",
+  "version": "0.6.32",
   "private": true,
   "packageManager": "pnpm@9.15.3",
   "description": "YouCan's design system.",
@@ -27,7 +27,7 @@
     "build": "pnpm -r build",
     "bump": "bumpp package.json packages/*/package.json --commit \"chore: release v\" --push --tag",
     "release": "pnpm bump && pnpm run build && pnpm -r release",
-    "storybook": "pnpm --filter celeste-vue run storybook"
+    "storybook": "pnpm --filter @youcan/celeste run storybook"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

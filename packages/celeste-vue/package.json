@@ -1,7 +1,7 @@
 {
-  "name": "@youcan/celeste-vue",
+  "name": "@youcan/celeste",
   "type": "module",
-  "version": "0.6.2",
+  "version": "0.6.32",
   "author": "YouCan <tech@youcan.shop>",
   "keywords": [
     "youcan",
@@ -13,7 +13,7 @@
       "import": "./dist/es/index.js",
       "require": "./dist/cjs/index.cjs"
     },
-    "./assets/celeste-vue.css": "./dist/celeste-vue.css"
+    "./assets/celeste.css": "./dist/celeste.css"
   },
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/es/index.js",
@@ -40,11 +40,22 @@
     "vue": "^3.5.13"
   },
   "dependencies": {
+    "@tiptap/core": "^3.0.7",
+    "@tiptap/extension-bubble-menu": "^3.0.7",
+    "@tiptap/extension-color": "^3.0.7",
+    "@tiptap/extension-link": "^3.0.7",
+    "@tiptap/extension-text-align": "^3.0.7",
+    "@tiptap/extension-text-style": "^3.0.7",
+    "@tiptap/extensions": "^3.0.7",
+    "@tiptap/pm": "^3.0.7",
+    "@tiptap/starter-kit": "^3.0.7",
+    "@tiptap/vue-3": "^3.0.7",
     "@youcan/celeste-icons": "workspace:*",
     "@youcan/celeste-tokens": "workspace:*",
     "clsx": "^2.1.1",
     "radix-vue": "^1.9.12",
-    "tinycolor2": "^1.6.0"
+    "tinycolor2": "^1.6.0",
+    "vue-sonner": "^2.0.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.0",
@@ -60,14 +71,17 @@
     "@vue/compiler-core": "^3.5.17",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
+    "autoprefixer": "^10.4.21",
     "chromatic": "^11.22.1",
     "eslint-plugin-storybook": "9.0.17",
     "glob": "^11.0.3",
     "jsdom": "^25.0.1",
+    "postcss": "^8.5.6",
+    "postcss-nesting": "^13.0.2",
     "rimraf": "^6.0.1",
     "sass": "^1.83.1",
     "storybook": "^9.0.17",
-    "unocss": "^0.65.4",
+    "unocss": "^66.3.3",
     "vite": "^6.0.7",
     "vite-plugin-dts": "^4.4.0",
     "vitest": "^2.1.8",
