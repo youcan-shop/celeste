@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import Badge from '@/components/badge/badge.vue';
+import LinkButton from '@/components/button/link-button.vue';
+import CheckboxLabel from '../checkbox-label.vue';
 import Checkbox from '../checkbox.vue';
 
 const meta: Meta<typeof Checkbox> = {
@@ -67,34 +70,48 @@ export const Disabled: Story = {
   }),
 };
 
-export const WithLabel: Story = {
-  args: {
-  },
+export const WithCheckboxLabel: Story = {
+  args: {},
 
   render: args => ({
-    components: { Checkbox },
+    components: { Checkbox, CheckboxLabel, Badge, LinkButton },
     setup() {
       return { args };
     },
     template: `
       <div style="display: flex; justify-content: center;">
-        <div style="display: grid; gap: 1em;">
-          <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
+        <div style="max-width: 400px;">
+          <CheckboxLabel>
             <Checkbox v-bind="args" />
-            SMS Verification
-          </label>
-          <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
-            <Checkbox v-bind="args" />
-            Authenticator App
-          </label>
-          <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
-            <Checkbox v-bind="args" disabled />
-            Disabled
-          </label>
-         <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
-            <Checkbox v-bind="args" checked disabled />
-            Disabled but default checked
-          </label>
+
+            <template #label>
+              Label
+            </template>
+
+            <template #badge>
+              <Badge 
+                label="NEW" 
+                state="information" 
+                variant="light" 
+                size="sm" 
+              />
+            </template>
+            <template #sublabel>
+                (Sublabel)
+            </template>
+            <template #description>
+                Insert the checkbox description here.
+            </template>
+            <template #linkButton>
+              <LinkButton 
+                href="#" 
+                intent="primary" 
+                size="sm"
+              >
+                Learn More
+              </LinkButton>
+            </template>
+          </CheckboxLabel>
         </div>
       </div>
     `,

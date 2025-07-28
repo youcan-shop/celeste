@@ -15,6 +15,8 @@ const props = withDefaults(defineProps<Dropdown>(), {
   multiple: false,
   searchable: false,
   emptyLabel: 'No options available',
+  position: 'bottom',
+  align: 'start',
 });
 
 const model = defineModel<SelectedType | SelectedType[] | undefined>();
@@ -121,6 +123,8 @@ export interface Dropdown {
   error?: boolean;
   size?: 'xs' | 'sm' | 'md';
   type?: 'normal' | 'compact' | 'inline' | 'compact-input';
+  position?: 'top' | 'bottom';
+  align?: 'start' | 'end' | 'center';
   multiple?: boolean;
   emptyLabel?: string;
   searchable?: boolean;
@@ -209,7 +213,13 @@ export interface SelectedType {
         v-if="!disabled"
         force-mount
         dismissable
+        :avoid-collisions="true"
         class="celeste-dropdown-content"
+        :class="clsx(
+          'celeste-dropdown-content',
+          `celeste-dropdown-content-size-${position}`,
+          `celeste-dropdown-content-align-${align}`,
+        )"
       >
         <ComboboxViewport class="celeste-dropdown-items-viewport">
           <div v-if="searchable" class="celeste-dropdown-search">
@@ -443,7 +453,7 @@ export interface SelectedType {
     &.celeste-dropdown-anchor-trigger-type-compact-input {
       width: fit-content;
       border: none;
-      border-radius: var(--radius-0);
+      border-radius: 0;
       box-shadow: none;
 
       &:deep(.celeste-dropdown-input) {
@@ -501,8 +511,6 @@ export interface SelectedType {
     display: flex;
     position: absolute;
     z-index: 9999;
-    top: calc(var(--dropdown-width) + var(--spacing-4));
-    left: 0;
     flex-direction: column;
     width: var(--dropdown-width);
     min-width: 300px;
@@ -525,6 +533,29 @@ export interface SelectedType {
     &[data-state='open'] {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  .celeste-dropdown-content-size-top {
+    bottom: calc(var(--dropdown-width) + var(--spacing-4));
+  }
+
+  .celeste-dropdown-content-size-bottom {
+    top: calc(var(--dropdown-width) + var(--spacing-4));
+  }
+
+  .celeste-dropdown-content-align-start {
+    left: 0;
+  }
+
+  .celeste-dropdown-content-align-end {
+    right: 0;
+  }
+
+  :not(:has(.celeste-dropdown-anchor-trigger-type-normal)) {
+    .celeste-dropdown-content-align-center {
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 

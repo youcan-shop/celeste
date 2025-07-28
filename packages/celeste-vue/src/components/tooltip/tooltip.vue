@@ -47,7 +47,6 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
       <TooltipPortal class="celeste-tooltip-portal">
         <TooltipContent
           v-bind="{ ...forwarded, ...$attrs }"
-          force-mount
           :size="size"
           :variant="variant"
           :class="clsx('celeste-tooltip-content', props.class)"
@@ -82,39 +81,35 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
   width: auto;
   max-width: calc(var(--radix-tooltip-content-available-width) / 1.5);
   height: auto;
-  transition: all var(--animation-fast) ease-out;
+  animation: var(--animation-fast) ease-out forwards;
   border: 1px solid transparent;
+  opacity: 0;
   background-color: var(--color-bg-white-0);
   box-shadow:
     0 12px 24px 0 rgb(14 18 27 / 6%),
     0 1px 2px 0 rgb(14 18 27 / 3%);
   gap: var(--spacing-12);
-  will-change: opacity, translate, scale;
+  scale: 0.98;
 
   &[data-state='delayed-open'] {
-    scale: 1;
-    opacity: 1;
-    translate: 0;
+    animation-name: open;
   }
 
   &[data-state='closed'] {
-    opacity: 0;
-    scale: 0.98;
-
     &[data-side='left'] {
-      translate: calc(var(--spacing-4) * -1) 0;
+      animation-name: close-left;
     }
 
     &[data-side='right'] {
-      translate: var(--spacing-4) 0;
+      animation-name: close-right;
     }
 
     &[data-side='top'] {
-      translate: 0 calc(var(--spacing-4) * -1);
+      animation-name: close-top;
     }
 
     &[data-side='bottom'] {
-      translate: 0 var(--spacing-4);
+      animation-name: close-bottom;
     }
   }
 
@@ -225,6 +220,37 @@ export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
 
   &:has(button):not(:has(.celeste-tooltip-content-description)) {
     align-items: center;
+  }
+}
+
+@keyframes open {
+  to {
+    translate: 0;
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+$directions: (
+  left: calc(var(--spacing-4) * -1) 0,
+  right: var(--spacing-4) 0,
+  top: 0 calc(var(--spacing-4) * -1),
+  bottom: 0 var(--spacing-4),
+);
+
+@each $dir, $position in $directions {
+  @keyframes close-#{$dir} {
+    from {
+      translate: 0;
+      opacity: 1;
+      scale: 1;
+    }
+
+    to {
+      translate: #{$position};
+      scale: 0.98;
+      opacity: 0;
+    }
   }
 }
 </style>

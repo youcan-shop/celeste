@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { Primitive, type PrimitiveProps } from 'radix-vue';
 
 const props = withDefaults(defineProps<LinkButtonProps>(), {
-  size: 'sm',
+  size: 'md',
   intent: 'primary',
   as: 'a',
 });
