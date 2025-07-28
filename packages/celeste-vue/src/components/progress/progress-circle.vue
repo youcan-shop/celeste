@@ -29,17 +29,20 @@ const STROKE_WIDTH = 6.4;
 const radius = computed(() => (props.size - STROKE_WIDTH) / 2);
 const circumference = computed(() => 2 * Math.PI * radius.value);
 
-const percentage = computed(() => {
+const progress = computed(() => {
   if (props.max === 0)
     return 0;
 
   const value = Math.min(Math.max(props.modelValue ?? 0, 0), props.max);
-  return (value / props.max) * 100;
+
+  return Math.round((value / props.max) * 100);
 });
 
 const offset = computed(() => {
-  return circumference.value * (1 - percentage.value / 100);
+  return circumference.value * (1 - progress.value / 100);
 });
+
+const circleSize = computed(() => `${props.size}px`);
 </script>
 
 <template>
@@ -47,7 +50,6 @@ const offset = computed(() => {
     v-bind="delegatedProps"
     :value="props.modelValue"
     :class="clsx('celeste-progress-circle', props.class)"
-    :style="{ width: `${props.size}px`, height: `${props.size}px` }"
     as="div"
   >
     <ProgressIndicator as-child>
@@ -81,7 +83,7 @@ const offset = computed(() => {
       class="celeste-progress-circle-label"
     >
       <slot>
-        {{ Math.round(percentage) }}%
+        {{ progress }}%
       </slot>
     </div>
   </ProgressRoot>
@@ -93,6 +95,8 @@ const offset = computed(() => {
   position: relative;
   align-items: center;
   justify-content: center;
+  width: v-bind('circleSize');
+  height: v-bind('circleSize');
 }
 
 .celeste-progress-circle-svg {

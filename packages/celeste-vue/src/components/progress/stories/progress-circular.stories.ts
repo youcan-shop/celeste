@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import ProgressCircle from '../progress-circle.vue';
 
 const meta: Meta<typeof ProgressCircle> = {
-  title: 'Components/Progress Circle',
+  title: 'Components/Progress/Progress Circle',
   component: ProgressCircle,
 };
 
