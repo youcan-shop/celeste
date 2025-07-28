@@ -37,7 +37,7 @@ const progress = computed(() => {
 });
 
 const progressIndicator = computed(() => {
-  return `-${100 - (props.modelValue ?? 0) / props.max * 100}%`;
+  return 100 - (props.modelValue ?? 0) / props.max * 100;
 });
 </script>
 
@@ -96,11 +96,17 @@ const progressIndicator = computed(() => {
   }
 
   .celeste-progress-bar-indicator {
+    --progress: v-bind('progressIndicator');
+
     width: 100%;
     height: 100%;
-    transform: translateX(v-bind('progressIndicator'));
+    transform: translateX(calc(var(--progress) * -1%));
     border-radius: var(--radius-full);
     background: var(--color-primary-base);
+
+    :dir(rtl) & {
+      transform: translateX(calc(var(--progress) * 1%));
+    }
 
     &[data-color='orange'] {
       background: var(--color-state-warning-base);
