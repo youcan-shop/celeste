@@ -46,18 +46,18 @@ const offset = computed(() => {
   <ProgressRoot
     v-bind="delegatedProps"
     :value="props.modelValue"
-    :class="clsx('celeste-progress-circular', props.class)"
+    :class="clsx('celeste-progress-circle', props.class)"
     :style="{ width: `${props.size}px`, height: `${props.size}px` }"
     as="div"
   >
     <ProgressIndicator as-child>
       <svg
-        class="celeste-progress-circular-svg"
+        class="celeste-progress-circle-svg"
         :width="props.size"
         :height="props.size"
       >
         <circle
-          class="celeste-progress-circular-track"
+          class="celeste-progress-circle-track"
           :cx="props.size / 2"
           :cy="props.size / 2"
           :r="radius"
@@ -65,7 +65,7 @@ const offset = computed(() => {
           fill="transparent"
         />
         <circle
-          class="celeste-progress-circular-indicator"
+          class="celeste-progress-circle-indicator"
           :cx="props.size / 2"
           :cy="props.size / 2"
           :r="radius"
@@ -80,7 +80,7 @@ const offset = computed(() => {
     <!-- Label -->
     <div
       v-if="props.size !== 48"
-      class="celeste-progress-circular-label"
+      class="celeste-progress-circle-label"
     >
       <slot>
         {{ Math.round(percentage) }}%
@@ -90,27 +90,27 @@ const offset = computed(() => {
 </template>
 
 <style scoped lang="scss">
-.celeste-progress-circular {
+.celeste-progress-circle {
   display: inline-flex;
   position: relative;
   align-items: center;
   justify-content: center;
 }
 
-.celeste-progress-circular-svg {
+.celeste-progress-circle-svg {
   transform: rotate(-90deg);
 }
 
-.celeste-progress-circular-track {
+.celeste-progress-circle-track {
   stroke: var(--color-bg-soft-200);
 }
 
-.celeste-progress-circular-indicator {
+.celeste-progress-circle-indicator {
   transition: stroke-dashoffset 0.3s ease;
   stroke: var(--color-primary-base);
 }
 
-.celeste-progress-circular-label {
+.celeste-progress-circle-label {
   position: absolute;
   top: 50%;
   left: 50%;
