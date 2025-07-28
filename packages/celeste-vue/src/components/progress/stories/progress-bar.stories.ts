@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import ProgressBar from '../progress-bar.vue';
 
 const meta: Meta<typeof ProgressBar> = {
-  title: 'Components/Progress Bar',
+  title: 'Components/Progress/Progress Bar',
   component: ProgressBar,
   argTypes: {
     color: {
