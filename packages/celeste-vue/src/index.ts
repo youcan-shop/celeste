@@ -11,3 +11,4 @@ export const Celeste = {
 };
 
 export * from '@/components';
+export * from '@/utils';

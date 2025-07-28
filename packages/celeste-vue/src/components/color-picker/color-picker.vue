@@ -326,7 +326,7 @@ declare global {
                 intent="neutral"
                 @click="sipColor"
               >
-                <i i-celeste-sip-line />
+                <i class="i-celeste-sip-line" />
               </Button>
               <div class="celeste-color-format-inputs">
                 <template v-if="currentColorFormat === 'hex'">
