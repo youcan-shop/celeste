@@ -67,25 +67,25 @@ export const Default: Story = {
                   </template>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem  as="a" href="https://github.com" target="_blank">
                     Github
                     <template #prefix>
                       <i class="i-celeste-github-line" />
                     </template>
                   </DropdownMenuItem>  
-                  <DropdownMenuItem>
+                  <DropdownMenuItem  as="a" href="https://google.com" target="_blank">
                     Google Sheets
                     <template #prefix>
                       <i class="i-celeste-google-line" />
                     </template>
                   </DropdownMenuItem>  
-                  <DropdownMenuItem>
+                  <DropdownMenuItem as="a" href="https://slack.com" target="_blank">
                     Slack
                     <template #prefix>
                       <i class="i-celeste-slack-line" />
                     </template>
                   </DropdownMenuItem>  
-                  <DropdownMenuItem>
+                  <DropdownMenuItem  as="a" href="https://whatsapp.com" target="_blank">
                     WhatsApp
                     <template #prefix>
                       <i class="i-celeste-whatsapp-line" />
