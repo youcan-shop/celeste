@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Badge from '@/components/badge/badge.vue';
+import { Button } from '@/components/button';
 import DropdownMenuContent from '../dropdown-menu-content.vue';
 import DropdownMenuGroup from '../dropdown-menu-group.vue';
 import DropdownMenuItem from '../dropdown-menu-item.vue';
@@ -37,70 +38,165 @@ export const Default: Story = {
       DropdownMenuSubContent,
       DropdownMenuLabel,
       Badge,
+      Button,
+    },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <DropdownMenu v-bind="args">
+          <DropdownMenuTrigger>
+            <Button intent="neutral" variant="stroke">
+              <i class="i-celeste-more-line" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                Activity
+                <template #prefix>
+                  <i class="i-celeste-pulse-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  Integration
+                  <template #prefix>
+                    <i class="i-celeste-layout-grid-line" />
+                  </template>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem  as="a" href="https://github.com" target="_blank">
+                    Github
+                    <template #prefix>
+                      <i class="i-celeste-github-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                  <DropdownMenuItem  as="a" href="https://google.com" target="_blank">
+                    Google Sheets
+                    <template #prefix>
+                      <i class="i-celeste-google-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                  <DropdownMenuItem as="a" href="https://slack.com" target="_blank">
+                    Slack
+                    <template #prefix>
+                      <i class="i-celeste-slack-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                  <DropdownMenuItem  as="a" href="https://whatsapp.com" target="_blank">
+                    WhatsApp
+                    <template #prefix>
+                      <i class="i-celeste-whatsapp-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+              <DropdownMenuItem>
+                Settings
+                <template #prefix>
+                  <i class="i-celeste-settings-3-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>
+                Account
+              </DropdownMenuLabel>
+              <DropdownMenuItem>
+                Add Account
+                <template #prefix>
+                  <i class="i-celeste-add-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Logout
+                <template #prefix>
+                  <i class="i-celeste-logout-box-line" />
+                </template>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    `,
+  }),
+};
+
+export const WithSuffix: Story = {
+  args: {
+  },
+
+  render: args => ({
+    components: {
+      DropdownMenu,
+      DropdownMenuContent,
+      DropdownMenuGroup,
+      DropdownMenuItem,
+      DropdownMenuSub,
+      DropdownMenuSeparator,
+      DropdownMenuSubTrigger,
+      DropdownMenuTrigger,
+      DropdownMenuSubContent,
+      DropdownMenuLabel,
+      Badge,
+      Button,
     },
     setup() {
       const badgeProps = {
         size: 'md',
-        variant: 'light',
-        label: 'Info',
-        state: 'information',
+        variant: 'lighter',
+        label: '1.0.0',
+        state: 'feature',
         type: 'basic',
       };
 
       return { args, badgeProps };
     },
     template: `
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <DropdownMenu v-bind="args">
-         <DropdownMenuTrigger>
-            <i class="i-celeste-menu-line" />
-         </DropdownMenuTrigger>
-    <DropdownMenuContent>
-      <DropdownMenuGroup>
-        <DropdownMenuItem label="Item 1" sublabel="(sublabel)" description="wei@alignui.com" />        
-        <DropdownMenuSeparator />
-        
-        <DropdownMenuItem label="Item 2 label is a bit long">
-           <template #prefix>
-              <i class="i-celeste-home-4-line" />
-           </template>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem label="Item 3" disabled>
-          <template #prefix>
-             <i class="i-celeste-global-line" />
-          </template>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem label="Item 4">
-           <template #suffix>
-             <Badge v-bind="badgeProps" />
-           </template>
-        </DropdownMenuItem label="Item 4">
-
-        <DropdownMenuItem label="Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
-        
-        <DropdownMenuSeparator />
-        
-        <DropdownMenuLabel>
-        Label
-        </DropdownMenuLabel>
-        
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            Item 6
-          </DropdownMenuSubTrigger>
-        <DropdownMenuSubContent>
-           <DropdownMenuItem label="Sub Item 1" sublabel="(sublabel)" />
-
-           <DropdownMenuItem label="Sub Item 2" />
-
-           <DropdownMenuItem label="Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
-        </DropdownMenuSubContent>
-        </DropdownMenuSub>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
-      </DropdownMenu>
+      <div style="display: flex; align-items: center; justify-content: center; padding-bottom: 300px;">
+        <DropdownMenu v-bind="args">
+          <DropdownMenuTrigger>
+            <Button intent="neutral" variant="stroke">
+              <i class="i-celeste-more-line" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                Origins
+                <template #suffix>
+                  <Badge v-bind="badgeProps" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                Help
+                <template #prefix>
+                  <i class="i-celeste-question-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Gallery Manager
+                <template #prefix>
+                  <i class="i-celeste-multi-image-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Keyboard Shortcuts
+                <template #prefix>
+                  <i class="i-celeste-keyboard-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Edit Theme Content
+                <template #prefix>
+                  <i class="i-celeste-global-line" />
+                </template>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     `,
   }),

@@ -211,7 +211,6 @@ export interface SelectedType {
 
       <ComboboxContent
         v-if="!disabled"
-        force-mount
         dismissable
         :avoid-collisions="true"
         class="celeste-dropdown-content"
