@@ -4,7 +4,7 @@ import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { DropdownMenuItem, type DropdownMenuItemProps, useForwardProps } from 'radix-vue';
 
-const props = defineProps<DropdownMenuItemProps & { class?: HTMLAttributes['class']; label: string; sublabel?: string; description?: string }>();
+const props = defineProps<DropdownMenuItemProps & { class?: HTMLAttributes['class'] }>();
 
 const delegatedProps = useDelegatedProps(props, 'class');
 
