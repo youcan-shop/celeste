@@ -20,21 +20,24 @@ const forwardedProps = useForwardProps(delegatedProps);
     v-bind="forwardedProps"
     :class="clsx(props.class, 'celeste-dropdown-menu-sub-trigger')"
   >
-    <slot />
+    <div v-if="$slots.prefix" class="celeste-dropdown-menu-sub-prefix">
+      <slot name="prefix" />
+    </div>
+    <div class="celeste-dropdown-menu-sub-body">
+      <slot />
+    </div>
     <i class="i-celeste-arrow-right-s-line" />
   </DropdownMenuSubTrigger>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .celeste-dropdown-menu-sub-trigger {
   display: flex;
   position: relative;
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-8);
-  transition-property: background-color;
-  transition-duration: var(--animation-fast);
-  transition-timing-function: ease-out;
+  transition: background-color var(--animation-fast) ease-out;
   border-radius: var(--radius-8);
   background: var(--color-bg-white-0);
   color: var(--color-text-strong-950);
@@ -58,13 +61,34 @@ const forwardedProps = useForwardProps(delegatedProps);
     background: var(--color-bg-weak-50);
   }
 
+  .celeste-dropdown-menu-sub-prefix {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+    height: fit-content;
+    color: var(--color-icon-sub-600);
+
+    &:deep(i) {
+      color: var(--color-icon-sub-600);
+    }
+  }
+
   &[data-disabled] {
     color: var(--color-text-disabled-300);
     cursor: auto;
 
-    :deep(i) {
+    .celeste-dropdown-menu-sub-prefix {
       color: var(--color-text-disabled-300);
+
+      :deep(i) {
+        color: var(--color-icon-disabled-300);
+      }
     }
+  }
+
+  .celeste-dropdown-menu-sub-body {
+    flex: 1;
   }
 }
 </style>

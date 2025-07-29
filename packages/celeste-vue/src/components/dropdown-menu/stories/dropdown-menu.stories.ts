@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Badge from '@/components/badge/badge.vue';
+import { Button } from '@/components/button';
 import DropdownMenuContent from '../dropdown-menu-content.vue';
 import DropdownMenuGroup from '../dropdown-menu-group.vue';
 import DropdownMenuItem from '../dropdown-menu-item.vue';
@@ -37,70 +38,68 @@ export const Default: Story = {
       DropdownMenuSubContent,
       DropdownMenuLabel,
       Badge,
+      Button,
     },
     setup() {
-      const badgeProps = {
-        size: 'md',
-        variant: 'light',
-        label: 'Info',
-        state: 'information',
-        type: 'basic',
-      };
-
-      return { args, badgeProps };
+      return { args };
     },
     template: `
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <DropdownMenu v-bind="args">
-         <DropdownMenuTrigger>
-            <i class="i-celeste-menu-line" />
-         </DropdownMenuTrigger>
-    <DropdownMenuContent>
-      <DropdownMenuGroup>
-        <DropdownMenuItem label="Item 1" sublabel="(sublabel)" description="wei@alignui.com" />        
-        <DropdownMenuSeparator />
-        
-        <DropdownMenuItem label="Item 2 label is a bit long">
-           <template #prefix>
-              <i class="i-celeste-home-4-line" />
-           </template>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem label="Item 3" disabled>
-          <template #prefix>
-             <i class="i-celeste-global-line" />
-          </template>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem label="Item 4">
-           <template #suffix>
-             <Badge v-bind="badgeProps" />
-           </template>
-        </DropdownMenuItem label="Item 4">
-
-        <DropdownMenuItem label="Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5 Item 5" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
-        
-        <DropdownMenuSeparator />
-        
-        <DropdownMenuLabel>
-        Label
-        </DropdownMenuLabel>
-        
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            Item 6
-          </DropdownMenuSubTrigger>
-        <DropdownMenuSubContent>
-           <DropdownMenuItem label="Sub Item 1" sublabel="(sublabel)" />
-
-           <DropdownMenuItem label="Sub Item 2" />
-
-           <DropdownMenuItem label="Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3 Item 3" sublabel="(sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel sublabel)" />
-        </DropdownMenuSubContent>
-        </DropdownMenuSub>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
-      </DropdownMenu>
+      <div style="display: flex; align-items: center; justify-content: center; padding-top: 400px;">
+        <DropdownMenu v-bind="args">
+          <DropdownMenuTrigger>
+            <Button intent="neutral" variant="stroke">
+              <i class="i-celeste-more-line" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                Activity
+                <template #prefix>
+                  <i class="i-celeste-pulse-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Integration
+                <template #prefix>
+                  <i class="i-celeste-layout-grid-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  Settings
+                  <template #prefix>
+                    <i class="i-celeste-settings-3-line" />
+                  </template>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem>
+                    General
+                    <template #prefix>
+                      <i class="i-celeste-settings-3-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>
+                Account
+              </DropdownMenuLabel>
+              <DropdownMenuItem>
+                Add Account
+                <template #prefix>
+                  <i class="i-celeste-add-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Logout
+                <template #prefix>
+                  <i class="i-celeste-logout-box-line" />
+                </template>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     `,
   }),
