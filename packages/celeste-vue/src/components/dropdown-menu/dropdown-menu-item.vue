@@ -19,25 +19,13 @@ const forwardedProps = useForwardProps(delegatedProps);
       props.class,
     )"
   >
-    <div class="celeste-dropdown-menu-item-prefix">
+    <div v-if="$slots.prefix" class="celeste-dropdown-menu-item-prefix">
       <slot name="prefix" />
     </div>
-
     <div class="celeste-dropdown-menu-item-body">
-      <div class="celeste-dropdown-menu-item-text">
-        <span class="celeste-dropdown-menu-item-label" :title="label">{{ label }}</span>
-        <span
-          v-if="sublabel"
-          :title="sublabel"
-          class="celeste-dropdown-menu-item-sublabel"
-        >{{ sublabel }}</span>
-      </div>
-      <div v-if="description" class="celeste-dropdown-menu-item-description">
-        {{ description }}
-      </div>
+      <slot />
     </div>
-
-    <div class="celeste-dropdown-menu-item-suffix">
+    <div v-if="$slots.suffix" class="celeste-dropdown-menu-item-suffix">
       <slot name="suffix" />
     </div>
   </DropdownMenuItem>
@@ -48,9 +36,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   display: flex;
   align-items: center;
   padding: var(--spacing-8);
-  transition-property: background-color;
-  transition-duration: var(--animation-fast);
-  transition-timing-function: ease-out;
+  transition: background-color var(--animation-fast) ease-out;
   border-radius: var(--radius-8);
   background: var(--color-bg-white-0);
   color: var(--color-text-strong-950);
@@ -69,48 +55,11 @@ const forwardedProps = useForwardProps(delegatedProps);
     background: var(--color-bg-weak-50);
   }
 
-  &-body {
+  .celeste-dropdown-menu-item-body {
     display: flex;
-    flex: 1 0 0;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--spacing-4);
-    width: fit-content;
-    max-width: 400px;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  &-text {
-    display: flex;
+    flex: 1;
     align-items: center;
     gap: var(--spacing-4);
-  }
-
-  &-label,
-  &-sublabel {
-    max-width: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  &-label {
-    color: var(--color-text-strong-950);
-    font: var(--paragraph-sm);
-  }
-
-  &-sublabel {
-    color: var(--color-text-soft-400);
-    font: var(--paragraph-xs);
-  }
-
-  &-description {
-    margin: var(--spacing-0);
-    overflow: hidden;
-    color: var(--color-text-sub-600);
-    font: var(--paragraph-xs);
-    text-overflow: ellipsis;
   }
 
   .celeste-dropdown-menu-item-prefix,
@@ -118,7 +67,6 @@ const forwardedProps = useForwardProps(delegatedProps);
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 50%;
     height: fit-content;
     color: var(--color-icon-sub-600);
 
@@ -131,11 +79,8 @@ const forwardedProps = useForwardProps(delegatedProps);
     color: var(--color-text-disabled-300);
     cursor: auto;
 
-    .celeste-dropdown-menu-item-label,
-    .celeste-dropdown-menu-item-sublabel,
     .celeste-dropdown-menu-item-prefix,
-    .celeste-dropdown-menu-item-suffix,
-    .celeste-dropdown-menu-item-description {
+    .celeste-dropdown-menu-item-suffix {
       color: var(--color-text-disabled-300);
 
       :deep(i) {
