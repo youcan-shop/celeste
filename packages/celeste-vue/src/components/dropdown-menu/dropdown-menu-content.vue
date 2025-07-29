@@ -41,6 +41,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   --dropdown-max-width: 350px;
 
   display: flex;
+  z-index: 50;
   box-sizing: border-box;
   flex-direction: column;
   width: var(--dropdown-width);
@@ -52,11 +53,11 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   transition-property: display, transform, opacity;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
-  transition-behavior: allow-discrete;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
+  transition-behavior: allow-discrete;
   gap: var(--spacing-4);
 
   &[data-state='closed'] {
