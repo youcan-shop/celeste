@@ -29,8 +29,8 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   </DropdownMenuPortal>
 </template>
 
-<style lang="scss">
-.celeste-dropdown-menu-sub-content {
+<style lang="scss" scoped>
+:deep(.celeste-dropdown-menu-sub-content) {
   --dropdown-min-width: 250px;
   --dropdown-max-width: 350px;
 
