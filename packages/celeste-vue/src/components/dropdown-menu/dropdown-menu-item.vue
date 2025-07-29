@@ -41,6 +41,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   background: var(--color-bg-white-0);
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
+  text-decoration: none;
   cursor: pointer;
   gap: var(--spacing-8);
 
