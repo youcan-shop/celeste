@@ -44,7 +44,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <div style="display: flex; align-items: center; justify-content: center; padding-top: 400px;">
+      <div style="display: flex; align-items: center; justify-content: center;">
         <DropdownMenu v-bind="args">
           <DropdownMenuTrigger>
             <Button intent="neutral" variant="stroke">
@@ -59,28 +59,46 @@ export const Default: Story = {
                   <i class="i-celeste-pulse-line" />
                 </template>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                Integration
-                <template #prefix>
-                  <i class="i-celeste-layout-grid-line" />
-                </template>
-              </DropdownMenuItem>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
-                  Settings
+                  Integration
                   <template #prefix>
-                    <i class="i-celeste-settings-3-line" />
+                    <i class="i-celeste-layout-grid-line" />
                   </template>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
                   <DropdownMenuItem>
-                    General
+                    Github
                     <template #prefix>
-                      <i class="i-celeste-settings-3-line" />
+                      <i class="i-celeste-github-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                  <DropdownMenuItem>
+                    Google Sheets
+                    <template #prefix>
+                      <i class="i-celeste-google-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                  <DropdownMenuItem>
+                    Slack
+                    <template #prefix>
+                      <i class="i-celeste-slack-line" />
+                    </template>
+                  </DropdownMenuItem>  
+                  <DropdownMenuItem>
+                    WhatsApp
+                    <template #prefix>
+                      <i class="i-celeste-whatsapp-line" />
                     </template>
                   </DropdownMenuItem>  
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
+              <DropdownMenuItem>
+                Settings
+                <template #prefix>
+                  <i class="i-celeste-settings-3-line" />
+                </template>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuLabel>
                 Account
@@ -95,6 +113,85 @@ export const Default: Story = {
                 Logout
                 <template #prefix>
                   <i class="i-celeste-logout-box-line" />
+                </template>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    `,
+  }),
+};
+
+export const WithSuffix: Story = {
+  args: {
+  },
+
+  render: args => ({
+    components: {
+      DropdownMenu,
+      DropdownMenuContent,
+      DropdownMenuGroup,
+      DropdownMenuItem,
+      DropdownMenuSub,
+      DropdownMenuSeparator,
+      DropdownMenuSubTrigger,
+      DropdownMenuTrigger,
+      DropdownMenuSubContent,
+      DropdownMenuLabel,
+      Badge,
+      Button,
+    },
+    setup() {
+      const badgeProps = {
+        size: 'md',
+        variant: 'lighter',
+        label: '1.0.0',
+        state: 'feature',
+        type: 'basic',
+      };
+
+      return { args, badgeProps };
+    },
+    template: `
+      <div style="display: flex; align-items: center; justify-content: center; padding-bottom: 300px;">
+        <DropdownMenu v-bind="args">
+          <DropdownMenuTrigger>
+            <Button intent="neutral" variant="stroke">
+              <i class="i-celeste-more-line" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                Origins
+                <template #suffix>
+                  <Badge v-bind="badgeProps" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                Help
+                <template #prefix>
+                  <i class="i-celeste-question-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Gallery Manager
+                <template #prefix>
+                  <i class="i-celeste-multi-image-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Keyboard Shortcuts
+                <template #prefix>
+                  <i class="i-celeste-keyboard-line" />
+                </template>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                Edit Theme Content
+                <template #prefix>
+                  <i class="i-celeste-global-line" />
                 </template>
               </DropdownMenuItem>
             </DropdownMenuGroup>
