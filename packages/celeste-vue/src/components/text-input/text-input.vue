@@ -241,19 +241,19 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
 
   :deep(.celeste-text-input-node.celeste-text-input-leading-node) {
     height: calc(var(--input-height) - var(--spacing-2)) !important;
-    border-end-start-radius: var(--input-radius) !important;
     border-start-start-radius: var(--input-radius) !important;
-    border-end-end-radius: 0 !important;
+    border-end-start-radius: var(--input-radius) !important;
     border-start-end-radius: 0 !important;
+    border-end-end-radius: 0 !important;
     border-inline-end: 1px solid var(--color-stroke-soft-200) !important;
   }
 
   :deep(*.celeste-text-input-node.celeste-text-input-trailing-node) {
     height: calc(var(--input-height) - var(--spacing-2)) !important;
-    border-end-end-radius: var(--input-radius) !important;
     border-start-end-radius: var(--input-radius) !important;
-    border-end-start-radius: 0 !important;
+    border-end-end-radius: var(--input-radius) !important;
     border-start-start-radius: 0 !important;
+    border-end-start-radius: 0 !important;
     border-inline-start: 1px solid var(--color-stroke-soft-200) !important;
   }
 }
