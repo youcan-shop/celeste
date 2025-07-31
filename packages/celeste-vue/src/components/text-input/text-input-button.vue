@@ -14,6 +14,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
 <template>
   <Button
+    tabindex="-1"
     v-bind="delegatedProps"
     size="sm"
     intent="neutral"
