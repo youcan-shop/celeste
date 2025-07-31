@@ -23,10 +23,11 @@ const forwardedProps = useForwardProps(delegatedProps);
 
   display: flex;
   box-sizing: border-box;
+  flex-grow: 1;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 64px;
+  height: 64px;
   padding: 0;
   transition: all var(--animation-fast) ease-out;
   border: 1px solid var(--celeste-digit-input-border-color);
@@ -36,7 +37,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--celeste-digit-input-drop-shadow);
   color: var(--color-text-strong-950);
-  font: var(--paragraph-sm);
+  font: var(--title-h5-title);
   text-align: center;
 
   &::placeholder {

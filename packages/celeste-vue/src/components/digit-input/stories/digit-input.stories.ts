@@ -57,7 +57,7 @@ export const Default: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 4" :key="index" :index="index" />
         </DigitInputGroup>
@@ -78,7 +78,7 @@ export const WithPlaceholder: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 6" :key="index" :index="index" />
         </DigitInputGroup>
@@ -101,7 +101,7 @@ export const OTPInput: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 6" :key="index" :index="index" />
         </DigitInputGroup>
@@ -124,7 +124,7 @@ export const PasswordInput: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 4" :key="index" :index="index" />
         </DigitInputGroup>
@@ -146,7 +146,7 @@ export const Disabled: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 4" :key="index" :index="index" />
         </DigitInputGroup>
@@ -167,7 +167,7 @@ export const LongerInput: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 8" :key="index" :index="index" />
         </DigitInputGroup>
@@ -188,7 +188,7 @@ export const PrefilledValue: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 4" :key="index" :index="index" />
         </DigitInputGroup>
@@ -210,7 +210,7 @@ export const ErrorState: Story = {
       return { args, value };
     },
     template: `
-      <DigitInput v-bind="args" v-model="value">
+      <DigitInput v-bind="args" v-model="value" style="max-width: 640px;">
         <DigitInputGroup>
           <DigitInputSlot v-for="(item, index) in 4" :key="index" :index="index" />
         </DigitInputGroup>
