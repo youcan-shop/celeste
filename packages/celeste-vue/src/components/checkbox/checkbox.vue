@@ -69,11 +69,16 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       margin-block-start: -3px;
       transform: scaleY(0.5);
       animation: fade-in var(--animation-fast) linear forwards;
+    }
+
+    &[data-state='checked']::before,
+    [dir='ltr'] &[data-state='checked']::before,
+    [dir='rtl'] &[data-state='checked']::before {
+      border-top: transparent;
       border-right: 1.8px solid currentcolor;
       border-bottom: 1.8px solid currentcolor;
+      border-left: transparent;
       rotate: 45deg;
-      border-block-start: transparent;
-      border-inline-start: transparent;
     }
 
     &[data-state='indeterminate']::before {
