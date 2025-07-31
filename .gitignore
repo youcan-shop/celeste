@@ -6,3 +6,4 @@ dist
 storybook-static
 *storybook.log
 assets
+node-compile-cache

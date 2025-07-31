@@ -10,9 +10,11 @@ const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
   addons: [
-    getAbsolutePath('@storybook/addon-onboarding'),
     getAbsolutePath('@chromatic-com/storybook'),
+    getAbsolutePath('@storybook/addon-knobs'),
     getAbsolutePath('@storybook/addon-docs'),
+    // getAbsolutePath('storybook-addon-rtl'),
+    getAbsolutePath('storybook-rtl-addon'),
   ],
 
   framework: {

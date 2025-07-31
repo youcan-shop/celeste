@@ -61,6 +61,7 @@ const preview: Preview = {
         { name: 'dark', value: '#333333' },
       ],
     },
+    setLocaleToKnob: true,
   },
   globalTypes: {
     direction: {
