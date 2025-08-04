@@ -41,13 +41,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 .celeste-modal-content {
   position: fixed;
   z-index: 51;
+  top: 50%;
+  left: 50%;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-20);
   background: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
   translate: -50% -50%;
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
 }
 
 .fade-enter-active,
