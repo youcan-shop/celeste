@@ -28,14 +28,13 @@ const forwarded = useForwardPropsEmits(delegatedProps);
   width: 16px;
   height: 16px;
   padding: var(--spacing-0);
-  transition-property: box-shadow;
-  transition-duration: var(--animation-fast);
-  transition-timing-function: ease-out;
+  transition: box-shadow var(--animation-extra-fast) ease-out;
   border-radius: var(--radius-full);
   background-color: var(--color-bg-white-0);
   box-shadow:
     inset 0 0 0 1.5px var(--celeste-radio-border),
     var(--shadow-regular-xs);
+  cursor: pointer;
 
   &:hover:not([data-disabled]) {
     --celeste-radio-border: var(--color-stroke-sub-300);
