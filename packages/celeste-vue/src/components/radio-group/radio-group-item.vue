@@ -25,13 +25,13 @@ const forwarded = useForwardPropsEmits(delegatedProps);
   all: unset;
   box-sizing: border-box;
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  transition-property: box-shadow, background-color;
+  width: 16px;
+  height: 16px;
+  padding: var(--spacing-0);
+  transition-property: box-shadow;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background-color: var(--color-bg-white-0);
   box-shadow:
     inset 0 0 0 1.5px var(--celeste-radio-border),
@@ -75,9 +75,9 @@ const forwarded = useForwardPropsEmits(delegatedProps);
   &::after {
     content: '';
     display: block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
     background-color: var(--color-static-white);
   }
 }

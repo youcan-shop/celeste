@@ -21,8 +21,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </template>
 
 <style lang="scss">
-  .celeste-radio-wrapper[data-orientation='vertical'] {
-  display: flex;
-  flex-direction: column;
+  .celeste-radio-wrapper {
+  &[data-orientation='vertical'] {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
