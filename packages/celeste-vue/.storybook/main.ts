@@ -13,7 +13,6 @@ const config = {
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-knobs'),
     getAbsolutePath('@storybook/addon-docs'),
-    getAbsolutePath('storybook-rtl-addon'),
   ],
 
   framework: {
