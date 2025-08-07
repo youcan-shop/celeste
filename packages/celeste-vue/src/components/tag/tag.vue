@@ -34,6 +34,7 @@ export interface TagEmits {
       v-if="dismissable"
       :disabled="disabled"
       class="celeste-tag-dismiss-button"
+      aria-label="dismiss"
       @click.prevent.stop="$emit('dismiss')"
     >
       <i class="i-celeste-close-line" />
@@ -77,11 +78,13 @@ export interface TagEmits {
   }
 
   .celeste-tag-dismiss-button {
+    --size: 16px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
+    width: var(--size);
+    height: var(--size);
     margin-inline-end: calc(var(--spacing-4) * -1);
     padding: 0;
     border: none;
