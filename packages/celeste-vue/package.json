@@ -55,7 +55,6 @@
     "@youcan/celeste-tokens": "workspace:*",
     "clsx": "^2.1.1",
     "radix-vue": "^1.9.12",
-    "storybook-rtl-addon": "^0.3.3",
     "tinycolor2": "^1.6.0",
     "vue-sonner": "^2.0.2"
   },
