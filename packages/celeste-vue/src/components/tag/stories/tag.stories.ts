@@ -132,3 +132,31 @@ export const TagList: Story = {
     `,
   }),
 };
+
+export const WithIcon: Story = {
+  render: () => ({
+    components: { Tag },
+    template: `
+      <Tag variant="stroke">
+        <i class="i-celeste-star-line" />
+        Star
+      </Tag>
+    `,
+  }),
+};
+
+export const WithImage: Story = {
+  render: () => ({
+    components: { Tag },
+    template: `
+      <Tag variant="stroke">
+        <img 
+          width="16"
+          height="16"
+          style="object-fit: fill; clip-path: circle()" 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Flag_of_the_United_States.png/1024px-Flag_of_the_United_States.png" alt="USA" />
+        United States of America
+      </Tag>
+    `,
+  }),
+};
