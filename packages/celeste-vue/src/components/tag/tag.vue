@@ -86,7 +86,7 @@ export interface TagEmits {
     width: var(--size);
     height: var(--size);
     margin-inline-end: calc(var(--spacing-4) * -1);
-    padding: 0;
+    padding: var(--spacing-0);
     border: none;
     border-radius: calc(var(--radius-4) / 2);
     background-color: transparent;
