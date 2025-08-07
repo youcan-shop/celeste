@@ -4,8 +4,10 @@ import clsx from 'clsx';
 
 const props = withDefaults(defineProps<TagProps>(), {
   variant: 'stroke',
-  dismissable: true,
+  dismissable: false,
 });
+
+defineEmits<TagEmits>();
 </script>
 
 <script lang="ts">
@@ -13,13 +15,27 @@ export interface TagProps {
   variant?: 'stroke' | 'gray';
   class?: HTMLAttributes['class'];
   dismissable?: boolean;
+  disabled?: boolean;
+}
+
+export interface TagEmits {
+  dismiss: [];
 }
 </script>
 
 <template>
-  <div :class="clsx('celeste-tag', props.class)" :data-tag-variant="variant">
+  <div
+    :class="clsx('celeste-tag', props.class)"
+    :data-tag-variant="variant"
+    :aria-disabled="disabled"
+  >
     <slot />
-    <button v-if="dismissable" class="celeste-tag-dismiss-button">
+    <button
+      v-if="dismissable"
+      :disabled="disabled"
+      class="celeste-tag-dismiss-button"
+      @click.prevent.stop="$emit('dismiss')"
+    >
       <i class="i-celeste-close-line" />
     </button>
   </div>
@@ -40,7 +56,7 @@ export interface TagProps {
   font: var(--label-xs);
   gap: var(--spacing-4);
 
-  &[data-tag-variant='stroke'] {
+  &[data-tag-variant='stroke']:not([aria-disabled='true']) {
     border-color: var(--color-stroke-soft-200);
     background-color: var(--color-bg-white-0);
 
@@ -50,7 +66,7 @@ export interface TagProps {
     }
   }
 
-  &[data-tag-variant='gray'] {
+  &[data-tag-variant='gray']:not([aria-disabled='true']) {
     border-color: transparent;
     background-color: var(--color-bg-weak-50);
 
@@ -73,21 +89,34 @@ export interface TagProps {
     background-color: transparent;
     cursor: pointer;
 
-    &:focus:not(:disabled) {
-      outline: none;
-      box-shadow: var(--shadow-buttons-important-focus);
-    }
-
     i {
       transition: background-color var(--animation-fast) ease-out;
       background-color: var(--color-icon-soft-400);
     }
 
-    &:hover {
+    &:disabled {
+      cursor: auto;
+
+      i {
+        background-color: var(--color-icon-disabled-300);
+      }
+    }
+
+    &:focus:not([aria-disabled='true']) {
+      outline: none;
+      box-shadow: var(--shadow-buttons-important-focus);
+    }
+
+    &:not(:disabled):hover {
       i {
         background-color: var(--color-icon-sub-600);
       }
     }
+  }
+
+  &[aria-disabled='true'] {
+    background-color: var(--color-bg-weak-50);
+    color: var(--color-text-disabled-300);
   }
 }
 </style>
