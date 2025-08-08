@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
+import { Primitive, type PrimitiveProps } from 'radix-vue';
 
 const props = withDefaults(defineProps<TagProps>(), {
   variant: 'stroke',
   dismissable: false,
+  as: 'div',
 });
 
 defineEmits<TagEmits>();
 </script>
 
 <script lang="ts">
-export interface TagProps {
+export interface TagProps extends PrimitiveProps {
   variant?: 'stroke' | 'gray';
   class?: HTMLAttributes['class'];
   dismissable?: boolean;
@@ -24,7 +26,9 @@ export interface TagEmits {
 </script>
 
 <template>
-  <div
+  <Primitive
+    :as
+    :as-child
     :class="clsx('celeste-tag', props.class)"
     :data-tag-variant="variant"
     :aria-disabled="disabled"
@@ -39,7 +43,7 @@ export interface TagEmits {
     >
       <i class="i-celeste-close-line" />
     </button>
-  </div>
+  </Primitive>
 </template>
 
 <style scoped lang="scss">
