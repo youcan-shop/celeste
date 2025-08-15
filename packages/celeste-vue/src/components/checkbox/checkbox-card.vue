@@ -124,22 +124,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
   }
 }
 
-.celeste-checkbox-card-disabled {
-  cursor: not-allowed;
-
-  .celeste-checkbox-card-label {
-    color: var(--color-text-sub-600);
-  }
-
-  .celeste-checkbox-card-sublabel {
-    color: var(--color-text-soft-400);
-  }
-
-  .celeste-checkbox-card-description {
-    color: var(--color-text-soft-400);
-  }
-}
-
 .celeste-checkbox-card-preview {
   display: flex;
   position: relative;
@@ -218,5 +202,21 @@ const delegatedProps = useDelegatedProps(props, 'class');
 .celeste-checkbox-card-description {
   color: var(--color-text-sub-600);
   font: var(--paragraph-xs);
+}
+
+.celeste-checkbox-card-disabled {
+  cursor: not-allowed;
+
+  .celeste-checkbox-card-label {
+    color: var(--color-text-sub-600);
+  }
+
+  .celeste-checkbox-card-sublabel {
+    color: var(--color-text-soft-400);
+  }
+
+  .celeste-checkbox-card-description {
+    color: var(--color-text-soft-400);
+  }
 }
 </style>
