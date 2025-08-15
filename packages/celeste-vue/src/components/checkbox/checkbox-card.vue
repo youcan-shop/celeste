@@ -139,6 +139,14 @@ const delegatedProps = useDelegatedProps(props, 'class');
   box-shadow: var(--shadow-regular-xs);
 }
 
+.celeste-checkbox-card-preview-icon {
+  i {
+    width: 20px;
+    height: 20px;
+    color: var(--color-icon-sub-600);
+  }
+}
+
 .celeste-checkbox-card-preview-image {
   i {
     position: absolute;
@@ -161,14 +169,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
     i {
       display: none;
     }
-  }
-}
-
-.celeste-checkbox-card-preview-icon {
-  i {
-    width: 20px;
-    height: 20px;
-    color: var(--color-icon-sub-600);
   }
 }
 
