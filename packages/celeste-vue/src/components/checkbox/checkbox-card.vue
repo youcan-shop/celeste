@@ -140,8 +140,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
 }
 
 .celeste-checkbox-card-preview-image {
-  border: none;
-
   i {
     position: absolute;
     z-index: 0;
@@ -155,6 +153,14 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
   :deep(img) {
     z-index: 1000;
+  }
+
+  :has(img) {
+    border: none;
+
+    i {
+      display: none;
+    }
   }
 }
 
