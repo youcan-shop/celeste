@@ -37,6 +37,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 export interface PopoverContentProps {
   class?: HTMLAttributes['class'];
   side?: RadixPopoverContentProps['side'];
+  sideOffset?: RadixPopoverContentProps['sideOffset'];
+  align?: RadixPopoverContentProps['align'];
+  alignOffset?: RadixPopoverContentProps['alignOffset'];
   title?: string;
   description?: string;
   showTail?: boolean;
@@ -50,7 +53,6 @@ export interface PopoverContentProps {
   <PopoverPortal>
     <PopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
-      :side-offset="showTail ? 0 : 8"
       :class="
         clsx(
           'celeste-popover-content-wrapper',

@@ -16,6 +16,19 @@ const meta: Meta<typeof PopoverContent> = {
       options: ['top', 'right', 'bottom', 'left'],
       description: 'The preferred side of the trigger to render against when open.',
     },
+    sideOffset: {
+      control: { type: 'number' },
+      description: 'The distance in pixels from the trigger.',
+    },
+    align: {
+      control: { type: 'select' },
+      options: ['start', 'center', 'end'],
+      description: 'The preferred alignment against the trigger. May change when collisions occur.',
+    },
+    alignOffset: {
+      control: { type: 'number' },
+      description: 'An offset in pixels from the start or end alignment options.',
+    },
     title: {
       control: { type: 'text' },
       description: 'The title text for the popover',
