@@ -5,10 +5,7 @@ import clsx from 'clsx';
 import { Label, type LabelProps, Primitive } from 'radix-vue';
 
 const props = defineProps<LabelProps & {
-  sublabel?: string;
-  information?: string;
   required?: boolean;
-  description?: string;
   disabled?: boolean;
   class?: HTMLAttributes['class'];
 }>();

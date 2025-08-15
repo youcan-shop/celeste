@@ -29,6 +29,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
   display: flex;
   position: relative;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   width: var(--checkbox-size);
