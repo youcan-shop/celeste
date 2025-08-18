@@ -59,6 +59,8 @@ const meta: Meta<typeof PopoverContent> = {
     side: 'bottom',
     title: 'Popover Title',
     description: 'This is the popover description text.',
+    align: 'center',
+    alignOffset: 0,
     showTail: true,
     dismissible: true,
     iconSize: 'lg',
@@ -292,7 +294,7 @@ export const Positioning: Story = {
       return { args };
     },
     template: `
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); grid-column-gap: 0px; grid-gap: var(--spacing-8)">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); place-items: center; grid-column-gap: 0px; grid-gap: var(--spacing-8)">
         <div />
         <Popover v-bind="args" style="grid-column-start: 2;">
           <PopoverTrigger>

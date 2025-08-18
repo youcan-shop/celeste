@@ -30,6 +30,8 @@ const emits = defineEmits<PopoverContentEmits>();
 
 const delegatedProps = useDelegatedProps(props, ['class', 'title']);
 
+const sideOffset = props.showTail ? 0 : props.sideOffset ?? 8;
+
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
@@ -53,6 +55,7 @@ export interface PopoverContentProps {
   <PopoverPortal>
     <PopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
+      :side-offset="sideOffset"
       :class="
         clsx(
           'celeste-popover-content-wrapper',
