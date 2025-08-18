@@ -16,6 +16,19 @@ const meta: Meta<typeof PopoverContent> = {
       options: ['top', 'right', 'bottom', 'left'],
       description: 'The preferred side of the trigger to render against when open.',
     },
+    sideOffset: {
+      control: { type: 'number' },
+      description: 'The distance in pixels from the trigger.',
+    },
+    align: {
+      control: { type: 'select' },
+      options: ['start', 'center', 'end'],
+      description: 'The preferred alignment against the trigger. May change when collisions occur.',
+    },
+    alignOffset: {
+      control: { type: 'number' },
+      description: 'An offset in pixels from the start or end alignment options.',
+    },
     title: {
       control: { type: 'text' },
       description: 'The title text for the popover',
@@ -46,6 +59,8 @@ const meta: Meta<typeof PopoverContent> = {
     side: 'bottom',
     title: 'Popover Title',
     description: 'This is the popover description text.',
+    align: 'center',
+    alignOffset: 0,
     showTail: true,
     dismissible: true,
     iconSize: 'lg',
@@ -279,7 +294,7 @@ export const Positioning: Story = {
       return { args };
     },
     template: `
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); grid-column-gap: 0px; grid-gap: var(--spacing-8)">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); place-items: center; grid-column-gap: 0px; grid-gap: var(--spacing-8)">
         <div />
         <Popover v-bind="args" style="grid-column-start: 2;">
           <PopoverTrigger>
