@@ -56,15 +56,10 @@ export interface PopoverContentProps {
     <PopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
       :side-offset="sideOffset"
-      :class="
-        clsx(
-          'celeste-popover-content-wrapper',
-          props.class,
-        )
-      "
+      class="celeste-popover-content-wrapper"
     >
       <div
-        class="celeste-popover-content"
+        :class="clsx('celeste-popover-content', props.class)"
         :style="{ padding: !$slots.default ? 'var(--spacing-16)' : '' }"
       >
         <template v-if="!$slots.default">
@@ -185,6 +180,7 @@ $icon-size-map: (
 
   .celeste-popover-close-button {
     position: absolute;
+    z-index: 50;
     inset-inline-end: var(--spacing-16);
     inset-block-start: var(--spacing-16);
   }
