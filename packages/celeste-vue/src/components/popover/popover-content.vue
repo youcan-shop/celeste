@@ -180,6 +180,7 @@ $icon-size-map: (
 
   .celeste-popover-close-button {
     position: absolute;
+    z-index: 50;
     inset-inline-end: var(--spacing-16);
     inset-block-start: var(--spacing-16);
   }
