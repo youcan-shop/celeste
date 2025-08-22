@@ -5,7 +5,18 @@ import clsx from 'clsx';
 import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot, type NumberFieldRootEmits, type NumberFieldRootProps, useForwardPropsEmits } from 'radix-vue';
 import CompactButton from '../button/compact-button.vue';
 
-const props = defineProps<NumberFieldRootProps & { class?: HTMLAttributes['class'] }>();
+const props = withDefaults(
+  defineProps<NumberFieldRootProps & {
+    class?: HTMLAttributes['class'];
+    size?: 'xs' | 'sm' | 'md';
+    hasError?: boolean;
+  }>(),
+  {
+    size: 'md',
+    defaultValue: 0,
+    hasError: false,
+  },
+);
 const emits = defineEmits<NumberFieldRootEmits>();
 
 const delegatedProps = useDelegatedProps(props, 'class');
@@ -13,48 +24,115 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <label for="">djdjd</label>
   <NumberFieldRoot
     v-bind="forwarded"
-    :class="clsx('celeste-counter-input', props.class)"
+    :has-error="hasError"
+    :class="clsx('celeste-counter-input-wrapper', props.class)"
   >
-    <NumberFieldDecrement as-child>
+    <NumberFieldDecrement as-child class="celeste-counter-input-decrement">
       <CompactButton variant="ghost" icon="i-celeste-subtract-line" />
     </NumberFieldDecrement>
-    <NumberFieldInput id="piw" />
-    <NumberFieldIncrement as-child>
+    <NumberFieldInput class="celeste-counter-input" />
+    <NumberFieldIncrement as-child class="celeste-counter-input-increment">
       <CompactButton variant="ghost" icon="i-celeste-add-line" />
     </NumberFieldIncrement>
   </NumberFieldRoot>
 </template>
 
-<style scoped lang="scss">
-label {
-  background-color: rebeccapurple;
-}
+<style lang="scss">
+.celeste-counter-input-wrapper {
+  --celeste-counter-input-bg-color: var(--color-bg-white-0);
+  --celeste-counter-input-text-color: var(--color-text-strong-950);
+  --celeste-counter-input-drop-shadow: var(--shadow-regular-xs);
+  --celeste-counter-input-outline-color: transparent;
+  --celeste-counter-input-border-color: var(--color-stroke-soft-200);
+  --celeste-counter-input-placeholder-color: var(--color-text-soft-400);
 
-:deep(.celeste-counter-input) {
-  background-color: red;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: var(--celeste-counter-input-height);
+  padding-inline: var(--celeste-counter-input-gap);
+  transition: all var(--animation-fast) ease-out;
+  border: 1px solid var(--celeste-counter-input-border-color);
+  border-radius: var(--celeste-counter-input-radius);
+  outline: 2px solid var(--celeste-counter-input-outline-color);
+  outline-offset: 2px;
+  background-color: var(--celeste-counter-input-bg-color);
+  box-shadow: var(--celeste-counter-input-drop-shadow);
+  color: var(--celeste-counter-input-text-color);
+  font: var(--paragraph-sm);
+  gap: var(--celeste-counter-input-gap);
 
   &[size='xs'] {
-    --input-gap: 8px;
-    --input-height: 32px;
-    --input-radius: var(--radius-8);
-    --input-padding: calc(var(--spacing-8) - var(--spacing-2));
+    --celeste-counter-input-gap: 4px;
+    --celeste-counter-input-height: 30px;
+    --celeste-counter-input-radius: var(--radius-8);
+    --celeste-counter-input-padding: calc(var(--spacing-8) - var(--spacing-2));
   }
 
   &[size='sm'] {
-    --input-gap: 6px;
-    --input-height: 36px;
-    --input-radius: var(--radius-8);
-    --input-padding: var(--spacing-8);
+    --celeste-counter-input-gap: 6px;
+    --celeste-counter-input-height: 34px;
+    --celeste-counter-input-radius: var(--radius-8);
+    --celeste-counter-input-padding: var(--spacing-8);
   }
 
   &[size='md'] {
-    --input-gap: 6px;
-    --input-height: 40px;
-    --input-radius: var(--radius-10);
-    --input-padding: var(--spacing-10);
+    --celeste-counter-input-gap: 8px;
+    --celeste-counter-input-height: 38px;
+    --celeste-counter-input-radius: var(--radius-10);
+    --celeste-counter-input-padding: var(--spacing-8);
+  }
+
+  &[has-error='true'] {
+    --celeste-counter-input-border-color: var(--color-state-error-base);
+  }
+
+  & > .celeste-counter-input {
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: inherit;
+    text-align: center;
+
+    &::placeholder {
+      transition: color var(--animation-fast) ease-out;
+      color: var(--celeste-counter-input-placeholder-color);
+    }
+  }
+
+  .celeste-counter-input-decrement:active,
+  .celeste-counter-input-increment:active {
+    background-color: var(--color-bg-weak-50);
+    color: var(--color-icon-strong-950);
+  }
+
+  &:has(.celeste-counter-input:focus) {
+    --celeste-counter-input-outline-color: var(--color-stroke-soft-200);
+    --celeste-counter-input-border-color: var(--color-stroke-strong-950);
+    --celeste-counter-input-placeholder-color: var(--color-text-sub-600);
+
+    &[has-error='true'] {
+      --celeste-counter-input-border-color: var(--color-state-error-base);
+      --celeste-counter-input-outline-color: var(--color-state-error-lighter);
+    }
+  }
+
+  &:has(.celeste-counter-input:disabled) {
+    --celeste-counter-input-bg-color: var(--color-bg-weak-50);
+    --celeste-counter-input-text-color: var(--color-text-disabled-300);
+    --celeste-counter-input-drop-shadow: none;
+    --celeste-counter-input-border-color: transparent;
+    --celeste-counter-input-placeholder-color: var(--color-text-disabled-300);
+
+    pointer-events: none;
+  }
+
+  &:has(.celeste-counter-input:hover:not(:focus, :disabled)) {
+    --celeste-counter-input-border-color: transparent;
+    --celeste-counter-input-bg-color: var(--color-bg-weak-50);
   }
 }
 </style>
