@@ -12,9 +12,9 @@ type Story = StoryObj<typeof CounterInput>;
 
 export const Default: Story = {
   args: {
-    defaultValue: 16,
-    max: 20,
-    min: 10,
+    defaultValue: 5,
+    max: 10,
+    min: 0,
   },
 
   render: args => ({
@@ -30,9 +30,9 @@ export const Default: Story = {
 
 export const Size: Story = {
   args: {
-    defaultValue: 16,
-    max: 20,
-    min: 10,
+    defaultValue: 5,
+    max: 10,
+    min: 0,
   },
 
   render: args => ({
@@ -70,9 +70,71 @@ export const Disabled: Story = {
 
 export const hasError: Story = {
   args: {
-    defaultValue: 16,
-    max: 20,
+    defaultValue: 5,
+    max: 10,
     hasError: true,
+  },
+
+  render: args => ({
+    components: { CounterInput },
+    setup() {
+      return { args };
+    },
+    template: `
+      <CounterInput v-bind="args" />
+    `,
+  }),
+};
+
+export const Decimal: Story = {
+  args: {
+    defaultValue: 5,
+    formatOptions: {
+      signDisplay: 'exceptZero',
+      minimumFractionDigits: 1,
+    },
+  },
+
+  render: args => ({
+    components: { CounterInput },
+    setup() {
+      return { args };
+    },
+    template: `
+      <CounterInput v-bind="args" />
+    `,
+  }),
+};
+
+export const Percentage: Story = {
+  args: {
+    defaultValue: 0.05,
+    step: 0.01,
+    formatOptions: {
+      style: 'percent',
+    },
+  },
+
+  render: args => ({
+    components: { CounterInput },
+    setup() {
+      return { args };
+    },
+    template: `
+      <CounterInput v-bind="args" />
+    `,
+  }),
+};
+
+export const Currency: Story = {
+  args: {
+    defaultValue: 5,
+    formatOptions: {
+      style: 'currency',
+      currency: 'MAD',
+      currencyDisplay: 'code',
+      currencySign: 'accounting',
+    },
   },
 
   render: args => ({
