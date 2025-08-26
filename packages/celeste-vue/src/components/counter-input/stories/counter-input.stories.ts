@@ -90,7 +90,7 @@ export const Decimal: Story = {
   args: {
     defaultValue: 5,
     formatOptions: {
-      signDisplay: 'exceptZero',
+      signDisplay: 'negative',
       minimumFractionDigits: 1,
     },
   },

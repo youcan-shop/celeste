@@ -50,7 +50,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
   display: flex;
   align-items: center;
-  width: fit-content;
+  width: 100%;
   height: var(--celeste-counter-input-height);
   padding-inline: var(--celeste-counter-input-gap);
   transition: all var(--animation-fast) ease-out;
@@ -65,21 +65,21 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   gap: var(--celeste-counter-input-gap);
 
   &[size='xs'] {
-    --celeste-counter-input-gap: 4px;
+    --celeste-counter-input-gap: var(--spacing-4);
     --celeste-counter-input-height: 30px;
     --celeste-counter-input-radius: var(--radius-8);
     --celeste-counter-input-padding: calc(var(--spacing-8) - var(--spacing-2));
   }
 
   &[size='sm'] {
-    --celeste-counter-input-gap: 6px;
+    --celeste-counter-input-gap: var(--spacing-6);
     --celeste-counter-input-height: 34px;
     --celeste-counter-input-radius: var(--radius-8);
     --celeste-counter-input-padding: var(--spacing-8);
   }
 
   &[size='md'] {
-    --celeste-counter-input-gap: 8px;
+    --celeste-counter-input-gap: var(--spacing-8);
     --celeste-counter-input-height: 38px;
     --celeste-counter-input-radius: var(--radius-10);
     --celeste-counter-input-padding: var(--spacing-8);
@@ -90,6 +90,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   }
 
   & > .celeste-counter-input {
+    flex: 2;
     height: 100%;
     border: none;
     outline: none;
