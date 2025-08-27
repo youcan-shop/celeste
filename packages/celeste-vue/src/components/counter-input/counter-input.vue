@@ -46,7 +46,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   --celeste-counter-input-drop-shadow: var(--shadow-regular-xs);
   --celeste-counter-input-outline-color: transparent;
   --celeste-counter-input-border-color: var(--color-stroke-soft-200);
-  --celeste-counter-input-placeholder-color: var(--color-text-soft-400);
 
   display: flex;
   align-items: center;
@@ -97,11 +96,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     background-color: transparent;
     color: inherit;
     text-align: center;
-
-    &::placeholder {
-      transition: color var(--animation-fast) ease-out;
-      color: var(--celeste-counter-input-placeholder-color);
-    }
   }
 
   .celeste-counter-input-decrement:active,
@@ -113,7 +107,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   &:has(.celeste-counter-input:focus) {
     --celeste-counter-input-outline-color: var(--color-stroke-soft-200);
     --celeste-counter-input-border-color: var(--color-stroke-strong-950);
-    --celeste-counter-input-placeholder-color: var(--color-text-sub-600);
 
     &[has-error='true'] {
       --celeste-counter-input-border-color: var(--color-state-error-base);
