@@ -119,7 +119,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     --celeste-counter-input-text-color: var(--color-text-disabled-300);
     --celeste-counter-input-drop-shadow: none;
     --celeste-counter-input-border-color: transparent;
-    --celeste-counter-input-placeholder-color: var(--color-text-disabled-300);
 
     pointer-events: none;
   }
