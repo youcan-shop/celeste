@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import CounterInput from '../counter-input.vue';
 
 const meta: Meta<typeof CounterInput> = {
-  title: 'Components/Counter Input',
+  title: 'Components/Input/Counter Input',
   component: CounterInput,
 };
 
