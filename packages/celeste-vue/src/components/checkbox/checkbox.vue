@@ -4,18 +4,50 @@ import type { HTMLAttributes } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'radix-vue';
+import { computed } from 'vue';
 
-const props = defineProps<CheckboxRootProps & { class?: HTMLAttributes['class'] }>();
-const emits = defineEmits<CheckboxRootEmits>();
+const props = defineProps<CheckboxRootProps & { class?: HTMLAttributes['class']; modelValue?: string[] | boolean | 'indeterminate' }>();
+const emits = defineEmits<CheckboxRootEmits & { 'update:modelValue': [value: string[] | boolean | 'indeterminate'] }>();
 
-const delegatedProps = useDelegatedProps(props, 'class');
+const delegatedProps = useDelegatedProps(props, ['class', 'modelValue']);
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+const isArrayModel = computed(() => Array.isArray(props.modelValue) && props.value !== undefined);
+const arrayModelChecked = computed<boolean | undefined>(() => {
+  if (!isArrayModel.value)
+    return undefined;
+  const arr = (props.modelValue as string[]) || [];
+  return arr.includes(props.value as string);
+});
+
+function handleCheckedUpdate(next: boolean | 'indeterminate') {
+  if (!isArrayModel.value) {
+    emits('update:checked', next === 'indeterminate' ? false : next);
+    return;
+  }
+
+  if (typeof next !== 'boolean')
+    return;
+
+  const current = ((props.modelValue as string[]) || []).slice();
+  const val = props.value as string;
+  const idx = current.indexOf(val);
+
+  if (next && idx === -1)
+    current.push(val);
+  if (!next && idx !== -1)
+    current.splice(idx, 1);
+
+  emits('update:modelValue', current);
+}
 </script>
 
 <template>
   <CheckboxRoot
     v-bind="forwarded"
     :class="clsx('celeste-checkbox', props.class)"
+    :checked="arrayModelChecked"
+    @update:checked="handleCheckedUpdate"
   >
     <CheckboxIndicator class="celeste-checkbox-indicator" />
   </CheckboxRoot>

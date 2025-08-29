@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Badge from '@/components/badge/badge.vue';
 import LinkButton from '@/components/button/link-button.vue';
+import { ref } from 'vue';
 import CheckboxLabel from '../checkbox-label.vue';
 import Checkbox from '../checkbox.vue';
 
@@ -112,6 +113,37 @@ export const WithCheckboxLabel: Story = {
               </LinkButton>
             </template>
           </CheckboxLabel>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const ArrayModelWithLabel: Story = {
+  args: {},
+  render: () => ({
+    components: { Checkbox, CheckboxLabel },
+    setup() {
+      const selected = ref<string[]>([]);
+      return { selected };
+    },
+    template: `
+      <div style="display:flex; flex-direction: column; gap: 12px; max-width: 420px;">
+        <CheckboxLabel>
+          <Checkbox v-model="selected" value="marketing" />
+          <template #label>Marketing emails</template>
+          <template #sublabel>(Optional)</template>
+          <template #description>Receive product news and updates.</template>
+        </CheckboxLabel>
+
+        <CheckboxLabel>
+          <Checkbox v-model="selected" value="security" />
+          <template #label>Security alerts</template>
+          <template #description>Critical account and security notifications.</template>
+        </CheckboxLabel>
+
+        <div style="margin-top: 8px; font-family: var(--font-sans); font-size: 12px; color: var(--color-text-sub-600);">
+          Selected: {{ selected.join(', ') || 'none' }}
         </div>
       </div>
     `,
