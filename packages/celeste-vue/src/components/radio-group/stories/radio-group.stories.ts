@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { ref } from 'vue';
 import RadioGroupItem from '../radio-group-item.vue';
+import RadioGroupLabel from '../radio-group-label.vue';
 import RadioGroup from '../radio-group.vue';
 
 const meta: Meta<typeof RadioGroup> = {
@@ -24,25 +26,33 @@ export const Default: Story = {
   },
 
   render: args => ({
-    components: { RadioGroup, RadioGroupItem },
+    components: { RadioGroup, RadioGroupItem, RadioGroupLabel },
     setup() {
-      return { args };
+      const selectedValue = ref();
+      return { args, selectedValue };
     },
     template: `
-      <RadioGroup v-bind="args" v-model="option2" style="display: flex; gap: 20px;">
-        <div style="display: flex; align-items: center;">
-          <RadioGroupItem id="r1" value="option1"></RadioGroupItem>
-          <label for="r1" style="padding-inline-start: 10px;">Option 1</label>
+      <div>
+        <RadioGroup v-bind="args" v-model="selectedValue" style="display: flex; gap: 8px;">
+          <RadioGroupLabel>
+            <RadioGroupItem id="r1" value="option1" />
+            <template #label>Option 1</template>
+          </RadioGroupLabel>
+
+          <RadioGroupLabel>
+            <RadioGroupItem id="r2" value="option2" />
+            <template #label>Option 2</template>
+          </RadioGroupLabel>
+
+          <RadioGroupLabel>
+            <RadioGroupItem id="r3" value="option3" />
+            <template #label>Option 3</template>
+          </RadioGroupLabel>
+        </RadioGroup>
+        <div style="margin-top: 16px; padding: 12px; background: #f5f5f5; border-radius: 8px; font-family: monospace;">
+          <strong>Selected:</strong> {{ selectedValue ? selectedValue : 'None' }}
         </div>
-        <div style="display: flex; align-items: center;">
-          <RadioGroupItem id="r2" value="option2"></RadioGroupItem>
-          <label for="r2" style="padding-inline-start: 10px;">Option 2</label>
-        </div>
-        <div style="display: flex; align-items: center;">
-          <RadioGroupItem id="r3" value="option3"></RadioGroupItem>
-          <label for="r3" style="padding-inline-start: 10px;">Option 3</label>
-        </div>
-      </RadioGroup>
+      </div>
     `,
   }),
 };
