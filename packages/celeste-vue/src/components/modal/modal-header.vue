@@ -57,7 +57,7 @@ const props = withDefaults(defineProps<{
 
   display: flex;
   gap: var(--spacing-14);
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: var(--spacing-16);
   border-block-end: 1px solid var(--color-stroke-soft-200);
