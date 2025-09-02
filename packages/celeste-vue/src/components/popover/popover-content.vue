@@ -195,7 +195,7 @@ $icon-size-map: (
     }
 
     .celeste-popover-title {
-      padding-block: var(--spacing-8);
+      margin-block-end: var(--spacing-8);
       color: var(--color-text-strong-950);
       font: var(--label-md);
     }
