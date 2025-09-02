@@ -1,4 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import TextInput from '@/components/text-input/text-input.vue';
+import {
+  PopoverClose,
+} from 'radix-vue';
 import Button from '../../button/button.vue';
 import PopoverContent from '../popover-content.vue';
 import PopoverTrigger from '../popover-trigger.vue';
@@ -351,6 +355,48 @@ export const Positioning: Story = {
           />
         </Popover>
       </div>
+    `,
+  }),
+};
+
+export const CustomContent: Story = {
+  args: {},
+  render: args => ({
+    components: { Popover, PopoverContent, PopoverTrigger, Button, TextInput, PopoverClose },
+    setup() {
+      return { args };
+    },
+    template: `
+      <Popover>
+        <PopoverTrigger>
+          <Button variant="stroke" intent="neutral">
+            Custom Form
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent :dismissible="false">
+          <div style="padding: var(--spacing-16)">
+            <h3 style="margin: var(--spacing-0) var(--spacing-0) var(--spacing-8); font: var(--title-h6-title)">
+              Subscribe to Newsletter
+            </h3>
+            <p style="margin: var(--spacing-0) var(--spacing-0) var(--spacing-8); font: var(--paragraph-sm); color: var(--color-text-sub-600);">
+              Get the latest updates delivered to your inbox.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <TextInput placeholder="hey@email.com" type="email" size="sm" id="email" style="width: 100%; margin-block: var(--spacing-8);" />
+              <div style="display: flex; gap: var(--spacing-8);">
+                <Button variant="fill" intent="primary" style="flex: 1;">
+                  Subscribe
+                </Button>
+                <PopoverClose as="div">
+                  <Button variant="stroke" intent="neutral" style="flex: 1;">
+                    Maybe Later
+                  </Button>
+                </PopoverClose>
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
     `,
   }),
 };
