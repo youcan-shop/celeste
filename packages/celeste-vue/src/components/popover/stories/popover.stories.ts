@@ -381,7 +381,7 @@ export const CustomContent: Story = {
             <p style="margin: var(--spacing-0) var(--spacing-0) var(--spacing-8); font: var(--paragraph-sm); color: var(--color-text-sub-600);">
               Get the latest updates delivered to your inbox.
             </p>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-12);">
               <TextInput placeholder="hey@email.com" type="email" size="sm" id="email" style="width: 100%; margin-block: var(--spacing-8);" />
               <div style="display: flex; gap: var(--spacing-8);">
                 <Button variant="fill" intent="primary" style="flex: 1;">
