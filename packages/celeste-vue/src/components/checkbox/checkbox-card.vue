@@ -94,6 +94,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 .celeste-checkbox-card {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   padding: var(--spacing-16);
   transition: all var(--animation-fast) ease-out;
   border: 1px solid var(--color-stroke-soft-200);
