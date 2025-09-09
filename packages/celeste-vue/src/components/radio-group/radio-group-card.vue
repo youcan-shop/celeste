@@ -203,6 +203,10 @@ const delegatedProps = useDelegatedProps(props, 'class');
   font: var(--paragraph-xs);
 }
 
+:deep(.celeste-radio-card-radio) {
+  margin-inline-start: auto;
+}
+
 .celeste-radio-card-disabled {
   cursor: not-allowed;
 
