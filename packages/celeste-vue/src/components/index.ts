@@ -8,6 +8,7 @@ export * from './digit-input';
 export * from './dropdown';
 export * from './dropdown-menu';
 export * from './hint-text';
+export * from './image-upload';
 export * from './label';
 export * from './modal';
 export * from './popover';
