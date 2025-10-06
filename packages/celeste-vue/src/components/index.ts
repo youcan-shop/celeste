@@ -7,7 +7,6 @@ export * from './combobox';
 export * from './content-divider';
 export * from './counter-input';
 export * from './digit-input';
-export * from './dropdown';
 export * from './dropdown-menu';
 export * from './hint-text';
 export * from './label';
