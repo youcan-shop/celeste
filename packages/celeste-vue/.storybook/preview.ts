@@ -55,11 +55,11 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      values: [
-        { name: 'white', value: '#ffffff' },
-        { name: 'gray', value: '#E1E4EA' },
-        { name: 'dark', value: '#333333' },
-      ],
+      options: {
+        white: { name: 'white', value: '#ffffff' },
+        gray: { name: 'gray', value: '#E1E4EA' },
+        dark: { name: 'dark', value: '#333333' },
+      },
     },
   },
   globalTypes: {
