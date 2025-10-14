@@ -5,7 +5,6 @@ import { computed } from 'vue';
 import { defineColorModel } from './composable/use-color-model';
 
 const props = withDefaults(defineProps<ColorSwatchProps>(), {
-  label: 'Recommended Colors',
   swatch: () => DEFAULT_SWATCH,
 });
 const emit = defineEmits<ColorSwatchEmits>();
@@ -28,7 +27,7 @@ function isSwatchColorSelected(color: string) {
 <script lang="ts">
 export interface ColorSwatchProps {
   modelValue: tinycolor.Instance;
-  label?: string;
+  label: string;
   swatch?: string[];
   defaultColor?: string;
 }
