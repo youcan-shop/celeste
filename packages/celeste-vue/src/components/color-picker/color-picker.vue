@@ -491,7 +491,7 @@ declare global {
           <ColorSwatch
             v-else
             v-model="tinyColorRef"
-            :color-swatch-label="colorSwatchLabel"
+            :label="colorSwatchLabel"
             :hue="hueRef"
           />
         </div>

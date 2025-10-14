@@ -27,7 +27,7 @@ function isSwatchColorSelected(color: string) {
 <script lang="ts">
 export interface ColorSwatchProps {
   modelValue: tinycolor.Instance;
-  colorSwatchLabel: string;
+  label: string;
   swatch?: string[];
   defaultColor?: string;
 }
@@ -40,7 +40,7 @@ export interface ColorSwatchEmits {
 <template>
   <div class="celeste-color-swatch">
     <span class="swatch-label">
-      {{ colorSwatchLabel }}
+      {{ label }}
     </span>
     <div class="color-palette">
       <div
