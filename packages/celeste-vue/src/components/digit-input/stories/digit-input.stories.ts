@@ -5,7 +5,7 @@ import DigitInputSlot from '../digit-input-slot.vue';
 import DigitInput from '../digit-input.vue';
 
 const meta: Meta<typeof DigitInput> = {
-  title: 'Components/DigitInput',
+  title: 'Components/Input/Digit Input',
   component: DigitInput,
   argTypes: {
     modelValue: {

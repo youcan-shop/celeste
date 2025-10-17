@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
   formats: () => ['hex', 'rgb', 'hsl', 'hsb'],
   label: 'Pick Color',
+  colorSwatchLabel: 'Recommended Colors',
 });
 
 const emit = defineEmits<ColorPickerEmits>();
@@ -246,6 +247,7 @@ export interface ColorPickerProps {
   class?: HTMLAttributes['class'];
   formats?: ColorFormat[];
   defaultFormat?: ColorFormat;
+  colorSwatchLabel?: string;
 }
 
 export interface ColorPickerEmits {
@@ -489,6 +491,7 @@ declare global {
           <ColorSwatch
             v-else
             v-model="tinyColorRef"
+            :label="colorSwatchLabel"
             :hue="hueRef"
           />
         </div>
@@ -507,6 +510,7 @@ declare global {
     display: block;
     width: var(--color-tile-size);
     height: var(--color-tile-size);
+    border: 1px solid var(--color-bg-soft-200);
     border-radius: var(--radius-4);
     background-color: v-bind(modelValue);
   }

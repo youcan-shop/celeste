@@ -35,13 +35,19 @@ export interface HintTextProps {
 <style lang="scss" scoped>
 .celeste-hint-text {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: var(--spacing-4);
   color: var(--color-text-sub-600);
   font: var(--paragraph-xs);
 
   i {
+    flex-shrink: 0;
     color: var(--color-icon-soft-400);
+  }
+
+  p {
+    max-width: 65ch;
+    margin: 0;
   }
 
   &-disabled {

@@ -20,20 +20,19 @@ const delegatedProps = useDelegatedProps(props, 'class');
     :aria-required="required"
     :aria-disabled="disabled"
     :class="
-      clsx('celeste-checkbox-card', props.class, {
-        'celeste-checkbox-card-disabled': disabled,
+      clsx('celeste-radio-card', props.class, {
+        'celeste-radio-card-disabled': disabled,
       })
     "
   >
-
     <div
       v-if="$slots.image || $slots.icon"
       role="presentation"
-      class="celeste-checkbox-card-preview"
-      :class="[$slots.image ? 'celeste-checkbox-card-preview-image' : 'celeste-checkbox-card-preview-icon']"
+      class="celeste-radio-card-preview"
+      :class="[$slots.image ? 'celeste-radio-card-preview-image' : 'celeste-radio-card-preview-icon']"
     >
       <template v-if="$slots.image">
-        <i class="celeste-checkbox-card-preview-fallback" i-celeste-image-circle-fill />
+        <i class="celeste-radio-card-preview-fallback" i-celeste-image-circle-fill />
         <slot class="i-celeste-image-circle-fill?bg" name="image" />
       </template>
 
@@ -42,24 +41,24 @@ const delegatedProps = useDelegatedProps(props, 'class');
       </template>
     </div>
 
-    <div class="celeste-checkbox-card-content">
+    <div class="celeste-radio-card-content">
       <div role="presentation">
-        <div role="presentation" class="celeste-checkbox-card-row">
-          <Primitive as="span" class="celeste-checkbox-card-label">
+        <div role="presentation" class="celeste-radio-card-row">
+          <Primitive as="span" class="celeste-radio-card-label">
             <slot name="label" />
           </Primitive>
 
           <Primitive
             v-if="$slots.sublabel"
             as="span"
-            class="celeste-checkbox-card-sublabel"
+            class="celeste-radio-card-sublabel"
           >
             <slot name="sublabel" />
           </Primitive>
           <Primitive
             v-if="$slots.badge"
             as-child
-            class="celeste-checkbox-card-badge"
+            class="celeste-radio-card-badge"
           >
             <slot :disabled="disabled" name="badge" />
           </Primitive>
@@ -69,7 +68,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
       <Primitive
         v-if="$slots.description"
         as="span"
-        class="celeste-checkbox-card-description"
+        class="celeste-radio-card-description"
       >
         <slot name="description" />
       </Primitive>
@@ -78,7 +77,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
     <Primitive
       :disabled="disabled"
       as-child
-      class="celeste-checkbox-card-checkbox"
+      class="celeste-radio-card-radio"
     >
       <slot />
     </Primitive>
@@ -91,7 +90,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   box-sizing: border-box;
 }
 
-.celeste-checkbox-card {
+.celeste-radio-card {
   display: flex;
   align-items: flex-start;
   padding: var(--spacing-16);
@@ -104,17 +103,17 @@ const delegatedProps = useDelegatedProps(props, 'class');
   font: var(--paragraph-sm);
   gap: var(--spacing-14);
 
-  &:not(.celeste-checkbox-card-disabled) {
+  &:not(.celeste-radio-card-disabled) {
     cursor: pointer;
   }
 
-  &:has([data-state='checked']):not(.celeste-checkbox-card-disabled) {
+  &:has([data-state='checked']):not(.celeste-radio-card-disabled) {
     border-color: var(--color-primary-base);
     box-shadow: none;
   }
 
-  &:hover:not(.celeste-checkbox-card-disabled),
-  &:focus-visible:not(.celeste-checkbox-card-disabled) {
+  &:hover:not(.celeste-radio-card-disabled),
+  &:focus-visible:not(.celeste-radio-card-disabled) {
     background-color: var(--color-bg-weak-50);
     box-shadow: none;
 
@@ -124,7 +123,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   }
 }
 
-.celeste-checkbox-card-preview {
+.celeste-radio-card-preview {
   display: flex;
   position: relative;
   flex-shrink: 0;
@@ -139,7 +138,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   box-shadow: var(--shadow-regular-xs);
 }
 
-.celeste-checkbox-card-preview-icon {
+.celeste-radio-card-preview-icon {
   i {
     width: 20px;
     height: 20px;
@@ -147,7 +146,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   }
 }
 
-.celeste-checkbox-card-preview-image {
+.celeste-radio-card-preview-image {
   border: none;
 
   i {
@@ -166,20 +165,20 @@ const delegatedProps = useDelegatedProps(props, 'class');
   }
 }
 
-.celeste-checkbox-card-content {
+.celeste-radio-card-content {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
 }
 
-.celeste-checkbox-card-row {
+.celeste-radio-card-row {
   display: flex;
   flex-shrink: 1;
   align-items: center;
   gap: var(--spacing-8);
 }
 
-.celeste-checkbox-card-label {
+.celeste-radio-card-label {
   flex-shrink: 1;
   min-width: 0;
   overflow: hidden;
@@ -189,7 +188,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   white-space: nowrap;
 }
 
-.celeste-checkbox-card-sublabel {
+.celeste-radio-card-sublabel {
   flex-shrink: 1;
   min-width: 0;
   overflow: hidden;
@@ -199,27 +198,27 @@ const delegatedProps = useDelegatedProps(props, 'class');
   white-space: nowrap;
 }
 
-.celeste-checkbox-card-description {
+.celeste-radio-card-description {
   color: var(--color-text-sub-600);
   font: var(--paragraph-xs);
 }
 
-:deep(.celeste-checkbox-card-checkbox) {
+:deep(.celeste-radio-card-radio) {
   margin-inline-start: auto;
 }
 
-.celeste-checkbox-card-disabled {
+.celeste-radio-card-disabled {
   cursor: not-allowed;
 
-  .celeste-checkbox-card-label {
+  .celeste-radio-card-label {
     color: var(--color-text-sub-600);
   }
 
-  .celeste-checkbox-card-sublabel {
+  .celeste-radio-card-sublabel {
     color: var(--color-text-soft-400);
   }
 
-  .celeste-checkbox-card-description {
+  .celeste-radio-card-description {
     color: var(--color-text-soft-400);
   }
 }
