@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<FileUploadProps>(), {
   multiple: false,
   maxSize: 2000,
   maxFiles: 5,
-  showPreview: false,
 });
 
 const emit = defineEmits<FileUploadAreaEmit>();
