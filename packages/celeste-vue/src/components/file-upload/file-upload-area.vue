@@ -4,7 +4,7 @@ import { useDropZone } from '@vueuse/core';
 import clsx from 'clsx';
 import { type InputHTMLAttributes, useTemplateRef } from 'vue';
 
-const props = withDefaults(defineProps<FileUploadProps>(), {
+const props = withDefaults(defineProps<FileUploadAreaProps>(), {
   icon: 'i-celeste-upload-cloud-2-line',
   label: 'Choose a file or drag & drop it here.',
   description: 'JPEG, PNG, PDF, and MP4 formats, up to 50 MB.',
@@ -98,7 +98,7 @@ function handleTriggerClick(e: Event) {
 </script>
 
 <script lang="ts">
-export interface FileUploadProps {
+export interface FileUploadAreaProps {
   label?: string;
   description?: string;
   labelOnDrop?: string;
