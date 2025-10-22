@@ -25,7 +25,7 @@ const { isOverDropZone } = useDropZone(dropZoneRef, { onDrop });
 
 function handleUpload(e: Event) {
   const input = e.target as HTMLInputElement;
-  const newFiles = [...(input.files ?? [])];
+  const newFiles = Array.from(input.files ?? []);
 
   const filesToProcess = newFiles.slice(0, props.maxFiles);
   const rejectedFiles = newFiles.slice(props.maxFiles);
@@ -58,7 +58,7 @@ function onDrop(droppedFiles: File[] | null) {
     });
   }
 
-  const validFiles = droppedFiles.filter(isValidFile);
+  const validFiles = filesToProcess.filter(isValidFile);
   files.value = [...validFiles];
 }
 
@@ -131,7 +131,7 @@ export interface FileUploadAreaEmit {
       'celeste-file-upload-area',
       props.class,
     )"
-    :data-on-drop="isOverDropZone"
+    :data-over-drop-zone="isOverDropZone"
   >
     <i :class="icon" />
     <div class="celeste-file-upload-area-content">
@@ -223,7 +223,7 @@ export interface FileUploadAreaEmit {
     scale: 0;
   }
 
-  &[data-on-drop='true'] {
+  &[data-over-drop-zone='true'] {
     background-color: var(--color-bg-weak-50);
   }
 }

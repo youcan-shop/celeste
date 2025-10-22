@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import FileUploadArea, { type FileError } from '../file-upload-area.vue';
 
 const meta: Meta<typeof FileUploadArea> = {
@@ -21,10 +21,6 @@ export const Default: Story = {
     setup() {
       const files = ref([]);
 
-      watch(files, (newValue) => {
-        // eslint-disable-next-line no-console
-        console.log('v-model changed:', newValue);
-      });
       function handleError(error: FileError): void {
         console.error(error);
       };
