@@ -8,6 +8,7 @@ export * from './content-divider';
 export * from './counter-input';
 export * from './digit-input';
 export * from './dropdown-menu';
+export * from './file-upload';
 export * from './hint-text';
 export * from './label';
 export * from './modal';
