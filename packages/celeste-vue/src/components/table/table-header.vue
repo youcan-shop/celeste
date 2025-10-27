@@ -16,11 +16,3 @@ export interface TableHeaderProps {
     <slot />
   </thead>
 </template>
-
-<style scoped>
-.celeste-table-header {
-  background-color: var(--color-bg-weak-50);
-  color: var(--color-text-sub-600);
-  font: var(--paragraph-sm);
-}
-</style>

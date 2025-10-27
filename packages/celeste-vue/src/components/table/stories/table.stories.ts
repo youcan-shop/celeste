@@ -280,3 +280,165 @@ export const Simple: Story = {
     `,
   }),
 };
+
+export const RichTable: Story = {
+  render: args => ({
+    components: {
+      Table,
+      TableBody,
+      TableCell,
+      TableHead,
+      TableHeader,
+      TableRow,
+      Badge,
+    },
+    setup() {
+      const members = [
+        {
+          name: 'James Brown',
+          email: 'james@example.com',
+          title: 'Marketing Manager',
+          since: 'Aug, 2021',
+          project: 'Campaign Strategy',
+          projectIcon: 'i-celeste-briefcase-fill',
+          fileName: 'brown-james.pdf',
+          fileSize: '2.4 MB',
+          status: 'Active',
+        },
+        {
+          name: 'Sophia Williams',
+          email: 'sophia@example.com',
+          title: 'HR Assistant',
+          since: 'Aug, 2021',
+          project: 'Employee Survey',
+          projectIcon: 'i-celeste-user-fill',
+          fileName: 'williams-sophia.pdf',
+          fileSize: '2.4 MB',
+          status: 'Active',
+        },
+        {
+          name: 'Arthur Taylor',
+          email: 'arthur@example.com',
+          title: 'Entrepreneur / CEO',
+          since: 'May, 2022',
+          project: 'Vision and Goals',
+          projectIcon: 'i-celeste-flag-fill',
+          fileName: 'taylor-arthur.pdf',
+          fileSize: '2.4 MB',
+          status: 'Absent',
+        },
+        {
+          name: 'Emma Wright',
+          email: 'emma@example.com',
+          title: 'Front-end Developer',
+          since: 'Sep, 2022',
+          project: 'User Feedback',
+          projectIcon: 'i-celeste-chat-fill',
+          fileName: 'wright-emma.pdf',
+          fileSize: '1.9 MB',
+          status: 'Active',
+        },
+        {
+          name: 'Matthew Johnson',
+          email: 'matthew@example.com',
+          title: 'Data Software Engineer',
+          since: 'Feb, 2022',
+          project: 'Data Analysis',
+          projectIcon: 'i-celeste-bar-chart-fill',
+          fileName: 'johnson-matthew.pdf',
+          fileSize: '2.9 MB',
+          status: 'Active',
+        },
+        {
+          name: 'Laura Perez',
+          email: 'laura@example.com',
+          title: 'Fashion Designer',
+          since: 'Mar, 2022',
+          project: 'Design Trends',
+          projectIcon: 'i-celeste-palette-fill',
+          fileName: 'perez-laura.pdf',
+          fileSize: '2.5 MB',
+          status: 'Absent',
+        },
+        {
+          name: 'Wei Chen',
+          email: 'wei@example.com',
+          title: 'Operations Manager',
+          since: 'July, 2021',
+          project: 'Process Optimization',
+          projectIcon: 'i-celeste-settings-fill',
+          fileName: 'chen-wei.pdf',
+          fileSize: '2.6 MB',
+          status: 'Active',
+        },
+      ];
+
+      const getStatusBadgeProps = (status: string): { state: string; label: string } => {
+        return status === 'Active'
+          ? { state: 'success', label: 'Active' }
+          : { state: 'error', label: 'Absent' };
+      };
+
+      return { args, members, getStatusBadgeProps };
+    },
+    template: `
+      <Table v-bind="args">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Member Name</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Projects</TableHead>
+            <TableHead>Documents</TableHead>
+            <TableHead>Status</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow v-for="member in members" :key="member.email">
+            <TableCell>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--color-primary-100); color: var(--color-primary-600);">
+                  <i class="i-celeste-user-fill" style="font-size: 20px;" />
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <div style="font-weight: 500; color: var(--color-text-strong-950);">{{ member.name }}</div>
+                  <div style="font-size: 14px; color: var(--color-text-sub-600);">{{ member.email }}</div>
+                </div>
+              </div>
+            </TableCell>
+            <TableCell>
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-weight: 500; color: var(--color-text-strong-950);">{{ member.title }}</div>
+                <div style="font-size: 14px; color: var(--color-text-sub-600);">Since {{ member.since }}</div>
+              </div>
+            </TableCell>
+            <TableCell>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; background: var(--color-bg-weak-50);">
+                  <i :class="member.projectIcon" style="font-size: 16px; color: var(--color-icon-sub-600);" />
+                </div>
+                <span style="color: var(--color-text-strong-950);">{{ member.project }}</span>
+              </div>
+            </TableCell>
+            <TableCell>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="i-celeste-file-text-fill" style="font-size: 16px; color: var(--color-icon-soft-400);" />
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <div style="font-weight: 500; color: var(--color-text-strong-950);">{{ member.fileName }}</div>
+                  <div style="font-size: 14px; color: var(--color-text-sub-600);">{{ member.fileSize }}</div>
+                </div>
+              </div>
+            </TableCell>
+            <TableCell>
+              <Badge 
+                v-bind="getStatusBadgeProps(member.status)"
+                size="sm"
+                variant="fill"
+                type="label"
+              />
+            </dTableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    `,
+  }),
+};

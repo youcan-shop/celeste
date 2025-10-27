@@ -29,6 +29,7 @@ export interface TableProps {
 .celeste-table-wrapper .celeste-table {
   width: 100%;
   caption-side: bottom;
+  border-collapse: collapse;
   font: var(--paragraph-sm);
 }
 </style>
