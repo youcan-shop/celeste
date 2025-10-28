@@ -1,5 +1,12 @@
 import type { PathLike } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname, join, resolve } from 'node:path';
+// This file has been automatically migrated to valid ESM format by Storybook.
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
 
 function getAbsolutePath(value): PathLike {
   return dirname(require.resolve(join(value, 'package.json')));
@@ -7,12 +14,13 @@ function getAbsolutePath(value): PathLike {
 
 /** @type { import('@storybook/vue3-vite').StorybookConfig } */
 const config = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx|vue)'],
 
   addons: [
     getAbsolutePath('@chromatic-com/storybook'),
     getAbsolutePath('@storybook/addon-knobs'),
     getAbsolutePath('@storybook/addon-docs'),
+    'storybook-vue-addon',
   ],
 
   framework: {

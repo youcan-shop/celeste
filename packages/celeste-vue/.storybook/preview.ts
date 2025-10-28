@@ -46,9 +46,18 @@ if (typeof document !== 'undefined') {
 const preview: Preview = {
   parameters: {
     docs: {
-      codePanel: true,
+      source: {
+        language: 'html',
+        format: true,
+        type: 'dynamic',
+        excludeDecorators: true,
+      },
+      canvas: {
+        sourceState: 'shown',
+      },
     },
     controls: {
+      expanded: true,
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
@@ -61,6 +70,7 @@ const preview: Preview = {
         dark: { name: 'dark', value: '#333333' },
       },
     },
+    actions: { argTypesRegex: '^on[A-Z].*' },
   },
   globalTypes: {
     direction: {
