@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 const props = withDefaults(
   defineProps<TableRowProps>(),
-  { hoverable: false },
+  { hoverable: true },
 );
 </script>
 
