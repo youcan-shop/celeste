@@ -64,6 +64,7 @@
     "@storybook/addon-knobs": "^8.0.1",
     "@storybook/addon-onboarding": "^9.1.10",
     "@storybook/vue3-vite": "^9.1.10",
+    "@tanstack/vue-table": "^8.20.5",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
     "@types/tinycolor2": "^1.4.6",
