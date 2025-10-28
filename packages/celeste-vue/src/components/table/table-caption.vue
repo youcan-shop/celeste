@@ -19,6 +19,8 @@ export interface TableCaptionProps {
 
 <style scoped>
 .celeste-table-caption {
+  padding-block: var(--spacing-16);
+  color: var(--color-text-soft-400);
   font: var(--paragraph-sm);
 }
 </style>
