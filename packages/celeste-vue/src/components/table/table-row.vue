@@ -37,7 +37,7 @@ export interface TableRowProps {
 
 .celeste-table-row-divider td {
   height: 0;
-  padding: 0;
+  padding: var(--spacing-0);
   border-bottom: 1px solid var(--color-stroke-soft-200);
   line-height: 0;
 }
