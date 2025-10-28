@@ -19,7 +19,7 @@ export interface TableRowProps {
   <tr :class="clsx('celeste-table-row', props.class, { 'celeste-table-row-hoverable': props.hoverable })">
     <slot />
   </tr>
-  <tr class="celeste-table-row-divider">
+  <tr aria-hidden="true" class="celeste-table-row-divider">
     <td colspan="100" />
   </tr>
 </template>
