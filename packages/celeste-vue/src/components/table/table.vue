@@ -29,7 +29,7 @@ export interface TableProps {
 .celeste-table-wrapper .celeste-table {
   width: 100%;
   caption-side: bottom;
-  border-spacing: 0 var(--spacing-4);
+  border-spacing: var(--spacing-0) var(--spacing-4);
   border-collapse: separate;
   font: var(--paragraph-sm);
 }
