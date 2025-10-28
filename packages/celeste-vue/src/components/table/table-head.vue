@@ -2,17 +2,23 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = defineProps<TableHeadProps>();
+const props = withDefaults(
+  defineProps<TableHeadProps>(),
+  { end: false },
+);
 </script>
 
 <script lang="ts">
 export interface TableHeadProps {
   class?: HTMLAttributes['class'];
+  end?: boolean;
 }
 </script>
 
 <template>
-  <th :class="clsx('celeste-table-head', props.class)">
+  <th
+    :class="clsx('celeste-table-head', props.class, { 'celeste-table-head-align-end': props.end })"
+  >
     <slot />
   </th>
 </template>
@@ -23,6 +29,10 @@ export interface TableHeadProps {
   background: var(--color-bg-weak-50);
   color: var(--color-text-sub-600);
   font: var(--paragraph-sm);
+}
+
+.celeste-table-head-align-end {
+  text-align: end;
 }
 
 .celeste-table-head:first-child {
