@@ -11,7 +11,7 @@ import vue from './plugins/vue';
 
 function createEntries() {
   const entries = new Map<string, string>();
-  const excludeExtensions = ['.spec.ts', '.stories.ts'];
+  const excludeExtensions = ['.spec.ts', '.stories.ts', '.stories.vue'];
 
   for (const file of glob.sync(['src/**/*.{ts,vue}'])) {
     const fileName = file.split('/').at(-1)?.split('.')[0];
