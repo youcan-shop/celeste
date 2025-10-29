@@ -36,5 +36,9 @@ export function defineColorModel(props: useTinyColorModelProps, emit: any): Writ
 }
 
 function transformToOriginalInputFormat(color: tinycolor.Instance, originalFormat?: TinyColorFormat): any {
+  if (originalFormat === 'hex' && color.getAlpha() < 1) {
+    return color.toString('hex8');
+  }
+
   return color.toString(originalFormat);
 }
