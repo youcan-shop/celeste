@@ -26,7 +26,6 @@ export const Default: Story = {
   args: {
     total: 100,
     itemsPerPage: 10,
-    page: 1,
     siblingCount: 1,
     variant: 'basic',
   },
@@ -77,7 +76,6 @@ export const Default: Story = {
 
 export const WithLeadingAndTrailing: Story = {
   args: {
-    page: 1,
     total: 100,
     itemsPerPage: 10,
     siblingCount: 1,
