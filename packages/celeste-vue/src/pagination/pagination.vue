@@ -25,7 +25,15 @@ export interface PaginationProps extends PaginationRootProps {
     data-slot="pagination"
     :class="clsx('celeste-pagination', `celeste-pagination-variant-${props.variant}`, props.class)"
   >
-    <slot v-bind="sprops" />
+    <div v-if="$slots.leading" class="celeste-pagination-leading">
+      <slot name="leading" v-bind="sprops" />
+    </div>
+    <div class="celeste-pagination-center">
+      <slot v-bind="sprops" />
+    </div>
+    <div v-if="$slots.trailing" class="celeste-pagination-trailing">
+      <slot name="trailing" v-bind="sprops" />
+    </div>
   </PaginationRoot>
 </template>
 
@@ -37,8 +45,23 @@ export interface PaginationProps extends PaginationRootProps {
 .celeste-pagination {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
+  gap: var(--spacing-8);
+}
+
+.celeste-pagination-leading,
+.celeste-pagination-trailing {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.celeste-pagination-center {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
   gap: var(--spacing-8);
 }
 
