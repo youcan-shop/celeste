@@ -1,0 +1,73 @@
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import Button from '@/components/button/button.vue';
+import { ref } from 'vue';
+import PaginationContent from '../pagination-content.vue';
+import PaginationEllipsis from '../pagination-ellipsis.vue';
+import PaginationFirst from '../pagination-first.vue';
+import PaginationItem from '../pagination-item.vue';
+import PaginationLast from '../pagination-last.vue';
+import PaginationNext from '../pagination-next.vue';
+import PaginationPrevious from '../pagination-previous.vue';
+import Pagination from '../pagination.vue';
+
+const meta: Meta<typeof Pagination> = {
+  title: 'Components/Pagination',
+  component: Pagination,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Pagination>;
+
+export const Default: Story = {
+  args: {
+    total: 100,
+    itemsPerPage: 10,
+    page: 1,
+    siblingCount: 1,
+    variant: 'rounded',
+  },
+
+  render: args => ({
+    components: {
+      Pagination,
+      PaginationContent,
+      PaginationEllipsis,
+      PaginationFirst,
+      PaginationItem,
+      PaginationLast,
+      PaginationNext,
+      PaginationPrevious,
+      Button,
+    },
+    setup() {
+      const page = ref(args.page || 1);
+
+      return { args, page };
+    },
+    template: `
+      <Pagination v-slot="{ page }" v-bind="args">
+        <PaginationContent v-slot="{ items }">
+
+          <PaginationFirst />
+          <PaginationPrevious />
+
+          <template v-for="(item, index) in items" :key="index">
+            <PaginationItem
+              v-if="item.type === 'page'"
+              :value="item.value"
+              :is-active="item.value === page"
+            >
+              {{ item.value }}
+            </PaginationItem>
+          </template>
+
+          <PaginationEllipsis :index="4" />
+
+          <PaginationNext />
+          <PaginationLast />
+        </PaginationContent>
+      </Pagination>
+    `,
+  }),
+};
