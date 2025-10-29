@@ -51,11 +51,13 @@ export const Default: Story = {
       <Pagination v-slot="{ page }" v-bind="args">
         <PaginationContent v-slot="{ items }">
 
-          <PaginationFirst />
-          <PaginationPrevious />
+          <PaginationFirst as="a" />
+          <PaginationPrevious as="a" />
 
           <template v-for="(item, index) in items" :key="index">
             <PaginationItem
+              disabled
+              as="a"
               v-if="item.type === 'page'"
               :value="item.value"
               :is-active="item.value === page"
@@ -66,8 +68,8 @@ export const Default: Story = {
 
           <PaginationEllipsis :index="4" />
 
-          <PaginationNext />
-          <PaginationLast />
+          <PaginationNext as="a" />
+          <PaginationLast as="a" />
         </PaginationContent>
       </Pagination>
     `,

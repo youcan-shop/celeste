@@ -85,17 +85,17 @@ export interface PaginationProps extends PaginationRootProps {
 }
 
 .celeste-pagination
-  :deep(.celeste-pagination-element:hover:not(:disabled, [disabled], .celeste-pagination-item-active)) {
+  :deep(.celeste-pagination-element:hover:not(:disabled, [disabled='true'], .celeste-pagination-item-active)) {
   border-color: transparent;
   background-color: var(--color-bg-weak-50);
 }
 
-.celeste-pagination :deep(.celeste-pagination-element:focus-visible:not(:disabled, [disabled])) {
+.celeste-pagination :deep(.celeste-pagination-element:focus-visible:not(:disabled, [disabled='true'])) {
   outline: none;
   color: var(--color-text-strong-950);
 }
 
-.celeste-pagination :deep(.celeste-pagination-element:is(:disabled, [disabled])) {
+.celeste-pagination :deep(.celeste-pagination-element:is(:disabled, [disabled='true'])) {
   color: var(--color-text-disabled-300);
   cursor: not-allowed;
 }
@@ -145,13 +145,13 @@ export interface PaginationProps extends PaginationRootProps {
 }
 
 .celeste-pagination-variant-group
-  :deep(.celeste-pagination-element:hover:not(:disabled, [disabled], .celeste-pagination-item-active)) {
+  :deep(.celeste-pagination-element:hover:not(:disabled, [disabled='true'], .celeste-pagination-item-active)) {
   border-left-color: var(--color-stroke-soft-200);
 }
 
 .celeste-pagination-variant-group :deep(.celeste-pagination-item-active),
 .celeste-pagination-variant-group
-  :deep(.celeste-pagination-element:hover:not(:disabled, [disabled], .celeste-pagination-item-active) + *) {
+  :deep(.celeste-pagination-element:hover:not(:disabled, [disabled='true'], .celeste-pagination-item-active) + *) {
   border-left-color: var(--color-stroke-soft-200);
 }
 </style>
