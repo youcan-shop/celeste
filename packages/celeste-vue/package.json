@@ -60,9 +60,9 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.1",
+    "@storybook/addon-actions": "^9.0.8",
+    "@storybook/addon-controls": "^9.0.8",
     "@storybook/addon-docs": "^10.0.0",
-    "@storybook/addon-knobs": "^8.0.1",
-    "@storybook/addon-mdx-gfm": "^8.6.14",
     "@storybook/addon-onboarding": "^10.0.0",
     "@storybook/vue3-vite": "^10.0.0",
     "@tanstack/vue-table": "^8.20.5",

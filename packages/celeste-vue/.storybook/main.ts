@@ -18,7 +18,6 @@ const config = {
 
   addons: [
     getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-knobs'),
     getAbsolutePath('@storybook/addon-docs'),
     'storybook-vue-addon',
   ],
