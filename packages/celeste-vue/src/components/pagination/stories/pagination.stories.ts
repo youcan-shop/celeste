@@ -2,14 +2,16 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components';
 import Button from '@/components/button/button.vue';
 import { ref } from 'vue';
-import PaginationContent from '../pagination-content.vue';
-import PaginationEllipsis from '../pagination-ellipsis.vue';
-import PaginationFirst from '../pagination-first.vue';
-import PaginationItem from '../pagination-item.vue';
-import PaginationLast from '../pagination-last.vue';
-import PaginationNext from '../pagination-next.vue';
-import PaginationPrevious from '../pagination-previous.vue';
-import Pagination from '../pagination.vue';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationFirst,
+  PaginationItem,
+  PaginationLast,
+  PaginationNext,
+  PaginationPrevious,
+} from '..';
 
 const meta: Meta<typeof Pagination> = {
   title: 'Components/Pagination',
