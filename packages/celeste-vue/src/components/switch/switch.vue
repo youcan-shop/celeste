@@ -52,7 +52,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     inset-inline-start: 1px;
 
     &[data-state='checked'] {
-      inset-inline-start: calc(100% - (var(--switch-thumb-size)) - 1px);
+      inset-inline-start: calc(100% - var(--switch-thumb-size) - 1px);
     }
   }
 
