@@ -37,10 +37,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
   .celeste-switch-thumb {
     --switch-thumb-size: 12px;
-
+    box-sizing: border-box;
     position: absolute;
-    width: calc(var(--switch-thumb-size) / 3);
-    height: calc(var(--switch-thumb-size) / 3);
+    width: var(--switch-thumb-size);
+    height: var(--switch-thumb-size);
     transform: translateY(-50%);
     transition-property: inset-inline-start, width, height;
     transition-duration: var(--animation-fast);
@@ -52,7 +52,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     inset-inline-start: 1px;
 
     &[data-state='checked'] {
-      inset-inline-start: calc(100% - (var(--switch-thumb-size) - 1px));
+      inset-inline-start: calc(100% - (var(--switch-thumb-size)) - 1px);
     }
   }
 
