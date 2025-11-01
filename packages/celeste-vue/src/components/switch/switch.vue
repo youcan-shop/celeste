@@ -37,8 +37,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
   .celeste-switch-thumb {
     --switch-thumb-size: 12px;
-    box-sizing: border-box;
+
     position: absolute;
+    box-sizing: border-box;
     width: var(--switch-thumb-size);
     height: var(--switch-thumb-size);
     transform: translateY(-50%);
