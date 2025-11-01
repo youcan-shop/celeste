@@ -46,7 +46,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     transition-property: inset-inline-start, width, height;
     transition-duration: var(--animation-fast);
     transition-timing-function: var(--animation-function), ease-out, ease-out;
-    border: calc(var(--switch-thumb-size) / 4) solid var(--color-static-white);
+    border: calc(var(--switch-thumb-size) / 3) solid var(--color-static-white);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-toggle-switch);
     inset-block-start: 50%;
