@@ -14,9 +14,14 @@ const fonts = readFileSync(
   'utf-8',
 );
 
-function prependFonts(path: string): void {
+const animations = readFileSync(
+  resolve(import.meta.dirname, 'stubs/animations.css'),
+  'utf-8',
+);
+
+function prependStubs(path: string): void {
   const data = readFileSync(path, 'utf8');
-  writeFileSync(path, fonts + data, 'utf8');
+  writeFileSync(path, fonts + animations + data, 'utf8');
 }
 
 function minify(path: string): void {
@@ -64,7 +69,7 @@ const sd = new StyleDictionary({
 await sd.cleanAllPlatforms();
 await sd.buildAllPlatforms();
 
-prependFonts(resolve(dist, 'tokens.css'));
-prependFonts(resolve(dist, 'tokens.scss'));
+prependStubs(resolve(dist, 'tokens.css'));
+prependStubs(resolve(dist, 'tokens.scss'));
 
 minify(resolve(dist, 'tokens.css'));
