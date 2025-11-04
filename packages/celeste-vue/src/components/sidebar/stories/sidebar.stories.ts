@@ -68,7 +68,7 @@ export const Simple: Story = {
                     <div style="font: var(--label-sm);color: var(--color-text-strong-950)">Ageeba</div>
                     <div style="font: var(--paragraph-xs);color: var(--color-text-sub-600)">ageeba.dotshop.com</div>
                   </div>
-                  <CompactButton style="margin-left: auto;" variant="stroke" size="md" icon="i-celeste-expand-up-down-line" />
+                  <CompactButton style="margin-inline-start: auto;" variant="stroke" size="md" icon="i-celeste-expand-up-down-line" />
                 </SidebarElement>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="right" align="start">
@@ -260,7 +260,7 @@ export const Simple: Story = {
                   <div class="flex flex-col">
                     <div style="font: var(--label-sm);color: var(--color-text-strong-950)">Dara</div>
                   </div>
-                  <CompactButton style="margin-left: auto;" variant="stroke" size="md" icon="i-celeste-more-2-fill" />
+                  <CompactButton style="margin-inline-start: auto;" variant="stroke" size="md" icon="i-celeste-more-2-fill" />
                 </SidebarElement>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="right" align="end">

@@ -14,13 +14,13 @@ defineOptions({
 const props = withDefaults(defineProps<PrimitiveProps & {
   class?: HTMLAttributes['class'];
   variant?: 'default' | 'outline';
-  size?: 'default' | 'sm' | 'lg';
+  size?: 'md' | 'sm' | 'lg';
   tooltip?: string | Component;
   isActive?: boolean;
 }>(), {
   as: 'button',
   variant: 'default',
-  size: 'default',
+  size: 'md',
   isActive: false,
 });
 
@@ -169,7 +169,7 @@ const delegatedProps = reactiveOmit(props, 'tooltip', 'class', 'variant', 'size'
   font: var(--label-xs);
 }
 
-.celeste-sidebar-menu-button-size-default {
+.celeste-sidebar-menu-button-size-md {
   height: 32px;
   font: var(--label-sm);
 }

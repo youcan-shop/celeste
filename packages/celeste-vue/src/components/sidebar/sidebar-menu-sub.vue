@@ -20,11 +20,10 @@ const props = defineProps<{
 .celeste-sidebar-menu-sub {
   display: flex;
   flex-direction: column;
-  width: 100%;
   min-width: 0;
-  margin-inline-start: var(--spacing-14);
+  margin-inline: var(--spacing-14);
   padding-block: var(--spacing-2);
-  padding-inline-start: var(--spacing-10);
+  padding-inline: var(--spacing-10);
   transform: translateX(1px);
   gap: var(--spacing-4);
   border-inline-start: 1px solid var(--sidebar-border);
