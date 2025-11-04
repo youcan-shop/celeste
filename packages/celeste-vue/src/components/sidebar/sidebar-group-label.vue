@@ -44,8 +44,8 @@ const props = defineProps<PrimitiveProps & {
 .celeste-sidebar-group-label svg,
 .celeste-sidebar-group-label i {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 [data-collapsible='icon'] .celeste-sidebar-group-label {

@@ -101,7 +101,7 @@ export interface SidebarProps {
   color: var(--sidebar-foreground);
 }
 
-.celeste-sidebar-mobile > button {
+.celeste-sidebar-mobile > .celeste-sheet-close {
   display: none;
 }
 
@@ -140,7 +140,7 @@ export interface SidebarProps {
 
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-gap-variant-floating,
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-gap-variant-inset {
-  width: calc(var(--sidebar-width-icon) + 16px);
+  width: calc(var(--sidebar-width-icon) + 18px);
 }
 
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-gap-variant-sidebar {
@@ -189,7 +189,7 @@ export interface SidebarProps {
 
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-container-variant-floating,
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-container-variant-inset {
-  width: calc(var(--sidebar-width-icon) + 16px + 2px);
+  width: calc(var(--sidebar-width-icon) + 18px + 2px);
 }
 
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-container-variant-sidebar {

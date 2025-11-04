@@ -72,7 +72,6 @@ export interface SheetContentProps extends DialogContentProps {
 .celeste-sheet-content {
   position: fixed;
   z-index: 50;
-  padding: 24px;
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-lg);
   gap: var(--spacing-16);
@@ -86,11 +85,11 @@ export interface SheetContentProps extends DialogContentProps {
 }
 
 .celeste-sheet-side-top[data-state='open'] {
-  animation: celeste-slide-in-from-top var(--animation-extra-slow) ease-in-out;
+  animation: celeste-slide-in-from-top var(--animation-fast) ease-in-out;
 }
 
 .celeste-sheet-side-top[data-state='closed'] {
-  animation: celeste-slide-out-to-top var(--animation-normal) ease-in-out;
+  animation: celeste-slide-out-to-top var(--animation-fast) ease-in-out;
 }
 
 .celeste-sheet-side-bottom {
@@ -101,28 +100,27 @@ export interface SheetContentProps extends DialogContentProps {
 }
 
 .celeste-sheet-side-bottom[data-state='open'] {
-  animation: celeste-slide-in-from-bottom var(--animation-extra-slow) ease-in-out;
+  animation: celeste-slide-in-from-bottom var(--animation-fast) ease-in-out;
 }
 
 .celeste-sheet-side-bottom[data-state='closed'] {
-  animation: celeste-slide-out-to-bottom var(--animation-normal) ease-in-out;
+  animation: celeste-slide-out-to-bottom var(--animation-fast) ease-in-out;
 }
 
 .celeste-sheet-side-left {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 75%;
   height: 100%;
   border-right: 1px solid var(--color-stroke-soft-200);
 }
 
 .celeste-sheet-side-left[data-state='open'] {
-  animation: celeste-slide-in-from-left var(--animation-extra-slow) ease-in-out;
+  animation: celeste-slide-in-from-left var(--animation-fast) ease-in-out;
 }
 
 .celeste-sheet-side-left[data-state='closed'] {
-  animation: celeste-slide-out-to-left var(--animation-normal) ease-in-out;
+  animation: celeste-slide-out-to-left var(--animation-fast) ease-in-out;
 }
 
 @media (width >= 640px) {
@@ -135,17 +133,16 @@ export interface SheetContentProps extends DialogContentProps {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 75%;
   height: 100%;
   border-left: 1px solid var(--color-stroke-soft-200);
 }
 
 .celeste-sheet-side-right[data-state='open'] {
-  animation: celeste-slide-in-from-right var(--animation-extra-slow) ease-in-out;
+  animation: celeste-slide-in-from-right var(--animation-fast) ease-in-out;
 }
 
 .celeste-sheet-side-right[data-state='closed'] {
-  animation: celeste-slide-out-to-right var(--animation-normal) ease-in-out;
+  animation: celeste-slide-out-to-right var(--animation-fast) ease-in-out;
 }
 
 @media (width >= 640px) {

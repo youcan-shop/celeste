@@ -135,8 +135,8 @@ const delegatedProps = reactiveOmit(props, 'tooltip', 'class', 'variant', 'size'
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-button {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   padding: var(--spacing-8);
 }
 
@@ -149,8 +149,8 @@ const delegatedProps = reactiveOmit(props, 'tooltip', 'class', 'variant', 'size'
 .celeste-sidebar-menu-button svg,
 .celeste-sidebar-menu-button i {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .celeste-sidebar-menu-button-variant-outline {

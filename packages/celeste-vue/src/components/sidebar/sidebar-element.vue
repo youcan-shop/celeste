@@ -40,8 +40,8 @@ export interface SidebarElementProps extends PrimitiveProps {
 
 .celeste-sidebar-element :is(svg, i) {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .celeste-sidebar-element > :is(span, div):not(:first-child) {
@@ -62,7 +62,7 @@ export interface SidebarElementProps extends PrimitiveProps {
 }
 
 .celeste-sidebar-desktop[data-state='collapsed'][data-collapsible='icon'] .celeste-sidebar-element > *:first-child {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 </style>

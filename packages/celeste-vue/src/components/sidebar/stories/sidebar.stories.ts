@@ -120,7 +120,7 @@ export const Simple: Story = {
                     <CollapsibleTrigger as-child>
                       <SidebarMenuButton tooltip="Inbox">
                         <i class="i-celeste-inbox-line" />
-                        <span>Inbox</span>
+                        <span>Inboxaaasasdasdasdkashduiashdoiajsasdashdiuashdiuahsdiuahsdiuhas</span>
                       </SidebarMenuButton>
                       <SidebarMenuBadge label="12" state="information" />
                       <SidebarMenuAction :show-on-hover="false"><i 

@@ -71,8 +71,8 @@ export interface SidebarMenuActionProps extends PrimitiveProps {
 
 .celeste-sidebar-menu-action :is(svg, i) {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-action {

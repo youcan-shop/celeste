@@ -91,8 +91,8 @@ export interface SidebarMenuSubButtonProps extends PrimitiveProps {
 
 .celeste-sidebar-menu-sub-button :is(svg, i) {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   color: var(--sidebar-accent-foreground);
 }
 
