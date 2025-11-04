@@ -121,12 +121,12 @@ export const Simple: Story = {
                       <SidebarMenuButton tooltip="Inbox">
                         <i class="i-celeste-inbox-line" />
                         <span>Inbox</span>
-                        <SidebarMenuBadge label="12" state="information" />
-                        <SidebarMenuAction :show-on-hover="false"><i 
-                          :class="isInboxOpen ? 'i-celeste-arrow-down-s-line' : 'i-celeste-arrow-right-s-line'" 
-                          style="margin-left: auto; transition: transform var(--animation-fast);"
-                        /></SidebarMenuAction>
                       </SidebarMenuButton>
+                      <SidebarMenuBadge label="12" state="information" />
+                      <SidebarMenuAction :show-on-hover="false"><i 
+                        :class="isInboxOpen ? 'i-celeste-arrow-down-s-line' : 'i-celeste-arrow-right-s-line'" 
+                        style="margin-left: auto; transition: transform var(--animation-fast);"
+                      /></SidebarMenuAction>
                     </CollapsibleTrigger>
                   
                     <CollapsibleContent>

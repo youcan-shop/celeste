@@ -35,9 +35,8 @@ export interface SidebarMenuBadgeProps {
 <style lang="css">
 .celeste-sidebar-menu-badge {
   position: absolute;
-  top: 50%;
+  top: var(--spacing-8);
   inset-inline-end: var(--spacing-4);
-  transform: translateY(-50%);
   pointer-events: none;
   user-select: none;
   font-variant-numeric: tabular-nums;
