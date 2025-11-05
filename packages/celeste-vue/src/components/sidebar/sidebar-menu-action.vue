@@ -73,6 +73,11 @@ export interface SidebarMenuActionProps extends PrimitiveProps {
   flex-shrink: 0;
   width: 18px;
   height: 18px;
+  transition: transform var(--animation-extra-fast) ease-out;
+}
+
+.celeste-sidebar-menu-action:dir(rtl) :is(svg, i) {
+  transform: rotate(180deg);
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-action {
@@ -93,6 +98,10 @@ export interface SidebarMenuActionProps extends PrimitiveProps {
 
 .celeste-sidebar-menu-button[data-size='lg'] ~ .celeste-sidebar-menu-action {
   inset-block-start: var(--spacing-10);
+}
+
+.celeste-sidebar-menu-button[data-state='open'] + .celeste-sidebar-menu-action :is(svg, i) {
+  transform: rotate(90deg);
 }
 
 .celeste-sidebar-menu-action-show-on-hover {

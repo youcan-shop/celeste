@@ -176,7 +176,7 @@ export const Simple: Story = {
     },
     template: `
       <SidebarProvider>
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible="icon" side="end">
           <SidebarHeader>
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
@@ -198,7 +198,7 @@ export const Simple: Story = {
                   />
                 </SidebarElement>
               </DropdownMenuTrigger>
-              <DropdownMenuContent side="right" align="start">
+              <DropdownMenuContent>
                 <DropdownMenuLabel>Stores</DropdownMenuLabel>
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
@@ -253,13 +253,9 @@ export const Simple: Story = {
                           <SidebarMenuBadge v-if="item.title === 'Store'" label="New" state="information" />
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
-                      <SidebarMenuAction :show-on-hover="false">
-                        <i
-                          :class="expandedItems[item.title] ? 'i-celeste-arrow-down-s-line' : 'i-celeste-arrow-right-s-line'"
-                          style="transition: transform var(--animation-fast);"
-                        />
+                      <SidebarMenuAction>
+                        <i class="i-celeste-arrow-right-s-line"/>
                       </SidebarMenuAction>
-
                       <CollapsibleContent>
                         <SidebarMenuSub>
                           <SidebarMenuSubItem v-for="child in item.children" :key="child.title">
@@ -315,7 +311,7 @@ export const Simple: Story = {
                   />
                 </SidebarElement>
               </DropdownMenuTrigger>
-              <DropdownMenuContent side="right" align="end">
+              <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuGroup>
                   <DropdownMenuItem>

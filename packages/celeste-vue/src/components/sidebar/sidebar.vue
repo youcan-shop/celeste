@@ -9,7 +9,6 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<SidebarProps>(), {
-  side: 'left',
   variant: 'sidebar',
   collapsible: 'offcanvas',
 });
@@ -19,7 +18,6 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
 <script lang="ts">
 export interface SidebarProps {
-  side?: 'left' | 'right';
   variant?: 'sidebar' | 'floating' | 'inset';
   collapsible?: 'offcanvas' | 'icon' | 'none';
   class?: HTMLAttributes['class'];
@@ -36,7 +34,6 @@ export interface SidebarProps {
     <SheetContent
       data-sidebar="sidebar"
       data-mobile="true"
-      :side="side"
       class="celeste-sidebar-mobile"
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
@@ -54,7 +51,6 @@ export interface SidebarProps {
     :data-state="collapsible === 'none' ? undefined : state"
     :data-collapsible="state === 'collapsed' && collapsible !== 'none' ? collapsible : ''"
     :data-variant="variant"
-    :data-side="side"
   >
     <div
       :class="clsx(
@@ -65,7 +61,6 @@ export interface SidebarProps {
     <div
       :class="clsx(
         'celeste-sidebar-container',
-        `celeste-sidebar-container-side-${side}`,
         `celeste-sidebar-container-variant-${variant}`,
         collapsible === 'none' && 'celeste-sidebar-container-collapsible-none',
         props.class,
@@ -134,10 +129,6 @@ export interface SidebarProps {
   width: 0;
 }
 
-.celeste-sidebar-desktop[data-side='right'] .celeste-sidebar-gap {
-  transform: rotate(180deg);
-}
-
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-gap-variant-floating,
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-gap-variant-inset {
   width: calc(var(--sidebar-width-icon) + 18px);
@@ -155,8 +146,8 @@ export interface SidebarProps {
   width: var(--sidebar-width);
   height: 100svh;
   transition:
-    left var(--animation-fast) linear,
-    right var(--animation-fast) linear,
+    inset-inline-start var(--animation-fast) linear,
+    inset-inline-end var(--animation-fast) linear,
     width var(--animation-fast) linear;
 }
 
@@ -166,20 +157,16 @@ export interface SidebarProps {
   }
 }
 
-.celeste-sidebar-container-side-left {
-  left: 0;
+.celeste-sidebar-desktop .celeste-sidebar-container-variant-sidebar {
+  border-inline-end: 1px solid var(--sidebar-border);
 }
 
-.celeste-sidebar-desktop[data-collapsible='offcanvas'] .celeste-sidebar-container-side-left {
-  left: calc(var(--sidebar-width) * -1);
+.celeste-sidebar-desktop[data-collapsible='offcanvas'] .celeste-sidebar-container-side-start {
+  inset-inline-start: calc(var(--sidebar-width) * -1);
 }
 
-.celeste-sidebar-container-side-right {
-  right: 0;
-}
-
-.celeste-sidebar-desktop[data-collapsible='offcanvas'] .celeste-sidebar-container-side-right {
-  right: calc(var(--sidebar-width) * -1);
+.celeste-sidebar-desktop[data-collapsible='offcanvas'] .celeste-sidebar-container-side-end {
+  inset-inline-end: calc(var(--sidebar-width) * -1);
 }
 
 .celeste-sidebar-container-variant-floating,
@@ -194,14 +181,6 @@ export interface SidebarProps {
 
 .celeste-sidebar-desktop[data-collapsible='icon'] .celeste-sidebar-container-variant-sidebar {
   width: var(--sidebar-width-icon);
-}
-
-.celeste-sidebar-desktop[data-side='left'] .celeste-sidebar-container-variant-sidebar {
-  border-right: 1px solid var(--sidebar-border);
-}
-
-.celeste-sidebar-desktop[data-side='right'] .celeste-sidebar-container-variant-sidebar {
-  border-left: 1px solid var(--sidebar-border);
 }
 
 .celeste-sidebar-inner {
