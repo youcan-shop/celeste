@@ -88,7 +88,8 @@ const delegatedProps = reactiveOmit(props, 'tooltip', 'class', 'variant', 'size'
   transition:
     width var(--animation-fast) linear,
     height var(--animation-fast) linear,
-    padding var(--animation-fast) linear;
+    padding var(--animation-fast) linear,
+    background-color var(--animation-fast);
   border-radius: var(--radius-8);
   outline: none;
   font: var(--label-sm);
