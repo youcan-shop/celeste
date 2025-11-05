@@ -34,6 +34,7 @@ export interface SidebarProps {
     <SheetContent
       data-sidebar="sidebar"
       data-mobile="true"
+      side="right"
       class="celeste-sidebar-mobile"
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH_MOBILE,

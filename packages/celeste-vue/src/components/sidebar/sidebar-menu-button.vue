@@ -12,27 +12,23 @@ defineOptions({
 const props = withDefaults(defineProps<PrimitiveProps & {
   class?: HTMLAttributes['class'];
   variant?: 'default' | 'outline';
-  size?: 'md' | 'sm' | 'lg';
   isActive?: boolean;
 }>(), {
   as: 'button',
   variant: 'default',
-  size: 'md',
   isActive: false,
 });
 
-const delegatedProps = reactiveOmit(props, 'class', 'variant', 'size', 'isActive');
+const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
 </script>
 
 <template>
   <Primitive
     data-sidebar="menu-button"
-    :data-size="size"
     :data-active="isActive"
     :class="clsx(
       'celeste-sidebar-menu-button',
       `celeste-sidebar-menu-button-variant-${variant}`,
-      `celeste-sidebar-menu-button-size-${size}`,
       props.class,
     )"
     v-bind="{ ...delegatedProps, ...$attrs }"
@@ -47,6 +43,7 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'size', 'isActive
   position: relative;
   align-items: center;
   width: 100%;
+  height: 36px;
   padding: var(--spacing-8);
   overflow: hidden;
   transition:
@@ -129,18 +126,8 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'size', 'isActive
   color: var(--sidebar-accent-foreground);
 }
 
-.celeste-sidebar-menu-button-size-sm {
-  height: 28px;
-  font: var(--label-xs);
-}
-
 .celeste-sidebar-menu-button-size-md {
   height: 36px;
-  font: var(--label-sm);
-}
-
-.celeste-sidebar-menu-button-size-lg {
-  height: 48px;
   font: var(--label-sm);
 }
 

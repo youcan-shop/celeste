@@ -48,6 +48,10 @@ export interface SidebarMenuActionProps extends PrimitiveProps {
   aspect-ratio: 1;
 }
 
+.celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-action {
+  inset-block-start: var(--spacing-6);
+}
+
 .celeste-sidebar-menu-action::after {
   content: '';
   position: absolute;
@@ -86,18 +90,6 @@ export interface SidebarMenuActionProps extends PrimitiveProps {
 
 .celeste-sidebar-menu-button:hover ~ .celeste-sidebar-menu-action {
   color: var(--sidebar-accent-foreground);
-}
-
-.celeste-sidebar-menu-button[data-size='sm'] ~ .celeste-sidebar-menu-action {
-  inset-block-start: var(--spacing-4);
-}
-
-.celeste-sidebar-menu-button[data-size='default'] ~ .celeste-sidebar-menu-action {
-  inset-block-start: var(--spacing-6);
-}
-
-.celeste-sidebar-menu-button[data-size='lg'] ~ .celeste-sidebar-menu-action {
-  inset-block-start: var(--spacing-10);
 }
 
 .celeste-sidebar-menu-button[data-state='open'] + .celeste-sidebar-menu-action :is(svg, i) {

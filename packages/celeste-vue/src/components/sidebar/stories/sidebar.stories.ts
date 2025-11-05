@@ -4,7 +4,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/dropdown-menu';
 import SidebarMenuBadge from '@/components/sidebar/sidebar-menu-badge.vue';
 import { ref } from 'vue';
-import { Sidebar, SidebarContent, SidebarElement, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarSeparator } from '..';
+import { Sidebar, SidebarContent, SidebarElement, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarSeparator, SidebarTrigger } from '..';
 
 const meta: Meta<typeof Sidebar> = {
   title: 'Components/Sidebar',
@@ -20,7 +20,9 @@ export const Simple: Story = {
     layout: 'fullscreen',
   },
 
-  render: () => ({
+  args: {},
+
+  render: args => ({
     components: {
       CompactButton,
       Collapsible,
@@ -50,6 +52,7 @@ export const Simple: Story = {
       SidebarProvider,
       SidebarSeparator,
       SidebarMenuBadge,
+      SidebarTrigger,
     },
     setup() {
       // Track which items are expanded
@@ -172,11 +175,12 @@ export const Simple: Story = {
         expandedItems,
         sidebarItems,
         footerItems,
+        args,
       };
     },
     template: `
       <SidebarProvider>
-        <Sidebar collapsible="icon" side="end">
+        <Sidebar collapsible="icon" side="end" v-bind="args">
           <SidebarHeader>
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
@@ -250,8 +254,8 @@ export const Simple: Story = {
                         <SidebarMenuButton :is-active="item.title === 'Store'">
                           <i :class="item.icon" />
                           <span>{{ item.title }}</span>
-                          <SidebarMenuBadge v-if="item.title === 'Store'" label="New" state="information" />
-                        </SidebarMenuButton>
+                          </SidebarMenuButton>
+                          <SidebarMenuBadge size="sm" v-if="item.title === 'Store'" label="New" state="information" />
                       </CollapsibleTrigger>
                       <SidebarMenuAction>
                         <i class="i-celeste-arrow-right-s-line"/>
@@ -265,8 +269,8 @@ export const Simple: Story = {
                               :is-active="child.title === 'Themes'"
                             >
                               <span>{{ child.title }}</span>
-                              <SidebarMenuBadge v-if="child.title === 'Themes'" label="New" state="information" />
-                            </SidebarMenuSubButton>
+                              </SidebarMenuSubButton>
+                              <SidebarMenuBadge size="sm" v-if="child.title === 'Themes'" label="New" state="information" />
                           </SidebarMenuSubItem>
                         </SidebarMenuSub>
                       </CollapsibleContent>
@@ -344,6 +348,10 @@ export const Simple: Story = {
             </DropdownMenu>
           </SidebarFooter>
         </Sidebar>
+
+        <div style="padding: 24px;">
+          <SidebarTrigger />
+        <div>
       </SidebarProvider>
     `,
   }),

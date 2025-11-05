@@ -34,27 +34,37 @@ export interface SidebarMenuBadgeProps {
 
 <style lang="css">
 .celeste-sidebar-menu-badge {
+  --celeste-sidebar-badge-offset: 0px;
+
   position: absolute;
-  inset-block-start: 50%;
-  transform: translateY(-50%);
   pointer-events: none;
   user-select: none;
   font-variant-numeric: tabular-nums;
+  inset-inline-end: calc(var(--spacing-8) + var(--celeste-sidebar-badge-offset));
+}
+
+.celeste-sidebar-menu-item > .celeste-sidebar-menu-badge.celeste-badge-sm {
+  inset-block-start: var(--spacing-10);
+}
+
+.celeste-sidebar-menu-item > .celeste-sidebar-menu-badge.celeste-badge-md {
+  inset-block-start: var(--spacing-8);
+}
+
+.celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-badge.celeste-badge-sm {
+  inset-block-start: var(--spacing-8);
+}
+
+.celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-badge.celeste-badge-md {
+  inset-block-start: var(--spacing-6);
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-badge {
   display: none;
 }
 
-.celeste-sidebar-menu-item:has([data-sidebar='menu-action']) .celeste-sidebar-menu-badge {
-  --offset: 20px;
-
-  inset-inline-end: calc(var(--offset) + var(--spacing-8));
-}
-
-.celeste-sidebar-menu-item:has([data-sidebar='menu-action'])
-  .celeste-sidebar-menu-sub-button
-  .celeste-sidebar-menu-badge {
-  inset-inline-end: var(--spacing-8);
+.celeste-sidebar-menu-item:has([data-sidebar='menu-action']) > .celeste-sidebar-menu-badge,
+.celeste-sidebar-menu-sub-item:has([data-sidebar='menu-action']) > .celeste-sidebar-menu-badge {
+  --celeste-sidebar-badge-offset: 20px;
 }
 </style>

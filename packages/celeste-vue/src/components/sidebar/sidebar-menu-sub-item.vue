@@ -15,3 +15,9 @@ const props = defineProps<{
     <slot />
   </li>
 </template>
+
+<style lang="css">
+.celeste-sidebar-menu-sub-item {
+  position: relative;
+}
+</style>
