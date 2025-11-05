@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/vue3-vite';
 
+// we assume that the project is using a reset of some sort
+import '@unocss/reset/tailwind.css';
 import 'virtual:uno.css';
 import '@youcan/celeste-tokens/tokens.css';
 
