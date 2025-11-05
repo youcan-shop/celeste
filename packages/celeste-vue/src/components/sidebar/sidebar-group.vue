@@ -23,6 +23,6 @@ const props = defineProps<{
   flex-direction: column;
   width: 100%;
   min-width: 0;
-  padding: var(--spacing-8);
+  padding: var(--spacing-10);
 }
 </style>

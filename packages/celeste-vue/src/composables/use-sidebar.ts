@@ -3,7 +3,7 @@ import { createContext } from 'radix-vue';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 export const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-export const SIDEBAR_WIDTH = '16rem';
+export const SIDEBAR_WIDTH = '17rem';
 export const SIDEBAR_WIDTH_MOBILE = '18rem';
 export const SIDEBAR_WIDTH_ICON = '52px';
 export const SIDEBAR_KEYBOARD_SHORTCUT = 'b';

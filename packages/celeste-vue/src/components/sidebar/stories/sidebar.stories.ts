@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import CompactButton from '@/components/button/compact-button.vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/collapsible';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/dropdown-menu';
+import SidebarMenuBadge from '@/components/sidebar/sidebar-menu-badge.vue';
 import { ref } from 'vue';
-import { Sidebar, SidebarContent, SidebarElement, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarSeparator, SidebarTrigger } from '../index';
+import { Sidebar, SidebarContent, SidebarElement, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarSeparator } from '..';
 
 const meta: Meta<typeof Sidebar> = {
   title: 'Components/Sidebar',
@@ -15,64 +16,186 @@ export default meta;
 type Story = StoryObj<typeof Sidebar>;
 
 export const Simple: Story = {
-  args: {
-    collapsible: 'icon',
-  },
-
   parameters: {
     layout: 'fullscreen',
   },
 
-  render: args => ({
+  render: () => ({
     components: {
-      SidebarProvider,
-      Sidebar,
-      SidebarHeader,
-      SidebarElement,
-      SidebarContent,
-      SidebarGroup,
-      SidebarGroupLabel,
-      SidebarMenu,
-      SidebarMenuItem,
-      SidebarMenuButton,
-      SidebarMenuAction,
-      SidebarMenuBadge,
-      SidebarMenuSub,
-      SidebarMenuSubButton,
-      SidebarMenuSubItem,
-      SidebarSeparator,
-      SidebarFooter,
-      SidebarTrigger,
+      CompactButton,
       Collapsible,
       CollapsibleContent,
       CollapsibleTrigger,
       DropdownMenu,
-      DropdownMenuTrigger,
       DropdownMenuContent,
       DropdownMenuGroup,
       DropdownMenuItem,
       DropdownMenuLabel,
       DropdownMenuSeparator,
-      CompactButton,
+      DropdownMenuTrigger,
+      Sidebar,
+      SidebarContent,
+      SidebarElement,
+      SidebarFooter,
+      SidebarGroup,
+      SidebarGroupLabel,
+      SidebarHeader,
+      SidebarMenu,
+      SidebarMenuAction,
+      SidebarMenuButton,
+      SidebarMenuItem,
+      SidebarMenuSub,
+      SidebarMenuSubButton,
+      SidebarMenuSubItem,
+      SidebarProvider,
+      SidebarSeparator,
+      SidebarMenuBadge,
     },
     setup() {
-      const isInboxOpen = ref(true);
+      // Track which items are expanded
+      const expandedItems = ref<Record<string, boolean>>({
+        Orders: true,
+        Products: false,
+        Upsells: false,
+        Coupons: false,
+        Customers: false,
+        Store: true,
+        Insights: false,
+        Invoices: false,
+      });
 
-      return { args, isInboxOpen };
+      const sidebarItems = [
+        {
+          title: 'Dashboard',
+          link: '#',
+          icon: 'i-celeste-dashboard-line',
+        },
+        {
+          title: 'Orders',
+          link: '#',
+          icon: 'i-celeste-shopping-bag-line',
+          children: [
+            { title: 'All orders', link: '#' },
+            { title: 'New order', link: '#' },
+            { title: 'Abandoned carts', link: '#' },
+          ],
+        },
+        {
+          title: 'Products',
+          link: '#',
+          icon: 'i-celeste-shopping-cart-line',
+          children: [
+            { title: 'All products', link: '#' },
+            { title: 'New product', link: '#' },
+            { title: 'Categories', link: '#' },
+            { title: 'Reviews', link: '#' },
+            { title: 'Inventory', link: '#' },
+          ],
+        },
+        {
+          title: 'Upsells',
+          link: '#',
+          icon: 'i-celeste-arrow-up-line',
+          children: [
+            { title: 'All upsells', link: '#' },
+            { title: 'New upsell', link: '#' },
+          ],
+        },
+        {
+          title: 'Coupons',
+          link: '#',
+          icon: 'i-celeste-coupon-line',
+          children: [
+            { title: 'All coupons', link: '#' },
+            { title: 'New coupon', link: '#' },
+          ],
+        },
+        {
+          title: 'Customers',
+          link: '#',
+          icon: 'i-celeste-group-line',
+          children: [
+            { title: 'All customers', link: '#' },
+            { title: 'New customer', link: '#' },
+          ],
+        },
+        {
+          title: 'Store',
+          link: '#',
+          icon: 'i-celeste-store-line',
+          children: [
+            { title: 'Theme', link: '#' },
+            { title: 'Themes', link: '#' },
+            { title: 'Menus', link: '#' },
+            { title: 'Languages', link: '#' },
+            { title: 'Pages', link: '#' },
+            { title: 'Funnels', link: '#' },
+            { title: 'Domains', link: '#' },
+          ],
+        },
+        {
+          title: 'Insights',
+          link: '#',
+          icon: 'i-celeste-bar-chart-line',
+        },
+        {
+          title: 'Invoices',
+          link: '#',
+          icon: 'i-celeste-file-list-line',
+        },
+        {
+          title: 'Apps',
+          link: '#',
+          icon: 'i-celeste-apps-line',
+        },
+      ];
+
+      const footerItems = [
+        {
+          title: 'Affiliate',
+          link: '#',
+          icon: 'i-celeste-service-line',
+        },
+        {
+          title: 'Support',
+          link: '#',
+          icon: 'i-celeste-question-line',
+        },
+        {
+          title: 'Settings',
+          link: '#',
+          icon: 'i-celeste-settings-line',
+        },
+      ];
+
+      return {
+        expandedItems,
+        sidebarItems,
+        footerItems,
+      };
     },
     template: `
       <SidebarProvider>
-        <Sidebar v-bind="args">
+        <Sidebar collapsible="icon">
           <SidebarHeader>
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
                 <SidebarElement>
-                  <i class="i-celeste-apps-line"></i>
+                  <i class="i-celeste-apps-line" />
                   <div class="flex flex-col">
-                    <div style="font: var(--label-sm);color: var(--color-text-strong-950)">Ageeba</div>
-                    <div style="font: var(--paragraph-xs);color: var(--color-text-sub-600)">ageeba.dotshop.com</div>
+                    <div style="color: var(--color-text-strong-950);font: var(--label-sm)">
+                      Ageeba
+                    </div>
+                    <div style="color: var(--color-text-sub-600);font: var(--paragraph-xs)">
+                      ageeba.dotshop.com
+                    </div>
                   </div>
-                  <CompactButton style="margin-inline-start: auto;" variant="stroke" size="md" icon="i-celeste-expand-up-down-line" />
+                  <CompactButton
+                    style="margin-inline-start: auto;"
+                    variant="stroke"
+                    size="md"
+                    icon="i-celeste-expand-up-down-line"
+                  />
                 </SidebarElement>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="right" align="start">
@@ -101,170 +224,95 @@ export const Simple: Story = {
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarHeader>
-          
+
           <SidebarSeparator />
-          
           <SidebarContent>
             <SidebarGroup>
               <SidebarGroupLabel>Application</SidebarGroupLabel>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    tooltip="Home"
-                    as="a" 
-                    href="#"
-                  >
-                    <i class="i-celeste-home-line" />
-                    <span>Home</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                
-                <Collapsible v-model:open="isInboxOpen" as-child>
-                  <SidebarMenuItem>
-                    <CollapsibleTrigger as-child>
-                      <SidebarMenuButton tooltip="Inbox">
-                        <i class="i-celeste-inbox-line" />
-                        <span>Inboxaaasasdasdasdkashduiashdoiajsasdashdiuashdiuahsdiuahsdiuhas</span>
-                      </SidebarMenuButton>
-                      <SidebarMenuBadge label="12" state="information" />
-                      <SidebarMenuAction :show-on-hover="false"><i 
-                        :class="isInboxOpen ? 'i-celeste-arrow-down-s-line' : 'i-celeste-arrow-right-s-line'" 
-                        style="margin-left: auto; transition: transform var(--animation-fast);"
-                      /></SidebarMenuAction>
-                    </CollapsibleTrigger>
-                  
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        <SidebarMenuSubItem>
-                          <SidebarMenuSubButton as="a" href="#">
-                            <span>All messages</span>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                        <SidebarMenuSubItem>
-                          <SidebarMenuSubButton is-active as="a" href="#">
-                            <span>Unread</span>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                        <SidebarMenuSubItem>
-                          <SidebarMenuSubButton as="a" href="#">
-                            <span>Important</span>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                        <SidebarMenuSubItem>
-                          <SidebarMenuSubButton as="a" href="#">
-                            <span>Archived</span>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
+                <template v-for="item in sidebarItems" :key="item.title">
+                  <SidebarMenuItem v-if="!item.children">
+                    <SidebarMenuButton
+                      as="a"
+                      :href="item.link"
+                    >
+                      <i :class="item.icon" />
+                      <span>{{ item.title }}</span>
+                    </SidebarMenuButton>
                   </SidebarMenuItem>
-                </Collapsible>
-                
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    tooltip="Another Inbox"
-                    as="a" 
-                    href="#"
+                  <Collapsible
+                    v-else
+                    v-model:open="expandedItems[item.title]"
+                    as-child
                   >
-                    <i class="i-celeste-inbox-line" />
-                    <span>Another Inbox</span>
-                  </SidebarMenuButton>
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger as-child>
+                        <SidebarMenuButton :is-active="item.title === 'Store'">
+                          <i :class="item.icon" />
+                          <span>{{ item.title }}</span>
+                          <SidebarMenuBadge v-if="item.title === 'Store'" label="New" state="information" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <SidebarMenuAction :show-on-hover="false">
+                        <i
+                          :class="expandedItems[item.title] ? 'i-celeste-arrow-down-s-line' : 'i-celeste-arrow-right-s-line'"
+                          style="transition: transform var(--animation-fast);"
+                        />
+                      </SidebarMenuAction>
 
-                  <DropdownMenu>
-                      <DropdownMenuTrigger as-child>
-                        <SidebarMenuAction :show-on-hover="false">
-                          <i class="i-celeste-more-2-fill"></i>
-                        </SidebarMenuAction>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent side="right" align="start">
-                        <DropdownMenuItem>
-                          Mark all as read
-                          <template #prefix>
-                            <i class="i-celeste-check-double-line" />
-                          </template>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          Archive inbox
-                          <template #prefix>
-                            <i class="i-celeste-archive-line" />
-                          </template>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                </SidebarMenuItem>
-                
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    tooltip="Search"
-                    as="a" 
-                    href="#"
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          <SidebarMenuSubItem v-for="child in item.children" :key="child.title">
+                            <SidebarMenuSubButton
+                              as="a"
+                              :href="child.link"
+                              :is-active="child.title === 'Themes'"
+                            >
+                              <span>{{ child.title }}</span>
+                              <SidebarMenuBadge v-if="child.title === 'Themes'" label="New" state="information" />
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                </template>
+              </SidebarMenu>
+            </SidebarGroup>
+            <SidebarGroup style="margin-block-start: auto;">
+              <SidebarGroupLabel>Other</SidebarGroupLabel>
+              <SidebarMenu>
+                <template v-for="item in footerItems" :key="item.title">
+                  <SidebarMenuButton
+                    as="a"
+                    :href="item.link"
                   >
-                    <i class="i-celeste-search-line" />
-                    <span>Search</span>
+                    <i :class="item.icon" />
+                    <span>{{ item.title }}</span>
                   </SidebarMenuButton>
-                </SidebarMenuItem>
-                
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    tooltip="Settings"
-                    :isActive="true"
-                    as="a" 
-                    href="#"
-                  >
-                    <i class="i-celeste-settings-line" />
-                    <span>Settings</span>
-                  </SidebarMenuButton>
-                  <SidebarMenuSub>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton 
-                        as="a" 
-                        href="#"
-                      >
-                        <span>General</span>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton 
-                        as="a" 
-                        is-active
-                        href="#"
-                      >
-                        <span>Team</span>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton 
-                        as="a" 
-                        href="#"
-                      >
-                        <span>Billing</span>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton 
-                        as="a" 
-                        href="#"
-                      >
-                        <span>Limits</span>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  </SidebarMenuSub>
-                </SidebarMenuItem>
+                </template>
               </SidebarMenu>
             </SidebarGroup>
           </SidebarContent>
-          
+
           <SidebarSeparator />
-          
+
           <SidebarFooter>
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
                 <SidebarElement>
-                  <i class="i-celeste-user-line"></i>
+                  <i class="i-celeste-user-line" />
                   <div class="flex flex-col">
-                    <div style="font: var(--label-sm);color: var(--color-text-strong-950)">Dara</div>
+                    <div style="color: var(--color-text-strong-950);font: var(--label-sm)">
+                      Dara
+                    </div>
                   </div>
-                  <CompactButton style="margin-inline-start: auto;" variant="stroke" size="md" icon="i-celeste-more-2-fill" />
+                  <CompactButton
+                    style="margin-inline-start: auto;"
+                    variant="stroke"
+                    size="md"
+                    icon="i-celeste-more-2-fill"
+                  />
                 </SidebarElement>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="right" align="end">
@@ -300,9 +348,6 @@ export const Simple: Story = {
             </DropdownMenu>
           </SidebarFooter>
         </Sidebar>
-        <main>
-          <SidebarTrigger />
-        </main>
       </SidebarProvider>
     `,
   }),

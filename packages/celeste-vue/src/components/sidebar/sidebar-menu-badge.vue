@@ -35,8 +35,8 @@ export interface SidebarMenuBadgeProps {
 <style lang="css">
 .celeste-sidebar-menu-badge {
   position: absolute;
-  top: var(--spacing-8);
-  inset-inline-end: var(--spacing-4);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
   pointer-events: none;
   user-select: none;
   font-variant-numeric: tabular-nums;
@@ -47,6 +47,14 @@ export interface SidebarMenuBadgeProps {
 }
 
 .celeste-sidebar-menu-item:has([data-sidebar='menu-action']) .celeste-sidebar-menu-badge {
-  inset-inline-end: calc(20px + var(--spacing-4) + var(--spacing-4));
+  --offset: 20px;
+
+  inset-inline-end: calc(var(--offset) + var(--spacing-8));
+}
+
+.celeste-sidebar-menu-item:has([data-sidebar='menu-action'])
+  .celeste-sidebar-menu-sub-button
+  .celeste-sidebar-menu-badge {
+  inset-inline-end: var(--spacing-8);
 }
 </style>

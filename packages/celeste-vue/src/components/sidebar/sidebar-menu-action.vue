@@ -44,7 +44,7 @@ export interface SidebarMenuActionProps extends PrimitiveProps {
   outline: none;
   color: var(--sidebar-foreground);
   inset-inline-end: var(--spacing-4);
-  inset-block-start: var(--spacing-6);
+  inset-block-start: var(--spacing-8);
   aspect-ratio: 1;
 }
 

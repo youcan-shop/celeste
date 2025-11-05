@@ -24,8 +24,7 @@ export interface SidebarFooterProps {
 .celeste-sidebar-footer {
   display: flex;
   flex-direction: column;
-  margin-top: auto;
-  padding: var(--spacing-8);
+  padding: var(--spacing-10);
   gap: var(--spacing-8);
 }
 

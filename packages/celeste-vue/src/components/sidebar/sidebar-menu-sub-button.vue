@@ -43,7 +43,7 @@ export interface SidebarMenuSubButtonProps extends PrimitiveProps {
   align-items: center;
   width: 100%;
   min-width: 0;
-  height: 28px;
+  height: 32px;
   padding: var(--spacing-8);
   overflow: hidden;
   transform: translateX(-1px);

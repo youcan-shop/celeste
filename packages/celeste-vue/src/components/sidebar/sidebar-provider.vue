@@ -3,7 +3,6 @@ import type { HTMLAttributes, Ref } from 'vue';
 import { provideSidebarContext, SIDEBAR_COOKIE_MAX_AGE, SIDEBAR_COOKIE_NAME, SIDEBAR_KEYBOARD_SHORTCUT, SIDEBAR_WIDTH, SIDEBAR_WIDTH_ICON } from '@/composables/use-sidebar';
 import { defaultDocument, useEventListener, useMediaQuery, useVModel } from '@vueuse/core';
 import clsx from 'clsx';
-import { TooltipProvider } from 'radix-vue';
 import { computed, ref } from 'vue';
 
 const props = withDefaults(defineProps<{
@@ -62,18 +61,16 @@ provideSidebarContext({
 </script>
 
 <template>
-  <TooltipProvider :delay-duration="0">
-    <div
-      :style="{
-        '--sidebar-width': SIDEBAR_WIDTH,
-        '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
-      }"
-      :class="clsx('celeste-sidebar-provider', props.class)"
-      v-bind="$attrs"
-    >
-      <slot />
-    </div>
-  </TooltipProvider>
+  <div
+    :style="{
+      '--sidebar-width': SIDEBAR_WIDTH,
+      '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
+    }"
+    :class="clsx('celeste-sidebar-provider', props.class)"
+    v-bind="$attrs"
+  >
+    <slot />
+  </div>
 </template>
 
 <style lang="css">

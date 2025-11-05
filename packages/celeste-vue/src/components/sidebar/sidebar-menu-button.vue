@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { PrimitiveProps } from 'radix-vue';
-import type { Component, HTMLAttributes } from 'vue';
-import { TooltipContent, TooltipRoot, TooltipTrigger } from '@/components/tooltip';
-import { useSidebar } from '@/composables/use-sidebar';
+import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
 import { Primitive } from 'radix-vue';
@@ -15,7 +13,6 @@ const props = withDefaults(defineProps<PrimitiveProps & {
   class?: HTMLAttributes['class'];
   variant?: 'default' | 'outline';
   size?: 'md' | 'sm' | 'lg';
-  tooltip?: string | Component;
   isActive?: boolean;
 }>(), {
   as: 'button',
@@ -24,14 +21,11 @@ const props = withDefaults(defineProps<PrimitiveProps & {
   isActive: false,
 });
 
-const { isMobile, state } = useSidebar();
-
-const delegatedProps = reactiveOmit(props, 'tooltip', 'class', 'variant', 'size', 'isActive');
+const delegatedProps = reactiveOmit(props, 'class', 'variant', 'size', 'isActive');
 </script>
 
 <template>
   <Primitive
-    v-if="!tooltip"
     data-sidebar="menu-button"
     :data-size="size"
     :data-active="isActive"
@@ -45,36 +39,6 @@ const delegatedProps = reactiveOmit(props, 'tooltip', 'class', 'variant', 'size'
   >
     <slot />
   </Primitive>
-
-  <TooltipRoot v-else>
-    <TooltipTrigger as-child>
-      <Primitive
-        data-sidebar="menu-button"
-        :data-size="size"
-        :data-active="isActive"
-        :class="clsx(
-          'celeste-sidebar-menu-button',
-          `celeste-sidebar-menu-button-variant-${variant}`,
-          `celeste-sidebar-menu-button-size-${size}`,
-          props.class,
-        )"
-        v-bind="{ ...delegatedProps, ...$attrs }"
-      >
-        <slot />
-      </Primitive>
-    </TooltipTrigger>
-
-    <TooltipContent
-      side="right"
-      align="center"
-      :hidden="state !== 'collapsed' || isMobile"
-    >
-      <template v-if="typeof tooltip === 'string'">
-        {{ tooltip }}
-      </template>
-      <component :is="tooltip" v-else />
-    </TooltipContent>
-  </TooltipRoot>
 </template>
 
 <style lang="css">
@@ -171,7 +135,7 @@ const delegatedProps = reactiveOmit(props, 'tooltip', 'class', 'variant', 'size'
 }
 
 .celeste-sidebar-menu-button-size-md {
-  height: 32px;
+  height: 36px;
   font: var(--label-sm);
 }
 

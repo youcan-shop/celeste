@@ -24,8 +24,8 @@ export interface SidebarHeaderProps {
 .celeste-sidebar-header {
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-10);
   gap: var(--spacing-8);
-  padding: var(--spacing-8);
 }
 
 [data-collapsible='icon'] .celeste-sidebar-header {
