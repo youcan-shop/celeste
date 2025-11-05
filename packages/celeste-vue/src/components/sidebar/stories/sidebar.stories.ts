@@ -19,6 +19,10 @@ export const Simple: Story = {
     collapsible: 'icon',
   },
 
+  parameters: {
+    layout: 'fullscreen',
+  },
+
   render: args => ({
     components: {
       SidebarProvider,
