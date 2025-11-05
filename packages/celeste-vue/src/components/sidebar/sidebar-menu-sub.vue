@@ -22,7 +22,7 @@ const props = defineProps<{
   flex-direction: column;
   min-width: 0;
   margin-inline: var(--spacing-14);
-  padding-block: var(--spacing-2);
+  padding-block: var(--spacing-4);
   padding-inline: var(--spacing-10);
   transform: translateX(1px);
   gap: var(--spacing-4);
