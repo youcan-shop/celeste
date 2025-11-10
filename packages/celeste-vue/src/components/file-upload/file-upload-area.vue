@@ -2,7 +2,7 @@
 import Button from '@/components/button/button.vue';
 import { useDropZone } from '@vueuse/core';
 import clsx from 'clsx';
-import { type InputHTMLAttributes, useTemplateRef } from 'vue';
+import { computed, type InputHTMLAttributes, useTemplateRef } from 'vue';
 
 const props = withDefaults(defineProps<FileUploadAreaProps>(), {
   icon: 'i-celeste-upload-cloud-2-line',
@@ -21,6 +21,10 @@ const files = defineModel<File[]>({ default: [] });
 
 const dropZoneRef = useTemplateRef<HTMLElement>('dropZoneRef');
 const { isOverDropZone } = useDropZone(dropZoneRef, { onDrop });
+
+const uploadComponent = computed(() => {
+  return props.onTriggerClick ? 'div' : 'label';
+});
 
 function handleUpload(e: Event) {
   const input = e.target as HTMLInputElement;
@@ -124,13 +128,15 @@ export interface FileUploadAreaEmit {
 </script>
 
 <template>
-  <label
+  <component
+    :is="uploadComponent"
     ref="dropZoneRef"
     :class="clsx(
       'celeste-file-upload-area',
       props.class,
     )"
     :data-over-drop-zone="isOverDropZone"
+    @click="handleTriggerClick"
   >
     <i :class="icon" />
     <div class="celeste-file-upload-area-content">
@@ -151,18 +157,18 @@ export interface FileUploadAreaEmit {
       variant="stroke"
       size="xs"
       class="celeste-file-upload-area-trigger"
-      @click="handleTriggerClick"
     >
       <span>{{ triggerLabel }}</span>
     </Button>
     <input
+      v-if="!onTriggerClick"
       v-bind="$attrs"
       type="file"
       :multiple="multiple"
       :accept="accept"
       @change="handleUpload"
     >
-  </label>
+  </component>
 </template>
 
 <style scoped lang="scss">
