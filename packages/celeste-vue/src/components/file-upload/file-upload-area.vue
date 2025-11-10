@@ -161,7 +161,7 @@ export interface FileUploadAreaEmit {
       <span>{{ triggerLabel }}</span>
     </Button>
     <input
-      v-if="uploadComponet === 'label'"
+      v-if="onTriggerClick === undefined"
       v-bind="$attrs"
       type="file"
       :multiple="multiple"
