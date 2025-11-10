@@ -22,7 +22,7 @@ const files = defineModel<File[]>({ default: [] });
 const dropZoneRef = useTemplateRef<HTMLElement>('dropZoneRef');
 const { isOverDropZone } = useDropZone(dropZoneRef, { onDrop });
 
-const uploadComponet = computed(() => {
+const uploadComponent = computed(() => {
   return props.onTriggerClick ? 'div' : 'label';
 });
 
@@ -129,7 +129,7 @@ export interface FileUploadAreaEmit {
 
 <template>
   <component
-    :is="uploadComponet"
+    :is="uploadComponent"
     ref="dropZoneRef"
     :class="clsx(
       'celeste-file-upload-area',
@@ -161,7 +161,7 @@ export interface FileUploadAreaEmit {
       <span>{{ triggerLabel }}</span>
     </Button>
     <input
-      v-if="onTriggerClick === undefined"
+      v-if="!onTriggerClick"
       v-bind="$attrs"
       type="file"
       :multiple="multiple"
