@@ -38,6 +38,7 @@ export interface ButtonProps extends PrimitiveProps {
 
 <style lang="scss" scoped>
 @use 'sass:map';
+@use 'sass:list';
 
 $size-map: (
   'xxs': (
@@ -247,6 +248,10 @@ $hover-map: (
       height: map.get($v, height);
       padding: map.get($v, padding);
       border-radius: map.get($v, border-radius);
+
+      &:has(> :only-child:is(i)) {
+        padding: list.nth(map.get($v, padding), 1);
+      }
     }
   }
 

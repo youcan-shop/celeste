@@ -29,3 +29,23 @@ export const Default: Story = {
     `,
   }),
 };
+
+export const IconOnly: Story = {
+  args: {
+    size: 'sm',
+    intent: 'neutral',
+    variant: 'stroke',
+  },
+
+  render: args => ({
+    components: { Button },
+    setup() {
+      return { args };
+    },
+    template: `
+      <Button v-bind="args">
+        <i class="i-celeste-translate"></i>
+      </Button>
+    `,
+  }),
+};
