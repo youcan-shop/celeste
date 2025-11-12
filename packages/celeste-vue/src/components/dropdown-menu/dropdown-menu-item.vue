@@ -78,7 +78,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
   &[data-disabled] {
     color: var(--color-text-disabled-300);
-    cursor: auto;
+    pointer-events: none;
 
     .celeste-dropdown-menu-item-prefix,
     .celeste-dropdown-menu-item-suffix {
