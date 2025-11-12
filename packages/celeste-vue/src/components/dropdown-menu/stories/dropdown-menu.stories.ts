@@ -103,7 +103,7 @@ export const Default: Story = {
               <DropdownMenuLabel>
                 Account
               </DropdownMenuLabel>
-              <DropdownMenuItem>
+              <DropdownMenuItem disabled>
                 Add Account
                 <template #prefix>
                   <i class="i-celeste-add-line" />
