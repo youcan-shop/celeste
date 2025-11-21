@@ -33,6 +33,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 :deep(.celeste-dropdown-menu-sub-content) {
   --dropdown-min-width: 250px;
   --dropdown-max-width: 350px;
+  --dropdown-max-height: 300px;
 
   display: flex;
   z-index: 50;
@@ -41,9 +42,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   width: 100%;
   min-width: var(--dropdown-min-width);
   max-width: var(--dropdown-max-width);
+  max-height: var(--dropdown-max-height);
   margin-block-start: var(--spacing-10);
   padding: var(--spacing-8);
-  overflow: hidden;
+  overflow: hidden auto;
   transform-origin: var(--radix-popper-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
   border: 1px solid var(--color-stroke-soft-200);
