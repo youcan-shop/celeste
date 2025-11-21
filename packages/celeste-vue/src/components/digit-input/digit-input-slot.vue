@@ -23,11 +23,10 @@ const forwardedProps = useForwardProps(delegatedProps);
 
   display: flex;
   box-sizing: border-box;
-  flex-grow: 1;
-  flex-shrink: 1;
+  flex: 1 1 0;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
+  min-width: 32px;
   max-width: 64px;
   padding: 0;
   transition: all var(--animation-fast) ease-out;

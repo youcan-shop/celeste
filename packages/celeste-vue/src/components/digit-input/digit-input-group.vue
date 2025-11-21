@@ -19,6 +19,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 .celeste-digit-input-group {
   display: flex;
   align-items: center;
+  max-width: 100%;
   gap: var(--spacing-10);
 }
 </style>

@@ -218,3 +218,31 @@ export const ErrorState: Story = {
     `,
   }),
 };
+
+export const Responsive: Story = {
+  args: {
+    otp: true,
+    placeholder: '●',
+    type: 'number',
+  },
+
+  render: args => ({
+    components: { DigitInput, DigitInputSlot, DigitInputGroup },
+    setup() {
+      const value = ref(['', '', '', '', '', '']);
+      return { args, value };
+    },
+    template: `
+      <div style="max-width: 320px; border: 1px dashed #ccc; padding: 16px;">
+        <p style="margin-bottom: 12px; font-size: 12px; color: #666;">Container width: 320px (small mobile)</p>
+        <DigitInput v-bind="args" v-model="value">
+          <DigitInputGroup>
+            <DigitInputSlot v-for="(id, idx) in 3" :key="id" :index="idx" />
+            <i class="i-celeste-subtract-line" style="width: 16px; flex-shrink: 0;" />
+            <DigitInputSlot v-for="(id, idx) in 3" :key="id + 3" :index="idx + 3" />
+          </DigitInputGroup>
+        </DigitInput>
+      </div>
+    `,
+  }),
+};
