@@ -24,10 +24,11 @@ const forwardedProps = useForwardProps(delegatedProps);
   display: flex;
   box-sizing: border-box;
   flex-grow: 1;
+  flex-shrink: 1;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  min-width: 40px;
+  max-width: 64px;
   padding: 0;
   transition: all var(--animation-fast) ease-out;
   border: 1px solid var(--celeste-digit-input-border-color);
@@ -39,6 +40,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   color: var(--color-text-strong-950);
   font: var(--title-h5-title);
   text-align: center;
+  aspect-ratio: 1;
 
   &::placeholder {
     transition: color var(--animation-fast) ease-out;
