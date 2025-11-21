@@ -195,6 +195,14 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
     }
   }
 
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    background-clip: text;
+  }
+
   &:has(.celeste-text-input:disabled) {
     --celeste-text-input-border-color: transparent;
     --celeste-text-input-drop-shadow: none;
