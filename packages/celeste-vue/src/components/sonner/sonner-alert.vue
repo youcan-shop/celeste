@@ -46,9 +46,11 @@ function handleDismiss(): void {
   max-width: 360px;
 }
 
-@media (width <= 400px) {
+@media (width <= 600px) {
   .sonner-alert {
+    width: 100%;
     min-width: calc(100vw - 32px);
+    max-width: 100%;
   }
 }
 </style>
