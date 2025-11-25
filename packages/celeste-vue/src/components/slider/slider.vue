@@ -55,12 +55,12 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
   .celeste-slider-thumb {
     display: block;
-    width: 6px;
-    height: 6px;
+    width: 16px;
+    height: 16px;
     border: 5px solid var(--color-static-white);
     border-radius: var(--radius-full);
     outline: none;
-    background: var(--color-primary-base) content-box;
+    background-color: var(--color-primary-base);
     cursor: pointer;
     filter: drop-shadow(0 2px 4px rgb(14 18 27 / 3%)) drop-shadow(0 6px 10px rgb(14 18 27 / 6%));
 
