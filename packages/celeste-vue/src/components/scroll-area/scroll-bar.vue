@@ -37,7 +37,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
   &[data-orientation='horizontal'] {
     flex-direction: column;
-    height: var(--thumb-size);
+    height: var(--bar-size);
     padding: var(--spacing-2);
     border-block-start: 1px solid transparent;
   }
