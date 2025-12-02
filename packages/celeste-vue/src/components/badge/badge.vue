@@ -40,7 +40,7 @@ export interface BadgeProps {
   >
     <i v-if="type === 'dot'" class="dot i-celeste-dot" />
     <i v-if="type === 'leading-icon'" :class="icon" />
-    <span v-if="label">{{ label }}</span>
+    <span v-if="label" class="celeste-badge-label">{{ label }}</span>
     <i v-if="type === 'trailing-icon'" :class="icon" />
   </div>
 </template>
@@ -73,6 +73,10 @@ $states: faded, information, warning, error, success, away, feature, verified, h
     flex-shrink: 0;
     width: 16px;
     height: 16px;
+  }
+
+  &-label {
+    flex-shrink: 0;
   }
 
   &:has(i.dot) {
