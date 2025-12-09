@@ -70,6 +70,7 @@ export interface TooltipContentProps extends PrimitiveProps {
 :deep(.celeste-tooltip-content) {
   display: flex;
   position: relative;
+  z-index: 50;
   align-items: flex-start;
   width: auto;
   max-width: calc(var(--radix-tooltip-content-available-width) / 1.5);
