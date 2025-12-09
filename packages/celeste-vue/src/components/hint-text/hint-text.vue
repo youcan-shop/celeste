@@ -35,7 +35,7 @@ export interface HintTextProps {
 <style lang="scss" scoped>
 .celeste-hint-text {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: var(--spacing-4);
   color: var(--color-text-sub-600);
   font: var(--paragraph-xs);

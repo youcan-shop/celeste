@@ -197,7 +197,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 .celeste-alert {
   display: flex;
   box-sizing: border-box;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
 
   &-inner {
