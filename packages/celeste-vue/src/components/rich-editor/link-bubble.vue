@@ -7,7 +7,7 @@ import Label from '@/components/label/label.vue';
 import Switch from '@/components/switch/switch.vue';
 import TextInputAffix from '@/components/text-input/text-input-affix.vue';
 import TextInput from '@/components/text-input/text-input.vue';
-import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
+import { computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps<{
   editor: Editor;
@@ -37,6 +37,11 @@ function startEdit() {
   const attrs = props.editor.getAttributes('link');
   href.value = attrs.href || '';
   openInNewTab.value = attrs.target === '_blank';
+
+  nextTick(() => {
+    const transaction = props.editor.state.tr.setMeta('bubbleMenu', 'updatePosition');
+    props.editor.view.dispatch(transaction);
+  });
 }
 
 function removeLink() {
@@ -158,10 +163,18 @@ onUnmounted(() => {
     :should-show="() => true"
     :editor="editor"
     :options="{
+      strategy: 'fixed',
       placement: 'bottom',
-      offset: {
-        mainAxis: 0,
-        crossAxis: 12,
+      offset: 12,
+      flip: {
+        padding: 20,
+        mainAxis: true,
+        crossAxis: true,
+      },
+      shift: {
+        padding: 20,
+        mainAxis: true,
+        crossAxis: true,
       },
     }"
   >
@@ -236,8 +249,7 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .link-bubble {
-  position: fixed;
-  z-index: 1000;
+  max-width: calc(100vw - 40px);
   padding: var(--spacing-12);
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-12);
@@ -252,6 +264,16 @@ onUnmounted(() => {
     .set-link {
       display: flex;
       gap: var(--spacing-8);
+
+      .link-input {
+        flex: 1;
+        min-width: 140px;
+      }
+
+      button {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
     }
 
     :deep(.celeste-switch[aria-checked='true']) {

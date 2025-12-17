@@ -52,7 +52,7 @@ export const Default: Story = {
       return { args };
     },
     template: `
-      <RichEditor v-bind="args" />
+        <RichEditor v-bind="args" />
     `,
   }),
 };
@@ -82,6 +82,28 @@ export const CustomToolbar: Story = {
     },
     template: `
       <RichEditor v-bind="args" />
+    `,
+  }),
+};
+
+export const SmallEditor: Story = {
+  args: {
+    modelValue: '',
+    customToolbar: [],
+  },
+
+  render: args => ({
+    components: { RichEditor },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: flex;">
+        <div style="flex-basis: 80%"></div>
+        <div style="flex-basis: 20%">
+          <RichEditor v-bind="args" />
+        </div>
+      </div>
     `,
   }),
 };
