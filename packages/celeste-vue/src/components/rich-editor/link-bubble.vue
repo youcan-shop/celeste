@@ -190,7 +190,7 @@ onUnmounted(() => {
               v-model="href"
               type="url"
               size="xs"
-              placeholder="Paste or type a link"
+              placeholder="https://example.com"
               class="link-input"
               @keydown.enter="applyLink"
               @keydown.esc="reset"
@@ -278,6 +278,10 @@ onUnmounted(() => {
 
     :deep(.celeste-switch[aria-checked='true']) {
       background-color: var(--color-neutral-700);
+
+      .celeste-switch-thumb::before {
+        background-color: currentcolor;
+      }
     }
 
     .switch-button-box {
