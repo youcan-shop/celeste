@@ -27,6 +27,7 @@ export * from './slider';
 export * from './sonner';
 export * from './switch';
 export * from './tab-menu';
+export * from './table';
 export * from './tag';
 export * from './text-input';
 export * from './textarea';
