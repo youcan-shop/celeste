@@ -6,16 +6,14 @@
   "packageManager": "pnpm@9.15.3",
   "description": "YouCan's design system.",
   "author": "YouCan <tech@youcan.shop>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youcan-shop/celeste.git"
+  },
   "keywords": [
     "youcan",
     "celeste"
   ],
-  "workspaces": [
-    "packages/*"
-  ],
-  "engines": {
-    "node": ">=20.10.0"
-  },
   "scripts": {
     "eslint": "eslint . --cache",
     "eslint:fix": "eslint . --cache --fix",
@@ -26,7 +24,7 @@
     "prepare": "pnpm simple-git-hooks",
     "build": "pnpm -r build",
     "bump": "bumpp package.json packages/*/package.json --commit \"chore: release v\" --push --tag",
-    "release": "pnpm bump && pnpm run build && pnpm -r release",
+    "release": "pnpm bump",
     "storybook": "pnpm --filter @youcan/celeste run storybook"
   },
   "devDependencies": {

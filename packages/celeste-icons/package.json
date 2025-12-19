@@ -35,8 +35,7 @@
   "scripts": {
     "generate-iconify": "tsx scripts/generate-iconify",
     "generate-vue": "tsx scripts/generate-vue.ts",
-    "build": "rimraf dist && pnpm generate-iconify && tsup",
-    "release": "pnpm publish --access public"
+    "build": "rimraf dist && pnpm generate-iconify && tsup"
   },
   "dependencies": {
     "@iconify/types": "^2.0.0"
