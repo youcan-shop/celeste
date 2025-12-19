@@ -1,7 +1,9 @@
-import type { PathLike } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname, join, resolve } from 'node:path';
 
-function getAbsolutePath(value): PathLike {
+const require = createRequire(import.meta.url);
+
+function getAbsolutePath(value: string): string {
   return dirname(require.resolve(join(value, 'package.json')));
 }
 
@@ -11,7 +13,6 @@ const config = {
 
   addons: [
     getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-knobs'),
     getAbsolutePath('@storybook/addon-docs'),
   ],
 
@@ -22,13 +23,13 @@ const config = {
     },
   },
 
-  async viteFinal(config) {
+  async viteFinal(config: any) {
     config.resolve = config.resolve || {};
     config.resolve.alias = config.resolve.alias || {};
 
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': resolve(__dirname, '../src'),
+      '@': resolve(dirname(new URL(import.meta.url).pathname), '../src'),
       'vue': `${getAbsolutePath('vue')}/dist/vue.runtime.esm-bundler.js`,
       '@vue/runtime-dom': `${getAbsolutePath('@vue/runtime-dom')}/dist/runtime-dom.esm-bundler.js`,
       '@vue/runtime-core': `${getAbsolutePath('@vue/runtime-core')}/dist/runtime-core.esm-bundler.js`,
