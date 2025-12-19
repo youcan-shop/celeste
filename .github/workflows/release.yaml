@@ -34,4 +34,4 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - run: npm i -g npm@latest
-      - run: pnpm -r --dir publish --access public --provenance
+      - run: pnpm -r --dir packages publish --access public --provenance
