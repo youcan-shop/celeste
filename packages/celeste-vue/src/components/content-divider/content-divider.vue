@@ -19,28 +19,28 @@ export interface ContentDividerProps {
 <template>
   <Separator
     aria-label="divider"
-    :class="clsx('celeste-celecte-content-divider', props.class)"
-    class="celecte-content-divider"
+    :class="clsx('celeste-celeste-content-divider', props.class)"
+    class="celeste-content-divider"
   >
     <div
       v-if="type === 'line'"
-      class="celecte-content-divider-type-line"
+      class="celeste-content-divider-type-line"
     />
     <div
       v-if="type === 'text' && text"
-      class="celecte-content-divider-type-text"
+      class="celeste-content-divider-type-text"
     >
       {{ text }}
     </div>
     <div
       v-if="type === 'text-line' && text"
-      class="celecte-content-divider-type-text-line"
+      class="celeste-content-divider-type-text-line"
     >
       <hr> <span>{{ text }}</span> <hr>
     </div>
     <div
       v-if="type === 'solid-text' && text"
-      class="celecte-content-divider-type-solid-text"
+      class="celeste-content-divider-type-solid-text"
     >
       {{ text }}
     </div>
@@ -48,7 +48,7 @@ export interface ContentDividerProps {
 </template>
 
 <style lang="scss">
-.celecte-content-divider {
+.celeste-content-divider {
   display: flex;
   align-items: center;
   justify-content: center;
