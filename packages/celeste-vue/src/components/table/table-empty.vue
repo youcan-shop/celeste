@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
+import clsx from 'clsx';
 import { TableCell, TableRow } from '@/components/table';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
-import clsx from 'clsx';
 
 const props = withDefaults(
   defineProps<TableEmptyProps>(),

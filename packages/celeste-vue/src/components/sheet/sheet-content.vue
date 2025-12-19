@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
 import type { HTMLAttributes } from 'vue';
-import CompactButton from '@/components/button/compact-button.vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
 import {
@@ -11,6 +10,7 @@ import {
   DialogPortal,
   useForwardPropsEmits,
 } from 'radix-vue';
+import CompactButton from '@/components/button/compact-button.vue';
 
 defineOptions({
   inheritAttrs: false,

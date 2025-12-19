@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DEFAULT_SWATCH } from '@/utils/color';
 import tinycolor from 'tinycolor2';
 import { computed } from 'vue';
+import { DEFAULT_SWATCH } from '@/utils/color';
 import { defineColorModel } from './composable/use-color-model';
 
 const props = withDefaults(defineProps<ColorSwatchProps>(), {

@@ -1,7 +1,7 @@
 import type { SonnerAlertProps } from '@/components/sonner/sonner-alert.vue';
-import SonnerAlert from '@/components/sonner/sonner-alert.vue';
 import { markRaw } from 'vue';
 import { type ExternalToast, toast as sonner } from 'vue-sonner';
+import SonnerAlert from '@/components/sonner/sonner-alert.vue';
 
 export interface ToastOptions extends ExternalToast {
   state?: SonnerAlertProps['state'];

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { ContentDivider } from '@/components';
 import clsx from 'clsx';
+import { ContentDivider } from '@/components';
 
 const props = defineProps<SidebarSeparatorProps>();
 </script>

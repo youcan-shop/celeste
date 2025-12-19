@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { ToggleGroupRoot as SegmentedControlRoot, type ToggleGroupRootEmits, type ToggleGroupRootProps, useForwardPropsEmits } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<Omit<ToggleGroupRootProps, 'type'> & { class?: HTMLAttributes['class'] }>();
 const emits = defineEmits<ToggleGroupRootEmits>();

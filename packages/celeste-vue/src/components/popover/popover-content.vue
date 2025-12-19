@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import CompactButton from '@/components/button/compact-button.vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import {
   PopoverArrow,
@@ -12,6 +10,8 @@ import {
   type PopoverContentProps as RadixPopoverContentProps,
   useForwardPropsEmits,
 } from 'radix-vue';
+import CompactButton from '@/components/button/compact-button.vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 defineOptions({
   inheritAttrs: false,

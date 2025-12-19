@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type tinycolor from 'tinycolor2';
+import { computed, onUnmounted, useTemplateRef } from 'vue';
 import { useUserPageSelection } from '@/components/color-picker/composable/use-user-select';
 import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from '@/utils/color';
-import { computed, onUnmounted, useTemplateRef } from 'vue';
 import { defineColorModel } from './composable/use-color-model';
 
 const props = defineProps<AlphaSliderProps>();

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import Tooltip from '@/components/tooltip/tooltip.vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { Label, type LabelProps } from 'radix-vue';
+import Tooltip from '@/components/tooltip/tooltip.vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<LabelProps & {
   sublabel?: string;

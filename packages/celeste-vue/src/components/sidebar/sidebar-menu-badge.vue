@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import Badge from '@/components/badge/badge.vue';
 import clsx from 'clsx';
+import Badge from '@/components/badge/badge.vue';
 
 const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
   variant: 'lighter',

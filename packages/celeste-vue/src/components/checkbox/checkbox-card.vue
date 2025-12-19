@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { LabelProps } from 'radix-vue';
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { Label, Primitive } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<LabelProps & {
   required?: boolean;

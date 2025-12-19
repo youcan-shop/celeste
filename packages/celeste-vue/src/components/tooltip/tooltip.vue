@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { TooltipContentProps, TooltipRootEmits, TooltipRootProps } from 'radix-vue';
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useForwardPropsEmits } from 'radix-vue';
 import { ref } from 'vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from '.';
 
 const props = withDefaults(defineProps<TooltipProps>(), {

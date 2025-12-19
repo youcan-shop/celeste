@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { uid } from '@/utils/crypto';
 import clsx from 'clsx';
+import { uid } from '@/utils/crypto';
 
 const props = withDefaults(
   defineProps<AlertProps>(),

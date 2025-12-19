@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SelectLabel, type SelectLabelProps } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<SelectLabelProps & { class?: HTMLAttributes['class'] }>();
 const delegatedProps = useDelegatedProps(props, 'class');

@@ -1,8 +1,8 @@
 // @unocss-include
 
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import Badge from '@/components/badge/badge.vue';
 import { ref } from 'vue';
+import Badge from '@/components/badge/badge.vue';
 import RadioGroupCard from '../radio-group-card.vue';
 import RadioGroupItem from '../radio-group-item.vue';
 import RadioGroup from '../radio-group.vue';

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Button from '@/components/button/button.vue';
 import { useDropZone } from '@vueuse/core';
 import clsx from 'clsx';
 import { computed, type InputHTMLAttributes, useTemplateRef } from 'vue';
+import Button from '@/components/button/button.vue';
 
 const props = withDefaults(defineProps<FileUploadAreaProps>(), {
   icon: 'i-celeste-upload-cloud-2-line',

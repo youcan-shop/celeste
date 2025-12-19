@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SelectIcon, SelectTrigger, type SelectTriggerProps } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(defineProps<SelectTriggerProps & {
   class?: HTMLAttributes['class'];
