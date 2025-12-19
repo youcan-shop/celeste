@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { ref } from 'vue';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components';
 import Button from '@/components/button/button.vue';
-import { ref } from 'vue';
 import {
   Pagination,
   PaginationContent,

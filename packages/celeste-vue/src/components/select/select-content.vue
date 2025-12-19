@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SelectContent, type SelectContentEmits, type SelectContentProps, SelectPortal, SelectViewport, useForwardPropsEmits } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(defineProps<SelectContentProps & {
   class?: HTMLAttributes['class'];

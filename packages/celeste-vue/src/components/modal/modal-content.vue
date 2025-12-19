@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { DialogContent as ModalContent, DialogOverlay as ModalOverlay, DialogPortal as ModalPortal, useForwardPropsEmits } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<DialogContentProps & {
   class?: HTMLAttributes['class'];

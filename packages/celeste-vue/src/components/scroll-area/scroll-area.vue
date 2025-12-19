@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables';
 import clsx from 'clsx';
 import {
   ScrollAreaCorner,
@@ -8,6 +7,7 @@ import {
   type ScrollAreaRootProps,
   ScrollAreaViewport,
 } from 'radix-vue';
+import { useDelegatedProps } from '@/composables';
 import ScrollBar from './scroll-bar.vue';
 
 const props = defineProps<ScrollAreaRootProps & { class?: HTMLAttributes['class'] }>();

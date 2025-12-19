@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import CompactButton from '@/components/button/compact-button.vue';
 import { ref } from 'vue';
+import CompactButton from '@/components/button/compact-button.vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../index';
 
 const meta: Meta<typeof Collapsible> = {

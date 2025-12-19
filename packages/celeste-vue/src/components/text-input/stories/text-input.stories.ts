@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { ref } from 'vue';
 import Button from '@/components/button/button.vue';
 import Combobox from '@/components/combobox/combobox.vue';
-import { ref } from 'vue';
 import TextInputAffix from '../text-input-affix.vue';
 import TextInputButton from '../text-input-button.vue';
 import TextInput from '../text-input.vue';

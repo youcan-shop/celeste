@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import CompactButton from '@/components/button/compact-button.vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { type TooltipContentProps as PrimitiveProps, TooltipArrow, TooltipContent, type TooltipContentEmits, TooltipPortal, useForwardPropsEmits } from 'radix-vue';
+import CompactButton from '@/components/button/compact-button.vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(
   defineProps<TooltipContentProps>(),

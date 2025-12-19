@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { ref, watch } from 'vue';
 import Sonner from '@/components/sonner/sonner.vue';
 import { toast } from '@/utils/sonner';
-import { ref, watch } from 'vue';
 import FileUploadArea, { type FileError } from '../file-upload-area.vue';
 import 'vue-sonner/style.css';
 

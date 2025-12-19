@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import CompactButton from '@/components/button/compact-button.vue';
 import clsx from 'clsx';
 import { DialogClose as ModalClose, DialogDescription as ModalDescription, DialogTitle as ModalTitle } from 'radix-vue';
+import CompactButton from '@/components/button/compact-button.vue';
 
 const props = withDefaults(defineProps<{
   title: string;

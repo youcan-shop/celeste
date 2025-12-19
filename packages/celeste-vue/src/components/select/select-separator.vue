@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { SelectSeparator, type SelectSeparatorProps } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<SelectSeparatorProps & { class?: HTMLAttributes['class'] }>();
 const delegatedProps = useDelegatedProps(props, 'class');

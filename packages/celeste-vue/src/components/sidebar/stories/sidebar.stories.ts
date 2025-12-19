@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { ref } from 'vue';
 import CompactButton from '@/components/button/compact-button.vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/collapsible';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/dropdown-menu';
 import SidebarMenuBadge from '@/components/sidebar/sidebar-menu-badge.vue';
-import { ref } from 'vue';
 import { Sidebar, SidebarContent, SidebarElement, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarSeparator, SidebarTrigger } from '..';
 
 const meta: Meta<typeof Sidebar> = {

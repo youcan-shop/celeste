@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3';
+import { computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import Button from '@/components/button/button.vue';
 import CompactButton from '@/components/button/compact-button.vue';
 import LinkButton from '@/components/button/link-button.vue';
@@ -7,7 +8,6 @@ import Label from '@/components/label/label.vue';
 import Switch from '@/components/switch/switch.vue';
 import TextInputAffix from '@/components/text-input/text-input-affix.vue';
 import TextInput from '@/components/text-input/text-input.vue';
-import { computed, defineAsyncComponent, nextTick, onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps<{
   editor: Editor;

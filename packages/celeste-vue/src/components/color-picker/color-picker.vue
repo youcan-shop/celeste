@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useDelegatedProps } from '@/composables/use-delegated-props';
-import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, type ColorKey, getColorConstraints, HEX_VALIDATION_PATTERN, type HSBKey, type HSLKey, resolveArrowDirection, type RGBKey, truncColorValue } from '@/utils/color';
 import { useForwardPropsEmits } from 'radix-vue';
 import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, ref, watch } from 'vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
+import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, type ColorKey, getColorConstraints, HEX_VALIDATION_PATTERN, type HSBKey, type HSLKey, resolveArrowDirection, type RGBKey, truncColorValue } from '@/utils/color';
 import { Button } from '../button';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';

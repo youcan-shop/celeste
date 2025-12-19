@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
+import clsx from 'clsx';
 import { Sheet, SheetContent } from '@/components/sheet';
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from '@/composables/use-sidebar';
-import clsx from 'clsx';
 
 defineOptions({
   inheritAttrs: false,

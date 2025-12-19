@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import {
   ProgressIndicator,
@@ -8,6 +7,7 @@ import {
   type ProgressRootProps,
 } from 'radix-vue';
 import { computed } from 'vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(
   defineProps<

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
+import clsx from 'clsx';
 import CompactButton from '@/components/button/compact-button.vue';
 import { useSidebar } from '@/composables/use-sidebar';
-import clsx from 'clsx';
 
 const props = defineProps<{
   class?: HTMLAttributes['class'];

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { useDelegatedProps } from '@/composables/use-delegated-props';
 import clsx from 'clsx';
 import { RadioGroupIndicator, RadioGroupItem, type RadioGroupItemProps, useForwardPropsEmits } from 'radix-vue';
+import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<RadioGroupItemProps & { class?: HTMLAttributes['class'] }>();
 const delegatedProps = useDelegatedProps(props, 'class');
