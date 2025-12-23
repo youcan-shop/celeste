@@ -17,6 +17,9 @@
     },
     "./tokens.scss": {
       "import": "./dist/tokens.scss"
+    },
+    "./theme.json": {
+      "import": "./dist/theme.json"
     }
   },
   "engines": {
