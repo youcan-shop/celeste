@@ -33,7 +33,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
     flex-direction: row;
     padding: var(--spacing-0);
     border-block: 1px solid var(--color-stroke-soft-200);
-    gap: var(--spacing-16);
+    gap: 24px;
   }
 
   &[data-orientation='vertical'] {

@@ -54,6 +54,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
   &[data-orientation='horizontal'] {
     position: relative;
+    width: fit-content;
     padding-block: var(--spacing-14);
     padding-inline: var(--spacing-0);
 
