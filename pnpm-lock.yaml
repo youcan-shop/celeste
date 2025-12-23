@@ -147,6 +147,9 @@ importers:
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
+      unocss:
+        specifier: ^66.5.9
+        version: 66.5.9(postcss@8.5.6)(vite@6.4.1(@types/node@25.0.3)(jiti@2.6.1)(sass@1.94.2)(tsx@4.19.2)(yaml@2.8.2))
 
   packages/celeste-vue:
     dependencies:
@@ -5776,8 +5779,8 @@ packages:
   vue-component-type-helpers@2.2.0:
     resolution: {integrity: sha512-cYrAnv2me7bPDcg9kIcGwjJiSB6Qyi08+jLDo9yuvoFQjzHiPTzML7RnkJB1+3P6KMsX/KbCD4QE3Tv/knEllw==}
 
-  vue-component-type-helpers@3.1.8:
-    resolution: {integrity: sha512-oaowlmEM6BaYY+8o+9D9cuzxpWQWHqHTMKakMxXu0E+UCIOMTljyIPO15jcnaCwJtZu/zWDotK7mOIHvWD9mcw==}
+  vue-component-type-helpers@3.2.1:
+    resolution: {integrity: sha512-gKV7XOkQl4urSuLHNY1tnVQf7wVgtb/mKbRyxSLWGZUY9RK7aDPhBenTjm+i8ZFe0zC2PZeHMPtOZXZfyaFOzQ==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -6727,7 +6730,7 @@ snapshots:
       diff: 8.0.2
       lodash: 4.17.21
       minimatch: 10.0.3
-      resolve: 1.22.11
+      resolve: 1.22.10
       semver: 7.5.4
       source-map: 0.6.1
       typescript: 5.8.2
@@ -6998,7 +7001,7 @@ snapshots:
       fs-extra: 11.3.2
       import-lazy: 4.0.0
       jju: 1.4.0
-      resolve: 1.22.11
+      resolve: 1.22.10
       semver: 7.5.4
     optionalDependencies:
       '@types/node': 22.10.5
@@ -7146,7 +7149,7 @@ snapshots:
       storybook: 10.1.10(@testing-library/dom@10.4.1)(prettier@3.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       type-fest: 2.19.0
       vue: 3.5.13(typescript@5.8.3)
-      vue-component-type-helpers: 3.1.8
+      vue-component-type-helpers: 3.2.1
 
   '@stylistic/eslint-plugin@2.13.0(eslint@9.17.0(jiti@2.6.1))(typescript@5.8.3)':
     dependencies:
@@ -8010,7 +8013,7 @@ snapshots:
     dependencies:
       '@vitest/spy': 2.1.9
       estree-walker: 3.0.3
-      magic-string: 0.30.21
+      magic-string: 0.30.17
     optionalDependencies:
       vite: 6.4.1(@types/node@22.10.5)(jiti@2.6.1)(sass@1.94.2)(tsx@4.19.2)(yaml@2.8.2)
     optional: true
@@ -12111,7 +12114,7 @@ snapshots:
   vite-node@2.1.9(@types/node@22.10.5)(jiti@2.6.1)(sass@1.94.2)(tsx@4.19.2)(yaml@2.8.2):
     dependencies:
       cac: 6.7.14
-      debug: 4.4.3
+      debug: 4.4.0
       es-module-lexer: 1.6.0
       pathe: 1.1.2
       vite: 6.4.1(@types/node@22.10.5)(jiti@2.6.1)(sass@1.94.2)(tsx@4.19.2)(yaml@2.8.2)
@@ -12173,11 +12176,11 @@ snapshots:
   vite@6.4.1(@types/node@22.10.5)(jiti@2.6.1)(sass@1.94.2)(tsx@4.19.2)(yaml@2.8.2):
     dependencies:
       esbuild: 0.25.12
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.4.6(picomatch@4.0.2)
+      picomatch: 4.0.2
       postcss: 8.5.6
       rollup: 4.53.3
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.14
     optionalDependencies:
       '@types/node': 22.10.5
       fsevents: 2.3.3
@@ -12213,9 +12216,9 @@ snapshots:
       '@vitest/spy': 2.1.9
       '@vitest/utils': 2.1.9
       chai: 5.2.0
-      debug: 4.4.3
+      debug: 4.4.0
       expect-type: 1.1.0
-      magic-string: 0.30.21
+      magic-string: 0.30.17
       pathe: 1.1.2
       std-env: 3.8.0
       tinybench: 2.9.0
@@ -12297,7 +12300,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.0: {}
 
-  vue-component-type-helpers@3.1.8: {}
+  vue-component-type-helpers@3.2.1: {}
 
   vue-demi@0.14.10(vue@3.5.13(typescript@5.8.3)):
     dependencies:

@@ -18,8 +18,8 @@
     "./tokens.scss": {
       "import": "./dist/tokens.scss"
     },
-    "./theme.json": {
-      "import": "./dist/theme.json"
+    "./preset": {
+      "import": "./dist/preset.ts"
     }
   },
   "engines": {
@@ -33,6 +33,7 @@
     "@tokens-studio/sd-transforms": "^1.2.9",
     "csso": "^5.0.5",
     "style-dictionary": "^4.3.0",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "unocss": "^66.5.9"
   }
 }

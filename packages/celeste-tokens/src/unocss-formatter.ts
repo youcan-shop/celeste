@@ -1,15 +1,18 @@
 export function unocssFormat({ dictionary }: { dictionary: any }): string {
-  const theme: Record<string, any> = {
-    colors: {},
-    fontFamily: {},
-    fontSize: {},
-    fontWeight: {},
-    lineHeight: {},
-    letterSpacing: {},
-    borderRadius: {},
-    boxShadow: {},
-    spacing: {},
-    duration: {},
+  const preset: Record<string, any> = {
+    name: 'presetCeleste',
+    theme: {
+      colors: {},
+      fontFamily: {},
+      fontSize: {},
+      fontWeight: {},
+      lineHeight: {},
+      letterSpacing: {},
+      borderRadius: {},
+      boxShadow: {},
+      spacing: {},
+      duration: {},
+    },
     shortcuts: {},
   };
 
@@ -39,7 +42,7 @@ export function unocssFormat({ dictionary }: { dictionary: any }): string {
     duration: 'duration',
   };
 
-  dictionary.allTokens.forEach((token) => {
+  dictionary.allTokens.forEach((token: any) => {
     const { path, value, type, $type, name } = token;
     const val = value ?? token.$value;
     const root = path[0];
@@ -51,7 +54,7 @@ export function unocssFormat({ dictionary }: { dictionary: any }): string {
     if ($type === 'typography' || type === 'typography' || root === 'typography') {
       const shortcutName = name;
       if (shortcutName) {
-        theme.shortcuts[shortcutName] = `[font:var(--${shortcutName})]`;
+        preset.shortcuts[shortcutName] = `[font:var(--${shortcutName})]`;
       }
       return;
     }
@@ -78,9 +81,18 @@ export function unocssFormat({ dictionary }: { dictionary: any }): string {
         }
       }
 
-      set(theme[themeKey], subPath, finalValue);
+      set(preset.theme[themeKey], subPath, finalValue);
     }
   });
 
-  return JSON.stringify(theme, null, 2);
+  return `import { definePreset, type Preset } from 'unocss';
+
+export interface CelestePresetOptions {
+  // placeholder
+}
+
+export const presetCeleste = definePreset((options: CelestePresetOptions = {}): Preset => {
+  return ${JSON.stringify(preset, null, 2)};
+});
+`;
 }

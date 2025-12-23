@@ -77,7 +77,7 @@ const sd = new StyleDictionary({
       buildPath: dist,
       files: [
         {
-          destination: 'theme.json',
+          destination: 'preset.ts',
           format: 'unocss',
         },
       ],
