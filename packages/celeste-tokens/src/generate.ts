@@ -4,6 +4,7 @@ import { join, resolve } from 'node:path';
 import { register } from '@tokens-studio/sd-transforms';
 import { minify as csso } from 'csso';
 import StyleDictionary from 'style-dictionary';
+import { unocssFormat } from './unocss-formatter.ts';
 
 const dist = `${resolve(import.meta.dirname, '..', 'dist')}/`;
 
@@ -36,6 +37,11 @@ const sd = new StyleDictionary({
   preprocessors: [
     'tokens-studio',
   ],
+  hooks: {
+    formats: {
+      unocss: unocssFormat,
+    },
+  },
   platforms: {
     css: {
       transformGroup: 'tokens-studio',
@@ -60,6 +66,19 @@ const sd = new StyleDictionary({
         {
           destination: 'tokens.scss',
           format: 'scss/variables',
+        },
+      ],
+    },
+    unocss: {
+      transformGroup: 'tokens-studio',
+      transforms: [
+        'name/kebab',
+      ],
+      buildPath: dist,
+      files: [
+        {
+          destination: 'theme.json',
+          format: 'unocss',
         },
       ],
     },
