@@ -29,6 +29,7 @@ export interface TableHeadProps {
   background: var(--color-bg-weak-50);
   color: var(--color-text-sub-600);
   font: var(--paragraph-sm);
+  text-align: start;
 }
 
 .celeste-table-head-align-end {
