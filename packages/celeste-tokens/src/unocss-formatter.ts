@@ -1,17 +1,40 @@
-export function unocssFormat({ dictionary }: { dictionary: any }): string {
+export function unocssFormat({ dictionary, animations }: { dictionary: any; animations: string }): string {
+  const keyframes: Record<string, string> = {};
+  const keyframesRegex = /@keyframes\s+([\w-]+)\s*\{([\s\S]*?)(?=@keyframes|$)/g;
+
+  for (const match of animations.matchAll(keyframesRegex)) {
+    const name = match[1];
+
+    const fullContent = match[2].trim();
+
+    const innerContent = fullContent.replace(/\}\s*$/, '').trim();
+
+    const minified = innerContent
+      .replace(/\s+/g, ' ')
+      .replace(/\s*\{\s*/g, '{')
+      .replace(/\s*\}\s*/g, '}')
+      .replace(/\s*;\s*/g, ';')
+      .replace(/\s*,\s*/g, ',');
+
+    keyframes[name] = `{${minified}}`;
+  }
+
   const preset: Record<string, any> = {
     name: 'presetCeleste',
     theme: {
       colors: {},
-      fontFamily: {},
+      font: {},
       fontSize: {},
       fontWeight: {},
       lineHeight: {},
       letterSpacing: {},
-      borderRadius: {},
-      boxShadow: {},
+      radius: {},
+      shadow: {},
       spacing: {},
       duration: {},
+      animation: {
+        keyframes,
+      },
     },
     shortcuts: {},
   };
@@ -29,15 +52,15 @@ export function unocssFormat({ dictionary }: { dictionary: any }): string {
 
   const propertyMap: Record<string, string> = {
     color: 'colors',
-    fontFamilies: 'fontFamily',
+    fontFamilies: 'font',
     fontSizes: 'fontSize',
     fontWeights: 'fontWeight',
     lineHeights: 'lineHeight',
     letterSpacing: 'letterSpacing',
     spacing: 'spacing',
-    radius: 'borderRadius',
-    shadow: 'boxShadow',
-    boxShadow: 'boxShadow',
+    radius: 'radius',
+    shadow: 'shadow',
+    boxShadow: 'shadow',
     animation: 'duration',
     duration: 'duration',
   };
@@ -62,13 +85,13 @@ export function unocssFormat({ dictionary }: { dictionary: any }): string {
     let themeKey = propertyMap[root] ?? propertyMap[$type] ?? propertyMap[type];
 
     if (!themeKey && path.includes('radius')) {
-      themeKey = 'borderRadius';
+      themeKey = 'radius';
     }
 
     if (themeKey) {
       let finalValue = val;
 
-      if (themeKey === 'boxShadow') {
+      if (themeKey === 'shadow') {
         if (typeof val === 'object' && val !== null) {
           const shadows = Array.isArray(val) ? val : [val];
           finalValue = shadows.map((s: any) => {
@@ -81,7 +104,7 @@ export function unocssFormat({ dictionary }: { dictionary: any }): string {
         }
 
         const flatKey = subPath.join('-');
-        preset.theme.boxShadow[flatKey] = finalValue;
+        preset.theme.shadow[flatKey] = finalValue;
 
         return;
       }

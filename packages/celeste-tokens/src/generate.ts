@@ -39,7 +39,10 @@ const sd = new StyleDictionary({
   ],
   hooks: {
     formats: {
-      unocss: unocssFormat,
+      unocss: ({ dictionary }) => unocssFormat({
+        dictionary,
+        animations,
+      }),
     },
   },
   platforms: {
