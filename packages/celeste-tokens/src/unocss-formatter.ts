@@ -79,6 +79,11 @@ export function unocssFormat({ dictionary }: { dictionary: any }): string {
             return `${inset}${x}px ${y}px ${blur}px ${spread}px ${color}`;
           }).join(', ');
         }
+
+        const flatKey = subPath.join('-');
+        preset.theme.boxShadow[flatKey] = finalValue;
+
+        return;
       }
 
       set(preset.theme[themeKey], subPath, finalValue);
