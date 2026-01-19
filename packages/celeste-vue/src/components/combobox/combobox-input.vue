@@ -8,12 +8,13 @@ const props = defineProps<ComboboxInputProps & {
   class?: HTMLAttributes['class'];
   textInputProps?: Partial<TextInputProps>;
   searchable?: boolean;
+  placeholder?: string;
 }>();
 
 const model = defineModel<string | undefined>();
 
 const comboboxInputProps = computed(() => {
-  const { class: _class, textInputProps: _textInputProps, ...rest } = props;
+  const { class: _class, textInputProps: _textInputProps, placeholder: _placeholder, ...rest } = props;
   return rest;
 });
 
@@ -21,7 +22,7 @@ const textInputProps = computed((): TextInputProps => {
   return {
     type: 'search',
     size: 'sm',
-    placeholder: 'Search',
+    placeholder: props.placeholder ?? 'Search',
     ...props.textInputProps,
   };
 });

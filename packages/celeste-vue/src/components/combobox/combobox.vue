@@ -30,6 +30,7 @@ const delegatedProps = computed(() => {
     valueBy,
     labelBy,
     placeholder,
+    searchPlaceholder,
     type,
     size,
     emptyLabel,
@@ -117,6 +118,7 @@ export interface ComboboxPropsType extends ComboboxRootProps {
   valueBy?: string;
   labelBy?: string;
   placeholder?: string;
+  searchPlaceholder?: string;
   type?: 'normal' | 'compact' | 'inline' | 'compact-input';
   size?: 'xs' | 'sm' | 'md';
   emptyLabel?: string;
@@ -183,7 +185,7 @@ export default {
 
     <ComboboxList>
       <div class="celeste-dropdown-inner-input" :class="{ 'sr-only': !searchable }">
-        <ComboboxInput :searchable="searchable" />
+        <ComboboxInput :searchable="searchable" :placeholder="searchPlaceholder" />
         <ComboboxSeparator v-if="searchable" />
       </div>
 
