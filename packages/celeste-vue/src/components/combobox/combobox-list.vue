@@ -36,7 +36,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style lang="scss" scoped>
 .celeste-dropdown-content,
 div:deep(.celeste-dropdown-content) {
-  --dropdown-width: fit-content;
+  --dropdown-width: var(--radix-popper-anchor-width);
   --dropdown-height: 300px;
   --dropdown-min-width: var(--radix-combobox-trigger-width, 300px);
 
