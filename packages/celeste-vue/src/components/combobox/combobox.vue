@@ -252,7 +252,7 @@ export default {
   flex: 1 0 0;
   align-items: center;
   justify-content: space-between;
-  width: 0;
+  width: 0; // A little css hack to make text-overflow ellipsis work
   background: inherit;
   color: var(--color-text-sub-600);
   font: var(--paragraph-sm);
