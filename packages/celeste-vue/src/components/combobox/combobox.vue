@@ -166,7 +166,7 @@ export default {
 
         <div
           v-if="type !== 'inline'"
-          class="celeste-dropdown-input"
+          class="celeste-dropdown-trigger-label"
         >
           <span>
             {{ label }}
@@ -247,16 +247,23 @@ export default {
   border-radius: var(--radius-full);
 }
 
-.celeste-dropdown-input {
+.celeste-dropdown-trigger-label {
   display: flex;
   flex: 1 0 0;
   align-items: center;
   justify-content: space-between;
+  width: 0;
   background: inherit;
   color: var(--color-text-sub-600);
   font: var(--paragraph-sm);
   cursor: pointer;
   gap: var(--spacing-8);
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .celeste-dropdown-trigger {
