@@ -89,6 +89,7 @@ export const Searchable: Story = {
     valueBy: 'id',
     placeholder: 'Search and select',
     searchable: true,
+    searchPlaceholder: 'Search Users',
   },
 
   render: args => ({
