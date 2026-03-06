@@ -20,6 +20,24 @@
     },
     "./preset": {
       "import": "./dist/preset.ts"
+    },
+    "./json/animation": {
+      "import": "./dist/json/animation.json"
+    },
+    "./json/color": {
+      "import": "./dist/json/color.json"
+    },
+    "./json/radius": {
+      "import": "./dist/json/radius.json"
+    },
+    "./json/shadow": {
+      "import": "./dist/json/shadow.json"
+    },
+    "./json/spacing": {
+      "import": "./dist/json/spacing.json"
+    },
+    "./json/typo": {
+      "import": "./dist/json/typo.json"
     }
   },
   "engines": {

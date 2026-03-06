@@ -1,5 +1,5 @@
 /* eslint-disable antfu/no-top-level-await */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { register } from '@tokens-studio/sd-transforms';
 import { minify as csso } from 'csso';
@@ -95,3 +95,12 @@ prependStubs(resolve(dist, 'tokens.css'));
 prependStubs(resolve(dist, 'tokens.scss'));
 
 minify(resolve(dist, 'tokens.css'));
+
+const tokensSrc = resolve(import.meta.dirname, 'tokens');
+const tokensDist = resolve(dist, 'json');
+
+mkdirSync(tokensDist, { recursive: true });
+
+for (const file of readdirSync(tokensSrc).filter((f: string) => f.endsWith('.json'))) {
+  copyFileSync(`${tokensSrc}/${file}`, `${tokensDist}/${file}`);
+}
