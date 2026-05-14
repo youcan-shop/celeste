@@ -30,7 +30,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
-    "@types/node": "^22.10.5",
+    "@types/node": "^22.12.0",
     "@unocss/eslint-plugin": "^0.65.4",
     "@youcan/lint": "^3.1.0",
     "bumpp": "^9.9.3",
@@ -43,8 +43,7 @@
     "stylelint-config-property-sort-order-smacss": "^10.0.0",
     "stylelint-config-standard-scss": "^14.0.0",
     "stylelint-config-standard-vue": "^1.0.0",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.3"
+    "typescript": "^6.0.3"
   },
   "commitlint": {
     "extends": [
@@ -56,12 +55,16 @@
       "@babel/helpers@<7.26.10": ">=7.26.10",
       "@babel/runtime@<7.26.10": ">=7.26.10",
       "@eslint/plugin-kit@<0.3.4": ">=0.3.4",
+      "@typescript-eslint/eslint-plugin@<8.59.0": ">=8.59.3",
+      "@typescript-eslint/parser@<8.59.0": ">=8.59.3",
+      "@typescript-eslint/typescript-estree@<8.59.0": ">=8.59.3",
+      "@typescript-eslint/utils@<8.59.0": ">=8.59.3",
       "axios@>=1.0.0 <1.12.0": ">=1.12.0",
       "axios@>=1.0.0 <1.8.2": ">=1.8.2",
       "brace-expansion@>=1.0.0 <=1.1.11": "^1.1.12",
       "brace-expansion@>=2.0.0 <=2.0.1": "^2.0.2",
       "deep-extend@<0.5.1": ">=0.5.1",
-      "esbuild@<=0.24.2": ">=0.25.0",
+      "esbuild@<=0.26.2": ">=0.27.0",
       "expr-eval-fork@<=3.0.0": ">=3.0.1",
       "form-data@>=4.0.0 <4.0.4": ">=4.0.4",
       "glob@>=10.2.0 <10.5.0": ">=10.5.0",
@@ -76,14 +79,7 @@
       "tmp@<=0.2.3": ">=0.2.4",
       "undici@>=6.0.0 <6.21.1": ">=6.21.1",
       "undici@>=6.0.0 <6.21.2": ">=6.21.2",
-      "vite@<=5.4.19": ">=5.4.20",
-      "vite@>=5.0.0 <5.4.15": ">=5.4.15",
-      "vite@>=5.0.0 <5.4.16": ">=5.4.16",
-      "vite@>=5.0.0 <5.4.17": ">=5.4.17",
-      "vite@>=5.0.0 <5.4.18": ">=5.4.18",
-      "vite@>=5.0.0 <=5.4.11": ">=5.4.12",
-      "vite@>=5.0.0 <=5.4.18": ">=5.4.19",
-      "vite@>=5.2.6 <=5.4.20": ">=5.4.21"
+      "vite@>=5.0.0 <8.0.13": ">=8.0.13"
     }
   },
   "simple-git-hooks": {
