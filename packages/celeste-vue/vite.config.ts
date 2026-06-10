@@ -34,6 +34,23 @@ function createEntries() {
   return res;
 }
 
+function createOutput(format: 'es' | 'cjs', dir: string, ext: string) {
+  return {
+    format,
+    assetFileNames: '[name][extname]',
+    entryFileNames: `${dir}/[name].${ext}`,
+    chunkFileNames: (assetInfo: { name?: string }) => {
+      const suffixToRemove = '.vue_vue_type_script_setup_true_lang';
+
+      if (assetInfo.name?.endsWith(suffixToRemove)) {
+        return `${dir}/chunks/${assetInfo.name.slice(0, -suffixToRemove.length)}.${ext}`;
+      }
+
+      return `${dir}/chunks/[name].${ext}`;
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     uno(),
@@ -63,19 +80,10 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [...Object.keys(pkg.peerDependencies), 'unocss'],
-      output: {
-        assetFileNames: '[name][extname]',
-        entryFileNames: '[format]/[name].js',
-        chunkFileNames: (assetInfo) => {
-          const suffixToRemove = '.vue_vue_type_script_setup_true_lang';
-
-          if (assetInfo.name?.endsWith(suffixToRemove)) {
-            return `[format]/chunks/${assetInfo.name.slice(0, -suffixToRemove.length)}.js`;
-          }
-
-          return '[format]/chunks/[name].js';
-        },
-      },
+      output: [
+        createOutput('es', 'es', 'js'),
+        createOutput('cjs', 'cjs', 'cjs'),
+      ],
     },
   },
 });
