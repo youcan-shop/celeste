@@ -202,6 +202,7 @@ onUnmounted(() => {
               </template>
             </TextInput>
             <Button
+              type="button"
               intent="neutral"
               size="xs"
               variant="stroke"
@@ -230,12 +231,14 @@ onUnmounted(() => {
           </LinkButton>
           <div class="divider" />
           <CompactButton
+            type="button"
             icon="i-celeste-edit-line"
             size="lg"
             variant="ghost"
             @click="startEdit"
           />
           <CompactButton
+            type="button"
             icon="i-celeste-delete-bin-line"
             size="lg"
             variant="ghost"

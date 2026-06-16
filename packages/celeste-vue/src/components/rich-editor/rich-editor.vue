@@ -154,6 +154,7 @@ onBeforeUnmount(() => {
           variant="dark"
         >
           <CompactButton
+            type="button"
             :icon="`${item.icon}`"
             variant="ghost"
             :class="{ active: typeof item.active === 'string' && editor.isActive(item.active) }"
@@ -371,6 +372,14 @@ onBeforeUnmount(() => {
           margin-top: 0.25em;
           margin-bottom: 0.25em;
         }
+      }
+
+      ul {
+        list-style-type: disc;
+      }
+
+      ol {
+        list-style-type: decimal;
       }
 
       a {
