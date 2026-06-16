@@ -115,6 +115,7 @@ function onActionClick(name: string, editor: Editor) {
       <SelectTrigger variant="inline">
         <Tooltip title="Extra settings" variant="dark">
           <CompactButton
+            type="button"
             icon="i-celeste-more-2-line"
             variant="ghost"
           />
