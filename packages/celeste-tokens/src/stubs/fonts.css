@@ -1,150 +1,186 @@
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 200; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-ExtraLight.woff2') format('woff2'); }
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 300; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 500; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 600; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 700; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 800; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-ExtraBold.woff2') format('woff2'); }
+@font-face { font-family: 'Cairo'; font-style: normal; font-weight: 900; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Cairo-Black.woff2') format('woff2'); }
+
 @font-face {
-  font-family: Cairo;
-  src: url('https://ui-assets.ycdn.store/fonts/Cairo.ttf');
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.youcan.shop/fonts/GeistMono[wght].woff2') format('woff2');
 }
 @font-face {
-  font-family: GeistMono;
-  src: url('https://ui-assets.ycdn.store/fonts/Geist-Mono.ttf');
+  font-family: 'Geist Mono';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.youcan.shop/fonts/GeistMono-Italic[wght].woff2') format('woff2');
 }
+
 @font-face {
   font-family: InterVariable;
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterVariable.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterVariable.woff2') format('woff2');
 }
 @font-face {
   font-family: InterVariable;
   font-style: italic;
   font-weight: 100 900;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterVariable-Italic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterVariable-Italic.woff2') format('woff2');
 }
+
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 100; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-Thin.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 100; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-ThinItalic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 200; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-ExtraLight.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 200; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-ExtraLightItalic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 300; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-LightItalic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 400; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-Italic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 500; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-MediumItalic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 600; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-SemiBoldItalic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 700; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-BoldItalic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-ExtraBold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 800; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-ExtraBoldItalic.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 900; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-Black.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: italic; font-weight: 900; font-display: swap; src: url('https://fonts.youcan.shop/fonts/Inter-BlackItalic.woff2') format('woff2'); }
+
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-Thin.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-Thin.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 100;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-ThinItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-ThinItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-ExtraLight.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-ExtraLight.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 200;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-ExtraLightItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-ExtraLightItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-Light.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-Light.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 300;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-LightItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-LightItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-Regular.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-Regular.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-Italic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-Italic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-Medium.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-Medium.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 500;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-MediumItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-MediumItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-SemiBold.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-SemiBold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 600;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-SemiBoldItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-SemiBoldItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-Bold.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-Bold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-BoldItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-BoldItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-ExtraBold.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-ExtraBold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 800;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-ExtraBoldItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-ExtraBoldItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-Black.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-Black.woff2') format('woff2');
 }
 @font-face {
   font-family: 'InterDisplay';
   font-style: italic;
   font-weight: 900;
   font-display: swap;
-  src: url('https://ui-assets.ycdn.store/fonts/InterDisplay-BlackItalic.woff2') format('woff2');
+  src: url('https://fonts.youcan.shop/fonts/InterDisplay-BlackItalic.woff2') format('woff2');
 }
 @font-feature-values InterVariable {
   @character-variant {
