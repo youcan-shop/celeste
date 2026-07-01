@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Label, type LabelProps } from 'radix-vue';
+import { Label, type LabelProps, Primitive } from 'radix-vue';
 import Tooltip from '@/components/tooltip/tooltip.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
@@ -23,8 +23,12 @@ const delegatedProps = useDelegatedProps(props, 'class');
     :aria-disabled="disabled"
     :class="clsx('celeste-label', props.class)"
   >
-    <span class="celeste-label-text"><slot /></span>
-    <slot name="button" class="celeste-label-button" />
+    <slot />
+
+    <Primitive class="celeste-label-button" as-child>
+      <slot name="button" />
+    </Primitive>
+
     <span v-if="sublabel" class="celeste-sublabel">{{ sublabel }}</span>
     <Tooltip
       v-if="information"
@@ -60,10 +64,6 @@ const delegatedProps = useDelegatedProps(props, 'class');
       flex: none;
     }
 
-    &[aria-required='false'] {
-      justify-content: space-between;
-    }
-
     &[aria-required='true']::after {
       flex: 2;
     }
@@ -87,6 +87,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 
   .celeste-label-button {
     order: 5;
+    margin-inline-start: auto;
   }
 
   &[aria-disabled='true'] {
