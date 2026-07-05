@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { DialogDescriptionProps } from 'radix-vue';
+import type { DialogDescriptionProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
-import { DialogDescription } from 'radix-vue';
+import { DialogDescription } from 'reka-ui';
 
 const props = defineProps<SheetDescriptionProps>();
 

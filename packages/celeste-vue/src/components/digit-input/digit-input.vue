@@ -1,17 +1,22 @@
-<script setup lang="ts">
+<script lang="ts">
+</script>
+
+<script setup lang="ts" generic="Type extends PinInputType = 'text'">
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
-import { PinInputRoot, type PinInputRootEmits, type PinInputRootProps, useForwardPropsEmits } from 'radix-vue';
+import { PinInputRoot, type PinInputRootEmits, type PinInputRootProps, useForwardPropsEmits } from 'reka-ui';
 
-const props = withDefaults(defineProps<PinInputRootProps & {
+export type PinInputType = 'text' | 'number';
+
+const props = withDefaults(defineProps<PinInputRootProps<Type> & {
   class?: HTMLAttributes['class'];
   hasError?: boolean;
 }>(), {
-  modelValue: () => [],
+  modelValue: () => [] as any,
   hasError: false,
 });
-const emits = defineEmits<PinInputRootEmits>();
+const emits = defineEmits<PinInputRootEmits<Type>>();
 
 const delegatedProps = reactiveOmit(props, 'class', 'hasError');
 

@@ -170,7 +170,7 @@ onBeforeUnmount(() => {
           <div class="select-menu-wrapper">
             <Select
               :model-value="selectedOption(editor, item.children)"
-              @update:model-value="onActionClick(editor, item.slug, $event)"
+              @update:model-value="onActionClick(editor, item.slug, $event as string)"
             >
               <SelectTrigger variant="inline">
                 <SelectValue />

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { ComboboxRootEmits, ComboboxRootProps } from 'radix-vue';
+import type { ComboboxRootEmits, ComboboxRootProps } from 'reka-ui';
 import type { BadgeProps } from '../badge/badge.vue';
 import type { ComboboxItemPropsType } from './combobox-item.vue';
 
-import { useForwardPropsEmits } from 'radix-vue';
-import { computed } from 'vue';
+import { useForwardPropsEmits } from 'reka-ui';
+import { computed, ref } from 'vue';
 import Badge from '../badge/badge.vue';
 import ComboboxAnchor from './combobox-anchor.vue';
 import ComboboxEmpty from './combobox-empty.vue';
@@ -25,7 +25,6 @@ const emits = defineEmits<ComboboxRootEmits>();
 const delegatedProps = computed(() => {
   const {
     open,
-    filterFunction,
     options,
     valueBy,
     labelBy,
@@ -110,6 +109,10 @@ const mergedBadgeProps = computed(() => ({
   ...props.badgeProps,
   disabled: props.disabled,
 }));
+
+const searchTerm = ref('');
+
+const filteredOptions = computed(() => filterFunction(props.options, searchTerm.value));
 </script>
 
 <script lang="ts">
@@ -135,7 +138,7 @@ export default {
 <template>
   <ComboboxRoot
     v-bind="forwarded"
-    :filter-function="filterFunction"
+    ignore-filter
   >
     <ComboboxAnchor as-child>
       <ComboboxTrigger
@@ -185,7 +188,11 @@ export default {
 
     <ComboboxList>
       <div class="celeste-dropdown-inner-input" :class="{ 'sr-only': !searchable }">
-        <ComboboxInput :searchable="searchable" :placeholder="searchPlaceholder" />
+        <ComboboxInput
+          v-model="searchTerm"
+          :searchable="searchable"
+          :placeholder="searchPlaceholder"
+        />
         <ComboboxSeparator v-if="searchable" />
       </div>
 
@@ -197,7 +204,7 @@ export default {
 
       <ComboboxGroup>
         <ComboboxItem
-          v-for="option in props.options"
+          v-for="option in filteredOptions"
           :key="option.label"
           :label="option.label"
           :sublabel="option.sublabel"

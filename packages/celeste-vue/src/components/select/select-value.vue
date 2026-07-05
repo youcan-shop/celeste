@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectValue, type SelectValueProps } from 'radix-vue';
+import { SelectValue, type SelectValueProps } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<SelectValueProps & { class?: HTMLAttributes['class'] }>();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SelectGroup, type SelectGroupProps } from 'radix-vue';
+import { SelectGroup, type SelectGroupProps } from 'reka-ui';
 
 const props = defineProps<SelectGroupProps>();
 </script>

@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationNext, type PaginationNextProps as PrimitivePaginationNextProps, useForwardProps } from 'radix-vue';
+import { PaginationNext, type PaginationNextProps as PrimitivePaginationNextProps, useForwardProps } from 'reka-ui';
 
 const props = defineProps<PaginationNextProps>();
 

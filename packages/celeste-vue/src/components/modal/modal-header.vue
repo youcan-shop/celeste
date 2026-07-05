@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { DialogClose as ModalClose, DialogDescription as ModalDescription, DialogTitle as ModalTitle } from 'radix-vue';
+import { DialogClose as ModalClose, DialogDescription as ModalDescription, DialogTitle as ModalTitle } from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';
 
 const props = withDefaults(defineProps<{

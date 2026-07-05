@@ -7,9 +7,9 @@ import {
   PopoverContent,
   type PopoverContentEmits,
   PopoverPortal,
-  type PopoverContentProps as RadixPopoverContentProps,
+  type PopoverContentProps as RekaPopoverContentProps,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
@@ -38,10 +38,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <script lang="ts">
 export interface PopoverContentProps {
   class?: HTMLAttributes['class'];
-  side?: RadixPopoverContentProps['side'];
-  sideOffset?: RadixPopoverContentProps['sideOffset'];
-  align?: RadixPopoverContentProps['align'];
-  alignOffset?: RadixPopoverContentProps['alignOffset'];
+  side?: RekaPopoverContentProps['side'];
+  sideOffset?: RekaPopoverContentProps['sideOffset'];
+  align?: RekaPopoverContentProps['align'];
+  alignOffset?: RekaPopoverContentProps['alignOffset'];
   title?: string;
   description?: string;
   showTail?: boolean;
@@ -138,7 +138,7 @@ $icon-size-map: (
   z-index: 50;
   min-width: 200px;
   max-width: 400px;
-  transform-origin: var(--radix-popover-content-transform-origin);
+  transform-origin: var(--reka-popover-content-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);

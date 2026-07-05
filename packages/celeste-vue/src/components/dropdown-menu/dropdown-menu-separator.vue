@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import {
   DropdownMenuSeparator,
   type DropdownMenuSeparatorProps,
-} from 'radix-vue';
+} from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<DropdownMenuSeparatorProps & {

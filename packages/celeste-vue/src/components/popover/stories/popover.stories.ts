@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import {
   PopoverClose,
-} from 'radix-vue';
+} from 'reka-ui';
 import TextInput from '@/components/text-input/text-input.vue';
 import Button from '../../button/button.vue';
 import PopoverContent from '../popover-content.vue';

@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Switch>;
 
 export const Default: Story = {
   args: {
-    defaultChecked: true,
+    defaultValue: true,
   },
 
   render: args => ({
@@ -53,7 +53,7 @@ export const WithLabel: Story = {
     template: `
       <div style="display: grid; gap: 1em;">
         <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
-          <Switch v-bind="args" :default-checked="true" />
+          <Switch v-bind="args" :default-value="true" />
           SMS Verification
         </label>
         <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
@@ -65,7 +65,7 @@ export const WithLabel: Story = {
           Disabled
         </label>
         <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
-          <Switch v-bind="args" :default-checked="true" disabled />
+          <Switch v-bind="args" :default-value="true" disabled />
           Disabled but default checked
         </label>
       </div>

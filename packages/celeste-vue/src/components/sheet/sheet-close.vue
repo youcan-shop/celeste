@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { DialogCloseProps } from 'radix-vue';
+import type { DialogCloseProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { DialogClose } from 'radix-vue';
+import { DialogClose } from 'reka-ui';
 
 const props = defineProps<SheetCloseProps>();
 </script>

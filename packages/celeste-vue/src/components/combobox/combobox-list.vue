@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ComboboxContentEmits, ComboboxContentProps } from 'radix-vue';
+import type { ComboboxContentEmits, ComboboxContentProps } from 'reka-ui';
 import clsx from 'clsx';
-import { ComboboxContent, ComboboxPortal, ComboboxViewport, useForwardPropsEmits } from 'radix-vue';
+import { ComboboxContent, ComboboxPortal, ComboboxViewport, useForwardPropsEmits } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<ComboboxContentProps & { class?: HTMLAttributes['class'] }>(), {
@@ -37,8 +37,8 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 .celeste-dropdown-content,
 div:deep(.celeste-dropdown-content) {
   --dropdown-height: 300px;
-  --dropdown-min-width: var(--radix-combobox-trigger-width, 300px);
-  --dropdown-width: max(var(--radix-popper-anchor-width), 300px);
+  --dropdown-min-width: var(--reka-combobox-trigger-width, 300px);
+  --dropdown-width: max(var(--reka-popper-anchor-width), 300px);
 
   display: flex;
   z-index: 50;
@@ -50,7 +50,7 @@ div:deep(.celeste-dropdown-content) {
   margin-top: var(--spacing-10);
   padding: var(--spacing-8);
   overflow: visible;
-  transform-origin: var(--radix-combobox-content-transform-origin);
+  transform-origin: var(--reka-combobox-content-transform-origin);
   animation-duration: var(--animation-fast);
   animation-timing-function: ease-out;
   border: 1px solid var(--color-stroke-soft-200);

@@ -6,7 +6,7 @@ import {
   PaginationPrev as PaginationPrevious,
   type PaginationPrevProps as PrimitivePaginationPreviousProps,
   useForwardProps,
-} from 'radix-vue';
+} from 'reka-ui';
 
 const props = defineProps<PaginationPreviousProps>();
 

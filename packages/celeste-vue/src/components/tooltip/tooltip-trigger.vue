@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type TooltipTriggerProps as PrimitiveProps, TooltipTrigger, useForwardProps } from 'radix-vue';
+import { type TooltipTriggerProps as PrimitiveProps, TooltipTrigger, useForwardProps } from 'reka-ui';
 
 const props = defineProps<TooltipTriggerProps>();
 

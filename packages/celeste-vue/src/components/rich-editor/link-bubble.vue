@@ -216,7 +216,7 @@ onUnmounted(() => {
             <Label for="open-in-new-tab">
               Open in new tab
             </Label>
-            <Switch id="open-in-new-tab" v-model:checked="openInNewTab" />
+            <Switch id="open-in-new-tab" v-model="openInNewTab" />
           </div>
         </div>
       </template>

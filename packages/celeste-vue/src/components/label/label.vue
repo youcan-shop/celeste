@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Label, type LabelProps, Primitive } from 'radix-vue';
+import { Label, type LabelProps, Primitive } from 'reka-ui';
 import Tooltip from '@/components/tooltip/tooltip.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
