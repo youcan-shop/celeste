@@ -48,10 +48,10 @@
     "generate": "tsx src/generate.ts"
   },
   "devDependencies": {
-    "@tokens-studio/sd-transforms": "^1.2.9",
+    "@tokens-studio/sd-transforms": "^1.3.0",
     "csso": "^5.0.5",
-    "style-dictionary": "^4.3.0",
-    "tsx": "^4.19.2",
-    "unocss": "^66.5.9"
+    "style-dictionary": "^4.4.0",
+    "tsx": "^4.23.0",
+    "unocss": "^66.7.4"
   }
 }

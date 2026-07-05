@@ -5,12 +5,11 @@
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "lib": ["esnext", "dom"],
-    "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["src/*"],
-      "@vue/shared": ["node_modules/@vue/shared"]
+      "@/*": ["./src/*"],
+      "@vue/shared": ["./node_modules/@vue/shared"]
     },
     "resolveJsonModule": true,
     "strict": true,

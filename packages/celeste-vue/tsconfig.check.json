@@ -9,15 +9,14 @@
       "esnext",
       "dom"
     ],
-    "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "date": [
-        "dist/date"
+        "./dist/date"
       ]
     },
     "resolveJsonModule": true,
