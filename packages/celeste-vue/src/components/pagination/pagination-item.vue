@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationListItem, type PaginationListItemProps } from 'radix-vue';
+import { PaginationListItem, type PaginationListItemProps } from 'reka-ui';
 
 const props = defineProps<PaginationItemProps>();
 

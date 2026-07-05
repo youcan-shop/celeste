@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
+import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'radix-vue';
+import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<CheckboxRootProps & { class?: HTMLAttributes['class'] }>();

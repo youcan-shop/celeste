@@ -7,7 +7,7 @@ import {
   type DropdownMenuContentProps,
   DropdownMenuPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(
@@ -49,7 +49,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   max-width: var(--dropdown-max-width);
   padding: var(--spacing-8);
   overflow: hidden;
-  transform-origin: var(--radix-popper-transform-origin);
+  transform-origin: var(--reka-popper-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-16);

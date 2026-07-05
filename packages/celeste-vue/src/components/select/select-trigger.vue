@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectIcon, SelectTrigger, type SelectTriggerProps } from 'radix-vue';
+import { SelectIcon, SelectTrigger, type SelectTriggerProps } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(defineProps<SelectTriggerProps & {

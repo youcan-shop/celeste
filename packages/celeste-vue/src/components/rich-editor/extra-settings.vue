@@ -109,7 +109,7 @@ function onActionClick(name: string, editor: Editor) {
   <div class="show-more-wrapper">
     <Select
       v-model="defaultValue"
-      @update:model-value="onActionClick($event, props.editor)"
+      @update:model-value="onActionClick($event as string, props.editor)"
       @update:open="clearSelectedValue"
     >
       <SelectTrigger variant="inline">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ComboboxGroupProps } from 'radix-vue';
+import type { ComboboxGroupProps } from 'reka-ui';
 import clsx from 'clsx';
-import { ComboboxGroup, ComboboxLabel } from 'radix-vue';
+import { ComboboxGroup, ComboboxLabel } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 
 const props = defineProps<ComboboxGroupProps & {
@@ -34,7 +34,7 @@ const delegatedProps = computed(() => {
   flex-direction: column;
   gap: var(--spacing-4);
 
-  &:deep([data-radix-vue-combobox-item]) {
+  &:deep([data-reka-collection-item]) {
     width: auto;
     height: auto;
   }

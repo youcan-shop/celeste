@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { DialogContentEmits, DialogContentProps } from 'radix-vue';
+import type { DialogContentEmits, DialogContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { DialogContent as ModalContent, DialogOverlay as ModalOverlay, DialogPortal as ModalPortal, useForwardPropsEmits } from 'radix-vue';
+import { DialogContent as ModalContent, DialogOverlay as ModalOverlay, DialogPortal as ModalPortal, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<DialogContentProps & {

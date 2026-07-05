@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Primitive, type PrimitiveProps } from 'radix-vue';
+import { Primitive, type PrimitiveProps } from 'reka-ui';
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'md',

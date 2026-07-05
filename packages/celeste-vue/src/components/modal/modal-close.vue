@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type DialogCloseProps, DialogClose as ModalClose } from 'radix-vue';
+import { type DialogCloseProps, DialogClose as ModalClose } from 'reka-ui';
 
 const props = defineProps<DialogCloseProps>();
 </script>

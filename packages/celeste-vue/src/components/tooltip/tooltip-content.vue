@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { type TooltipContentProps as PrimitiveProps, TooltipArrow, TooltipContent, type TooltipContentEmits, TooltipPortal, useForwardPropsEmits } from 'radix-vue';
+import { type TooltipContentProps as PrimitiveProps, TooltipArrow, TooltipContent, type TooltipContentEmits, TooltipPortal, useForwardPropsEmits } from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
@@ -73,7 +73,7 @@ export interface TooltipContentProps extends PrimitiveProps {
   z-index: 50;
   align-items: flex-start;
   width: auto;
-  max-width: calc(var(--radix-tooltip-content-available-width) / 1.5);
+  max-width: calc(var(--reka-tooltip-content-available-width) / 1.5);
   height: auto;
   animation: var(--animation-fast) ease-out forwards;
   border: 1px solid transparent;

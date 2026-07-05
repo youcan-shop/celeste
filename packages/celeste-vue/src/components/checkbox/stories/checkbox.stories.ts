@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
   args: {
-    defaultChecked: true,
+    defaultValue: true,
   },
 
   render: args => ({
@@ -33,8 +33,7 @@ export const Default: Story = {
 
 export const Indeterminate: Story = {
   args: {
-    defaultChecked: true,
-    checked: 'indeterminate',
+    defaultValue: 'indeterminate',
   },
 
   render: args => ({
@@ -63,8 +62,8 @@ export const Disabled: Story = {
     template: `
       <div style="display: flex; gap: 1em;">
         <Checkbox v-bind="args" />
-        <Checkbox v-bind="args" checked />
-        <Checkbox v-bind="args" checked="indeterminate" />
+        <Checkbox v-bind="args" :model-value="true" />
+        <Checkbox v-bind="args" model-value="indeterminate" />
       </div>
     `,
   }),

@@ -4,9 +4,19 @@ import DigitInputGroup from '../digit-input-group.vue';
 import DigitInputSlot from '../digit-input-slot.vue';
 import DigitInput from '../digit-input.vue';
 
-const meta: Meta<typeof DigitInput> = {
+interface DigitInputArgs {
+  modelValue?: (string | number)[];
+  disabled?: boolean;
+  placeholder?: string;
+  mask?: boolean;
+  otp?: boolean;
+  type?: 'text' | 'number';
+  hasError?: boolean;
+}
+
+const meta: Meta<DigitInputArgs> = {
   title: 'Components/Input/Digit Input',
-  component: DigitInput,
+  component: DigitInput as unknown as Meta<DigitInputArgs>['component'],
   argTypes: {
     modelValue: {
       control: { type: 'object' },
@@ -43,7 +53,7 @@ const meta: Meta<typeof DigitInput> = {
 
 export default meta;
 
-type Story = StoryObj<typeof DigitInput>;
+type Story = StoryObj<DigitInputArgs>;
 
 export const Default: Story = {
   args: {

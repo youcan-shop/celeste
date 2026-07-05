@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ComboboxAnchorProps } from 'radix-vue';
+import type { ComboboxAnchorProps } from 'reka-ui';
 import clsx from 'clsx';
-import { ComboboxAnchor, useForwardProps } from 'radix-vue';
+import { ComboboxAnchor, useForwardProps } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 
 const props = defineProps<ComboboxAnchorProps & { class?: HTMLAttributes['class'] }>();

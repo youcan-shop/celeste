@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { ComboboxInput, type ComboboxInputProps, useForwardProps } from 'radix-vue';
+import { ComboboxInput, type ComboboxInputProps, useForwardProps } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 
 defineOptions({

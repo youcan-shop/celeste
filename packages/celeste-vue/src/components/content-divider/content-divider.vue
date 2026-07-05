@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Separator } from 'radix-vue';
+import { Separator } from 'reka-ui';
 
 const props = withDefaults(defineProps<ContentDividerProps>(), {
   type: 'line',

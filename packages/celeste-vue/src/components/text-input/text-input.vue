@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { Primitive } from 'radix-vue';
+import { Primitive } from 'reka-ui';
 import { computed, type InputHTMLAttributes } from 'vue';
 import { uid } from '@/utils/crypto';
 import TextInputButton from './text-input-button.vue';

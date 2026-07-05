@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectItem, SelectItemIndicator, type SelectItemProps, SelectItemText } from 'radix-vue';
+import { SelectItem, SelectItemIndicator, type SelectItemProps, SelectItemText } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<SelectItemProps & { class?: HTMLAttributes['class'] }>();

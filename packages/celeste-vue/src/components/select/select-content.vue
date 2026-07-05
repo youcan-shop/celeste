@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectContent, type SelectContentEmits, type SelectContentProps, SelectPortal, SelectViewport, useForwardPropsEmits } from 'radix-vue';
+import { SelectContent, type SelectContentEmits, type SelectContentProps, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(defineProps<SelectContentProps & {
@@ -32,7 +32,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style scoped lang="scss">
 :deep(.celeste-select-content) {
   z-index: 50;
-  max-height: var(--radix-select-content-available-height);
+  max-height: var(--reka-select-content-available-height);
   overflow-y: scroll;
   animation: var(--animation-fast) forwards;
   border: 1px solid var(--color-stroke-soft-200);
@@ -53,7 +53,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   }
 
   &[width='full'] {
-    width: var(--radix-select-trigger-width);
+    width: var(--reka-select-trigger-width);
   }
 
   .celeste-select-view-port {

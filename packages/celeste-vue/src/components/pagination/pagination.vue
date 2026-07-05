@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationRoot, type PaginationRootEmits, type PaginationRootProps, useForwardPropsEmits } from 'radix-vue';
+import { PaginationRoot, type PaginationRootEmits, type PaginationRootProps, useForwardPropsEmits } from 'reka-ui';
 
 const props = withDefaults(defineProps<PaginationProps>(), { variant: 'basic' });
 const emits = defineEmits<PaginationRootEmits>();

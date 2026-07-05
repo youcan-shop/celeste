@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { CollapsibleContentProps as PrimitiveProps } from 'radix-vue';
+import type { CollapsibleContentProps as PrimitiveProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { CollapsibleContent } from 'radix-vue';
+import { CollapsibleContent } from 'reka-ui';
 
 const props = defineProps<CollapsibleContentProps>();
 </script>

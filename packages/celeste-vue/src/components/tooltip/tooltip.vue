@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { TooltipContentProps, TooltipRootEmits, TooltipRootProps } from 'radix-vue';
+import type { TooltipContentProps, TooltipRootEmits, TooltipRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from 'reka-ui';
 import { ref } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from '.';

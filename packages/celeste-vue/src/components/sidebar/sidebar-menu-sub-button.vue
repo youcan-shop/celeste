@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { PrimitiveProps } from 'radix-vue';
+import type { PrimitiveProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Primitive } from 'radix-vue';
+import { Primitive } from 'reka-ui';
 
 const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   as: 'a',

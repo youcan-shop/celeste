@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import clsx from 'clsx';
-import { Primitive } from 'radix-vue';
+import { Primitive } from 'reka-ui';
 
 const props = withDefaults(defineProps<SocialButtonProps>(), {
   variant: 'stroke',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ComboboxItemEmits } from 'radix-vue';
+import type { ComboboxItemEmits } from 'reka-ui';
 import clsx from 'clsx';
-import { ComboboxItem, useForwardPropsEmits } from 'radix-vue';
+import { ComboboxItem, useForwardPropsEmits } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 import Checkbox from '../checkbox/checkbox.vue';
 
@@ -38,7 +38,7 @@ export interface ComboboxItemPropsType {
 
 <template>
   <ComboboxItem
-    v-bind="forwarded"
+    v-bind="(forwarded as any)"
     :disabled="disabled"
     as-child
   >
@@ -55,7 +55,7 @@ export interface ComboboxItemPropsType {
     >
       <Checkbox
         v-if="checkbox && size === 'sm'"
-        :checked="selected"
+        :model-value="selected"
         :disabled="disabled"
       />
       <div

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useForwardPropsEmits } from 'radix-vue';
+import { useForwardPropsEmits } from 'reka-ui';
 import tinycolor from 'tinycolor2';
 import { computed, type HTMLAttributes, ref, watch } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';

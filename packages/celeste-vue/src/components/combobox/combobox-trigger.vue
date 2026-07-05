@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ComboboxTriggerProps } from 'radix-vue';
+import type { ComboboxTriggerProps } from 'reka-ui';
 import clsx from 'clsx';
-import { ComboboxTrigger, useForwardProps } from 'radix-vue';
+import { ComboboxTrigger, useForwardProps } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<CustomComboboxTriggerProps>(), {

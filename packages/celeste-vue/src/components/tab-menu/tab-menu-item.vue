@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { TabsTrigger, type TabsTriggerProps, useForwardProps } from 'radix-vue';
+import { TabsTrigger, type TabsTriggerProps, useForwardProps } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<TabsTriggerProps & { class?: HTMLAttributes['class'] }>();
