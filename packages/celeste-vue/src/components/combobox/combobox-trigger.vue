@@ -94,7 +94,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     }
   }
 
-  .celeste-dropdown-input {
+  .celeste-dropdown-trigger-label {
     display: flex;
     flex: 1 0 0;
     align-items: center;
@@ -132,13 +132,13 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     color: var(--color-text-disabled-300);
     cursor: not-allowed;
 
-    .celeste-dropdown-input {
+    &:deep(.celeste-dropdown-trigger-label) {
       color: var(--color-text-disabled-300);
       cursor: not-allowed;
     }
 
     &:deep(i),
-    .celeste-dropdown-trigger {
+    &:deep(.celeste-dropdown-trigger) {
       color: var(--color-icon-disabled-300);
       cursor: not-allowed;
     }
@@ -153,11 +153,11 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     box-shadow: var(--shadow-buttons-important-focus);
     color: var(--color-text-strong-950);
 
-    .celeste-dropdown-input {
+    &:deep(.celeste-dropdown-trigger-label) {
       color: var(--color-text-strong-950);
     }
 
-    i {
+    &:deep(i) {
       color: var(--color-icon-strong-950);
     }
   }
@@ -165,7 +165,7 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
   &-filled {
     color: var(--color-text-strong-950);
 
-    :deep(.celeste-dropdown-input) {
+    :deep(.celeste-dropdown-trigger-label) {
       color: var(--color-text-strong-950);
     }
   }
@@ -176,13 +176,14 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     background: transparent;
     box-shadow: none;
 
-    &:deep(.celeste-dropdown-input) {
+    &:deep(.celeste-dropdown-trigger-label) {
       flex: inherit;
+      width: auto;
     }
 
     &:hover:not([data-disabled]),
     &[data-state='open']:not([data-disabled]) {
-      .celeste-dropdown-input {
+      &:deep(.celeste-dropdown-trigger-label) {
         color: var(--color-text-strong-950);
       }
 
@@ -198,8 +199,9 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     border-radius: 0;
     box-shadow: none;
 
-    &:deep(.celeste-dropdown-input) {
+    &:deep(.celeste-dropdown-trigger-label) {
       flex: inherit;
+      width: auto;
     }
 
     &[data-state='open'] {
@@ -211,8 +213,9 @@ export interface CustomComboboxTriggerProps extends ComboboxTriggerProps {
     width: fit-content;
     gap: var(--spacing-4);
 
-    &:deep(.celeste-dropdown-input) {
+    &:deep(.celeste-dropdown-trigger-label) {
       flex: inherit;
+      width: auto;
     }
   }
 

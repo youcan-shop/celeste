@@ -169,10 +169,7 @@ export default {
           />
         </div>
 
-        <div
-          v-if="type !== 'inline'"
-          class="celeste-dropdown-trigger-label"
-        >
+        <div class="celeste-dropdown-trigger-label">
           <span>
             {{ label }}
           </span>
