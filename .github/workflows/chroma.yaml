@@ -26,12 +26,12 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 26
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
-          version: 9
+          version: 11
           run_install: false
 
       - name: Get pnpm store directory

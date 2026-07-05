@@ -179,8 +179,8 @@ importers:
         specifier: ^3.27.1
         version: 3.27.1(@floating-ui/dom@1.6.13)(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1)(vue@3.5.13(typescript@6.0.3))
       '@vueuse/core':
-        specifier: ^13.9.0
-        version: 13.9.0(vue@3.5.13(typescript@6.0.3))
+        specifier: ^14.3.0
+        version: 14.3.0(vue@3.5.13(typescript@6.0.3))
       '@youcan/celeste-icons':
         specifier: workspace:*
         version: link:../celeste-icons
@@ -2605,26 +2605,13 @@ packages:
       vue:
         optional: true
 
-  '@vueuse/core@13.9.0':
-    resolution: {integrity: sha512-ts3regBQyURfCE2BcytLqzm8+MmLlo5Ln/KLoxDVcsZ2gzIwVNnQpQOL/UKV8alUqjSZOlpFZcRNsLRqj+OzyA==}
-    peerDependencies:
-      vue: ^3.5.0
-
   '@vueuse/core@14.3.0':
     resolution: {integrity: sha512-aHfz47g0ZhMtTVHmIzMVpJy8ePhhOy68GY5bv110+5DVtZ+W7BsOx+m61UNQqfrWyPztIHIanWa3E2tib3NFIw==}
     peerDependencies:
       vue: ^3.5.0
 
-  '@vueuse/metadata@13.9.0':
-    resolution: {integrity: sha512-1AFRvuiGphfF7yWixZa0KwjYH8ulyjDCC0aFgrGRz8+P4kvDFSdXLVfTk5xAN9wEuD1J6z4/myMoYbnHoX07zg==}
-
   '@vueuse/metadata@14.3.0':
     resolution: {integrity: sha512-BwxmbAzwAVF50+MW57GXOUEV61nFBGnlBvrTqj49PqWJu3uw7hdu72ztXeZ33RdZtDY6kO+bfCAE1PCn88Tktw==}
-
-  '@vueuse/shared@13.9.0':
-    resolution: {integrity: sha512-e89uuTLMh0U5cZ9iDpEI2senqPGfbPRTHM/0AaQkcxnpqjkZqDYP8rpfm7edOz8s+pOCOROEy1PIveSW8+fL5g==}
-    peerDependencies:
-      vue: ^3.5.0
 
   '@vueuse/shared@14.3.0':
     resolution: {integrity: sha512-bZpge9eSXwa4ToSiqJ7j6KRwhAsneMFoSz3LMWKQDkqimm3D/tbFlrklrs/IOqC8tEcYmXQZJ6N0UrjhBirVCg==}
@@ -3877,9 +3864,6 @@ packages:
 
   flat-cache@6.1.23:
     resolution: {integrity: sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA==}
-
-  flatted@3.3.2:
-    resolution: {integrity: sha512-AiwGJM8YcNOaobumgtng+6NHuOqC3A7MixFeDafM3X9cIUM+xUXoS5Vfgf+OihAYe20fxqNM9yPBXJzRtZ/4eA==}
 
   flatted@3.4.2:
     resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
@@ -8862,13 +8846,6 @@ snapshots:
       typescript: 6.0.3
       vue: 3.5.13(typescript@6.0.3)
 
-  '@vueuse/core@13.9.0(vue@3.5.13(typescript@6.0.3))':
-    dependencies:
-      '@types/web-bluetooth': 0.0.21
-      '@vueuse/metadata': 13.9.0
-      '@vueuse/shared': 13.9.0(vue@3.5.13(typescript@6.0.3))
-      vue: 3.5.13(typescript@6.0.3)
-
   '@vueuse/core@14.3.0(vue@3.5.13(typescript@6.0.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.21
@@ -8876,13 +8853,7 @@ snapshots:
       '@vueuse/shared': 14.3.0(vue@3.5.13(typescript@6.0.3))
       vue: 3.5.13(typescript@6.0.3)
 
-  '@vueuse/metadata@13.9.0': {}
-
   '@vueuse/metadata@14.3.0': {}
-
-  '@vueuse/shared@13.9.0(vue@3.5.13(typescript@6.0.3))':
-    dependencies:
-      vue: 3.5.13(typescript@6.0.3)
 
   '@vueuse/shared@14.3.0(vue@3.5.13(typescript@6.0.3))':
     dependencies:
@@ -10171,7 +10142,7 @@ snapshots:
 
   flat-cache@4.0.1:
     dependencies:
-      flatted: 3.3.2
+      flatted: 3.4.2
       keyv: 4.5.4
 
   flat-cache@6.1.23:
@@ -10179,8 +10150,6 @@ snapshots:
       cacheable: 2.5.0
       flatted: 3.4.2
       hookified: 1.15.1
-
-  flatted@3.3.2: {}
 
   flatted@3.4.2: {}
 
