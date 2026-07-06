@@ -10,8 +10,8 @@ const props = withDefaults(defineProps<ContentDividerProps>(), {
 
 <script lang="ts">
 export interface ContentDividerProps {
-  class?: HTMLAttributes['class'] ;
-  type: 'line' | 'text' | 'text-line' | 'solid-text';
+  class?: HTMLAttributes['class'];
+  type?: 'line' | 'text' | 'text-line' | 'solid-text';
   text?: string;
 }
 </script>

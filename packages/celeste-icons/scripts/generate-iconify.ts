@@ -10,7 +10,7 @@ import {
   runSVGO,
 } from '@iconify/tools';
 import { ensureFile } from 'fs-extra';
-import pkg from '../package.json' assert {type: 'json'};
+import pkg from '../package.json' assert { type: 'json' };
 
 // this is a stub
 const info = {

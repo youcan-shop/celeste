@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { PaginationPrevProps as PrimitivePaginationPreviousProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
 import {
   PaginationPrev as PaginationPrevious,
-  type PaginationPrevProps as PrimitivePaginationPreviousProps,
+
   useForwardProps,
 } from 'reka-ui';
 

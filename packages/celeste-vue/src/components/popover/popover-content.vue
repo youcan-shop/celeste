@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import type { PopoverContentEmits, PopoverContentProps as RekaPopoverContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import {
   PopoverArrow,
   PopoverClose,
   PopoverContent,
-  type PopoverContentEmits,
+
   PopoverPortal,
-  type PopoverContentProps as RekaPopoverContentProps,
+
   useForwardPropsEmits,
 } from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';

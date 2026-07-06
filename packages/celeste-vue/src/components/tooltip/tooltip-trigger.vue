@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type TooltipTriggerProps as PrimitiveProps, TooltipTrigger, useForwardProps } from 'reka-ui';
+import type { TooltipTriggerProps as PrimitiveProps } from 'reka-ui';
+import { TooltipTrigger, useForwardProps } from 'reka-ui';
 
 const props = defineProps<TooltipTriggerProps>();
 

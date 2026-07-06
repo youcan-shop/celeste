@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { TooltipContentProps as PrimitiveProps, TooltipContentEmits } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { type TooltipContentProps as PrimitiveProps, TooltipArrow, TooltipContent, type TooltipContentEmits, TooltipPortal, useForwardPropsEmits } from 'reka-ui';
+import { TooltipArrow, TooltipContent, TooltipPortal, useForwardPropsEmits } from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { PaginationRootEmits, PaginationRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationRoot, type PaginationRootEmits, type PaginationRootProps, useForwardPropsEmits } from 'reka-ui';
+import { PaginationRoot, useForwardPropsEmits } from 'reka-ui';
 
 const props = withDefaults(defineProps<PaginationProps>(), { variant: 'basic' });
 const emits = defineEmits<PaginationRootEmits>();
@@ -14,7 +15,7 @@ const forwarded = useForwardPropsEmits(delegated, emits);
 <script lang="ts">
 export interface PaginationProps extends PaginationRootProps {
   class?: HTMLAttributes['class'];
-  variant: 'basic' | 'rounded' | 'group';
+  variant?: 'basic' | 'rounded' | 'group';
 }
 </script>
 

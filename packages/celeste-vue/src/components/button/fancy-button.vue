@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { PrimitiveProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Primitive, type PrimitiveProps } from 'reka-ui';
+import { Primitive } from 'reka-ui';
 
 const props = withDefaults(defineProps<FancyButtonProps>(), {
   size: 'md',
@@ -85,8 +86,8 @@ $intent-map: (
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  transition-property: --celeste-fbutton-bg-start, --celeste-fbutton-bg-end, background-color, color, border-color,
-    box-shadow;
+  transition-property:
+    --celeste-fbutton-bg-start, --celeste-fbutton-bg-end, background-color, color, border-color, box-shadow;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
   border: none;

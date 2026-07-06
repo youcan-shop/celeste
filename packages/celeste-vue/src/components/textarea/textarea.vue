@@ -14,7 +14,7 @@ const modelValue = defineModel<string>();
 <script lang="ts">
 export interface TextAreaProps {
   class?: TextareaHTMLAttributes['class'];
-  placeholder: string;
+  placeholder?: string;
   showCount?: boolean;
   disabled?: boolean;
   maxLength?: TextareaHTMLAttributes['maxlength'];

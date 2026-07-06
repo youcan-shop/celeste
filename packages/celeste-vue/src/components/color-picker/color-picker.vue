@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+import type { ColorKey, HSBKey, HSLKey, RGBKey } from '@/utils/color';
 import { useForwardPropsEmits } from 'reka-ui';
 import tinycolor from 'tinycolor2';
-import { computed, type HTMLAttributes, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
-import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, type ColorKey, getColorConstraints, HEX_VALIDATION_PATTERN, type HSBKey, type HSLKey, resolveArrowDirection, type RGBKey, truncColorValue } from '@/utils/color';
+import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, getColorConstraints, HEX_VALIDATION_PATTERN, resolveArrowDirection, truncColorValue } from '@/utils/color';
 import { Button } from '../button';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
@@ -242,7 +244,7 @@ function handleColorValueKeyDown(event: KeyboardEvent, key: ColorKey) {
 export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsb';
 
 export interface ColorPickerProps {
-  modelValue: string | tinycolor.ColorInput;
+  modelValue?: string | tinycolor.ColorInput;
   label?: string;
   class?: HTMLAttributes['class'];
   formats?: ColorFormat[];

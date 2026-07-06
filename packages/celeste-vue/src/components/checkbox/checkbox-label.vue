@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { LabelProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Label, type LabelProps, Primitive } from 'reka-ui';
+import { Label, Primitive } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<LabelProps & {

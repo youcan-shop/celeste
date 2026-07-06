@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { NumberFieldRootEmits, NumberFieldRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot, type NumberFieldRootEmits, type NumberFieldRootProps, useForwardPropsEmits } from 'reka-ui';
+import { NumberFieldDecrement, NumberFieldIncrement, NumberFieldInput, NumberFieldRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import CompactButton from '../button/compact-button.vue';
 

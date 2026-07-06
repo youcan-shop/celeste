@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 const props = withDefaults(defineProps<StatusBadgeProps>(), {
   size: 'md',

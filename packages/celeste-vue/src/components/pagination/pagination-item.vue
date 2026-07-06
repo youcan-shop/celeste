@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { PaginationListItemProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationListItem, type PaginationListItemProps } from 'reka-ui';
+import { PaginationListItem } from 'reka-ui';
 
 const props = defineProps<PaginationItemProps>();
 

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { PaginationEllipsisProps as PrimitivePaginationEllipsisProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationEllipsis, type PaginationEllipsisProps as PrimitivePaginationEllipsisProps } from 'reka-ui';
+import { PaginationEllipsis } from 'reka-ui';
 
 const props = defineProps<PaginationEllipsisProps>();
 

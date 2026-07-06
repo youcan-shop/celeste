@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type TooltipRootProps as PrimitiveProps, TooltipRoot, type TooltipRootEmits, useForwardPropsEmits } from 'reka-ui';
+import type { TooltipRootProps as PrimitiveProps, TooltipRootEmits } from 'reka-ui';
+import { TooltipRoot, useForwardPropsEmits } from 'reka-ui';
 import { ref } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 

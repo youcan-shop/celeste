@@ -76,8 +76,9 @@ function isSelected(value: ComboboxItemPropsType['value']): boolean | undefined 
 
     if (
       props.valueBy
-      && Object.prototype.hasOwnProperty.call(value, props.valueBy)
-      && Object.prototype.hasOwnProperty.call(selectedValue, props.valueBy)) {
+      && Object.hasOwn(value, props.valueBy)
+      && Object.hasOwn(selectedValue, props.valueBy)
+    ) {
       return (value as Record<string, any>)[props.valueBy] === (selectedValue as Record<string, any>)[props.valueBy];
     }
 
@@ -95,7 +96,8 @@ function filterFunction(list: any[], searchTerm: string) {
     if (
       props.valueBy
       && typeof value === 'object'
-      && props.valueBy in value) {
+      && props.valueBy in value
+    ) {
       return String(value[props.valueBy]).toLowerCase().includes(searchTerm.toLowerCase())
         || label.toString().toLowerCase().includes(searchTerm.toLowerCase());
     }

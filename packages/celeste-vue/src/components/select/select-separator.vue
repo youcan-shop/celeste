@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { SelectSeparatorProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectSeparator, type SelectSeparatorProps } from 'reka-ui';
+import { SelectSeparator } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<SelectSeparatorProps & { class?: HTMLAttributes['class'] }>();

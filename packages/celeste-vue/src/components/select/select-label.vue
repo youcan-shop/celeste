@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { SelectLabelProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectLabel, type SelectLabelProps } from 'reka-ui';
+import { SelectLabel } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<SelectLabelProps & { class?: HTMLAttributes['class'] }>();

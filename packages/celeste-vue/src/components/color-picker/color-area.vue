@@ -207,7 +207,7 @@ export interface ColorAreaProps {
   width: 240px;
   height: 232px;
   border-radius: var(--radius-8);
-  background: linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent),
-    v-bind(colorAreaBg);
+  background:
+    linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent), v-bind(colorAreaBg);
 }
 </style>

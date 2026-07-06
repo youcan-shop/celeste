@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { PaginationLastProps as PrimitivePaginationLastProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationLast, type PaginationLastProps as PrimitivePaginationLastProps, useForwardProps } from 'reka-ui';
+import { PaginationLast, useForwardProps } from 'reka-ui';
 
 const props = defineProps<PaginationLastProps>();
 

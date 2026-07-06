@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { ComboboxTriggerProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { ComboboxTrigger, useForwardProps } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 const props = withDefaults(defineProps<CustomComboboxTriggerProps>(), {
   type: 'normal',

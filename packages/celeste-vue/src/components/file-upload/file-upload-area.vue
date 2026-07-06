@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { InputHTMLAttributes } from 'vue';
 import { useDropZone } from '@vueuse/core';
 import clsx from 'clsx';
-import { computed, type InputHTMLAttributes, useTemplateRef } from 'vue';
+import { computed, useTemplateRef } from 'vue';
 import Button from '@/components/button/button.vue';
 
 const props = withDefaults(defineProps<FileUploadAreaProps>(), {
