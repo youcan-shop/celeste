@@ -5,16 +5,14 @@ import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
 import { PaginationFirst, useForwardProps } from 'reka-ui';
 
+export interface PaginationFirstProps extends PrimitivePaginationFirstProps {
+  class?: HTMLAttributes['class'];
+}
+
 const props = defineProps<PaginationFirstProps>();
 
 const delegated = reactiveOmit(props, 'class');
 const forwarded = useForwardProps(delegated);
-</script>
-
-<script lang="ts">
-export interface PaginationFirstProps extends PrimitivePaginationFirstProps {
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

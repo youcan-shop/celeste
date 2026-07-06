@@ -9,16 +9,14 @@ import {
   useForwardProps,
 } from 'reka-ui';
 
+export interface PaginationPreviousProps extends PrimitivePaginationPreviousProps {
+  class?: HTMLAttributes['class'];
+}
+
 const props = defineProps<PaginationPreviousProps>();
 
 const delegated = reactiveOmit(props, 'class');
 const forwarded = useForwardProps(delegated);
-</script>
-
-<script lang="ts">
-export interface PaginationPreviousProps extends PrimitivePaginationPreviousProps {
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

@@ -6,6 +6,17 @@ import { TooltipArrow, TooltipContent, TooltipPortal, useForwardPropsEmits } fro
 import CompactButton from '@/components/button/compact-button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
+export interface TooltipContentProps extends PrimitiveProps {
+  class?: HTMLAttributes['class'];
+  size?: 'xs' | 'sm' | 'md';
+  variant?: 'light' | 'dark';
+  icon?: string;
+  title?: string;
+  description?: string;
+  dismissible?: boolean;
+  onDismiss?: () => void;
+}
+
 const props = withDefaults(
   defineProps<TooltipContentProps>(),
   {
@@ -22,19 +33,6 @@ const forwarded = useForwardPropsEmits(delegated, emits);
 
 function handleDismiss() {
   props.onDismiss?.();
-}
-</script>
-
-<script lang="ts">
-export interface TooltipContentProps extends PrimitiveProps {
-  class?: HTMLAttributes['class'];
-  size?: 'xs' | 'sm' | 'md';
-  variant?: 'light' | 'dark';
-  icon?: string;
-  title?: string;
-  description?: string;
-  dismissible?: boolean;
-  onDismiss?: () => void;
 }
 </script>
 

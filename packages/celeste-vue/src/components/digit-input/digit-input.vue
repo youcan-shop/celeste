@@ -1,6 +1,3 @@
-<script lang="ts">
-</script>
-
 <script setup lang="ts" generic="Type extends PinInputType = 'text'">
 import type { PinInputRootEmits, PinInputRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';

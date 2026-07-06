@@ -16,6 +16,24 @@ import ComboboxRoot from './combobox-root.vue';
 import ComboboxSeparator from './combobox-separator.vue';
 import ComboboxTrigger from './combobox-trigger.vue';
 
+export interface ComboboxPropsType extends ComboboxRootProps {
+  options: ComboboxItemPropsType[];
+  valueBy?: string;
+  labelBy?: string;
+  placeholder?: string;
+  searchPlaceholder?: string;
+  type?: 'normal' | 'compact' | 'inline' | 'compact-input';
+  size?: 'xs' | 'sm' | 'md';
+  emptyLabel?: string;
+  badgeProps?: BadgeProps;
+  searchable?: boolean;
+  class?: string;
+}
+
+defineOptions({
+  inheritAttrs: false,
+});
+
 const props = withDefaults(defineProps<ComboboxPropsType>(), {
   placeholder: 'Select',
   size: 'md',
@@ -117,26 +135,6 @@ const mergedBadgeProps = computed(() => ({
 const searchTerm = ref('');
 
 const filteredOptions = computed(() => filterFunction(props.options, searchTerm.value));
-</script>
-
-<script lang="ts">
-export interface ComboboxPropsType extends ComboboxRootProps {
-  options: ComboboxItemPropsType[];
-  valueBy?: string;
-  labelBy?: string;
-  placeholder?: string;
-  searchPlaceholder?: string;
-  type?: 'normal' | 'compact' | 'inline' | 'compact-input';
-  size?: 'xs' | 'sm' | 'md';
-  emptyLabel?: string;
-  badgeProps?: BadgeProps;
-  searchable?: boolean;
-  class?: string;
-}
-
-export default {
-  inheritAttrs: false,
-};
 </script>
 
 <template>

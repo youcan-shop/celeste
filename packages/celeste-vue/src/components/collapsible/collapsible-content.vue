@@ -4,13 +4,11 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { CollapsibleContent } from 'reka-ui';
 
-const props = defineProps<CollapsibleContentProps>();
-</script>
-
-<script lang="ts">
 export interface CollapsibleContentProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<CollapsibleContentProps>();
 </script>
 
 <template>

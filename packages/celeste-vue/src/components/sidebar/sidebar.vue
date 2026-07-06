@@ -4,6 +4,12 @@ import clsx from 'clsx';
 import { Sheet, SheetContent } from '@/components/sheet';
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from '@/composables/use-sidebar';
 
+export interface SidebarProps {
+  variant?: 'sidebar' | 'floating' | 'inset';
+  collapsible?: 'offcanvas' | 'icon' | 'none';
+  class?: HTMLAttributes['class'];
+}
+
 defineOptions({
   inheritAttrs: false,
 });
@@ -14,14 +20,6 @@ const props = withDefaults(defineProps<SidebarProps>(), {
 });
 
 const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
-</script>
-
-<script lang="ts">
-export interface SidebarProps {
-  variant?: 'sidebar' | 'floating' | 'inset';
-  collapsible?: 'offcanvas' | 'icon' | 'none';
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

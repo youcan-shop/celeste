@@ -1,8 +1,5 @@
-<script lang="ts">
-import type { InputHTMLAttributes } from 'vue';
-</script>
-
 <script setup lang="ts">
+import type { InputHTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 import { computed } from 'vue';

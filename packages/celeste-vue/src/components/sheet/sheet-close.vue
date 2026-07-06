@@ -4,13 +4,11 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { DialogClose } from 'reka-ui';
 
-const props = defineProps<SheetCloseProps>();
-</script>
-
-<script lang="ts">
 export interface SheetCloseProps extends DialogCloseProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<SheetCloseProps>();
 </script>
 
 <template>

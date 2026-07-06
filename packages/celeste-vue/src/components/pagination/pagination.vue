@@ -5,18 +5,16 @@ import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
 import { PaginationRoot, useForwardPropsEmits } from 'reka-ui';
 
+export interface PaginationProps extends PaginationRootProps {
+  class?: HTMLAttributes['class'];
+  variant?: 'basic' | 'rounded' | 'group';
+}
+
 const props = withDefaults(defineProps<PaginationProps>(), { variant: 'basic' });
 const emits = defineEmits<PaginationRootEmits>();
 
 const delegated = reactiveOmit(props, 'class');
 const forwarded = useForwardPropsEmits(delegated, emits);
-</script>
-
-<script lang="ts">
-export interface PaginationProps extends PaginationRootProps {
-  class?: HTMLAttributes['class'];
-  variant?: 'basic' | 'rounded' | 'group';
-}
 </script>
 
 <template>

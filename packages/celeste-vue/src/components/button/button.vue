@@ -1,9 +1,6 @@
-<script lang="ts">
+<script setup lang="ts">
 import type { PrimitiveProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-</script>
-
-<script setup lang="ts">
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 

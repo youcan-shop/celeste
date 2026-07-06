@@ -2,18 +2,16 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = withDefaults(defineProps<HintTextProps>(), {
-  state: 'default',
-});
-</script>
-
-<script lang="ts">
 export interface HintTextProps {
   text?: string;
   icon?: string;
   class?: HTMLAttributes['class'];
   state?: 'default' | 'disabled' | 'error';
 }
+
+const props = withDefaults(defineProps<HintTextProps>(), {
+  state: 'default',
+});
 </script>
 
 <template>

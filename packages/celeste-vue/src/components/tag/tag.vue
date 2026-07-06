@@ -4,16 +4,6 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 
-const props = withDefaults(defineProps<TagProps>(), {
-  variant: 'stroke',
-  dismissable: false,
-  as: 'div',
-});
-
-defineEmits<TagEmits>();
-</script>
-
-<script lang="ts">
 export interface TagProps extends PrimitiveProps {
   variant?: 'stroke' | 'gray';
   class?: HTMLAttributes['class'];
@@ -24,6 +14,14 @@ export interface TagProps extends PrimitiveProps {
 export interface TagEmits {
   dismiss: [];
 }
+
+const props = withDefaults(defineProps<TagProps>(), {
+  variant: 'stroke',
+  dismissable: false,
+  as: 'div',
+});
+
+defineEmits<TagEmits>();
 </script>
 
 <template>

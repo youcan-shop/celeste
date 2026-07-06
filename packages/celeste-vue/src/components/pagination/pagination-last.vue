@@ -5,16 +5,14 @@ import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
 import { PaginationLast, useForwardProps } from 'reka-ui';
 
+export interface PaginationLastProps extends PrimitivePaginationLastProps {
+  class?: HTMLAttributes['class'];
+}
+
 const props = defineProps<PaginationLastProps>();
 
 const delegated = reactiveOmit(props, 'class');
 const forwarded = useForwardProps(delegated);
-</script>
-
-<script lang="ts">
-export interface PaginationLastProps extends PrimitivePaginationLastProps {
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

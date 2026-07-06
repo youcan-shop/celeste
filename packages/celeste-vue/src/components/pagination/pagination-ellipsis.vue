@@ -5,15 +5,13 @@ import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
 import { PaginationEllipsis } from 'reka-ui';
 
-const props = defineProps<PaginationEllipsisProps>();
-
-const delegated = reactiveOmit(props, 'class');
-</script>
-
-<script lang="ts">
 export interface PaginationEllipsisProps extends PrimitivePaginationEllipsisProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<PaginationEllipsisProps>();
+
+const delegated = reactiveOmit(props, 'class');
 </script>
 
 <template>

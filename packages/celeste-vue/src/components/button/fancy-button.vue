@@ -4,19 +4,17 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 
-const props = withDefaults(defineProps<FancyButtonProps>(), {
-  size: 'md',
-  intent: 'primary',
-  as: 'button',
-});
-</script>
-
-<script lang="ts">
 export interface FancyButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'xs' | 'sm' | 'md';
   intent?: 'primary' | 'neutral' | 'error' | 'basic';
 }
+
+const props = withDefaults(defineProps<FancyButtonProps>(), {
+  size: 'md',
+  intent: 'primary',
+  as: 'button',
+});
 </script>
 
 <template>

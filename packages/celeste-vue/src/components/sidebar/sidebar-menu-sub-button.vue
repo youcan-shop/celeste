@@ -4,19 +4,17 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 
-const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
-  as: 'a',
-  size: 'md',
-  isActive: false,
-});
-</script>
-
-<script lang="ts">
 export interface SidebarMenuSubButtonProps extends PrimitiveProps {
   size?: 'sm' | 'md';
   isActive?: boolean;
   class?: HTMLAttributes['class'];
 }
+
+const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
+  as: 'a',
+  size: 'md',
+  isActive: false,
+});
 </script>
 
 <template>

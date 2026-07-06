@@ -1,8 +1,5 @@
-<script lang="ts">
-import type { InputHTMLAttributes } from 'vue';
-</script>
-
 <script setup lang="ts">
+import type { InputHTMLAttributes } from 'vue';
 import { useDropZone } from '@vueuse/core';
 import clsx from 'clsx';
 import { computed, useTemplateRef } from 'vue';

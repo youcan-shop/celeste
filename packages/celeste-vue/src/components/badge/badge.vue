@@ -1,8 +1,5 @@
-<script lang="ts">
-import type { HTMLAttributes } from 'vue';
-</script>
-
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
 export interface BadgeProps {

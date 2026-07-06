@@ -2,13 +2,11 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = defineProps<SheetHeaderProps>();
-</script>
-
-<script lang="ts">
 export interface SheetHeaderProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<SheetHeaderProps>();
 </script>
 
 <template>

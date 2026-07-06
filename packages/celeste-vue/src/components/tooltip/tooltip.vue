@@ -6,6 +6,16 @@ import { ref } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from '.';
 
+export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
+  class?: HTMLAttributes['class'];
+  size?: 'xs' | 'sm' | 'md';
+  variant?: 'light' | 'dark';
+  icon?: string;
+  title?: string;
+  description?: string;
+  dismissible?: boolean;
+}
+
 const props = withDefaults(defineProps<TooltipProps>(), {
   delayDuration: 0,
   sideOffset: 12,
@@ -22,18 +32,6 @@ const isOpen = ref(props.defaultOpen);
 
 function close() {
   isOpen.value = false;
-}
-</script>
-
-<script lang="ts">
-export interface TooltipProps extends TooltipRootProps, TooltipContentProps {
-  class?: HTMLAttributes['class'];
-  size?: 'xs' | 'sm' | 'md';
-  variant?: 'light' | 'dark';
-  icon?: string;
-  title?: string;
-  description?: string;
-  dismissible?: boolean;
 }
 </script>
 

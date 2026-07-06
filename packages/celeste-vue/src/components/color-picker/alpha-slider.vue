@@ -5,6 +5,14 @@ import { useUserPageSelection } from '@/components/color-picker/composable/use-u
 import { getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection } from '@/utils/color';
 import { defineColorModel } from './composable/use-color-model';
 
+export interface AlphaSliderProps {
+  modelValue: tinycolor.Instance;
+}
+
+export interface AlphaSliderEmits {
+  'update:modelValue': [value: string];
+}
+
 const props = defineProps<AlphaSliderProps>();
 const emit = defineEmits<AlphaSliderEmits>();
 
@@ -114,16 +122,6 @@ function handleKeydown(e: KeyboardEvent) {
 onUnmounted(() => {
   unbindEventListeners();
 });
-</script>
-
-<script lang="ts">
-export interface AlphaSliderProps {
-  modelValue: tinycolor.Instance;
-}
-
-export interface AlphaSliderEmits {
-  'update:modelValue': [value: string];
-}
 </script>
 
 <template>

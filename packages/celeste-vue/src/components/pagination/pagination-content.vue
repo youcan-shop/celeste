@@ -5,15 +5,13 @@ import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
 import { PaginationList } from 'reka-ui';
 
-const props = defineProps<PaginationContentProps>();
-
-const delegated = reactiveOmit(props, 'class');
-</script>
-
-<script lang="ts">
 export interface PaginationContentProps extends PaginationListProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<PaginationContentProps>();
+
+const delegated = reactiveOmit(props, 'class');
 </script>
 
 <template>

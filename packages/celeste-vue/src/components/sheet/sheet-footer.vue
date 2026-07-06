@@ -2,13 +2,11 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = defineProps<SheetFooterProps>();
-</script>
-
-<script lang="ts">
 export interface SheetFooterProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<SheetFooterProps>();
 </script>
 
 <template>

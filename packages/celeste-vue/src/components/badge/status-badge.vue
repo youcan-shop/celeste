@@ -3,6 +3,14 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { computed } from 'vue';
 
+export interface StatusBadgeProps {
+  variant?: 'stroke' | 'light';
+  dotted?: boolean;
+  state?: 'success' | 'warning' | 'error' | 'faded';
+  label: string;
+  class?: HTMLAttributes['class'];
+}
+
 const props = withDefaults(defineProps<StatusBadgeProps>(), {
   size: 'md',
   variant: 'light',
@@ -17,16 +25,6 @@ const ICON_MAP: Record<NonNullable<StatusBadgeProps['state']>, string> = {
 };
 
 const icon = computed(() => ICON_MAP[props.state]);
-</script>
-
-<script lang="ts">
-export interface StatusBadgeProps {
-  variant?: 'stroke' | 'light';
-  dotted?: boolean;
-  state?: 'success' | 'warning' | 'error' | 'faded';
-  label: string;
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

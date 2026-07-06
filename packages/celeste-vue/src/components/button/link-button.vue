@@ -4,14 +4,6 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 
-const props = withDefaults(defineProps<LinkButtonProps>(), {
-  size: 'md',
-  intent: 'primary',
-  as: 'a',
-});
-</script>
-
-<script lang="ts">
 export interface LinkButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'sm' | 'md';
@@ -19,6 +11,12 @@ export interface LinkButtonProps extends PrimitiveProps {
   underline?: boolean;
   disabled?: boolean;
 }
+
+const props = withDefaults(defineProps<LinkButtonProps>(), {
+  size: 'md',
+  intent: 'primary',
+  as: 'a',
+});
 </script>
 
 <template>
