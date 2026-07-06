@@ -16,6 +16,24 @@ import ComboboxRoot from './combobox-root.vue';
 import ComboboxSeparator from './combobox-separator.vue';
 import ComboboxTrigger from './combobox-trigger.vue';
 
+export interface ComboboxPropsType extends ComboboxRootProps {
+  options: ComboboxItemPropsType[];
+  valueBy?: string;
+  labelBy?: string;
+  placeholder?: string;
+  searchPlaceholder?: string;
+  type?: 'normal' | 'compact' | 'inline' | 'compact-input';
+  size?: 'xs' | 'sm' | 'md';
+  emptyLabel?: string;
+  badgeProps?: BadgeProps;
+  searchable?: boolean;
+  class?: string;
+}
+
+defineOptions({
+  inheritAttrs: false,
+});
+
 const props = withDefaults(defineProps<ComboboxPropsType>(), {
   placeholder: 'Select',
   size: 'md',
@@ -76,8 +94,11 @@ function isSelected(value: ComboboxItemPropsType['value']): boolean | undefined 
 
     if (
       props.valueBy
-      && Object.prototype.hasOwnProperty.call(value, props.valueBy)
-      && Object.prototype.hasOwnProperty.call(selectedValue, props.valueBy)) {
+      && typeof value === 'object' && value !== null
+      && typeof selectedValue === 'object' && selectedValue !== null
+      && Object.hasOwn(value, props.valueBy)
+      && Object.hasOwn(selectedValue, props.valueBy)
+    ) {
       return (value as Record<string, any>)[props.valueBy] === (selectedValue as Record<string, any>)[props.valueBy];
     }
 
@@ -95,7 +116,8 @@ function filterFunction(list: any[], searchTerm: string) {
     if (
       props.valueBy
       && typeof value === 'object'
-      && props.valueBy in value) {
+      && props.valueBy in value
+    ) {
       return String(value[props.valueBy]).toLowerCase().includes(searchTerm.toLowerCase())
         || label.toString().toLowerCase().includes(searchTerm.toLowerCase());
     }
@@ -113,26 +135,6 @@ const mergedBadgeProps = computed(() => ({
 const searchTerm = ref('');
 
 const filteredOptions = computed(() => filterFunction(props.options, searchTerm.value));
-</script>
-
-<script lang="ts">
-export interface ComboboxPropsType extends ComboboxRootProps {
-  options: ComboboxItemPropsType[];
-  valueBy?: string;
-  labelBy?: string;
-  placeholder?: string;
-  searchPlaceholder?: string;
-  type?: 'normal' | 'compact' | 'inline' | 'compact-input';
-  size?: 'xs' | 'sm' | 'md';
-  emptyLabel?: string;
-  badgeProps?: BadgeProps;
-  searchable?: boolean;
-  class?: string;
-}
-
-export default {
-  inheritAttrs: false,
-};
 </script>
 
 <template>

@@ -3,14 +3,6 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import Badge from '@/components/badge/badge.vue';
 
-const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
-  variant: 'lighter',
-  state: 'faded',
-  size: 'sm',
-});
-</script>
-
-<script lang="ts">
 export interface SidebarMenuBadgeProps {
   class?: HTMLAttributes['class'];
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
@@ -18,6 +10,12 @@ export interface SidebarMenuBadgeProps {
   size?: 'sm' | 'md';
   label?: string;
 }
+
+const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
+  variant: 'lighter',
+  state: 'faded',
+  size: 'sm',
+});
 </script>
 
 <template>

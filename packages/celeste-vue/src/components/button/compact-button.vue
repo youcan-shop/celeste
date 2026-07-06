@@ -1,16 +1,9 @@
 <script setup lang="ts">
+import type { PrimitiveProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Primitive, type PrimitiveProps } from 'reka-ui';
+import { Primitive } from 'reka-ui';
 
-const props = withDefaults(defineProps<CompactButtonProps>(), {
-  size: 'lg',
-  as: 'button',
-  variant: 'stroke',
-});
-</script>
-
-<script lang="ts">
 export interface CompactButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   icon: string;
@@ -18,6 +11,12 @@ export interface CompactButtonProps extends PrimitiveProps {
   rounded?: boolean;
   variant?: 'stroke' | 'white' | 'ghost';
 }
+
+const props = withDefaults(defineProps<CompactButtonProps>(), {
+  size: 'lg',
+  as: 'button',
+  variant: 'stroke',
+});
 </script>
 
 <template>

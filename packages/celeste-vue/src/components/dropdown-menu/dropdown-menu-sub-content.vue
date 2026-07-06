@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { DropdownMenuSubContentEmits, DropdownMenuSubContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import {
   DropdownMenuPortal,
   DropdownMenuSubContent,
-  type DropdownMenuSubContentEmits,
-  type DropdownMenuSubContentProps,
+
   useForwardPropsEmits,
 } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';

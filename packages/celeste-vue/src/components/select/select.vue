@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { SelectRootEmits, SelectRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectRoot, type SelectRootEmits, type SelectRootProps, useForwardPropsEmits } from 'reka-ui';
+import { SelectRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<SelectRootProps & { class?: HTMLAttributes['class'] }>();

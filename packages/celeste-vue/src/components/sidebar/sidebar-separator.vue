@@ -3,13 +3,11 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { ContentDivider } from '@/components';
 
-const props = defineProps<SidebarSeparatorProps>();
-</script>
-
-<script lang="ts">
 export interface SidebarSeparatorProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<SidebarSeparatorProps>();
 </script>
 
 <template>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { ProgressRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import {
   ProgressIndicator,
   ProgressRoot,
-  type ProgressRootProps,
+
 } from 'reka-ui';
 import { computed } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';

@@ -2,6 +2,14 @@
 import type { TextareaHTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
+export interface TextAreaProps {
+  class?: TextareaHTMLAttributes['class'];
+  placeholder?: string;
+  showCount?: boolean;
+  disabled?: boolean;
+  maxLength?: TextareaHTMLAttributes['maxlength'];
+}
+
 const props = withDefaults(defineProps<TextAreaProps>(), {
   disabled: false,
   placeholder: 'Placeholder',
@@ -9,16 +17,6 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
 });
 
 const modelValue = defineModel<string>();
-</script>
-
-<script lang="ts">
-export interface TextAreaProps {
-  class?: TextareaHTMLAttributes['class'];
-  placeholder: string;
-  showCount?: boolean;
-  disabled?: boolean;
-  maxLength?: TextareaHTMLAttributes['maxlength'];
-}
 </script>
 
 <template>

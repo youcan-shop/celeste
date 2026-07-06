@@ -1,5 +1,6 @@
+import type { WritableComputedRef } from 'vue';
 import tinycolor from 'tinycolor2';
-import { computed, type WritableComputedRef } from 'vue';
+import { computed } from 'vue';
 
 type TinyColorFormat = 'hex8' | 'hex' | 'rgb' | 'hsv' | 'hsl';
 

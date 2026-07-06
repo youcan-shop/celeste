@@ -2,18 +2,16 @@
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 
-const props = withDefaults(defineProps<SocialButtonProps>(), {
-  variant: 'stroke',
-});
-</script>
-
-<script lang="ts">
 export interface SocialButtonProps {
   brand: 'apple' | 'twitter' | 'google' | 'facebook' | 'linkedin' | 'github';
   variant?: 'fill' | 'stroke';
   class?: string;
   label?: string;
 }
+
+const props = withDefaults(defineProps<SocialButtonProps>(), {
+  variant: 'stroke',
+});
 </script>
 
 <template>

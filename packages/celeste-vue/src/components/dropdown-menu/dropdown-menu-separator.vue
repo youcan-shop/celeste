@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { DropdownMenuSeparatorProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import {
   DropdownMenuSeparator,
-  type DropdownMenuSeparatorProps,
+
 } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 

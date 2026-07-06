@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import type { ComboboxInputProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import type { TextInputProps } from '../text-input/text-input.vue';
 import clsx from 'clsx';
-import { ComboboxInput, type ComboboxInputProps } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
-import TextInput, { type TextInputProps } from '../text-input/text-input.vue';
+import { ComboboxInput } from 'reka-ui';
+import { computed } from 'vue';
+import TextInput from '../text-input/text-input.vue';
 
 const props = defineProps<ComboboxInputProps & {
   class?: HTMLAttributes['class'];

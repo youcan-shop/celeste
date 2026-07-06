@@ -1,25 +1,11 @@
 <script setup lang="ts">
 import type { ComboboxItemEmits } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { ComboboxItem, useForwardPropsEmits } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 import Checkbox from '../checkbox/checkbox.vue';
 
-const props = withDefaults(defineProps<ComboboxItemPropsType>(), {
-  size: 'sm',
-});
-const emits = defineEmits<ComboboxItemEmits>();
-
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
-
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
-</script>
-
-<script lang="ts">
 export interface ComboboxItemPropsType {
   class?: HTMLAttributes['class'];
   label: string;
@@ -34,6 +20,19 @@ export interface ComboboxItemPropsType {
   image?: string;
   disabled?: boolean;
 }
+
+const props = withDefaults(defineProps<ComboboxItemPropsType>(), {
+  size: 'sm',
+});
+const emits = defineEmits<ComboboxItemEmits>();
+
+const delegatedProps = computed(() => {
+  const { class: _, ...delegated } = props;
+
+  return delegated;
+});
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>

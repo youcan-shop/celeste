@@ -2,17 +2,15 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = withDefaults(
-  defineProps<TableRowProps>(),
-  { hoverable: true },
-);
-</script>
-
-<script lang="ts">
 export interface TableRowProps {
   class?: HTMLAttributes['class'];
   hoverable?: boolean;
 }
+
+const props = withDefaults(
+  defineProps<TableRowProps>(),
+  { hoverable: true },
+);
 </script>
 
 <template>

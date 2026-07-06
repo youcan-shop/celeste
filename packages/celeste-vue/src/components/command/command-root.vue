@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { ComboboxRootEmits, ComboboxRootProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
 import { ComboboxRoot, useForwardPropsEmits } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 const props = withDefaults(defineProps<ComboboxRootProps & { class?: HTMLAttributes['class'] }>(), {
   open: true,

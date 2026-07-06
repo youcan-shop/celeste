@@ -1,4 +1,5 @@
-import { onUnmounted, readonly, ref, type Ref } from 'vue';
+import type { Ref } from 'vue';
+import { onUnmounted, readonly, ref } from 'vue';
 
 export interface UseUserPageSelectReturn {
   isDisabled: Readonly<Ref<boolean, boolean>>;

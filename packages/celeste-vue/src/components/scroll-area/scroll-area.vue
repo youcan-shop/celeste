@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { ScrollAreaRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import {
   ScrollAreaCorner,
   ScrollAreaRoot,
-  type ScrollAreaRootProps,
+
   ScrollAreaViewport,
 } from 'reka-ui';
 import { useDelegatedProps } from '@/composables';

@@ -1,9 +1,21 @@
 <script setup lang="ts">
+import type { TooltipContentProps as PrimitiveProps, TooltipContentEmits } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { type TooltipContentProps as PrimitiveProps, TooltipArrow, TooltipContent, type TooltipContentEmits, TooltipPortal, useForwardPropsEmits } from 'reka-ui';
+import { TooltipArrow, TooltipContent, TooltipPortal, useForwardPropsEmits } from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
+
+export interface TooltipContentProps extends PrimitiveProps {
+  class?: HTMLAttributes['class'];
+  size?: 'xs' | 'sm' | 'md';
+  variant?: 'light' | 'dark';
+  icon?: string;
+  title?: string;
+  description?: string;
+  dismissible?: boolean;
+  onDismiss?: () => void;
+}
 
 const props = withDefaults(
   defineProps<TooltipContentProps>(),
@@ -21,19 +33,6 @@ const forwarded = useForwardPropsEmits(delegated, emits);
 
 function handleDismiss() {
   props.onDismiss?.();
-}
-</script>
-
-<script lang="ts">
-export interface TooltipContentProps extends PrimitiveProps {
-  class?: HTMLAttributes['class'];
-  size?: 'xs' | 'sm' | 'md';
-  variant?: 'light' | 'dark';
-  icon?: string;
-  title?: string;
-  description?: string;
-  dismissible?: boolean;
-  onDismiss?: () => void;
 }
 </script>
 

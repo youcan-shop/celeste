@@ -3,17 +3,15 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Separator } from 'reka-ui';
 
+export interface ContentDividerProps {
+  class?: HTMLAttributes['class'];
+  type?: 'line' | 'text' | 'text-line' | 'solid-text';
+  text?: string;
+}
+
 const props = withDefaults(defineProps<ContentDividerProps>(), {
   type: 'line',
 });
-</script>
-
-<script lang="ts">
-export interface ContentDividerProps {
-  class?: HTMLAttributes['class'] ;
-  type: 'line' | 'text' | 'text-line' | 'solid-text';
-  text?: string;
-}
 </script>
 
 <template>

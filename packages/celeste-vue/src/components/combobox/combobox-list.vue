@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { ComboboxContentEmits, ComboboxContentProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { ComboboxContent, ComboboxPortal, ComboboxViewport, useForwardPropsEmits } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 const props = withDefaults(defineProps<ComboboxContentProps & { class?: HTMLAttributes['class'] }>(), {
   position: 'popper',

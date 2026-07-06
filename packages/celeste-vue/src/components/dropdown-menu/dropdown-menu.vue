@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { DropdownMenuRootEmits, DropdownMenuRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { DropdownMenuRoot, type DropdownMenuRootEmits, type DropdownMenuRootProps } from 'reka-ui';
-import { useForwardPropsEmits } from 'reka-ui';
+import { DropdownMenuRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<DropdownMenuRootProps & { class?: HTMLAttributes['class'] }>();

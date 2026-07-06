@@ -5,6 +5,11 @@ import { clamp, getAbsolutePosition, getPageXYFromEvent, resolveArrowDirection }
 import { ColorPickerEmits, defineColorModel } from './composable/use-color-model.ts';
 import { useUserPageSelection } from './composable/use-user-select.ts';
 
+export interface ColorAreaProps {
+  hue: number;
+  modelValue: tinycolor.Instance;
+}
+
 const props = defineProps<ColorAreaProps>();
 const emit = defineEmits(['change'].concat(ColorPickerEmits));
 
@@ -57,7 +62,7 @@ watch(() => props.hue, (newHue, oldHue) => {
   }
 });
 
-function handleChange(e: MouseEvent | TouchEvent, skip = false) {
+function handleChange(e: MouseEvent | TouchEvent, _ = false) {
   e.preventDefault();
 
   const container = containerRef.value;
@@ -170,13 +175,6 @@ onUnmounted(() => {
 });
 </script>
 
-<script lang="ts">
-export interface ColorAreaProps {
-  hue: number;
-  modelValue: tinycolor.Instance;
-}
-</script>
-
 <template>
   <div
     ref="color-area"
@@ -207,7 +205,7 @@ export interface ColorAreaProps {
   width: 240px;
   height: 232px;
   border-radius: var(--radius-8);
-  background: linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent),
-    v-bind(colorAreaBg);
+  background:
+    linear-gradient(to top, black, transparent), linear-gradient(to right, white, transparent), v-bind(colorAreaBg);
 }
 </style>

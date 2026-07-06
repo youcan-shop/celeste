@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { DropdownMenuLabelProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { DropdownMenuLabel, type DropdownMenuLabelProps, useForwardProps } from 'reka-ui';
+import { DropdownMenuLabel, useForwardProps } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<DropdownMenuLabelProps & { class?: HTMLAttributes['class'] }>();

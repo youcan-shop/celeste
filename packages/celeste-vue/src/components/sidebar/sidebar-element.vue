@@ -4,15 +4,13 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 
-const props = withDefaults(defineProps<SidebarElementProps>(), {
-  as: 'div',
-});
-</script>
-
-<script lang="ts">
 export interface SidebarElementProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = withDefaults(defineProps<SidebarElementProps>(), {
+  as: 'div',
+});
 </script>
 
 <template>

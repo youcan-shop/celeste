@@ -2,13 +2,11 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = defineProps<TableProps>();
-</script>
-
-<script lang="ts">
 export interface TableProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<TableProps>();
 </script>
 
 <template>

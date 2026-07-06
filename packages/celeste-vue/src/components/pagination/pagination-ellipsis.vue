@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import type { PaginationEllipsisProps as PrimitivePaginationEllipsisProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationEllipsis, type PaginationEllipsisProps as PrimitivePaginationEllipsisProps } from 'reka-ui';
+import { PaginationEllipsis } from 'reka-ui';
+
+export interface PaginationEllipsisProps extends PrimitivePaginationEllipsisProps {
+  class?: HTMLAttributes['class'];
+}
 
 const props = defineProps<PaginationEllipsisProps>();
 
 const delegated = reactiveOmit(props, 'class');
-</script>
-
-<script lang="ts">
-export interface PaginationEllipsisProps extends PrimitivePaginationEllipsisProps {
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

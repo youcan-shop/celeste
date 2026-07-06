@@ -5,15 +5,13 @@ import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
 import { DialogDescription } from 'reka-ui';
 
-const props = defineProps<SheetDescriptionProps>();
-
-const delegated = reactiveOmit(props, 'class');
-</script>
-
-<script lang="ts">
 export interface SheetDescriptionProps extends DialogDescriptionProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<SheetDescriptionProps>();
+
+const delegated = reactiveOmit(props, 'class');
 </script>
 
 <template>

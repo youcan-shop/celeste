@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { ButtonProps } from '@/components/button/button.vue';
 import clsx from 'clsx';
-import Button, { type ButtonProps } from '@/components/button/button.vue';
+import Button from '@/components/button/button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(
-  defineProps<Omit</* @vue-ignore */ButtonProps, 'type' | 'size' | 'variant'> & {
+  defineProps<Omit<ButtonProps, 'type' | 'size' | 'variant'> & {
     inline?: boolean;
   }>(),
   { inline: false },

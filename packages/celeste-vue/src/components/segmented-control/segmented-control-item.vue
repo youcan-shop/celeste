@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ToggleGroupItemProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { ToggleGroupItem as SegmentedControlItem, type ToggleGroupItemProps } from 'reka-ui';
+import { ToggleGroupItem as SegmentedControlItem } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<ToggleGroupItemProps & { class?: HTMLAttributes['class'] }>();

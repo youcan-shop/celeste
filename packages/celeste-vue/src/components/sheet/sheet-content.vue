@@ -12,6 +12,11 @@ import {
 } from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';
 
+export interface SheetContentProps extends DialogContentProps {
+  class?: HTMLAttributes['class'];
+  side?: 'top' | 'bottom' | 'left' | 'right';
+}
+
 defineOptions({
   inheritAttrs: false,
 });
@@ -24,13 +29,6 @@ const emits = defineEmits<DialogContentEmits>();
 
 const delegated = reactiveOmit(props, 'class', 'side');
 const forwarded = useForwardPropsEmits(delegated, emits);
-</script>
-
-<script lang="ts">
-export interface SheetContentProps extends DialogContentProps {
-  class?: HTMLAttributes['class'];
-  side?: 'top' | 'bottom' | 'left' | 'right';
-}
 </script>
 
 <template>

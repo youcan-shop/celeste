@@ -4,6 +4,17 @@ import { computed } from 'vue';
 import { DEFAULT_SWATCH } from '@/utils/color';
 import { defineColorModel } from './composable/use-color-model';
 
+export interface ColorSwatchProps {
+  modelValue: tinycolor.Instance;
+  label: string;
+  swatch?: string[];
+  defaultColor?: string;
+}
+
+export interface ColorSwatchEmits {
+  'update:modelValue': [value: string];
+}
+
 const props = withDefaults(defineProps<ColorSwatchProps>(), {
   swatch: () => DEFAULT_SWATCH,
 });
@@ -21,19 +32,6 @@ function handleSwatchColorClick(newColor: string) {
 
 function isSwatchColorSelected(color: string) {
   return tinyColorRef.value.toHex8String().toLocaleLowerCase() === tinycolor(color).toHex8String().toLocaleLowerCase();
-}
-</script>
-
-<script lang="ts">
-export interface ColorSwatchProps {
-  modelValue: tinycolor.Instance;
-  label: string;
-  swatch?: string[];
-  defaultColor?: string;
-}
-
-export interface ColorSwatchEmits {
-  'update:modelValue': [value: string];
 }
 </script>
 

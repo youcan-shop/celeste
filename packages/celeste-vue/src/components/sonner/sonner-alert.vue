@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Alert, type AlertProps } from '../alert';
+import type { AlertProps } from '../alert';
+import { Alert } from '../alert';
 
 export interface SonnerAlertProps extends /* @vue-ignore */ Partial<AlertProps> {
   title: string;

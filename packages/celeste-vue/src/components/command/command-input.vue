@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { ComboboxInputProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { ComboboxInput, type ComboboxInputProps, useForwardProps } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
+import { ComboboxInput, useForwardProps } from 'reka-ui';
+import { computed } from 'vue';
 
 defineOptions({
   inheritAttrs: false,

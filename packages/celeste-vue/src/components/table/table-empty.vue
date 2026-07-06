@@ -4,19 +4,17 @@ import clsx from 'clsx';
 import { TableCell, TableRow } from '@/components/table';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
+export interface TableEmptyProps {
+  colspan?: number;
+  class?: HTMLAttributes['class'];
+}
+
 const props = withDefaults(
   defineProps<TableEmptyProps>(),
   { colspan: 1 },
 );
 
 const delegated = useDelegatedProps(props, 'class');
-</script>
-
-<script lang="ts">
-export interface TableEmptyProps {
-  colspan?: number;
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

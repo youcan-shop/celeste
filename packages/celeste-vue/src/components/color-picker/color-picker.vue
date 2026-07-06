@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+import type { ColorKey, HSBKey, HSLKey, RGBKey } from '@/utils/color';
 import { useForwardPropsEmits } from 'reka-ui';
 import tinycolor from 'tinycolor2';
-import { computed, type HTMLAttributes, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
-import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, type ColorKey, getColorConstraints, HEX_VALIDATION_PATTERN, type HSBKey, type HSLKey, resolveArrowDirection, type RGBKey, truncColorValue } from '@/utils/color';
+import { bumpColorValue, clamp, COLOR_NUMBER_VALIDATION_PATTERN, getColorConstraints, HEX_VALIDATION_PATTERN, resolveArrowDirection, truncColorValue } from '@/utils/color';
 import { Button } from '../button';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
@@ -12,6 +14,43 @@ import { ColorArea, HueSlider } from './';
 import AlphaSlider from './alpha-slider.vue';
 import ColorSwatch from './color-swatch.vue';
 import { defineColorModel } from './composable/use-color-model';
+
+export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsb';
+
+export interface ColorPickerProps {
+  modelValue?: string | tinycolor.ColorInput;
+  label?: string;
+  class?: HTMLAttributes['class'];
+  formats?: ColorFormat[];
+  defaultFormat?: ColorFormat;
+  colorSwatchLabel?: string;
+}
+
+export interface ColorPickerEmits {
+  'update:modelValue': [value: string];
+}
+
+interface ColorSelectionOptions {
+  signal?: AbortSignal;
+}
+
+interface ColorSelectionResult {
+  sRGBHex: string;
+}
+
+interface EyeDropper {
+  open: (options?: ColorSelectionOptions) => Promise<ColorSelectionResult>;
+}
+
+interface EyeDropperConstructor {
+  new (): EyeDropper;
+}
+
+declare global {
+  interface Window {
+    EyeDropper?: EyeDropperConstructor | undefined;
+  }
+}
 
 const props = withDefaults(defineProps<ColorPickerProps>(), {
   modelValue: 'hsl(240, 100%, 50%)',
@@ -84,7 +123,7 @@ function sipColor() {
   eyeDropper.value.open().then((result: any) => {
     const newColor = tinycolor(result.sRGBHex);
     tinyColorRef.value = newColor;
-  }).catch((e: Error) => {
+  }).catch((_: Error) => {
     // Do nothing, this prevents an error from being thrown if the user cancels the color selection.
   });
 }
@@ -234,45 +273,6 @@ function handleColorValueKeyDown(event: KeyboardEvent, key: ColorKey) {
   else if (key === 'a') {
     const newColor = tinyColorRef.value.setAlpha(newValue / 100);
     emit('update:modelValue', newColor.toString());
-  }
-}
-</script>
-
-<script lang="ts">
-export type ColorFormat = 'hex' | 'rgb' | 'hsl' | 'hsb';
-
-export interface ColorPickerProps {
-  modelValue: string | tinycolor.ColorInput;
-  label?: string;
-  class?: HTMLAttributes['class'];
-  formats?: ColorFormat[];
-  defaultFormat?: ColorFormat;
-  colorSwatchLabel?: string;
-}
-
-export interface ColorPickerEmits {
-  'update:modelValue': [value: string];
-}
-
-interface ColorSelectionOptions {
-  signal?: AbortSignal;
-}
-
-interface ColorSelectionResult {
-  sRGBHex: string;
-}
-
-interface EyeDropper {
-  open: (options?: ColorSelectionOptions) => Promise<ColorSelectionResult>;
-}
-
-interface EyeDropperConstructor {
-  new (): EyeDropper;
-}
-
-declare global {
-  interface Window {
-    EyeDropper?: EyeDropperConstructor | undefined;
   }
 }
 </script>

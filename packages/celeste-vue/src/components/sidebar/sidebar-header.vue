@@ -2,13 +2,11 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = defineProps<SidebarHeaderProps>();
-</script>
-
-<script lang="ts">
 export interface SidebarHeaderProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<SidebarHeaderProps>();
 </script>
 
 <template>

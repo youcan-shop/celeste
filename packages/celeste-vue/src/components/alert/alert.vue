@@ -3,6 +3,14 @@ import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { uid } from '@/utils/crypto';
 
+export interface AlertProps {
+  class?: HTMLAttributes['class'];
+  size?: 'xs' | 'sm' | 'lg';
+  variant?: 'fill' | 'light' | 'lighter' | 'stroke';
+  state?: 'information' | 'success' | 'warning' | 'error' | 'feature';
+  dismissable?: boolean;
+}
+
 const props = withDefaults(
   defineProps<AlertProps>(),
   { size: 'xs', variant: 'fill', state: 'information', dismissable: false },
@@ -20,16 +28,6 @@ const ICON_MAP: Record<NonNullable<AlertProps['state']>, string> = {
   success: 'i-celeste-checkbox-circle-fill',
   information: 'i-celeste-information-fill',
 };
-</script>
-
-<script lang="ts">
-export interface AlertProps {
-  class?: HTMLAttributes['class'];
-  size?: 'xs' | 'sm' | 'lg';
-  variant?: 'fill' | 'light' | 'lighter' | 'stroke';
-  state?: 'information' | 'success' | 'warning' | 'error' | 'feature';
-  dismissable?: boolean;
-}
 </script>
 
 <template>

@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import type { PrimitiveProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { Primitive, type PrimitiveProps } from 'reka-ui';
+import { Primitive } from 'reka-ui';
+
+export interface ButtonProps extends PrimitiveProps {
+  class?: HTMLAttributes['class'];
+  size?: 'xxs' | 'xs' | 'sm' | 'md';
+  intent?: 'primary' | 'neutral' | 'error';
+  variant?: 'fill' | 'stroke' | 'lighter' | 'ghost';
+}
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'md',
@@ -9,15 +17,6 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   intent: 'primary',
   as: 'button',
 });
-</script>
-
-<script lang="ts">
-export interface ButtonProps extends PrimitiveProps {
-  class?: HTMLAttributes['class'];
-  size?: 'xxs' | 'xs' | 'sm' | 'md';
-  intent?: 'primary' | 'neutral' | 'error';
-  variant?: 'fill' | 'stroke' | 'lighter' | 'ghost';
-}
 </script>
 
 <template>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { SelectContentEmits, SelectContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { SelectContent, type SelectContentEmits, type SelectContentProps, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui';
+import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = withDefaults(defineProps<SelectContentProps & {

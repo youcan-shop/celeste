@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { ComboboxSeparatorProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import { ComboboxSeparator } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps<ComboboxSeparatorProps & { class?: HTMLAttributes['class'] }>();
 

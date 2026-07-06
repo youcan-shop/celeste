@@ -5,15 +5,13 @@ import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
 import { DialogTitle } from 'reka-ui';
 
-const props = defineProps<SheetTitleProps>();
-
-const delegatedProps = reactiveOmit(props, 'class');
-</script>
-
-<script lang="ts">
 export interface SheetTitleProps extends DialogTitleProps {
   class?: HTMLAttributes['class'];
 }
+
+const props = defineProps<SheetTitleProps>();
+
+const delegatedProps = reactiveOmit(props, 'class');
 </script>
 
 <template>

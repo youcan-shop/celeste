@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { Toaster, type ToasterProps } from 'vue-sonner';
+import type { ToasterProps } from 'vue-sonner';
+import { Toaster } from 'vue-sonner';
+
+export interface SonnerProps extends ToasterProps {}
 
 const props = defineProps<SonnerProps>();
-</script>
-
-<script lang="ts">
-export interface SonnerProps extends ToasterProps {}
 </script>
 
 <template>

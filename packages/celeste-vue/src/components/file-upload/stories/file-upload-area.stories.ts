@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import type { FileError } from '../file-upload-area.vue';
 import { ref, watch } from 'vue';
 import Sonner from '@/components/sonner/sonner.vue';
 import { toast } from '@/utils/sonner';
-import FileUploadArea, { type FileError } from '../file-upload-area.vue';
+import FileUploadArea from '../file-upload-area.vue';
 import 'vue-sonner/style.css';
 
 const meta: Meta<typeof FileUploadArea> = {

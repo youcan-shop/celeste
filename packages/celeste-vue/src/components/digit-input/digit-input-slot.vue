@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { PinInputInputProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
-import { PinInputInput, type PinInputInputProps, useForwardProps } from 'reka-ui';
+import { PinInputInput, useForwardProps } from 'reka-ui';
 
 const props = defineProps<PinInputInputProps & { class?: HTMLAttributes['class'] }>();
 

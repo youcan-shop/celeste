@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import type { PaginationListProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { clsx } from 'clsx';
-import { PaginationList, type PaginationListProps } from 'reka-ui';
+import { PaginationList } from 'reka-ui';
+
+export interface PaginationContentProps extends PaginationListProps {
+  class?: HTMLAttributes['class'];
+}
 
 const props = defineProps<PaginationContentProps>();
 
 const delegated = reactiveOmit(props, 'class');
-</script>
-
-<script lang="ts">
-export interface PaginationContentProps extends PaginationListProps {
-  class?: HTMLAttributes['class'];
-}
 </script>
 
 <template>

@@ -11,6 +11,11 @@ export default youcan(
     stylistic: {
       semi: true,
     },
+    overrides: {
+      vue: {
+        'vue/custom-event-name-casing': ['error', 'kebab-case', { ignores: ['update:modelValue'] }],
+      },
+    },
   },
   {
     files: ['*.story.vue'],

@@ -1,17 +1,32 @@
 <script setup lang="ts">
+import type { PopoverContentEmits, PopoverContentProps as RekaPopoverContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 import {
   PopoverArrow,
   PopoverClose,
   PopoverContent,
-  type PopoverContentEmits,
+
   PopoverPortal,
-  type PopoverContentProps as RekaPopoverContentProps,
+
   useForwardPropsEmits,
 } from 'reka-ui';
 import CompactButton from '@/components/button/compact-button.vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
+
+export interface PopoverContentProps {
+  class?: HTMLAttributes['class'];
+  side?: RekaPopoverContentProps['side'];
+  sideOffset?: RekaPopoverContentProps['sideOffset'];
+  align?: RekaPopoverContentProps['align'];
+  alignOffset?: RekaPopoverContentProps['alignOffset'];
+  title?: string;
+  description?: string;
+  showTail?: boolean;
+  dismissible?: boolean;
+  icon?: string;
+  iconSize?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+}
 
 defineOptions({
   inheritAttrs: false,
@@ -33,22 +48,6 @@ const delegatedProps = useDelegatedProps(props, ['class', 'title']);
 const sideOffset = props.showTail ? 0 : props.sideOffset ?? 8;
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
-</script>
-
-<script lang="ts">
-export interface PopoverContentProps {
-  class?: HTMLAttributes['class'];
-  side?: RekaPopoverContentProps['side'];
-  sideOffset?: RekaPopoverContentProps['sideOffset'];
-  align?: RekaPopoverContentProps['align'];
-  alignOffset?: RekaPopoverContentProps['alignOffset'];
-  title?: string;
-  description?: string;
-  showTail?: boolean;
-  dismissible?: boolean;
-  icon?: string;
-  iconSize?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-}
 </script>
 
 <template>

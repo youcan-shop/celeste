@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { TabsContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { TabsContent, type TabsContentProps } from 'reka-ui';
+import { TabsContent } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 
 const props = defineProps<TabsContentProps & { class?: HTMLAttributes['class'] }>();
