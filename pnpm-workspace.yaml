@@ -1,9 +1,7 @@
 shellEmulator: true
 
-trustPolicy: no-downgrade
-
 packages:
-  - 'packages/*'
+- 'packages/*'
 overrides:
   '@babel/helpers@<7.26.10': '>=7.26.10'
   '@babel/runtime@<7.26.10': '>=7.26.10'
@@ -33,3 +31,14 @@ overrides:
   undici@>=6.0.0 <6.21.1: '>=6.21.1'
   undici@>=6.0.0 <6.21.2: '>=6.21.2'
   vite@>=5.0.0 <8.0.13: '>=8.0.13'
+minimumReleaseAgeExclude:
+- browserslist@4.28.5
+- caniuse-lite@1.0.30001802
+- eslint-plugin-jsdoc@63.0.12
+allowBuilds:
+  '@bundled-es-modules/glob': true
+  '@parcel/watcher': true
+  esbuild: true
+  simple-git-hooks: true
+  style-dictionary: true
+  vue-demi: true
