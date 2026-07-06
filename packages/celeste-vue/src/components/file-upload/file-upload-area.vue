@@ -1,9 +1,36 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { InputHTMLAttributes } from 'vue';
+</script>
+
+<script setup lang="ts">
 import { useDropZone } from '@vueuse/core';
 import clsx from 'clsx';
 import { computed, useTemplateRef } from 'vue';
 import Button from '@/components/button/button.vue';
+
+export interface FileUploadAreaProps {
+  label?: string;
+  description?: string;
+  labelOnDrop?: string;
+  triggerLabel?: string;
+  maxSize?: number;
+  maxFiles?: number;
+  multiple?: boolean;
+  icon?: string;
+  accept?: InputHTMLAttributes['accept'];
+  onTriggerClick?: () => void;
+  class?: InputHTMLAttributes['class'];
+}
+
+export interface FileError {
+  message: string;
+  type: 'size' | 'type' | 'count';
+  files: File[];
+}
+
+export interface FileUploadAreaEmit {
+  error: [error: FileError];
+}
 
 const props = withDefaults(defineProps<FileUploadAreaProps>(), {
   icon: 'i-celeste-upload-cloud-2-line',
@@ -99,32 +126,6 @@ function handleTriggerClick(e: Event) {
     e.preventDefault();
     props.onTriggerClick();
   }
-}
-</script>
-
-<script lang="ts">
-export interface FileUploadAreaProps {
-  label?: string;
-  description?: string;
-  labelOnDrop?: string;
-  triggerLabel?: string;
-  maxSize?: number;
-  maxFiles?: number;
-  multiple?: boolean;
-  icon?: string;
-  accept?: InputHTMLAttributes['accept'];
-  onTriggerClick?: () => void;
-  class?: InputHTMLAttributes['class'];
-}
-
-export interface FileError {
-  message: string;
-  type: 'size' | 'type' | 'count';
-  files: File[];
-}
-
-export interface FileUploadAreaEmit {
-  error: [error: FileError];
 }
 </script>
 

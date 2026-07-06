@@ -1,10 +1,19 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { InputHTMLAttributes } from 'vue';
+</script>
+
+<script setup lang="ts">
 import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 import { computed } from 'vue';
 import { uid } from '@/utils/crypto';
 import TextInputButton from './text-input-button.vue';
+
+export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
+  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+  size?: 'xs' | 'sm' | 'md';
+  hasError?: boolean;
+}
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   type: 'text',
@@ -22,14 +31,6 @@ const showClearButton = computed(() => {
 
 function clearInput() {
   modelValue.value = '';
-}
-</script>
-
-<script lang="ts">
-export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
-  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
-  size?: 'xs' | 'sm' | 'md';
-  hasError?: boolean;
 }
 </script>
 

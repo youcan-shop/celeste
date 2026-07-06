@@ -1,16 +1,10 @@
-<script setup lang="ts">
+<script lang="ts">
 import type { HTMLAttributes } from 'vue';
-import clsx from 'clsx';
-
-const props = withDefaults(defineProps<BadgeProps>(), {
-  size: 'md',
-  color: 'faded',
-  variant: 'fill',
-  type: 'basic',
-});
 </script>
 
-<script lang="ts">
+<script setup lang="ts">
+import clsx from 'clsx';
+
 export interface BadgeProps {
   size?: 'sm' | 'md';
   variant?: 'fill' | 'light' | 'lighter' | 'stroke';
@@ -21,6 +15,13 @@ export interface BadgeProps {
   label?: string;
   class?: HTMLAttributes['class'];
 }
+
+const props = withDefaults(defineProps<BadgeProps>(), {
+  size: 'md',
+  color: 'faded',
+  variant: 'fill',
+  type: 'basic',
+});
 </script>
 
 <template>

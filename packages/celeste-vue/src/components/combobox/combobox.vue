@@ -76,6 +76,8 @@ function isSelected(value: ComboboxItemPropsType['value']): boolean | undefined 
 
     if (
       props.valueBy
+      && typeof value === 'object' && value !== null
+      && typeof selectedValue === 'object' && selectedValue !== null
       && Object.hasOwn(value, props.valueBy)
       && Object.hasOwn(selectedValue, props.valueBy)
     ) {
