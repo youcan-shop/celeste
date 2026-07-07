@@ -9,6 +9,7 @@
       "esnext",
       "dom"
     ],
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -21,12 +22,14 @@
       ]
     },
     "resolveJsonModule": true,
+    "types": ["*"],
     "strict": true,
     "declaration": false,
     "outDir": "dist",
     "sourceMap": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noUncheckedSideEffectImports": false
   },
   "include": [
     "env.d.ts",
