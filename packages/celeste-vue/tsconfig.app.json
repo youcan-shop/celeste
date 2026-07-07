@@ -6,6 +6,7 @@
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "lib": ["esnext", "dom"],
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -19,7 +20,8 @@
     "outDir": "dist",
     "sourceMap": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noUncheckedSideEffectImports": false
   },
   "include": [
     "env.d.ts",
