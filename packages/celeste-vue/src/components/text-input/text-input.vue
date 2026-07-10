@@ -7,7 +7,8 @@ import { uid } from '@/utils/crypto';
 import TextInputButton from './text-input-button.vue';
 
 export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
-  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+  // Remove type: 'date' when the DatePicker component is available
+  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'date';
   size?: 'xs' | 'sm' | 'md';
   hasError?: boolean;
 }
