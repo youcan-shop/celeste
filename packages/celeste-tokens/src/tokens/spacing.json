@@ -36,6 +36,34 @@
       "$value": 16,
       "$type": "spacing"
     },
+    "20": {
+      "$value": 20,
+      "$type": "spacing"
+    },
+    "24": {
+      "$value": 24,
+      "$type": "spacing"
+    },
+    "28": {
+      "$value": 28,
+      "$type": "spacing"
+    },
+    "32": {
+      "$value": 32,
+      "$type": "spacing"
+    },
+    "36": {
+      "$value": 36,
+      "$type": "spacing"
+    },
+    "40": {
+      "$value": 40,
+      "$type": "spacing"
+    },
+    "44": {
+      "$value": 40,
+      "$type": "spacing"
+    },
     "48": {
       "$value": 48,
       "$type": "spacing"
