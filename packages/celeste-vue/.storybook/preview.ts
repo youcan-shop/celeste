@@ -1,11 +1,45 @@
 import type { Preview } from '@storybook/vue3-vite';
+import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import { create } from 'storybook/theming';
 
-// we assume that the project is using a reset of some sort
 import '@unocss/reset/tailwind.css';
 import 'virtual:uno.css';
 import '@youcan/celeste-tokens/tokens.css';
 
+const celesteDocsTheme = create({
+  base: 'dark',
+  brandTitle: 'Celeste',
+  colorPrimary: '#e1116f', // brand.500
+  colorSecondary: '#e1116f',
+  appBg: '#171717', // bg.white-0 (dark)
+  appContentBg: '#171717',
+  appPreviewBg: '#171717',
+  appBorderColor: '#333333', // stroke.soft-200 (dark)
+  appBorderRadius: 8,
+  textColor: '#ffffff', // text.strong-950 (dark)
+  textInverseColor: '#171717',
+  barBg: '#1c1c1c', // bg.weak-50 (dark)
+  barTextColor: '#a3a3a3', // text.sub-600 (dark)
+  barSelectedColor: '#e1116f',
+  inputBg: '#171717',
+  inputBorder: '#333333',
+  inputTextColor: '#ffffff',
+  inputBorderRadius: 8,
+});
+
 const globalStyles = `
+body {
+  background: var(--color-bg-white-0);
+  color: var(--color-text-strong-950);
+}
+
+/* The docs chrome is handled by the dark docs theme above; only the component
+   preview surface follows the toggle, so a light-mode preview sits on a light
+   surface even while the surrounding docs UI stays dark. */
+.docs-story {
+  background: var(--color-bg-white-0) !important;
+}
+
 .sonner-story-container {
   font: var(--paragraph-sm);
   padding: 1rem;
@@ -49,6 +83,7 @@ const preview: Preview = {
   parameters: {
     docs: {
       codePanel: true,
+      theme: celesteDocsTheme,
     },
     controls: {
       matchers: {
@@ -81,6 +116,15 @@ const preview: Preview = {
     },
   },
   decorators: [
+    withThemeByDataAttribute({
+      themes: {
+        light: 'light',
+        dark: 'dark',
+        system: 'system',
+      },
+      defaultTheme: 'light',
+      attributeName: 'data-theme',
+    }),
     (story, context) => {
       return {
         components: { story },
