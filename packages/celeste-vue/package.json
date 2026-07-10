@@ -66,6 +66,7 @@
     "@chromatic-com/storybook": "^4.1.3",
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/addon-onboarding": "^10.4.6",
+    "@storybook/addon-themes": "10.4.6",
     "@storybook/vue3-vite": "^10.4.6",
     "@tanstack/vue-table": "^8.21.3",
     "@tsconfig/node20": "^20.1.8",
