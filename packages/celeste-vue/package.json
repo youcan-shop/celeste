@@ -43,6 +43,7 @@
     "vue": "^3.5.13"
   },
   "dependencies": {
+    "@internationalized/date": "^3.6.0",
     "@tiptap/core": "^3.11.0",
     "@tiptap/extension-bubble-menu": "^3.11.0",
     "@tiptap/extension-color": "^3.11.0",
