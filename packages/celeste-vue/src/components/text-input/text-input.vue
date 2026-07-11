@@ -170,6 +170,25 @@ function clearInput() {
         appearance: none;
       }
     }
+
+    // Hide default browser date UI (calendar icon, clear button, spinner)
+    &[type='date'] {
+      &::-webkit-calendar-picker-indicator {
+        display: none;
+        appearance: none;
+      }
+
+      &::-webkit-clear-button,
+      &::-webkit-inner-spin-button {
+        display: none;
+        appearance: none;
+      }
+
+      &::-ms-clear,
+      &::-ms-expand {
+        display: none;
+      }
+    }
   }
 
   &:has(.celeste-text-input-leading-node) {

@@ -276,6 +276,28 @@ export const WithInlineButton: Story = {
   }),
 };
 
+export const Date: Story = {
+  args: {
+    type: 'date',
+  },
+
+  render: args => ({
+    components: { TextInput, TextInputAffix, TextInputButton },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: grid; gap: 20px; justify-content: center;">
+        <TextInput v-bind="args" style="width: 300px">
+          <template #leadingIcon>
+            <i class="i-celeste-calendar-line" />
+          </template>
+        </TextInput>
+      </div>
+    `,
+  }),
+};
+
 const OPTIONS = [
   { value: { id: 1 }, label: 'MAD', icon: 'i-celeste-bank-card-2-line' },
   { value: { id: 2 }, label: 'EUR', icon: 'i-celeste-bank-card-2-line' },
