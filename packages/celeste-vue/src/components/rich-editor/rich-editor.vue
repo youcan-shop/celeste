@@ -293,8 +293,8 @@ onBeforeUnmount(() => {
 
       p.is-editor-empty:first-child::before {
         content: attr(data-placeholder);
-        float: left;
         height: 0;
+        float: left;
         color: var(--color-neutral-300);
         pointer-events: none;
       }
