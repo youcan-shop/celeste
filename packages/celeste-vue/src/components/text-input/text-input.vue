@@ -10,7 +10,6 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'date';
   size?: 'xs' | 'sm' | 'md';
   hasError?: boolean;
-  // vue's AutoFill template literal union is too large for tsc to expand here
   autocomplete?: string;
 }
 
