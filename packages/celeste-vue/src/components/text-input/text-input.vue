@@ -10,6 +10,7 @@ export interface TextInputProps extends /* @vue-ignore */ InputHTMLAttributes {
   type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'date';
   size?: 'xs' | 'sm' | 'md';
   hasError?: boolean;
+  autocomplete?: string;
 }
 
 const props = withDefaults(defineProps<TextInputProps>(), {

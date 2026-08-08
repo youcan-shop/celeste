@@ -44,7 +44,11 @@ function handleDismiss() {
       :variant="variant"
       :class="clsx('celeste-tooltip-content', props.class)"
     >
-      <i v-if="icon" :class="`celeste-tooltip-content-icon ${icon}`" />
+      <i
+        v-if="icon"
+        class="celeste-tooltip-content-icon"
+        :class="icon"
+      />
       <div class="celeste-tooltip-content-box">
         <span v-if="title" class="celeste-tooltip-content-title">{{ title }}</span>
         <span v-if="description" class="celeste-tooltip-content-description">
