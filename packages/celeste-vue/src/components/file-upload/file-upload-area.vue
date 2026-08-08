@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<FileUploadAreaProps>(), {
 
 const emit = defineEmits<FileUploadAreaEmit>();
 
-const files = defineModel<File[]>({ default: [] });
+const files = defineModel<File[]>({ default: () => [] });
 
 const dropZoneRef = useTemplateRef<HTMLElement>('dropZoneRef');
 const { isOverDropZone } = useDropZone(dropZoneRef, { onDrop });
