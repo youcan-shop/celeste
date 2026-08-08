@@ -17,7 +17,22 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     v-bind="forwarded"
     :class="clsx('celeste-checkbox', props.class)"
   >
-    <CheckboxIndicator class="celeste-checkbox-indicator" />
+    <CheckboxIndicator force-mount class="celeste-checkbox-indicator">
+      <svg
+        class="celeste-checkbox-check"
+        viewBox="0 0 10 8"
+        aria-hidden="true"
+      >
+        <path d="M1 3.5L4 6.5L9 1.5" />
+      </svg>
+      <svg
+        class="celeste-checkbox-dash"
+        viewBox="0 0 8 2"
+        aria-hidden="true"
+      >
+        <path d="M0 1H8" />
+      </svg>
+    </CheckboxIndicator>
   </CheckboxRoot>
 </template>
 
@@ -59,40 +74,43 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     align-items: center;
     justify-content: center;
 
-    &::before {
-      content: '';
+    svg {
       position: absolute;
+      transition: opacity var(--animation-fast) ease-out;
+      stroke-width: 1.5;
+      stroke: currentcolor;
+      opacity: 0;
+      fill: none;
     }
 
-    &[data-state='checked']::before {
-      width: calc(var(--checkbox-checkmark-size) / 2);
-      height: var(--checkbox-checkmark-size);
-      margin-block-start: -3px;
-      transform: scaleY(0.5);
-      animation: fade-in var(--animation-fast) linear forwards;
+    path {
+      transition: stroke-dashoffset var(--animation-normal) ease-out;
+      stroke-dasharray: var(--mark-length);
+      stroke-dashoffset: var(--mark-length);
     }
 
-    &[data-state='checked']::before,
-    [dir='ltr'] &[data-state='checked']::before,
-    [dir='rtl'] &[data-state='checked']::before {
-      border-top: transparent;
-      border-right: 1.8px solid currentcolor;
-      border-bottom: 1.8px solid currentcolor;
-      border-left: transparent;
-      rotate: 45deg;
-    }
+    &[data-state='checked'] .celeste-checkbox-check,
+    &[data-state='indeterminate'] .celeste-checkbox-dash {
+      opacity: 1;
 
-    &[data-state='indeterminate']::before {
-      width: var(--checkbox-indeterminate-size);
-      height: 1.8px;
-      background-color: var(--color-static-white);
-    }
-
-    @keyframes fade-in {
-      to {
-        transform: scaleY(1);
+      path {
+        stroke-dashoffset: 0;
       }
     }
+  }
+
+  .celeste-checkbox-check {
+    --mark-length: 11.32;
+
+    width: calc(var(--checkbox-checkmark-size) * 1.25);
+    height: var(--checkbox-checkmark-size);
+  }
+
+  .celeste-checkbox-dash {
+    --mark-length: 8;
+
+    width: var(--checkbox-indeterminate-size);
+    height: 2px;
   }
 
   &[data-state='checked']:not(:disabled),
