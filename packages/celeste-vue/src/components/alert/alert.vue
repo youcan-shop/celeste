@@ -201,6 +201,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   &-inner {
     display: flex;
     flex: 1;
+    align-items: center;
     justify-content: space-between;
     min-width: 0;
   }
@@ -255,8 +256,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
   &-actions {
     display: flex;
     flex-shrink: 0;
-    align-items: flex-start;
-    align-self: stretch;
+    align-items: center;
     gap: var(--spacing-8);
   }
 
@@ -295,6 +295,7 @@ $alert-states: ('error' 'feature' 'warning' 'success' 'information');
 
     & .celeste-alert-inner {
       flex-direction: column;
+      align-items: stretch;
       gap: var(--spacing-10);
     }
   }
