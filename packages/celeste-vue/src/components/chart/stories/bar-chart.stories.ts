@@ -92,9 +92,10 @@ Every chart family needs these. They ship with this component:
 - **Dark theme.** Flip \`data-theme\`. Nothing in a chart hard-codes a color, so the series step
   one shade lighter and the grid, tooltip and axis text follow the tokens.
 - **Number format.** \`formatNumber\` and \`formatCompact\` run through \`Intl.NumberFormat\`.
-  The tag comes from \`useLocale()\`, one writable ref for all of Celeste:
+  The tag comes from \`useLocale()\`, one writable ref for all of Celeste, \`en-US\` by default:
   \`useLocale().value = 'fr-MA'\`. Charts re-render when it changes. Every numeral in a chart is
-  Geist Mono.
+  InterDisplay with \`tabular-nums\`, so columns of digits line up and still sound like the rest
+  of the UI.
 - **Axes.** Horizontal gridlines only, no axis spines, no tick marks. Bar charts always start
   the value axis at zero.
 - **Tooltip.** \`chartTooltip()\` builds the markup, so a single tooltip and a crosshair tooltip
@@ -206,9 +207,9 @@ export const InACard: Story = {
     template: `
       <ChartCard
         title="Revenue"
-        value="688 240 MAD"
+        value="688,240 MAD"
         caption="vs. previous 12 months"
-        :delta="{ value: '14,5%', direction: 'up' }"
+        :delta="{ value: '14.5%', direction: 'up' }"
       >
         <BarChart :data="data" :series="series" category="month" />
       </ChartCard>

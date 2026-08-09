@@ -82,7 +82,7 @@ const props = defineProps<ChartCardProps>();
   .celeste-chart-card-value {
     color: var(--color-text-strong-950);
     font: var(--title-h4-title);
-    font-family: var(--font-families-mono);
+    font-variant-numeric: tabular-nums;
   }
 
   .celeste-chart-card-caption {

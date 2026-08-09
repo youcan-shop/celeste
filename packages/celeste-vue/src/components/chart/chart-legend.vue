@@ -112,7 +112,8 @@ function onToggle(key: string) {
   .celeste-chart-legend-value,
   .celeste-chart-legend-delta {
     font: var(--label-xs);
-    font-family: var(--font-families-mono);
+    font-family: var(--font-families-display);
+    font-variant-numeric: tabular-nums;
   }
 
   .celeste-chart-legend-value {

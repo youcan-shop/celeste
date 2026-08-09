@@ -107,6 +107,7 @@ const props = withDefaults(defineProps<ChartPlotProps>(), {
 
   display: flex;
   flex-direction: column;
+  font-variant-numeric: tabular-nums;
   gap: var(--spacing-12);
 
   @include vis(color0, var(--chart-1));
@@ -126,7 +127,7 @@ const props = withDefaults(defineProps<ChartPlotProps>(), {
   @include vis(tooltip-text-color, var(--color-text-strong-950));
 
   --vis-font-family: var(--font-families-sans);
-  --vis-axis-font-family: var(--font-families-mono);
+  --vis-axis-font-family: var(--font-families-display);
   --vis-axis-tick-label-font-size: 11px;
   --vis-axis-tick-label-weight: 400;
   --vis-crosshair-line-stroke-color: var(--chart-crosshair);
@@ -261,7 +262,8 @@ const props = withDefaults(defineProps<ChartPlotProps>(), {
   td {
     color: var(--color-text-strong-950);
     font: var(--label-xs);
-    font-family: var(--font-families-mono);
+    font-family: var(--font-families-display);
+    font-variant-numeric: tabular-nums;
     text-align: end;
   }
 }
@@ -305,7 +307,8 @@ const props = withDefaults(defineProps<ChartPlotProps>(), {
   .celeste-chart-tooltip-value {
     color: var(--color-text-strong-950);
     font: var(--label-xs);
-    font-family: var(--font-families-mono);
+    font-family: var(--font-families-display);
+    font-variant-numeric: tabular-nums;
   }
 
   .celeste-chart-tooltip-total {
