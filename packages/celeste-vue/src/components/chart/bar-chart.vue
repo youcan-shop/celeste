@@ -115,10 +115,10 @@ const formatValue = computed(() => (v: number) => props.format(v, locale.value))
 const formatTick = computed(() => (v: number) => props.tickFormat(v, locale.value));
 
 const y = computed(() => props.dense
-  ? [totalOf]
+  ? [(d: BarDatum) => totalOf(d) || EPSILON]
   : props.series.map(s => hidden.value.includes(s.key)
       ? () => EPSILON
-      : (d: BarDatum) => valueOf(d, s.key)));
+      : (d: BarDatum) => valueOf(d, s.key) || EPSILON));
 
 const color = computed(() => {
   const map = colors.value;
