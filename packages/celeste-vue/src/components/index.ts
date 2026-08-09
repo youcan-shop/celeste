@@ -2,6 +2,7 @@ export * from './alert';
 export * from './badge';
 export * from './button';
 export * from './calendar';
+export * from './chart';
 export * from './checkbox';
 export * from './collapsible';
 export * from './color-picker';
