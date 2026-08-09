@@ -54,6 +54,8 @@
     "@tiptap/pm": "^3.29.2",
     "@tiptap/starter-kit": "^3.29.2",
     "@tiptap/vue-3": "^3.29.2",
+    "@unovis/ts": "1.6.7",
+    "@unovis/vue": "1.6.7",
     "@vueuse/core": "^14.4.0",
     "@youcan/celeste-icons": "workspace:*",
     "@youcan/celeste-tokens": "workspace:*",
