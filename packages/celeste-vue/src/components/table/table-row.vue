@@ -7,6 +7,10 @@ export interface TableRowProps {
   hoverable?: boolean;
 }
 
+defineOptions({
+  inheritAttrs: false,
+});
+
 const props = withDefaults(
   defineProps<TableRowProps>(),
   { hoverable: true },
@@ -14,7 +18,7 @@ const props = withDefaults(
 </script>
 
 <template>
-  <tr :class="clsx('celeste-table-row', props.class, { 'celeste-table-row-hoverable': props.hoverable })">
+  <tr v-bind="$attrs" :class="clsx('celeste-table-row', props.class, { 'celeste-table-row-hoverable': props.hoverable })">
     <slot />
   </tr>
   <tr aria-hidden="true" class="celeste-table-row-divider">
