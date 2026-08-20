@@ -35,7 +35,3 @@ pnpm i && pnpm build
 ## Contributing
 
 We don't have contribution guidelines just yet, but pull requests are very much welcome.
-
-## Licenses
-
-Source code is under a [custom license](https://github.com/youcan-shop/celeste/blob/main/LICENSE) based on MIT. The license restricts Celeste usage to applications that integrate or interoperate with YouCan software or services, with additional restrictions for external, stand-alone applications.
