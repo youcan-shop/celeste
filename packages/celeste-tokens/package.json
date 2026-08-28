@@ -40,6 +40,10 @@
       "import": "./dist/json/typo.json"
     }
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "engines": {
     "node": ">=20.10.0"
   },

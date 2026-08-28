@@ -15,6 +15,10 @@ The component API is generated from source and ships inside the package, so it
 always matches the installed version. Do not guess props, and do not rely on
 memory of other design systems — Celeste's `Button` is not shadcn's.
 
+**TypeScript will not catch an invented prop.** Vue passes anything it does not
+recognise through to the DOM as an attribute, so `<StatusBadge icon="…" />`
+compiles cleanly, renders no icon, and reports nothing. Looking the component up is the only way to know a prop exists.
+
 ```
 node_modules/@youcan/celeste/ai/component-registry.md   # props, events, slots
 node_modules/@youcan/celeste/ai/tokens.md               # every CSS custom property

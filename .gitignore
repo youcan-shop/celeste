@@ -10,3 +10,6 @@ node-compile-cache
 
 # Generated agent registry (built during CI, shipped in the package tarball)
 packages/celeste-vue/ai
+
+# Local pack artifacts
+*.tgz

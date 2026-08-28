@@ -38,12 +38,15 @@ expects an `<i>` in a slot — they are not interchangeable.
 
 ## Never build an icon name at runtime
 
-This is the mistake that costs the most time, because it works locally.
-
 Icon classes are resolved at build time by UnoCSS scanning source files for
 literal class strings. A name assembled at runtime never appears in the source,
-so UnoCSS never generates a rule for it. In dev the whole collection is
-available and it renders; in a production build it silently renders nothing.
+so UnoCSS never generates a rule for it. **The element renders with no icon and
+no error** — nothing warns you, in dev or in production.
+
+If you have seen this pattern work, it was probably inside Celeste's own repo:
+its `uno.config.ts` safelists the entire collection when `NODE_ENV=dev`, so
+Storybook resolves any name. Consumer apps have no such safelist, so the same
+code that worked in Storybook renders nothing in your app.
 
 **Incorrect:**
 
