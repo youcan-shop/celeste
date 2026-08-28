@@ -1,0 +1,116 @@
+{
+  "skill_name": "celeste-ui",
+  "description": "Prompts a product engineer would plausibly write, each targeting a rule the skill is supposed to enforce. An answer that violates an expectation means the rule is not landing — fix the rule's wording before adding more rules.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "In our Vue 3 app using @youcan/celeste, build a settings card with a title, some muted description text, and a Save button. Give it a white background, 16px padding and rounded corners.",
+      "expected_output": "A component whose styles are entirely token references, using Button from the library.",
+      "expectations": [
+        "Uses `var(--spacing-16)` rather than a literal 16px",
+        "Uses `var(--radius-*)` rather than a literal border-radius",
+        "Uses `var(--color-bg-white-0)` rather than #fff or white",
+        "Uses `var(--color-text-sub-600)` for the muted text, not a neutral primitive or a hex value",
+        "Uses `font: var(--label-*)` or another typography shorthand rather than font-size",
+        "Imports Button from @youcan/celeste rather than styling a raw <button>"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Celeste app needs to support dark mode on this panel component. Make sure it looks right in dark.",
+      "expected_output": "No new dark-mode CSS; semantic tokens used throughout, with an explanation that theming is automatic.",
+      "expectations": [
+        "Does NOT add a [data-theme='dark'] block or a prefers-color-scheme media query",
+        "Does NOT add dark-specific colour values",
+        "Replaces any hard-coded or primitive colours with semantic tokens",
+        "Explains that semantic tokens re-theme automatically and that data-theme is set on an ancestor"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add a status indicator to this row using @youcan/celeste. It shows success, warning, or error, each with its own icon.",
+      "expected_output": "StatusBadge, or a lookup map of complete icon class strings — never an interpolated icon name.",
+      "expectations": [
+        "Does NOT build the icon class by interpolation, e.g. `i-celeste-${status}-fill`",
+        "Either uses StatusBadge, or maps each state to a complete literal class string",
+        "If StatusBadge is used, does not also pass an icon — it derives one from `state`",
+        "Renders icons as a class on an element, not as an imported icon component"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I need a primary call-to-action button at the bottom of this onboarding page, plus a cancel option next to it.",
+      "expected_output": "One FancyButton for the CTA and a lower-emphasis Button or LinkButton for cancel.",
+      "expectations": [
+        "Uses FancyButton for the single primary call to action",
+        "Does NOT use FancyButton for both buttons",
+        "Uses Button (e.g. neutral or ghost variant) or LinkButton for cancel",
+        "Sets emphasis through variant/intent props rather than custom CSS"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Set up @youcan/celeste in a fresh Vue 3 + Vite app.",
+      "expected_output": "Both CSS imports in the right order, plugin or named-import registration.",
+      "expectations": [
+        "Imports @youcan/celeste-tokens/tokens.css as well as @youcan/celeste/assets/celeste.css",
+        "Imports the token CSS before the component CSS",
+        "Explains that celeste.css does not define the tokens it uses",
+        "Registers components via the Celeste plugin or by importing them directly"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Make this Celeste Button wider and give it our brand purple background.",
+      "expected_output": "Layout via class, a pushback on the colour override, or a token-based approach.",
+      "expectations": [
+        "Uses the `class` prop for width/layout only",
+        "Does NOT override the button's background with a raw colour value",
+        "Points to the existing intent/variant props, or flags that a new brand colour belongs in the tokens package",
+        "Does not restyle the component's typography through class"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Build a data table with sortable columns, pagination, and an empty state, using our design system.",
+      "expected_output": "Composed from the library's Table parts, Pagination, and TableEmpty.",
+      "expectations": [
+        "Looks up the component registry rather than assuming prop names",
+        "Composes Table sub-components (TableHeader, TableRow, TableCell, …) rather than raw <table> markup",
+        "Uses the library's Pagination component rather than hand-rolled page controls",
+        "Uses TableEmpty rather than a custom empty-state div"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "What props does Celeste's Combobox take?",
+      "expected_output": "An answer read out of the shipped registry, not recalled.",
+      "expectations": [
+        "Reads node_modules/@youcan/celeste/ai/component-registry.md rather than answering from memory",
+        "Greps for the specific component rather than reading the whole file",
+        "Reports props with their actual union values and defaults",
+        "Does not invent props from another design system's Combobox"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Add a GitHub sign-in button to the login form.",
+      "expected_output": "SocialButton with brand=\"github\" and no icon passed.",
+      "expectations": [
+        "Uses SocialButton rather than composing Button with a GitHub icon",
+        "Passes brand=\"github\"",
+        "Does NOT pass an icon — the provider mark is automatic"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Our sidebar needs a divider between sections and a small icon-only button to collapse it.",
+      "expected_output": "Existing library components rather than styled divs.",
+      "expectations": [
+        "Uses ContentDivider or the sidebar's own separator rather than a styled div or <hr>",
+        "Uses CompactButton for the icon-only control rather than Button with custom sizing",
+        "Passes the icon to CompactButton via its required `icon` prop, not as a child"
+      ]
+    }
+  ]
+}

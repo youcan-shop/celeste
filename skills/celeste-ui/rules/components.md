@@ -19,21 +19,21 @@ keyboard handling, focus management, and dark mode.
 
 Five components with overlapping props. The types cannot tell you which to use.
 
-| Use             | When                                                                                                   |
-| --------------- | ------------------------------------------------------------------------------------------------------ |
-| `Button`        | Any standard action. The default — start here.                                                         |
-| `FancyButton`   | The single primary call to action on a page. Using more than one defeats the emphasis.                 |
-| `CompactButton` | Dense UI such as toolbars and table rows. Sized for one icon; pass exactly one icon as the only child. |
-| `LinkButton`    | The action reads as a link but is not navigation. Inline text, no chrome.                              |
-| `SocialButton`  | OAuth providers. Renders the provider mark from `brand` — do not pass an icon.                         |
+| Use             | When                                                                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `Button`        | Any standard action. The default — start here.                                                                            |
+| `FancyButton`   | The single primary call to action on a page. Using more than one defeats the emphasis.                                    |
+| `CompactButton` | Dense UI such as toolbars and table rows. Icon-only: takes a required `icon` class string as a **prop**, and has no slot. |
+| `LinkButton`    | The action reads as a link but is not navigation. Inline text, no chrome.                                                 |
+| `SocialButton`  | OAuth providers. Renders the provider mark from `brand` — do not pass an icon.                                            |
 
 ## Badges
 
-| Use           | When                                                                                |
-| ------------- | ----------------------------------------------------------------------------------- |
-| `Badge`       | A static label for a category. Not interactive.                                     |
-| `StatusBadge` | The value represents a **state**. Also selects its icon automatically from `state`. |
-| `Tag`         | The value can be dismissed or selected by the user.                                 |
+| Use           | When                                                                                                                                        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Badge`       | A static label for a category. Not interactive.                                                                                             |
+| `StatusBadge` | The value represents a **state**. Also selects its icon automatically from `state`.                                                         |
+| `Tag`         | The user can remove the value — set `dismissable` and handle `@dismiss`. Takes its content as a slot, where the badges take a `label` prop. |
 
 ## Prefer built-in props over `class`
 
