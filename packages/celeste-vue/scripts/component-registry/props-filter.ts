@@ -1,13 +1,38 @@
 /**
  * Prop filtering for registry generation.
  *
- * `vue-component-meta` marks every prop inherited from the DOM/Vue as `global`.
- * Left in, those swamp the useful props: each component would carry a dozen
- * entries nobody sets. We drop globals wholesale and then pull back the handful
- * that are genuinely part of Celeste's API.
+ * Components that extend a DOM element's attributes inherit hundreds of props
+ * nobody ever sets. Unfiltered, `TextInput` reports 221 props — 61 of them
+ * `aria-*` and `data-*` — and the eight that matter are unfindable.
+ *
+ * `vue-component-meta`'s `global` flag does not catch these: a prop is only
+ * global if it exists on every component, whereas these come from the specific
+ * element type the component extends, and are reported as local.
+ *
+ * What separates them reliably is where TypeScript says they were declared:
+ *
+ * - `@vue/runtime-dom` / `@vue/runtime-core` — DOM and Vue built-ins. Noise.
+ * - `reka-ui` — the primitives Celeste composes on (`as`, `asChild`,
+ *   `modelValue`, `disabled`). Genuine API, and often the whole reason a
+ *   component is useful.
+ * - the component's own `.vue` file — Celeste's own props.
+ * - nothing at all — synthesised by the compiler, e.g. `modelValue` from
+ *   `defineModel`. Always keep these.
+ *
+ * So the rule is: drop a prop when every declaration of it sits in Vue's own
+ * runtime typings, and keep everything else.
  */
 
 import type { ComponentMeta } from 'vue-component-meta';
+
+/**
+ * Packages whose declarations mark a prop as an inherited DOM/Vue built-in
+ * rather than part of Celeste's API.
+ */
+const NOISE_DECLARATION_SOURCES = [
+  '@vue/runtime-dom',
+  '@vue/runtime-core',
+];
 
 /**
  * Global props that ARE part of the component API and must survive the filter.
@@ -66,16 +91,34 @@ export function normalizeDescription(
 }
 
 export function shouldIncludeProp(prop: ComponentMeta['props'][number]): boolean {
+  if (KEEP_GLOBAL_PROPS.has(prop.name))
+    return true;
+
   if (ALWAYS_SKIP_PROPS.has(prop.name))
     return false;
 
   if (SKIP_PROP_PREFIXES.some(prefix => prop.name.startsWith(prefix)))
     return false;
 
-  if (prop.global)
-    return KEEP_GLOBAL_PROPS.has(prop.name);
+  return !isInheritedFromVue(prop);
+}
 
-  return true;
+/**
+ * True when every declaration of the prop lives in Vue's own runtime typings,
+ * which makes it a DOM or Vue built-in rather than part of Celeste's API.
+ *
+ * Props with no declarations are compiler-synthesised (`defineModel`) and are
+ * always kept.
+ */
+function isInheritedFromVue(prop: ComponentMeta['props'][number]): boolean {
+  const declarations = prop.getDeclarations?.() ?? [];
+
+  if (!declarations.length)
+    return false;
+
+  return declarations.every(declaration =>
+    NOISE_DECLARATION_SOURCES.some(source => declaration.file.includes(`/node_modules/${source}/`)),
+  );
 }
 
 /**
