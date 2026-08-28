@@ -54,7 +54,7 @@ export function renderIconsMarkdown(prefix: string, icons: IconEntry[], version:
     '```',
     '',
     'Resolved by the UnoCSS `presetIcons` collection, so the class name must appear',
-    `literally in your source. A name built at runtime — \`\` ${DYNAMIC_ICON_EXAMPLE} \`\` —`,
+    `literally in your source. A name built at runtime — \`\`${DYNAMIC_ICON_EXAMPLE}\`\` —`,
     'works in dev and silently renders nothing in a production build, because UnoCSS',
     'never sees it. Map to whole class strings instead, or add the names to `safelist`.',
     '',
