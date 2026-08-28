@@ -1,21 +1,14 @@
-// Discovered through the barrel files rather than by globbing .vue files: a
-// component that is not re-exported cannot be imported by a consumer, so it
-// does not belong in the registry. 155 files, 146 public components.
-
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { basename, join, relative, resolve } from 'node:path';
 
 export interface DiscoveredComponent {
   name: string;
   group: string;
-  /** Absolute path to the `.vue` file. */
   path: string;
-  /** Repo-relative, for the registry output. */
   file: string;
   story?: string;
 }
 
-/** Matches `export { default as Button } from './button.vue';` */
 const EXPORT_RE = /export\s*\{\s*default\s+as\s+(\w+)\s*\}\s*from\s*['"](\.\/[^'"]+\.vue)['"]/g;
 
 export function discoverComponents(packageRoot: string): DiscoveredComponent[] {

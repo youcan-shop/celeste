@@ -1,6 +1,3 @@
-// vue-component-meta is also Storybook's docgen engine (.storybook/main.ts),
-// so types here resolve identically to what Storybook shows.
-
 import type { MetaCheckerOptions } from 'vue-component-meta';
 import type { DiscoveredComponent } from './discovery.ts';
 import type { ComponentEntry, EventEntry, PropEntry, SlotEntry } from './types.ts';
@@ -43,7 +40,6 @@ export function extractComponent(
       };
     })
     .sort((a, b) => {
-      // Required props first — they are what a caller must supply.
       if (a.required !== b.required)
         return a.required ? -1 : 1;
 

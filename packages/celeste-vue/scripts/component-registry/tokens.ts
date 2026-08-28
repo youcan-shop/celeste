@@ -1,11 +1,3 @@
-// Parsed from the built tokens.css, not the source JSON, so names match what
-// exists at runtime without reimplementing style-dictionary's transforms.
-// Requires @youcan/celeste-tokens to be built first.
-//
-// Semantic == redeclared under [data-theme="dark"]. Not a heuristic: the dark
-// theme only overrides tokens that carry meaning, so themed and semantic are
-// the same property.
-
 import type { TokenEntry } from './types.ts';
 import { readFileSync } from 'node:fs';
 

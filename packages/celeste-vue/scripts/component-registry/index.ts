@@ -1,11 +1,3 @@
-// Generates ai/ — Celeste's public API for coding agents in product apps.
-// Run: pnpm --filter @youcan/celeste codegen:registry
-//
-// Output is gitignored and rebuilt every build, so it cannot drift. It ships in
-// the npm package (see `files`), so an app reads the API of the exact version
-// it has installed.
-// Requires celeste-tokens and celeste-icons to be built first.
-
 import type { ComponentEntry, ComponentRegistry } from './types';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -42,8 +34,6 @@ function buildComponentRegistry(): ComponentRegistry {
   const discovered = discoverComponents(packageRoot);
   const checker = createComponentChecker(packageRoot);
 
-  // Siblings are the other public components in the same folder — how compound
-  // components (Select, Table, Sidebar) advertise the parts they compose with.
   const byGroup = new Map<string, string[]>();
 
   for (const component of discovered) {

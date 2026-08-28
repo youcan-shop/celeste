@@ -1,7 +1,3 @@
-// icons.json is ~1 MB of path data, so this emits names only. Names come from
-// the built collection (what UnoCSS resolves against); categories come from the
-// source directory layout, the only place that grouping exists.
-
 import type { IconEntry } from './types.ts';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';

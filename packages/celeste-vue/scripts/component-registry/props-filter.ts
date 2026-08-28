@@ -1,16 +1,10 @@
 import type { ComponentMeta } from 'vue-component-meta';
 
-// Filter on where TypeScript says a prop was declared, not on the `global`
-// flag: props inherited from an element type are reported as local, so `global`
-// misses them and TextInput reports 221 props instead of 6. reka-ui
-// declarations are real API (`as`, `modelValue`) and must survive.
 const NOISE_DECLARATION_SOURCES = [
   '@vue/runtime-dom',
   '@vue/runtime-core',
 ];
 
-// Declared on most components and merged through clsx, but Vue reports it as a
-// built-in because it also exists on every element.
 const KEEP_GLOBAL_PROPS = new Set([
   'class',
 ]);
@@ -27,8 +21,6 @@ const SKIP_PROP_PREFIXES = [
   'onVue:',
 ];
 
-// Upstream JSDoc for these runs to several paragraphs and would repeat on the
-// ~85 components extending PrimitiveProps.
 const INHERITED_PROP_DESCRIPTIONS: Record<string, string> = {
   as: 'Element or component to render as.',
   asChild: 'Render the child element instead of this component\'s own, merging props onto it.',
@@ -63,7 +55,6 @@ export function shouldIncludeProp(prop: ComponentMeta['props'][number]): boolean
 function isInheritedFromVue(prop: ComponentMeta['props'][number]): boolean {
   const declarations = prop.getDeclarations?.() ?? [];
 
-  // No declarations means compiler-synthesised, e.g. defineModel.
   if (!declarations.length)
     return false;
 
@@ -72,7 +63,6 @@ function isInheritedFromVue(prop: ComponentMeta['props'][number]): boolean {
   );
 }
 
-/** Strips the `| undefined` that optional props carry; implied by `required`. */
 export function cleanType(type: string): string {
   return type
     .split('|')
@@ -81,7 +71,6 @@ export function cleanType(type: string): string {
     .join(' | ');
 }
 
-/** Returns undefined for anything that is not a pure string-literal union. */
 export function extractLiteralValues(type: string): string[] | undefined {
   const parts = type.split('|').map(part => part.trim()).filter(Boolean);
 

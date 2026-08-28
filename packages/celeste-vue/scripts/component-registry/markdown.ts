@@ -1,6 +1,3 @@
-// The agent-readable half of the registry, rendered from the same data as the
-// JSON. Grouped by folder so compound parts sit together.
-
 import type { ComponentEntry, ComponentRegistry } from './types.ts';
 
 export function renderRegistryMarkdown(registry: ComponentRegistry): string {
