@@ -1,35 +1,22 @@
-/**
- * Celeste component registry generator.
- *
- * Emits machine- and agent-readable descriptions of Celeste's public API into
- * `ai/`, for coding agents working in product apps.
- *
- *   Run:    pnpm --filter @youcan/celeste codegen:registry
- *   Output: ai/component-registry.json   full API, for tools
- *           ai/component-registry.md     the same, for agents to read
- *           ai/tokens.md                 every CSS custom property
- *           ai/icons.md                  every icon name
- *
- * The output is gitignored and regenerated on every build, so it cannot drift
- * from source and never conflicts in review. It ships to consumers through the
- * package tarball (`files` includes `ai`), which means an app always reads the
- * API of the exact Celeste version it has installed.
- *
- * Requires `@youcan/celeste-tokens` and `@youcan/celeste-icons` to be built
- * first — the token names and icon list are read from their `dist/` output.
- */
+// Generates ai/ — Celeste's public API for coding agents in product apps.
+// Run: pnpm --filter @youcan/celeste codegen:registry
+//
+// Output is gitignored and rebuilt every build, so it cannot drift. It ships in
+// the npm package (see `files`), so an app reads the API of the exact version
+// it has installed.
+// Requires celeste-tokens and celeste-icons to be built first.
 
-import type { ComponentEntry, ComponentRegistry } from './types.ts';
+import type { ComponentEntry, ComponentRegistry } from './types';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
-import { discoverComponents } from './discovery.ts';
-import { createComponentChecker, extractComponent } from './extract.ts';
-import { buildIconIndex, renderIconsMarkdown } from './icons.ts';
-import { renderRegistryMarkdown } from './markdown.ts';
-import { buildTokenIndex, renderTokensMarkdown } from './tokens.ts';
-import { REGISTRY_SCHEMA_VERSION } from './types.ts';
+import { discoverComponents } from './discovery';
+import { createComponentChecker, extractComponent } from './extract';
+import { buildIconIndex, renderIconsMarkdown } from './icons';
+import { renderRegistryMarkdown } from './markdown';
+import { buildTokenIndex, renderTokensMarkdown } from './tokens';
+import { REGISTRY_SCHEMA_VERSION } from './types';
 
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const workspaceRoot = resolve(packageRoot, '../..');

@@ -1,11 +1,5 @@
-/**
- * Type extraction via `vue-component-meta`.
- *
- * This is the same engine Storybook is configured to use for docgen
- * (`.storybook/main.ts` sets `docgen: 'vue-component-meta'`), so the types here
- * resolve identically to what Storybook displays. That matters: two extractors
- * disagreeing about the same component is worse than having no registry.
- */
+// vue-component-meta is also Storybook's docgen engine (.storybook/main.ts),
+// so types here resolve identically to what Storybook shows.
 
 import type { MetaCheckerOptions } from 'vue-component-meta';
 import type { DiscoveredComponent } from './discovery.ts';
@@ -37,9 +31,6 @@ export function extractComponent(
     .map((prop) => {
       const type = cleanType(prop.type);
       const values = extractLiteralValues(type);
-      // Prop docs come from JSDoc on the `Props` interface. There is no curated
-      // override layer anywhere in this generator: everything it emits is a
-      // function of the source, so the output can never disagree with the code.
       const description = normalizeDescription(prop.name, prop.description);
 
       return {

@@ -1,14 +1,6 @@
-/**
- * Icon index generation.
- *
- * `@youcan/celeste-icons`' built `icons.json` is ~1 MB of SVG path data — an
- * agent that opens it burns its context window for nothing. All anyone needs is
- * the list of names, so that is all this emits.
- *
- * Names come from the built collection (authoritative — it is what UnoCSS
- * resolves against), while categories come from the source directory layout,
- * which is the only place that grouping exists.
- */
+// icons.json is ~1 MB of path data, so this emits names only. Names come from
+// the built collection (what UnoCSS resolves against); categories come from the
+// source directory layout, the only place that grouping exists.
 
 import type { IconEntry } from './types.ts';
 import { readdirSync, readFileSync } from 'node:fs';
@@ -43,7 +35,6 @@ function mapNamesToCategories(iconsDir: string): Map<string, string> {
   return categories;
 }
 
-/** The broken pattern, spelled out so the warning below can show it verbatim. */
 const DYNAMIC_ICON_EXAMPLE = `:class="\`i-celeste-\${name}\`"`;
 
 export function renderIconsMarkdown(prefix: string, icons: IconEntry[], version: string): string {

@@ -1,25 +1,16 @@
-/**
- * Token index generation.
- *
- * Parsed out of `@youcan/celeste-tokens`' built `tokens.css` rather than its
- * source JSON, so the names here are exactly the custom properties that exist at
- * runtime — no reimplementation of style-dictionary's naming transforms to drift
- * out of sync. This means the tokens package must be built first.
- *
- * A token is classed as SEMANTIC when it is re-declared under
- * `[data-theme="dark"]`. That is not a heuristic: the dark theme only overrides
- * tokens that carry meaning (`bg`, `text`, `icon`, `stroke`, `state`, …), while
- * raw ramps like `--color-neutral-600` stay fixed. Being themed and being
- * semantic are the same property, so the distinction is derived rather than
- * hand-maintained.
- */
+// Parsed from the built tokens.css, not the source JSON, so names match what
+// exists at runtime without reimplementing style-dictionary's transforms.
+// Requires @youcan/celeste-tokens to be built first.
+//
+// Semantic == redeclared under [data-theme="dark"]. Not a heuristic: the dark
+// theme only overrides tokens that carry meaning, so themed and semantic are
+// the same property.
 
 import type { TokenEntry } from './types.ts';
 import { readFileSync } from 'node:fs';
 
 const DECLARATION_RE = /--([a-z0-9-]+)\s*:\s*([^;}]+)/gi;
 
-/** Groups whose members are raw values, never re-themed. */
 function categoryOf(name: string): string {
   return name.split('-')[0];
 }

@@ -1,12 +1,5 @@
-/**
- * Markdown rendering of the registry.
- *
- * The JSON is the machine contract; this is what an agent actually reads. Both
- * are generated from the same data, so they cannot disagree.
- *
- * Components are grouped by folder because that is how they compose — anyone
- * reaching for `SelectTrigger` needs to see `SelectContent` next to it.
- */
+// The agent-readable half of the registry, rendered from the same data as the
+// JSON. Grouped by folder so compound parts sit together.
 
 import type { ComponentEntry, ComponentRegistry } from './types.ts';
 

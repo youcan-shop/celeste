@@ -1,51 +1,20 @@
-/**
- * Prop filtering for registry generation.
- *
- * Components that extend a DOM element's attributes inherit hundreds of props
- * nobody ever sets. Unfiltered, `TextInput` reports 221 props — 61 of them
- * `aria-*` and `data-*` — and the eight that matter are unfindable.
- *
- * `vue-component-meta`'s `global` flag does not catch these: a prop is only
- * global if it exists on every component, whereas these come from the specific
- * element type the component extends, and are reported as local.
- *
- * What separates them reliably is where TypeScript says they were declared:
- *
- * - `@vue/runtime-dom` / `@vue/runtime-core` — DOM and Vue built-ins. Noise.
- * - `reka-ui` — the primitives Celeste composes on (`as`, `asChild`,
- *   `modelValue`, `disabled`). Genuine API, and often the whole reason a
- *   component is useful.
- * - the component's own `.vue` file — Celeste's own props.
- * - nothing at all — synthesised by the compiler, e.g. `modelValue` from
- *   `defineModel`. Always keep these.
- *
- * So the rule is: drop a prop when every declaration of it sits in Vue's own
- * runtime typings, and keep everything else.
- */
-
 import type { ComponentMeta } from 'vue-component-meta';
 
-/**
- * Packages whose declarations mark a prop as an inherited DOM/Vue built-in
- * rather than part of Celeste's API.
- */
+// Filter on where TypeScript says a prop was declared, not on the `global`
+// flag: props inherited from an element type are reported as local, so `global`
+// misses them and TextInput reports 221 props instead of 6. reka-ui
+// declarations are real API (`as`, `modelValue`) and must survive.
 const NOISE_DECLARATION_SOURCES = [
   '@vue/runtime-dom',
   '@vue/runtime-core',
 ];
 
-/**
- * Global props that ARE part of the component API and must survive the filter.
- *
- * `class` is declared explicitly on most Celeste components
- * (`class?: HTMLAttributes['class']`) and merged through `clsx`, but Vue still
- * reports it as global because it also exists on every element.
- */
+// Declared on most components and merged through clsx, but Vue reports it as a
+// built-in because it also exists on every element.
 const KEEP_GLOBAL_PROPS = new Set([
   'class',
 ]);
 
-/** Props that are never useful to an agent, global or not. */
 const ALWAYS_SKIP_PROPS = new Set([
   'key',
   'ref',
@@ -54,29 +23,17 @@ const ALWAYS_SKIP_PROPS = new Set([
   'style',
 ]);
 
-/** Lifecycle hooks Vue injects onto every component. */
 const SKIP_PROP_PREFIXES = [
   'onVue:',
 ];
 
-/**
- * Concise replacements for props inherited from `reka-ui`'s `PrimitiveProps`.
- *
- * Their upstream JSDoc runs to several paragraphs and a docs link, and it would
- * otherwise repeat verbatim on the ~85 components that extend `PrimitiveProps`.
- * The behaviour is identical everywhere, so one short line serves better than
- * the same essay 85 times.
- */
+// Upstream JSDoc for these runs to several paragraphs and would repeat on the
+// ~85 components extending PrimitiveProps.
 const INHERITED_PROP_DESCRIPTIONS: Record<string, string> = {
   as: 'Element or component to render as.',
   asChild: 'Render the child element instead of this component\'s own, merging props onto it.',
 };
 
-/**
- * Descriptions come from JSDoc, which is free to wrap across lines and
- * paragraphs. Collapse to a single line so it cannot break the Markdown list it
- * gets rendered into.
- */
 export function collapseWhitespace(description: string | undefined): string | undefined {
   const collapsed = description?.replace(/\s+/g, ' ').trim();
 
@@ -103,16 +60,10 @@ export function shouldIncludeProp(prop: ComponentMeta['props'][number]): boolean
   return !isInheritedFromVue(prop);
 }
 
-/**
- * True when every declaration of the prop lives in Vue's own runtime typings,
- * which makes it a DOM or Vue built-in rather than part of Celeste's API.
- *
- * Props with no declarations are compiler-synthesised (`defineModel`) and are
- * always kept.
- */
 function isInheritedFromVue(prop: ComponentMeta['props'][number]): boolean {
   const declarations = prop.getDeclarations?.() ?? [];
 
+  // No declarations means compiler-synthesised, e.g. defineModel.
   if (!declarations.length)
     return false;
 
@@ -121,10 +72,7 @@ function isInheritedFromVue(prop: ComponentMeta['props'][number]): boolean {
   );
 }
 
-/**
- * Strip the `| undefined` that optional props always carry — it is implied by
- * `required: false` and only adds noise to every single entry.
- */
+/** Strips the `| undefined` that optional props carry; implied by `required`. */
 export function cleanType(type: string): string {
   return type
     .split('|')
@@ -133,11 +81,7 @@ export function cleanType(type: string): string {
     .join(' | ');
 }
 
-/**
- * Pull the members out of a string-literal union so consumers get a list of
- * allowed values rather than having to parse the type themselves. Returns
- * undefined for anything that is not a pure union of string literals.
- */
+/** Returns undefined for anything that is not a pure string-literal union. */
 export function extractLiteralValues(type: string): string[] | undefined {
   const parts = type.split('|').map(part => part.trim()).filter(Boolean);
 
