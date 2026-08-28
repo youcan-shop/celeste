@@ -8,6 +8,7 @@ export interface BadgeProps {
   type?: 'basic' | 'dot' | 'leading-icon' | 'trailing-icon';
   state?: 'faded' | 'information' | 'warning' | 'error' | 'success' | 'away' | 'feature' | 'verified' | 'highlighted' | 'stable';
   disabled?: boolean;
+  /** Icon class such as `i-celeste-information-fill`. Only rendered when `type` is `leading-icon` or `trailing-icon`. */
   icon?: string;
   label?: string;
   class?: HTMLAttributes['class'];
