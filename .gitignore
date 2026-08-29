@@ -7,3 +7,6 @@ storybook-static
 *storybook.log
 assets
 node-compile-cache
+
+# Generated agent registry (built during CI, shipped in the npm package)
+packages/celeste-vue/ai

@@ -24,6 +24,9 @@
   },
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20.10.0"
   },

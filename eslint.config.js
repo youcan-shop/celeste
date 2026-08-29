@@ -5,5 +5,6 @@ export default youcan({
   vue: true,
   ignores: [
     'pnpm-workspace.yaml',
+    'packages/celeste-vue/ai',
   ],
 });
