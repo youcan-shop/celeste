@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { Primitive } from 'reka-ui';
 
 export interface SocialButtonProps {
-  /** Provider key. Selects the brand mark automatically — pass no icon of your own. */
   brand: 'apple' | 'twitter' | 'google' | 'facebook' | 'linkedin' | 'github';
   variant?: 'fill' | 'stroke';
   class?: string;
