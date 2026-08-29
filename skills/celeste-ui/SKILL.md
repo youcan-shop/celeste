@@ -41,6 +41,20 @@ grep 'color-text' node_modules/@youcan/celeste/ai/tokens.md
 If those files are missing, the app is on a Celeste version that predates them.
 Fall back to the type definitions in `node_modules/@youcan/celeste/dist/`.
 
+**Celeste ships its own source and stories too**, so every path the registry
+prints is readable. When an entry ends with:
+
+```
+**Example:** `src/components/table/stories/table.stories.ts`
+```
+
+read it at
+`node_modules/@youcan/celeste/src/components/table/stories/table.stories.ts`.
+
+Reach for the story whenever you need to see a component **used** rather than
+described — above all for compound components, where the registry cannot express
+nesting. See [rules/components.md](rules/components.md).
+
 ## Rules
 
 Each rule links to a file with correct/incorrect pairs. Read the linked file

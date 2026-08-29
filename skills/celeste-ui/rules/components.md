@@ -15,6 +15,47 @@ Celeste exports 146 components. Before writing a styled `<div>`, a custom
 `<button>`, or a bespoke dropdown, look it up. A hand-rolled control loses
 keyboard handling, focus management, and dark mode.
 
+## Compound components: read the story for nesting
+
+Around twenty components are compound — `Table`, `Select`, `Modal`, `Sidebar`,
+`DropdownMenu`, `Combobox`, `TabMenu`, `Pagination`, and others ship as a parent
+plus a set of parts.
+
+The registry lists those parts under **Composes with**, but that field is just
+"everything else in this folder" — it carries **no nesting order**. It will not
+tell you that `TableRow` goes inside `TableBody`, or `TableCell` inside
+`TableRow`. Do not guess the shape from part names.
+
+Instead read the worked example. Every compound component has one, and the
+registry gives its path in the **Example** field:
+
+```
+**Example:** `src/components/table/stories/table.stories.ts`
+```
+
+That path resolves inside the installed package:
+
+```bash
+cat node_modules/@youcan/celeste/src/components/table/stories/table.stories.ts
+```
+
+A story is a few KB and shows real nesting, so it is cheaper and more reliable
+than reading the component sources one by one.
+
+## Some components carry state, others are markup only
+
+Nothing in a type signature tells you which, and guessing wrong wastes a search
+for props that do not exist.
+
+| Component    | Behaviour                                                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Table`      | **Presentational only.** No sorting, filtering, or selection. Every part takes `class` plus a slot. Bring your own table state — Celeste renders the markup. |
+| `Pagination` | **Stateful.** Owns the current page via `v-model:page`, given `total` and `itemsPerPage`. Do not hand-roll page controls.                                    |
+
+So a sortable, paginated table is Celeste's `Table` markup driven by your own
+sorting logic, with `Pagination` handling page state, and `TableEmpty` for the
+empty case.
+
 ## Buttons
 
 Five components with overlapping props. The types cannot tell you which to use.

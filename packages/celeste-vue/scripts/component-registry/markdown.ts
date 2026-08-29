@@ -33,14 +33,16 @@ export function renderRegistryMarkdown(registry: ComponentRegistry): string {
 
     lines.push('---', '', `## ${group}`, '');
 
+    const groupStory = components.find(component => component.story)?.story;
+
     for (const component of components)
-      lines.push(...renderComponent(component));
+      lines.push(...renderComponent(component, groupStory));
   }
 
   return `${lines.join('\n').trimEnd()}\n`;
 }
 
-function renderComponent(component: ComponentEntry): string[] {
+function renderComponent(component: ComponentEntry, groupStory: string | undefined): string[] {
   const lines: string[] = [`### ${component.name}`, ''];
 
   if (component.props.length) {
@@ -84,12 +86,14 @@ function renderComponent(component: ComponentEntry): string[] {
   if (component.siblings.length)
     lines.push(`**Composes with:** ${component.siblings.map(name => `\`${name}\``).join(', ')}`, '');
 
-  lines.push(
-    component.story
-      ? `**Example:** \`${component.story}\``
-      : '**Example:** none — this component has no story.',
-    '',
-  );
+  lines.push(`**Source:** \`${component.file}\``, '');
+
+  if (component.story)
+    lines.push(`**Example:** \`${component.story}\``, '');
+  else if (groupStory)
+    lines.push(`**Example:** no story of its own — see \`${groupStory}\` for the group.`, '');
+  else
+    lines.push('**Example:** none. Read the source above.', '');
 
   return lines;
 }
