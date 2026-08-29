@@ -1,6 +1,6 @@
 ---
 name: celeste-ui
-description: Build UI with Celeste, YouCan's design system for Vue 3. Use when writing or reviewing components in an app that depends on @youcan/celeste — choosing a component, styling with design tokens, adding icons, or setting the library up. Keywords: Celeste, @youcan/celeste, celeste-tokens, celeste-icons, YouCan design system.
+description: "Build UI with Celeste, YouCan's design system for Vue 3. Use when writing or reviewing components in an app that depends on @youcan/celeste — choosing a component, styling with design tokens, adding icons, or setting the library up. Keywords: Celeste, @youcan/celeste, celeste-tokens, celeste-icons, YouCan design system."
 ---
 
 # Celeste UI
