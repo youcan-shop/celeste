@@ -24,6 +24,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 <style scoped lang="scss">
 .celeste-text-input-affix {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   color: var(--celeste-text-input-affix-color);
 
