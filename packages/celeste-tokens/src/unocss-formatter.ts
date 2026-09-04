@@ -30,6 +30,7 @@ export function unocssFormat({ dictionary, animations }: { dictionary: any; anim
       letterSpacing: {},
       radius: {},
       shadow: {},
+      breakpoint: {},
       // spacing: {},
       duration: {},
       animation: {
@@ -60,6 +61,7 @@ export function unocssFormat({ dictionary, animations }: { dictionary: any; anim
     // spacing: 'spacing',
     radius: 'radius',
     shadow: 'shadow',
+    breakpoint: 'breakpoint',
     boxShadow: 'shadow',
     animation: 'duration',
     duration: 'duration',

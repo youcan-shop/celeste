@@ -5,7 +5,7 @@ description: "Build UI with Celeste, YouCan's design system for Vue 3. Use when 
 
 # Celeste UI
 
-Celeste is YouCan's design system: 146 Vue 3 components, 347 design tokens, and
+Celeste is YouCan's design system: 146 Vue 3 components, 352 design tokens, and
 3,148 icons. This skill covers building product UI **with** Celeste. It does not
 cover contributing to the Celeste repo itself.
 
