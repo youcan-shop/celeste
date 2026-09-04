@@ -178,3 +178,10 @@ mkdirSync(tokensDist, { recursive: true });
 for (const file of readdirSync(tokensSrc).filter((f: string) => f.endsWith('.json'))) {
   copyFileSync(`${tokensSrc}/${file}`, `${tokensDist}/${file}`);
 }
+
+const { breakpoint } = JSON.parse(readFileSync(`${tokensSrc}/breakpoint.json`, 'utf8'));
+
+writeFileSync(resolve(dist, 'media.css'), Object.entries(breakpoint)
+  .map(([name, token]: [string, any]) => `@custom-media --celeste-${name} (width >= ${token.$value}px);\n`
+    + `@custom-media --celeste-lt-${name} (width < ${token.$value}px);\n`)
+  .join(''), 'utf8');
