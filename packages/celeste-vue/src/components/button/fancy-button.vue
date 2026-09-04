@@ -81,6 +81,7 @@ $intent-map: (
 
 .celeste-fbutton {
   display: inline-flex;
+  position: relative;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
@@ -127,10 +128,21 @@ $intent-map: (
       background:
         linear-gradient(180deg, var(--celeste-fbutton-bg-start) 0%, var(--celeste-fbutton-bg-end) 100%),
         #{map.get($v, bg)};
-      box-shadow:
-        inset 0 1px 0.5px 0.5px hsl(0deg 0% 100% / 12%),
-        var(--shadow-fancy-buttons-#{$k});
+      box-shadow: var(--shadow-fancy-buttons-#{$k});
       color: var(--color-text-white-0);
+
+      &::before {
+        content: '';
+        position: absolute;
+        padding: 1px;
+        border-radius: inherit;
+        background: linear-gradient(180deg, rgb(255 255 255 / 12%) 0%, rgb(255 255 255 / 0%) 100%);
+        mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+        mask-clip: content-box, border-box;
+        mask-composite: exclude;
+        inset: 0;
+        pointer-events: none;
+      }
 
       &:hover {
         --celeste-fbutton-bg-start: rgb(255 255 255 / 24%);
@@ -142,7 +154,6 @@ $intent-map: (
         --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
 
         box-shadow:
-          inset 0 1px 0.5px 0.5px hsl(0deg 0% 100% / 12%),
           var(--shadow-fancy-buttons-#{$k}),
           if($k == 'neutral', var(--shadow-buttons-important-focus), var(--shadow-buttons-#{$k}-focus));
       }
