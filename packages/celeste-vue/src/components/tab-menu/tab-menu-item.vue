@@ -23,7 +23,9 @@ const forwardedProps = useForwardProps(delegatedProps);
     <span v-if="$slots.default" class="celeste-tab-menu-item-label">
       <slot />
     </span>
-    <slot name="postfix" />
+    <span v-if="$slots.postfix" class="celeste-tab-menu-item-postfix">
+      <slot name="postfix" />
+    </span>
   </TabsTrigger>
 </template>
 
@@ -36,7 +38,9 @@ const forwardedProps = useForwardProps(delegatedProps);
   justify-content: flex-start;
   width: 100%;
   padding: var(--spacing-8);
-  transition: all var(--animation-fast) var(--animation-function);
+  transition:
+    background-color var(--animation-fast) var(--animation-function),
+    color var(--animation-fast) var(--animation-function);
   border: none;
   border-radius: var(--radius-8);
   color: var(--color-text-sub-600);
@@ -47,6 +51,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   &:deep(i) {
     width: 20px;
     height: 20px;
+    transition: color var(--animation-fast) var(--animation-function);
   }
 
   &:focus {
@@ -54,33 +59,32 @@ const forwardedProps = useForwardProps(delegatedProps);
   }
 
   &[data-orientation='horizontal'] {
-    position: relative;
     width: fit-content;
     padding-block: var(--spacing-14);
     padding-inline: var(--spacing-0);
-
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      inset-inline: 0;
-      inset-block-end: 0;
-      width: 100%;
-      height: 2px;
-      transition: all var(--animation-fast) var(--animation-function);
-      background-color: transparent;
-    }
+    background-color: var(--color-bg-white-0);
   }
 
-  &[data-orientation='vertical'][data-state='active'] {
-    background-color: var(--color-bg-weak-50);
-  }
-
-  &[data-orientation='horizontal'][data-state='active'] {
+  &[data-orientation='vertical'] {
     background-color: var(--color-bg-white-0);
 
-    &::after {
-      background-color: var(--color-primary-base);
+    &:hover,
+    &[data-state='active'] {
+      background-color: var(--color-bg-weak-50);
+    }
+
+    .celeste-tab-menu-item-postfix {
+      display: inline-flex;
+      transform: scale(0.75);
+      transition:
+        transform var(--animation-fast) var(--animation-function),
+        opacity var(--animation-fast) var(--animation-function);
+      opacity: 0;
+    }
+
+    &[data-state='active'] .celeste-tab-menu-item-postfix {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 
@@ -92,10 +96,6 @@ const forwardedProps = useForwardProps(delegatedProps);
     span {
       color: var(--color-text-strong-950);
     }
-  }
-
-  &[data-state='inactive'] {
-    background-color: var(--color-bg-white-0);
   }
 
   .celeste-tab-menu-item-label {
