@@ -40,7 +40,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   border: none;
   border-radius: var(--radius-8);
   color: var(--color-text-sub-600);
-  font-size: var(--font-size-10);
+  font: var(--label-sm);
   cursor: pointer;
   gap: var(--spacing-6);
 
@@ -101,7 +101,6 @@ const forwardedProps = useForwardProps(delegatedProps);
   .celeste-tab-menu-item-label {
     flex: 1;
     overflow: hidden;
-    font-size: var(--font-size-2);
     text-align: start;
     text-overflow: ellipsis;
     white-space: nowrap;
