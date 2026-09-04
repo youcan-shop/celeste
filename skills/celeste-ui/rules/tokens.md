@@ -1,11 +1,11 @@
 # Design tokens
 
 Every visual value in Celeste comes from a token exposed as a CSS custom
-property. There are 347 of them, listed in
+property. There are 352 of them, listed in
 `node_modules/@youcan/celeste/ai/tokens.md`.
 
 Styling with tokens is not a style preference. Dark mode is implemented _only_
-through them: 70 of the 347 are redefined under `[data-theme="dark"]`. A
+through them: 70 of the 352 are redefined under `[data-theme="dark"]`. A
 hard-coded colour is invisible to that mechanism, so it stays light while
 everything around it flips.
 
@@ -119,6 +119,27 @@ Writing the override is both redundant and a second value to keep in sync.
 
 If a semantic token does not exist for what you need, that is a gap in the
 design system — raise it rather than hard-coding around it.
+
+## Breakpoints are the one exception
+
+`--breakpoint-sm` through `--breakpoint-2xl` are custom properties like the rest,
+but CSS does not read a custom property inside a media condition. Inside a
+component, write the literal:
+
+```vue
+<style scoped>
+@media (width >= 768px) {
+  .card {
+    padding: var(--spacing-24);
+  }
+}
+</style>
+```
+
+`var(--breakpoint-md)` still works anywhere a length is expected, for example
+`max-width`. Consumers on SCSS get `$breakpoint-md` from `tokens.scss`, which
+sass does resolve in a media condition, and consumers on UnoCSS get the
+`md:` / `lt-lg:` / `at-sm:` variants from `presetCeleste`.
 
 ## Finding the right token
 
