@@ -25,39 +25,39 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 .celeste-switch {
   --width: 26px;
   --height: 16px;
+  --thumb-size: 12px;
+  --thumb-inset: 1px;
+  --travel: calc(var(--width) - var(--thumb-size) - var(--thumb-inset) * 2 - 2px);
   --bg-color: var(--color-bg-soft-200);
-  --animation-function: cubic-bezier(0.18, 0.89, 0.43, 1.19);
 
   position: relative;
+  box-sizing: border-box;
   width: var(--width);
   height: var(--height);
-  transition: background var(--animation-fast) ease-out;
+  transition: background-color var(--animation-fast) ease-out;
   border: 1px solid transparent;
   border-radius: var(--radius-full);
   background-color: var(--bg-color);
   cursor: pointer;
 
   .celeste-switch-thumb {
-    --thumb-size: 12px;
     --thumb-hole: 4px;
+    --direction: 1;
 
     position: absolute;
     box-sizing: border-box;
     width: var(--thumb-size);
     height: var(--thumb-size);
-    transform: translateY(-50%);
-    transition-property: inset-inline-start, width, height;
-    transition-duration: var(--animation-fast);
-    transition-timing-function: var(--animation-function), ease-out, ease-out;
+    transform: translateY(-50%) scale(var(--thumb-scale, 1));
+    transition: transform var(--animation-fast) ease-out;
     border-radius: var(--radius-full);
     background-color: var(--color-static-white);
     box-shadow: var(--shadow-toggle-switch);
     inset-block-start: 50%;
-    inset-inline-start: 1px;
-    will-change: transform;
+    inset-inline-start: var(--thumb-inset);
 
     &[data-state='checked'] {
-      inset-inline-start: calc(100% - var(--thumb-size) - 1px);
+      transform: translateY(-50%) translateX(calc(var(--travel) * var(--direction))) scale(var(--thumb-scale, 1));
     }
 
     &::before {
@@ -66,10 +66,14 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       width: var(--thumb-hole);
       height: var(--thumb-hole);
       margin: auto;
-      transition: background var(--animation-fast) ease-out;
+      transition: background-color var(--animation-fast) ease-out;
       border-radius: var(--radius-full);
       background-color: var(--bg-color);
       inset: var(--spacing-0);
+    }
+
+    :dir(rtl) & {
+      --direction: -1;
     }
   }
 
@@ -79,25 +83,22 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
   &:disabled {
     --bg-color: var(--color-bg-white-0);
+    --thumb-inset: var(--spacing-2);
+    --travel: calc(var(--width) - var(--thumb-size) - var(--thumb-inset) - 2px);
 
     border-color: var(--color-stroke-soft-200);
     background-color: var(--bg-color);
     pointer-events: none;
 
     .celeste-switch-thumb {
-      inset-inline-start: var(--spacing-2);
       border-color: var(--color-bg-soft-200);
       background-color: var(--color-bg-soft-200);
       box-shadow: none;
-
-      &[data-state='checked'] {
-        inset-inline-start: calc(100% - var(--thumb-size));
-      }
     }
   }
 
-  &:active:not(:disabled) .celeste-switch-thumb {
-    --thumb-size: 10px;
+  &:active:not(:disabled) {
+    --thumb-scale: 0.833;
   }
 
   &:hover:not(:active, :disabled) {

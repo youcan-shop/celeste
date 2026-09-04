@@ -30,12 +30,14 @@ function onKeydown(e: KeyboardEvent) {
 <style scoped>
 .celeste-segmented-control-item {
   display: flex;
+  position: relative;
+  z-index: 1;
   align-items: center;
   gap: var(--spacing-6);
   justify-content: center;
   width: 100%;
   padding: var(--spacing-4);
-  transition: all var(--animation-fast) ease-out;
+  transition: color var(--animation-normal) ease-out;
   border: none;
   border-radius: var(--radius-6);
   background-color: transparent;
@@ -44,8 +46,6 @@ function onKeydown(e: KeyboardEvent) {
   cursor: pointer;
 
   &[data-state='on'] {
-    background-color: var(--color-bg-white-0);
-    box-shadow: var(--shadow-toggle-switch);
     color: var(--color-text-strong-950);
     pointer-events: none;
   }
