@@ -141,7 +141,6 @@ $intent-map: (
         mask-clip: content-box, border-box;
         mask-composite: exclude;
         inset: 0;
-        pointer-events: none;
       }
 
       &:hover {

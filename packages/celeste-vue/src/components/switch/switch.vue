@@ -44,7 +44,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     --thumb-hole: 4px;
     --direction: 1;
 
-    display: block;
     position: absolute;
     box-sizing: border-box;
     width: var(--thumb-size);
@@ -56,7 +55,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     box-shadow: var(--shadow-toggle-switch);
     inset-block-start: 50%;
     inset-inline-start: var(--thumb-inset);
-    pointer-events: none;
 
     &[data-state='checked'] {
       transform: translateY(-50%) translateX(calc(var(--travel) * var(--direction))) scale(var(--thumb-scale, 1));
