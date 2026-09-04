@@ -6,8 +6,22 @@ import { TabsList } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useTabObserver } from '@/composables/use-tab-observer';
 
-const props = defineProps<TabsListProps & { class?: HTMLAttributes['class'] }>();
-const delegatedProps = useDelegatedProps(props, 'class');
+export interface TabMenuListProps extends TabsListProps {
+  class?: HTMLAttributes['class'];
+  bordered?: boolean;
+  scrollable?: boolean;
+  fill?: boolean;
+  align?: 'start' | 'center';
+}
+
+const props = withDefaults(defineProps<TabMenuListProps>(), {
+  bordered: true,
+  scrollable: false,
+  fill: false,
+  align: 'start',
+});
+
+const delegatedProps = useDelegatedProps(props, ['class', 'bordered', 'scrollable', 'fill', 'align']);
 
 const { listRef, indicator, ready } = useTabObserver('[data-state="active"]');
 </script>
@@ -16,6 +30,10 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="active"]');
   <TabsList
     ref="listRef"
     v-bind="delegatedProps"
+    :data-bordered="bordered"
+    :data-scrollable="scrollable"
+    :data-fill="fill"
+    :data-align="align"
     :class="clsx(
       'celeste-tab-menu-list',
       props.class,
@@ -46,12 +64,37 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="active"]');
     position: relative;
     flex-direction: row;
     padding: var(--spacing-0);
-    border-block: 1px solid var(--color-stroke-soft-200);
     gap: 24px;
+
+    &[data-bordered='true'] {
+      border-block: 1px solid var(--color-stroke-soft-200);
+    }
   }
 
   &[data-orientation='vertical'] {
     flex-direction: column;
+  }
+
+  &[data-scrollable='true'] {
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &[data-fill='true'] :deep(.celeste-tab-menu-item) {
+    flex: 1 1 0;
+    width: auto;
+  }
+
+  &[data-align='center'] :deep(.celeste-tab-menu-item) {
+    justify-content: center;
+  }
+
+  &[data-align='center'] :deep(.celeste-tab-menu-item-label) {
+    flex: 0 1 auto;
   }
 }
 
@@ -66,6 +109,10 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="active"]');
   opacity: 0;
   background-color: var(--color-primary-base);
   pointer-events: none;
+
+  .celeste-tab-menu-list[data-scrollable='true'] > & {
+    bottom: 0;
+  }
 
   &[data-ready='true'] {
     transition-duration: var(--animation-normal);

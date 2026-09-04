@@ -237,3 +237,42 @@ export const IconsOnly: Story = {
     `,
   }),
 };
+
+export const FilledAndScrollable: Story = {
+  args: {
+    orientation: 'horizontal',
+    defaultValue: 'orders',
+  },
+  render: args => ({
+    components: { TabMenu, TabMenuList, TabMenuItem, TabMenuContent, HintText },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 32px; width: 480px; margin: 0 auto;">
+        <TabMenu v-bind="args">
+          <TabMenuList fill align="center">
+            <TabMenuItem value="orders">Orders</TabMenuItem>
+            <TabMenuItem value="products">Products</TabMenuItem>
+            <TabMenuItem value="customers">Customers</TabMenuItem>
+          </TabMenuList>
+          <TabMenuContent value="orders"><div style="padding: 16px;"><HintText text="fill + align center" /></div></TabMenuContent>
+          <TabMenuContent value="products"><div style="padding: 16px;"><HintText text="fill + align center" /></div></TabMenuContent>
+          <TabMenuContent value="customers"><div style="padding: 16px;"><HintText text="fill + align center" /></div></TabMenuContent>
+        </TabMenu>
+
+        <TabMenu v-bind="args">
+          <TabMenuList scrollable :bordered="false">
+            <TabMenuItem value="orders">Orders</TabMenuItem>
+            <TabMenuItem value="products">Products</TabMenuItem>
+            <TabMenuItem value="customers">Customers</TabMenuItem>
+            <TabMenuItem value="discounts">Discounts</TabMenuItem>
+            <TabMenuItem value="analytics">Analytics</TabMenuItem>
+            <TabMenuItem value="marketing">Marketing</TabMenuItem>
+          </TabMenuList>
+          <TabMenuContent value="orders"><div style="padding: 16px;"><HintText text="scrollable, no border" /></div></TabMenuContent>
+        </TabMenu>
+      </div>
+    `,
+  }),
+};
