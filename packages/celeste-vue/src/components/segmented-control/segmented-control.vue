@@ -24,8 +24,8 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="on"]');
   >
     <slot />
     <div
+      :hidden="!ready"
       class="celeste-segmented-control-indicator"
-      :data-ready="ready"
       :style="{
         width: `${indicator.width}px`,
         height: `${indicator.height}px`,
@@ -58,17 +58,11 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="on"]');
   top: 0;
   left: 0;
   transition-property: transform, width, height;
-  transition-duration: 0s;
+  transition-duration: var(--animation-normal);
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
   border-radius: var(--radius-6);
-  opacity: 0;
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-toggle-switch);
   pointer-events: none;
-
-  &[data-ready='true'] {
-    transition-duration: var(--animation-normal);
-    opacity: 1;
-  }
 }
 </style>

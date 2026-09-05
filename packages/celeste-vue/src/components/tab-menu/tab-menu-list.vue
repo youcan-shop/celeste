@@ -41,8 +41,8 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="active"]');
   >
     <slot />
     <div
+      :hidden="!ready"
       class="celeste-tab-menu-indicator"
-      :data-ready="ready"
       :style="{
         width: `${indicator.width}px`,
         transform: `translate3d(${indicator.left}px, 0, 0)`,
@@ -104,19 +104,13 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="active"]');
   left: 0;
   height: 2px;
   transition-property: transform, width;
-  transition-duration: 0s;
+  transition-duration: var(--animation-normal);
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  opacity: 0;
   background-color: var(--color-primary-base);
   pointer-events: none;
 
   .celeste-tab-menu-list[data-scrollable='true'] > & {
     bottom: 0;
-  }
-
-  &[data-ready='true'] {
-    transition-duration: var(--animation-normal);
-    opacity: 1;
   }
 
   .celeste-tab-menu-list[data-orientation='vertical'] > & {
