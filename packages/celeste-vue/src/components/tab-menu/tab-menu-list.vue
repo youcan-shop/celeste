@@ -117,4 +117,10 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="active"]');
     display: none;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .celeste-tab-menu-indicator {
+    transition-duration: 0s;
+  }
+}
 </style>

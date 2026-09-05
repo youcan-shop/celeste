@@ -65,4 +65,10 @@ const { listRef, indicator, ready } = useTabObserver('[data-state="on"]');
   box-shadow: var(--shadow-toggle-switch);
   pointer-events: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .celeste-segmented-control-indicator {
+    transition-duration: 0s;
+  }
+}
 </style>
