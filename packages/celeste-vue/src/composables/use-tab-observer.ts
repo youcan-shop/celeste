@@ -35,8 +35,7 @@ export function useTabObserver(activeSelector: string): TabObserver {
       height: active.offsetHeight,
     };
 
-    if (!ready.value)
-      requestAnimationFrame(() => requestAnimationFrame(() => ready.value = true));
+    ready.value = true;
   }
 
   useResizeObserver(listRef, update);
