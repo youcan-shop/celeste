@@ -270,41 +270,23 @@ function clearInput() {
 
   :deep(.celeste-text-input-node.celeste-text-input-leading-node),
   :deep(.celeste-text-input-node.celeste-text-input-trailing-node) {
-    height: calc(var(--input-height) - var(--spacing-2)) !important;
-  }
-
-  [dir='ltr'] & {
-    :deep(.celeste-text-input-node.celeste-text-input-leading-node) {
-      border-right: 1px solid var(--color-stroke-soft-200) !important;
-      border-radius: var(--input-radius) 0 0 var(--input-radius) !important;
-    }
-
-    :deep(.celeste-text-input-node.celeste-text-input-trailing-node) {
-      border-left: 1px solid var(--color-stroke-soft-200) !important;
-      border-radius: 0 var(--input-radius) var(--input-radius) 0 !important;
-    }
-  }
-
-  [dir='rtl'] & {
-    :deep(.celeste-text-input-node.celeste-text-input-leading-node) {
-      border-left: 1px solid var(--color-stroke-soft-200) !important;
-      border-radius: 0 var(--input-radius) var(--input-radius) 0 !important;
-    }
-
-    :deep(.celeste-text-input-node.celeste-text-input-trailing-node) {
-      border-right: 1px solid var(--color-stroke-soft-200) !important;
-      border-radius: var(--input-radius) 0 0 var(--input-radius) !important;
-    }
+    height: calc(var(--input-height) - var(--spacing-2));
   }
 
   :deep(.celeste-text-input-node.celeste-text-input-leading-node) {
-    border-right: 1px solid var(--color-stroke-soft-200) !important;
-    border-radius: var(--input-radius) 0 0 var(--input-radius) !important;
+    border-inline-end: 1px solid var(--color-stroke-soft-200);
+    border-start-start-radius: var(--input-radius);
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    border-end-start-radius: var(--input-radius);
   }
 
   :deep(.celeste-text-input-node.celeste-text-input-trailing-node) {
-    border-left: 1px solid var(--color-stroke-soft-200) !important;
-    border-radius: 0 var(--input-radius) var(--input-radius) 0 !important;
+    border-inline-start: 1px solid var(--color-stroke-soft-200);
+    border-start-start-radius: 0;
+    border-start-end-radius: var(--input-radius);
+    border-end-end-radius: var(--input-radius);
+    border-end-start-radius: 0;
   }
 }
 </style>
