@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { ComboboxRootEmits, ComboboxRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { ComboboxRoot, useForwardPropsEmits } from 'reka-ui';
+import { ComboboxRoot, ConfigProvider, useForwardPropsEmits } from 'reka-ui';
 import { computed } from 'vue';
+import { useDirection } from '@/composables/use-direction';
 
 const props = withDefaults(defineProps<ComboboxRootProps & { class?: HTMLAttributes['class'] }>(), {
   open: true,
@@ -18,16 +19,20 @@ const delegatedProps = computed(() => {
 });
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+const direction = useDirection();
 </script>
 
 <template>
-  <ComboboxRoot
-    v-bind="forwarded"
-    class="celeste-command-root"
-    :class="props.class"
-  >
-    <slot />
-  </ComboboxRoot>
+  <ConfigProvider :dir="props.dir ?? direction">
+    <ComboboxRoot
+      v-bind="forwarded"
+      class="celeste-command-root"
+      :class="props.class"
+    >
+      <slot />
+    </ComboboxRoot>
+  </ConfigProvider>
 </template>
 
 <style>

@@ -15,9 +15,11 @@ import {
   CalendarNext,
   CalendarPrev,
   CalendarRoot,
+  ConfigProvider,
   useForwardPropsEmits,
 } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
+import { useDirection } from '@/composables/use-direction';
 
 export interface CalendarProps extends CalendarRootProps {
   class?: HTMLAttributes['class'];
@@ -35,6 +37,8 @@ const emits = defineEmits<CalendarRootEmits>();
 const delegatedProps = useDelegatedProps(props, ['class', 'markedDates']);
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
+const direction = useDirection();
+
 function isMarked(date: DateValue): boolean {
   return props.markedDates?.some(marked => isEqualDay(marked, date)) ?? false;
 }
@@ -45,68 +49,70 @@ function weekdayLabel(day: string): string {
 </script>
 
 <template>
-  <CalendarRoot
-    v-slot="{ weekDays, grid }"
-    v-bind="forwarded"
-    :class="clsx('celeste-calendar', props.class)"
-  >
-    <div class="celeste-calendar-header">
-      <CalendarPrev as-child>
-        <button type="button" class="celeste-calendar-nav">
-          <i class="i-celeste-arrow-left-s-line" />
-        </button>
-      </CalendarPrev>
-      <CalendarHeading class="celeste-calendar-heading" />
-      <CalendarNext as-child>
-        <button type="button" class="celeste-calendar-nav">
-          <i class="i-celeste-arrow-right-s-line" />
-        </button>
-      </CalendarNext>
-    </div>
+  <ConfigProvider :dir="props.dir ?? direction">
+    <CalendarRoot
+      v-slot="{ weekDays, grid }"
+      v-bind="forwarded"
+      :class="clsx('celeste-calendar', props.class)"
+    >
+      <div class="celeste-calendar-header">
+        <CalendarPrev as-child>
+          <button type="button" class="celeste-calendar-nav">
+            <i class="i-celeste-arrow-left-s-line" />
+          </button>
+        </CalendarPrev>
+        <CalendarHeading class="celeste-calendar-heading" />
+        <CalendarNext as-child>
+          <button type="button" class="celeste-calendar-nav">
+            <i class="i-celeste-arrow-right-s-line" />
+          </button>
+        </CalendarNext>
+      </div>
 
-    <div class="celeste-calendar-months">
-      <CalendarGrid
-        v-for="month in grid"
-        :key="month.value.toString()"
-        class="celeste-calendar-grid"
-      >
-        <CalendarGridHead>
-          <CalendarGridRow class="celeste-calendar-week">
-            <CalendarHeadCell
-              v-for="day in weekDays"
-              :key="day"
-              class="celeste-calendar-weekday"
-            >
-              {{ weekdayLabel(day) }}
-            </CalendarHeadCell>
-          </CalendarGridRow>
-        </CalendarGridHead>
-        <CalendarGridBody class="celeste-calendar-body">
-          <CalendarGridRow
-            v-for="(weekDates, index) in month.rows"
-            :key="`week-${index}`"
-            class="celeste-calendar-week"
-          >
-            <CalendarCell
-              v-for="weekDate in weekDates"
-              :key="weekDate.toString()"
-              :date="weekDate"
-              class="celeste-calendar-cell"
-            >
-              <CalendarCellTrigger
-                :day="weekDate"
-                :month="month.value"
-                class="celeste-calendar-day"
-                :data-marked="isMarked(weekDate) ? '' : undefined"
+      <div class="celeste-calendar-months">
+        <CalendarGrid
+          v-for="month in grid"
+          :key="month.value.toString()"
+          class="celeste-calendar-grid"
+        >
+          <CalendarGridHead>
+            <CalendarGridRow class="celeste-calendar-week">
+              <CalendarHeadCell
+                v-for="day in weekDays"
+                :key="day"
+                class="celeste-calendar-weekday"
               >
-                <span class="celeste-calendar-day-number">{{ weekDate.day }}</span>
-              </CalendarCellTrigger>
-            </CalendarCell>
-          </CalendarGridRow>
-        </CalendarGridBody>
-      </CalendarGrid>
-    </div>
-  </CalendarRoot>
+                {{ weekdayLabel(day) }}
+              </CalendarHeadCell>
+            </CalendarGridRow>
+          </CalendarGridHead>
+          <CalendarGridBody class="celeste-calendar-body">
+            <CalendarGridRow
+              v-for="(weekDates, index) in month.rows"
+              :key="`week-${index}`"
+              class="celeste-calendar-week"
+            >
+              <CalendarCell
+                v-for="weekDate in weekDates"
+                :key="weekDate.toString()"
+                :date="weekDate"
+                class="celeste-calendar-cell"
+              >
+                <CalendarCellTrigger
+                  :day="weekDate"
+                  :month="month.value"
+                  class="celeste-calendar-day"
+                  :data-marked="isMarked(weekDate) ? '' : undefined"
+                >
+                  <span class="celeste-calendar-day-number">{{ weekDate.day }}</span>
+                </CalendarCellTrigger>
+              </CalendarCell>
+            </CalendarGridRow>
+          </CalendarGridBody>
+        </CalendarGrid>
+      </div>
+    </CalendarRoot>
+  </ConfigProvider>
 </template>
 
 <style scoped lang="scss">

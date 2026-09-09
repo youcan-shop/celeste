@@ -4,6 +4,7 @@ import type { HTMLAttributes } from 'vue';
 import { DateFormatter, getLocalTimeZone, isEqualDay } from '@internationalized/date';
 import clsx from 'clsx';
 import {
+  ConfigProvider,
   RangeCalendarCell,
   RangeCalendarCellTrigger,
   RangeCalendarGrid,
@@ -18,6 +19,7 @@ import {
 } from 'reka-ui';
 import { computed } from 'vue';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
+import { useDirection } from '@/composables/use-direction';
 
 export interface RangeCalendarProps extends RangeCalendarRootProps {
   class?: HTMLAttributes['class'];
@@ -35,6 +37,8 @@ const emits = defineEmits<RangeCalendarRootEmits>();
 
 const delegatedProps = useDelegatedProps(props, ['class', 'markedDates']);
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+const direction = useDirection();
 
 const monthFormatter = computed(
   () => new DateFormatter(props.locale ?? 'en-US', { month: 'long', year: 'numeric' }),
@@ -54,70 +58,72 @@ function weekdayLabel(day: string): string {
 </script>
 
 <template>
-  <RangeCalendarRoot
-    v-slot="{ weekDays, grid }"
-    v-bind="forwarded"
-    :class="clsx('celeste-range-calendar', props.class)"
-  >
-    <div class="celeste-range-calendar-months">
-      <div
-        v-for="month in grid"
-        :key="month.value.toString()"
-        class="celeste-range-calendar-month"
-      >
-        <div class="celeste-range-calendar-header">
-          <RangeCalendarPrev as-child>
-            <button type="button" class="celeste-range-calendar-nav">
-              <i class="i-celeste-arrow-left-s-line" />
-            </button>
-          </RangeCalendarPrev>
-          <span class="celeste-range-calendar-heading">{{ formatMonth(month.value) }}</span>
-          <RangeCalendarNext as-child>
-            <button type="button" class="celeste-range-calendar-nav">
-              <i class="i-celeste-arrow-right-s-line" />
-            </button>
-          </RangeCalendarNext>
-        </div>
+  <ConfigProvider :dir="props.dir ?? direction">
+    <RangeCalendarRoot
+      v-slot="{ weekDays, grid }"
+      v-bind="forwarded"
+      :class="clsx('celeste-range-calendar', props.class)"
+    >
+      <div class="celeste-range-calendar-months">
+        <div
+          v-for="month in grid"
+          :key="month.value.toString()"
+          class="celeste-range-calendar-month"
+        >
+          <div class="celeste-range-calendar-header">
+            <RangeCalendarPrev as-child>
+              <button type="button" class="celeste-range-calendar-nav">
+                <i class="i-celeste-arrow-left-s-line" />
+              </button>
+            </RangeCalendarPrev>
+            <span class="celeste-range-calendar-heading">{{ formatMonth(month.value) }}</span>
+            <RangeCalendarNext as-child>
+              <button type="button" class="celeste-range-calendar-nav">
+                <i class="i-celeste-arrow-right-s-line" />
+              </button>
+            </RangeCalendarNext>
+          </div>
 
-        <RangeCalendarGrid class="celeste-range-calendar-grid">
-          <RangeCalendarGridHead>
-            <RangeCalendarGridRow class="celeste-range-calendar-week">
-              <RangeCalendarHeadCell
-                v-for="day in weekDays"
-                :key="day"
-                class="celeste-range-calendar-weekday"
-              >
-                {{ weekdayLabel(day) }}
-              </RangeCalendarHeadCell>
-            </RangeCalendarGridRow>
-          </RangeCalendarGridHead>
-          <RangeCalendarGridBody class="celeste-range-calendar-body">
-            <RangeCalendarGridRow
-              v-for="(weekDates, index) in month.rows"
-              :key="`week-${index}`"
-              class="celeste-range-calendar-week"
-            >
-              <RangeCalendarCell
-                v-for="weekDate in weekDates"
-                :key="weekDate.toString()"
-                :date="weekDate"
-                class="celeste-range-calendar-cell"
-              >
-                <RangeCalendarCellTrigger
-                  :day="weekDate"
-                  :month="month.value"
-                  class="celeste-range-calendar-day"
-                  :data-marked="isMarked(weekDate) ? '' : undefined"
+          <RangeCalendarGrid class="celeste-range-calendar-grid">
+            <RangeCalendarGridHead>
+              <RangeCalendarGridRow class="celeste-range-calendar-week">
+                <RangeCalendarHeadCell
+                  v-for="day in weekDays"
+                  :key="day"
+                  class="celeste-range-calendar-weekday"
                 >
-                  <span class="celeste-range-calendar-day-number">{{ weekDate.day }}</span>
-                </RangeCalendarCellTrigger>
-              </RangeCalendarCell>
-            </RangeCalendarGridRow>
-          </RangeCalendarGridBody>
-        </RangeCalendarGrid>
+                  {{ weekdayLabel(day) }}
+                </RangeCalendarHeadCell>
+              </RangeCalendarGridRow>
+            </RangeCalendarGridHead>
+            <RangeCalendarGridBody class="celeste-range-calendar-body">
+              <RangeCalendarGridRow
+                v-for="(weekDates, index) in month.rows"
+                :key="`week-${index}`"
+                class="celeste-range-calendar-week"
+              >
+                <RangeCalendarCell
+                  v-for="weekDate in weekDates"
+                  :key="weekDate.toString()"
+                  :date="weekDate"
+                  class="celeste-range-calendar-cell"
+                >
+                  <RangeCalendarCellTrigger
+                    :day="weekDate"
+                    :month="month.value"
+                    class="celeste-range-calendar-day"
+                    :data-marked="isMarked(weekDate) ? '' : undefined"
+                  >
+                    <span class="celeste-range-calendar-day-number">{{ weekDate.day }}</span>
+                  </RangeCalendarCellTrigger>
+                </RangeCalendarCell>
+              </RangeCalendarGridRow>
+            </RangeCalendarGridBody>
+          </RangeCalendarGrid>
+        </div>
       </div>
-    </div>
-  </RangeCalendarRoot>
+    </RangeCalendarRoot>
+  </ConfigProvider>
 </template>
 
 <style scoped lang="scss">

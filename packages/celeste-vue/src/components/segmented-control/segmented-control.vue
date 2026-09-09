@@ -2,8 +2,9 @@
 import type { ToggleGroupRootEmits, ToggleGroupRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { ToggleGroupRoot as SegmentedControlRoot, useForwardPropsEmits } from 'reka-ui';
+import { ConfigProvider, ToggleGroupRoot as SegmentedControlRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
+import { useDirection } from '@/composables/use-direction';
 import { useTabObserver } from '@/composables/use-tab-observer';
 
 const props = defineProps<Omit<ToggleGroupRootProps, 'type'> & { class?: HTMLAttributes['class'] }>();
@@ -12,27 +13,31 @@ const emits = defineEmits<ToggleGroupRootEmits>();
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
+const direction = useDirection();
+
 const { listRef, indicator, ready } = useTabObserver('[data-state="on"]');
 </script>
 
 <template>
-  <SegmentedControlRoot
-    ref="listRef"
-    :class="clsx('celeste-segmented-control', props.class)"
-    v-bind="forwarded"
-    type="single"
-  >
-    <slot />
-    <div
-      :hidden="!ready"
-      class="celeste-segmented-control-indicator"
-      :style="{
-        width: `${indicator.width}px`,
-        height: `${indicator.height}px`,
-        transform: `translate3d(${indicator.left}px, ${indicator.top}px, 0)`,
-      }"
-    />
-  </SegmentedControlRoot>
+  <ConfigProvider :dir="props.dir ?? direction">
+    <SegmentedControlRoot
+      ref="listRef"
+      :class="clsx('celeste-segmented-control', props.class)"
+      v-bind="forwarded"
+      type="single"
+    >
+      <slot />
+      <div
+        :hidden="!ready"
+        class="celeste-segmented-control-indicator"
+        :style="{
+          width: `${indicator.width}px`,
+          height: `${indicator.height}px`,
+          transform: `translate3d(${indicator.left}px, ${indicator.top}px, 0)`,
+        }"
+      />
+    </SegmentedControlRoot>
+  </ConfigProvider>
 </template>
 
 <style scoped>
