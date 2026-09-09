@@ -2,23 +2,28 @@
 import type { RadioGroupRootEmits, RadioGroupRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { RadioGroupRoot, useForwardPropsEmits } from 'reka-ui';
+import { ConfigProvider, RadioGroupRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
+import { useDirection } from '@/composables/use-direction';
 
 const props = defineProps<RadioGroupRootProps & { class?: HTMLAttributes['class'] }>();
 const emits = defineEmits<RadioGroupRootEmits>();
 
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+const direction = useDirection();
 </script>
 
 <template>
-  <RadioGroupRoot
-    :class="clsx('celeste-radio-wrapper', props.class)"
-    v-bind="forwarded"
-  >
-    <slot />
-  </RadioGroupRoot>
+  <ConfigProvider :dir="props.dir ?? direction">
+    <RadioGroupRoot
+      :class="clsx('celeste-radio-wrapper', props.class)"
+      v-bind="forwarded"
+    >
+      <slot />
+    </RadioGroupRoot>
+  </ConfigProvider>
 </template>
 
 <style lang="scss">
