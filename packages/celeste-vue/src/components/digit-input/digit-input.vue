@@ -3,7 +3,7 @@ import type { PinInputRootEmits, PinInputRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
-import { ConfigProvider, PinInputRoot, useForwardPropsEmits } from 'reka-ui';
+import { PinInputRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDirection } from '@/composables/use-direction';
 
 export type PinInputType = 'text' | 'number';
@@ -21,19 +21,18 @@ const delegatedProps = reactiveOmit(props, 'class', 'hasError');
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <PinInputRoot
-      v-bind="forwarded"
-      :class="clsx('celeste-digit-input', props.class)"
-      :data-error="hasError"
-    >
-      <slot />
-    </PinInputRoot>
-  </ConfigProvider>
+  <PinInputRoot
+    v-bind="forwarded"
+    :class="clsx('celeste-digit-input', props.class)"
+    :data-error="hasError"
+    :dir="dir"
+  >
+    <slot />
+  </PinInputRoot>
 </template>
 
 <style scoped lang="scss">

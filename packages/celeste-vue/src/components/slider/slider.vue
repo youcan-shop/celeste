@@ -2,7 +2,7 @@
 import type { SliderRootEmits, SliderRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { ConfigProvider, SliderRange, SliderRoot, SliderThumb, SliderTrack, useForwardPropsEmits } from 'reka-ui';
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack, useForwardPropsEmits } from 'reka-ui';
 import { useDelegatedProps } from '@/composables/use-delegated-props';
 import { useDirection } from '@/composables/use-direction';
 
@@ -12,26 +12,25 @@ const emits = defineEmits<SliderRootEmits>();
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <SliderRoot
-      v-bind="forwarded"
-      :class="clsx('celeste-slider', props.class)"
-    >
-      <SliderTrack class="celeste-slider-track">
-        <SliderRange class="celeste-slider-range" />
-      </SliderTrack>
+  <SliderRoot
+    v-bind="forwarded"
+    :class="clsx('celeste-slider', props.class)"
+    :dir="dir"
+  >
+    <SliderTrack class="celeste-slider-track">
+      <SliderRange class="celeste-slider-range" />
+    </SliderTrack>
 
-      <SliderThumb
-        v-for="(_, key) in modelValue"
-        :key="key"
-        class="celeste-slider-thumb"
-      />
-    </SliderRoot>
-  </ConfigProvider>
+    <SliderThumb
+      v-for="(_, key) in modelValue"
+      :key="key"
+      class="celeste-slider-thumb"
+    />
+  </SliderRoot>
 </template>
 
 <style lang="scss">

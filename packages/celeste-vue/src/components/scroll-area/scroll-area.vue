@@ -2,7 +2,7 @@
 import type { ScrollAreaRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { ConfigProvider, ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport } from 'reka-ui';
+import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport } from 'reka-ui';
 import { useDelegatedProps, useDirection } from '@/composables';
 import ScrollBar from './scroll-bar.vue';
 
@@ -10,23 +10,22 @@ const props = defineProps<ScrollAreaRootProps & { class?: HTMLAttributes['class'
 
 const delegatedProps = useDelegatedProps(props, 'class');
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <ScrollAreaRoot
-      v-bind="delegatedProps"
-      :class="clsx('celeste-scroll-area', props.class)"
-    >
-      <ScrollAreaViewport class="celeste-scroll-area-viewport">
-        <slot />
-      </ScrollAreaViewport>
-      <ScrollBar />
-      <ScrollBar orientation="horizontal" />
-      <ScrollAreaCorner />
-    </ScrollAreaRoot>
-  </ConfigProvider>
+  <ScrollAreaRoot
+    v-bind="delegatedProps"
+    :class="clsx('celeste-scroll-area', props.class)"
+    :dir="dir"
+  >
+    <ScrollAreaViewport class="celeste-scroll-area-viewport">
+      <slot />
+    </ScrollAreaViewport>
+    <ScrollBar />
+    <ScrollBar orientation="horizontal" />
+    <ScrollAreaCorner />
+  </ScrollAreaRoot>
 </template>
 
 <style scoped lang="scss">
