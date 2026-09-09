@@ -20,19 +20,20 @@ const delegatedProps = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <ComboboxRoot
-      v-bind="forwarded"
-      class="celeste-command-root"
-      :class="props.class"
-    >
+  <ComboboxRoot
+    v-bind="forwarded"
+    class="celeste-command-root"
+    :class="props.class"
+    :dir="dir"
+  >
+    <ConfigProvider :dir="dir">
       <slot />
-    </ComboboxRoot>
-  </ConfigProvider>
+    </ConfigProvider>
+  </ComboboxRoot>
 </template>
 
 <style>

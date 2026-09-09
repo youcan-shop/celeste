@@ -12,16 +12,17 @@ const emits = defineEmits<SelectRootEmits>();
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <SelectRoot
-      v-bind="forwarded"
-      :class="clsx('celeste-select', props.class)"
-    >
+  <SelectRoot
+    v-bind="forwarded"
+    :class="clsx('celeste-select', props.class)"
+    :dir="dir"
+  >
+    <ConfigProvider :dir="dir">
       <slot />
-    </SelectRoot>
-  </ConfigProvider>
+    </ConfigProvider>
+  </SelectRoot>
 </template>

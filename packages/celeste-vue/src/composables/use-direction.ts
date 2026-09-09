@@ -1,6 +1,6 @@
 import type { Direction } from 'reka-ui';
-import type { Ref } from 'vue';
-import { getCurrentInstance, onMounted, ref, watch } from 'vue';
+import type { ComputedRef, MaybeRefOrGetter } from 'vue';
+import { computed, getCurrentInstance, onMounted, ref, toValue, watch } from 'vue';
 
 const revision = ref(0);
 
@@ -18,9 +18,9 @@ function documentDirection(): Direction {
   return typeof document !== 'undefined' && document.documentElement.dir === 'rtl' ? 'rtl' : 'ltr';
 }
 
-export function useDirection(): Ref<Direction> {
+export function useDirection(override?: MaybeRefOrGetter<Direction | undefined>): ComputedRef<Direction> {
   const instance = getCurrentInstance();
-  const direction = ref<Direction>(documentDirection());
+  const resolved = ref<Direction>(documentDirection());
 
   observeDocument();
 
@@ -28,7 +28,7 @@ export function useDirection(): Ref<Direction> {
     const node = instance?.vnode.el as Node | null | undefined;
     const element = node instanceof HTMLElement ? node : node?.parentElement;
 
-    direction.value = element
+    resolved.value = element
       ? getComputedStyle(element).direction === 'rtl' ? 'rtl' : 'ltr'
       : documentDirection();
   }
@@ -36,5 +36,5 @@ export function useDirection(): Ref<Direction> {
   onMounted(read);
   watch(revision, read);
 
-  return direction;
+  return computed(() => toValue(override) ?? resolved.value);
 }

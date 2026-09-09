@@ -12,18 +12,19 @@ const emits = defineEmits<DropdownMenuRootEmits>();
 const delegatedProps = useDelegatedProps(props, 'class');
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <DropdownMenuRoot
-      v-bind="forwarded"
-      :class="clsx('celeste-dropdown-menu', props.class)"
-    >
+  <DropdownMenuRoot
+    v-bind="forwarded"
+    :class="clsx('celeste-dropdown-menu', props.class)"
+    :dir="dir"
+  >
+    <ConfigProvider :dir="dir">
       <slot />
-    </DropdownMenuRoot>
-  </ConfigProvider>
+    </ConfigProvider>
+  </DropdownMenuRoot>
 </template>
 
 <style lang="scss" scoped>

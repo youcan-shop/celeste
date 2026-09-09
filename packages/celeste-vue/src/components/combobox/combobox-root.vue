@@ -8,15 +8,19 @@ const emits = defineEmits<ComboboxRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <ComboboxRoot class="celeste-combobox-root" v-bind="forwarded">
+  <ComboboxRoot
+    class="celeste-combobox-root"
+    v-bind="forwarded"
+    :dir="dir"
+  >
+    <ConfigProvider :dir="dir">
       <slot />
-    </ComboboxRoot>
-  </ConfigProvider>
+    </ConfigProvider>
+  </ComboboxRoot>
 </template>
 
 <style lang="scss" scoped>

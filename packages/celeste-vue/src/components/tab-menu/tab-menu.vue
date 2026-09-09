@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TabsRootEmits, TabsRootProps } from 'reka-ui';
-import { ConfigProvider, TabsRoot, useForwardPropsEmits } from 'reka-ui';
+import { TabsRoot, useForwardPropsEmits } from 'reka-ui';
 import { useDirection } from '@/composables/use-direction';
 
 const props = defineProps<TabsRootProps>();
@@ -8,18 +8,17 @@ const emits = defineEmits<TabsRootEmits>();
 
 const forwarded = useForwardPropsEmits(props, emits);
 
-const direction = useDirection();
+const dir = useDirection(() => props.dir);
 </script>
 
 <template>
-  <ConfigProvider :dir="props.dir ?? direction">
-    <TabsRoot
-      v-bind="forwarded"
-      class="celeste-tab-menu-root"
-    >
-      <slot />
-    </TabsRoot>
-  </ConfigProvider>
+  <TabsRoot
+    v-bind="forwarded"
+    class="celeste-tab-menu-root"
+    :dir="dir"
+  >
+    <slot />
+  </TabsRoot>
 </template>
 
 <style scoped>
