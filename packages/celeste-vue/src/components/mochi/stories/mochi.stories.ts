@@ -28,6 +28,21 @@ export const Default: Story = {
   }),
 };
 
+export const Static: Story = {
+  name: 'Static (Motionless)',
+  args: {
+    size: 80,
+    animate: false,
+  },
+  render: args => ({
+    components: { Mochi },
+    setup() {
+      return { args };
+    },
+    template: `<Mochi v-bind="args" />`,
+  }),
+};
+
 export const Sizes: Story = {
   args: {
     animate: true,
