@@ -11,7 +11,7 @@ call, not a fact about the API, so it lives here.
 
 ## Never hand-roll a control that exists
 
-Celeste exports 146 components. Before writing a styled `<div>`, a custom
+Celeste exports 147 components. Before writing a styled `<div>`, a custom
 `<button>`, or a bespoke dropdown, look it up. A hand-rolled control loses
 keyboard handling, focus management, and dark mode.
 

@@ -15,6 +15,7 @@ export * from './dropdown-menu';
 export * from './file-upload';
 export * from './hint-text';
 export * from './label';
+export * from './mochi';
 export * from './modal';
 export * from './pagination';
 export * from './popover';

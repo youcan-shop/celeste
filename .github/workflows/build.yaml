@@ -49,5 +49,8 @@ jobs:
       - name: Build
         run: pnpm -r build
 
+      - name: Check skill counts are committed
+        run: git diff --exit-code -- skills || (echo "::error::Skill counts are stale. Run 'pnpm build' and commit the changes under skills/." && exit 1)
+
       - name: Lint
         run: pnpm lint
