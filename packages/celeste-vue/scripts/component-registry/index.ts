@@ -7,6 +7,7 @@ import { discoverComponents } from './discovery';
 import { createComponentChecker, extractComponent } from './extract';
 import { buildIconIndex, renderIconsMarkdown } from './icons';
 import { renderRegistryMarkdown } from './markdown';
+import { syncSkillCounts } from './skill';
 import { buildTokenIndex, renderTokensMarkdown } from './tokens';
 import { REGISTRY_SCHEMA_VERSION } from './types';
 
@@ -14,6 +15,7 @@ const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const workspaceRoot = resolve(packageRoot, '../..');
 const tokensRoot = join(workspaceRoot, 'packages/celeste-tokens');
 const iconsRoot = join(workspaceRoot, 'packages/celeste-icons');
+const skillRoot = join(workspaceRoot, 'skills/celeste-ui');
 const outputDir = join(packageRoot, 'ai');
 
 function readVersion(packageDir: string): string {
@@ -97,12 +99,28 @@ function main(): void {
   const withStories = Object.values(registry.components).filter(component => component.hasStory).length;
   const semantic = tokens.filter(token => token.semantic).length;
 
+  let skillChanges: string[];
+
+  try {
+    skillChanges = syncSkillCounts(skillRoot, {
+      components: componentCount,
+      tokens: tokens.length,
+      themed: semantic,
+      icons: icons.length,
+    });
+  }
+  catch (error) {
+    console.error(`\n✗ ${(error as Error).message}\n`);
+    process.exit(1);
+  }
+
   console.log(
     `\n✔ Registry generated in ${((Date.now() - started) / 1000).toFixed(1)}s\n`
     + `  ${componentCount} components (${withStories} with a story, ${componentCount - withStories} without)\n`
     + `  ${tokens.length} tokens (${semantic} semantic)\n`
     + `  ${icons.length} icons\n`
-    + `  → ${join('packages/celeste-vue/ai')}\n`,
+    + `  → ${join('packages/celeste-vue/ai')}\n`
+    + `  skill counts ${skillChanges.length ? `updated in ${skillChanges.join(', ')}` : 'already up to date'}\n`,
   );
 }
 
