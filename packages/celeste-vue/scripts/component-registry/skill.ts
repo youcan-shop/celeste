@@ -10,10 +10,6 @@ export interface SkillCounts {
 
 type CountKey = keyof SkillCounts;
 
-/**
- * Every sentence in the skill that states a count. `{key}` is replaced with the
- * live number; everything else must match the prose (whitespace may wrap).
- */
 const SENTENCES: { file: string; template: string }[] = [
   { file: 'SKILL.md', template: 'design system: {components} Vue 3 components, {tokens} design tokens, and {icons} icons' },
   { file: 'rules/components.md', template: 'Celeste exports {components} components' },
@@ -37,10 +33,6 @@ function compile(template: string): { pattern: RegExp; keys: CountKey[] } {
   return { pattern: new RegExp(source), keys };
 }
 
-/**
- * Rewrites the counts quoted in the skill so they always match the registry.
- * Returns the files that changed; throws if a sentence can no longer be found.
- */
 export function syncSkillCounts(skillRoot: string, counts: SkillCounts): string[] {
   const contents = new Map<string, string>();
   const missing: string[] = [];

@@ -161,11 +161,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
-/*
- * The mascot is a brand mark: it keeps its colours in dark mode, so it uses
- * brand primitives and static white rather than semantic tokens. Choreography
- * timings are paired with the timers in the script and stay literal.
- */
 .celeste-mochi {
   --mochi-size: v-bind('sizePx');
   --mochi-rotate: v-bind('rotate');
