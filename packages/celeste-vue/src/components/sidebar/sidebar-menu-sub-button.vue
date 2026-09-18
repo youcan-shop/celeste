@@ -46,9 +46,12 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   overflow: hidden;
   transform: translateX(-1px);
   transition: background-color var(--animation-fast);
+  border: 0;
   border-radius: var(--radius-8);
   outline: none;
+  background: none;
   color: var(--sidebar-foreground);
+  text-decoration: none;
   gap: var(--spacing-8);
 }
 
