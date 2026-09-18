@@ -51,10 +51,14 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
     height var(--animation-fast) linear,
     padding var(--animation-fast) linear,
     background-color var(--animation-fast);
+  border: 0;
   border-radius: var(--radius-8);
   outline: none;
+  background: none;
+  color: var(--sidebar-foreground);
   font: var(--label-sm);
   text-align: start;
+  text-decoration: none;
   gap: var(--spacing-8);
 }
 

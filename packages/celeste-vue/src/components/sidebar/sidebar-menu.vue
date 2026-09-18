@@ -22,6 +22,9 @@ const props = defineProps<{
   flex-direction: column;
   width: 100%;
   min-width: 0;
+  margin: 0;
+  padding: 0;
   gap: var(--spacing-4);
+  list-style: none;
 }
 </style>
