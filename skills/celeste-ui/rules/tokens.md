@@ -1,8 +1,8 @@
 # Design tokens
 
 Every visual value in Celeste comes from a token exposed as a CSS custom
-property. There are 352 of them, listed in
-`node_modules/@youcan/celeste/ai/tokens.md`.
+property. There are 352 of them. Find one with
+`node scripts/token.mjs <pattern>`.
 
 Styling with tokens is not a style preference. Dark mode is implemented _only_
 through them: 70 of the 352 are redefined under `[data-theme="dark"]`. A
@@ -145,11 +145,11 @@ sass does resolve in a media condition, and consumers on UnoCSS get the
 
 ```bash
 # All text colours
-grep 'color-text' node_modules/@youcan/celeste/ai/tokens.md
+node scripts/token.mjs color-text
 
 # What's available for spacing
-grep -A 30 '^## spacing$' node_modules/@youcan/celeste/ai/tokens.md
+node scripts/token.mjs spacing
 ```
 
-Semantic tokens are listed under a "Semantic — prefer these" heading in each
-category, with their dark-mode value shown alongside.
+Semantic tokens print first, under a "prefer these" heading, with their
+dark-mode value shown alongside. Primitives follow, marked as fixed.

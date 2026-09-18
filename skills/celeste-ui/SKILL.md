@@ -19,36 +19,45 @@ memory of other design systems — Celeste's `Button` is not shadcn's.
 recognise through to the DOM as an attribute, so `<StatusBadge icon="…" />`
 compiles cleanly, renders no icon, and reports nothing. Looking the component up is the only way to know a prop exists.
 
-```
-node_modules/@youcan/celeste/ai/component-registry.md   # props, events, slots
-node_modules/@youcan/celeste/ai/tokens.md               # every CSS custom property
-node_modules/@youcan/celeste/ai/icons.md                # every icon name
-```
-
-These are large. **Grep them, don't read them whole**:
+Four scripts answer every lookup. Each reads the JSON index inside the installed
+package and prints only what was asked for.
 
 ```bash
-# What props does Badge take?
-grep -A 20 '^### Badge$' node_modules/@youcan/celeste/ai/component-registry.md
+# Which component should I use?
+node scripts/search.mjs date
 
-# What components exist for selecting a date?
-grep -i 'date' node_modules/@youcan/celeste/ai/component-registry.md
+# What does it accept?
+node scripts/component.mjs DatePicker
+node scripts/component.mjs Table TableBody TableRow   # several at once
 
 # Which token is the muted text colour?
-grep 'color-text' node_modules/@youcan/celeste/ai/tokens.md
+node scripts/token.mjs text
+
+# What is the icon called?
+node scripts/icon.mjs arrow
 ```
 
-If those files are missing, the app is on a Celeste version that predates them.
-Fall back to the type definitions in `node_modules/@youcan/celeste/dist/`.
+Paths are relative to this skill's directory; prefix them when running from the
+project root. The scripts locate `@youcan/celeste` by walking up from the cwd.
 
-**Celeste ships its own source and stories too**, so every path the registry
-prints is readable. When an entry ends with:
+**Never grep the `ai/*.md` files instead.** They are written for a human, and put
+a whole icon category on one line — a grep for one name returns hundreds.
+
+`component.mjs` suggests the closest real name when given one that does not
+exist, so a guessed name fails loudly instead of reaching the page. `--json` on
+any script gives the raw entries.
+
+If a script reports the index is missing, the app is on a Celeste version that
+predates it. Fall back to the type definitions in `node_modules/@youcan/celeste/dist/`.
+
+**Celeste ships its own source and stories too.** `component.mjs` prints the path
+to a worked example:
 
 ```
-**Example:** `src/components/table/stories/table.stories.ts`
+example: src/components/table/stories/table.stories.ts
 ```
 
-read it at
+Read it at
 `node_modules/@youcan/celeste/src/components/table/stories/table.stories.ts`.
 
 Reach for the story whenever you need to see a component **used** rather than

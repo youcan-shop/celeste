@@ -1,9 +1,10 @@
 # Choosing a component
 
-The registry (`ai/component-registry.md`, shipped inside `@youcan/celeste`) is
-generated from source and describes **what every component accepts** — props,
-their types and defaults, events, slots, and what each component composes with.
-Check it before writing any UI.
+The registry shipped inside `@youcan/celeste` is generated from source and
+describes **what every component accepts** — props, their types and defaults,
+events, slots, and what each component composes with. Read it with
+`node scripts/component.mjs <Name>`, or `node scripts/search.mjs <query>` when
+you do not know the name yet. Check it before writing any UI.
 
 This file covers what the registry deliberately does not: **which component to
 reach for** when several have near-identical signatures. That is a judgement
@@ -26,11 +27,11 @@ The registry lists those parts under **Composes with**, but that field is just
 tell you that `TableRow` goes inside `TableBody`, or `TableCell` inside
 `TableRow`. Do not guess the shape from part names.
 
-Instead read the worked example. Every compound component has one, and the
-registry gives its path in the **Example** field:
+Instead read the worked example. Every compound component has one, and
+`component.mjs` prints its path on the last line:
 
 ```
-**Example:** `src/components/table/stories/table.stories.ts`
+example: src/components/table/stories/table.stories.ts
 ```
 
 That path resolves inside the installed package:
