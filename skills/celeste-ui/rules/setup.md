@@ -74,6 +74,50 @@ was never designed for.
 This is a plain CSS file. It needs no UnoCSS build step, no config, and no
 plugin, so an app that never adopts UnoCSS still imports it.
 
+## Adding Celeste to an existing app
+
+Most apps are not new. Before importing the reset globally, check what the app
+already has:
+
+- **Tailwind or UnoCSS preflight** — nothing to do, the guarantees are already there.
+- **`normalize.css`** — not enough. It smooths browser differences and keeps
+  element defaults on purpose: no `list-style`, no transparent button
+  background, no zeroed border width. Use one of the options below.
+- **A hand-written reset** — check it declares the three rules above.
+- **Nothing** — use one of the options below.
+
+`@unocss/reset/tailwind.css` is not a drop-in for an app that already has UI.
+It sets `border-width: 0` on every element, removes every list marker and
+strips every button's background. In a mature app that is a visual migration,
+not an install step.
+
+**Adopt it globally**, then re-check existing screens. Cleanest long term, and
+the baseline Celeste is developed against.
+
+**Or scope a supplement** to wherever Celeste renders, leaving the rest of the
+app untouched:
+
+```css
+.celeste-scope :where(ul, ol, menu) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.celeste-scope :where(button, [type='button'], [type='reset'], [type='submit']) {
+  border-width: 0;
+  background-color: transparent;
+}
+```
+
+`:where()` holds the specificity at zero so component styles still win.
+
+This covers the failures seen so far, which is a narrower guarantee than the
+full preflight. A component may rely on something else it normalises — image
+display, heading sizes, fieldset padding, table borders. If one looks wrong
+under the scoped supplement, compare it against its story and widen the scope
+rather than patching the component.
+
 ## Registering components
 
 Either register everything globally:

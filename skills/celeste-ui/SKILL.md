@@ -88,4 +88,4 @@ before working in that area.
 
 ### Setup → [rules/setup.md](rules/setup.md)
 
-- **`celeste.css` alone is not enough.** It uses the tokens but does not define them, and contains no reset. Import `@unocss/reset/tailwind.css` and the token CSS too, in that order, or components render unstyled or with native element chrome showing through.
+- **`celeste.css` alone is not enough.** It uses the tokens but does not define them, and contains no reset. Import `@unocss/reset/tailwind.css` and the token CSS too, in that order, or components render unstyled or with native element chrome showing through. In an app that already has UI, scope the reset rather than adding it globally.
