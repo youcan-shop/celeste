@@ -1,4 +1,4 @@
-import type { ComponentEntry, ComponentRegistry } from './types';
+import type { ComponentEntry, ComponentRegistry, IconIndex, TokenIndex } from './types';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import process from 'node:process';
@@ -20,6 +20,10 @@ const outputDir = join(packageRoot, 'ai');
 
 function readVersion(packageDir: string): string {
   return JSON.parse(readFileSync(join(packageDir, 'package.json'), 'utf8')).version;
+}
+
+function writeJson(name: string, data: IconIndex | ComponentRegistry | TokenIndex): void {
+  writeFileSync(join(outputDir, name), `${JSON.stringify(data, null, 2)}\n`);
 }
 
 function requireBuilt(path: string, packageName: string): void {
@@ -85,15 +89,21 @@ function main(): void {
 
   mkdirSync(outputDir, { recursive: true });
 
+  const generatedAt = new Date().toISOString();
+
   const registry = buildComponentRegistry();
-  writeFileSync(join(outputDir, 'component-registry.json'), `${JSON.stringify(registry, null, 2)}\n`);
+  writeJson('component-registry.json', registry);
   writeFileSync(join(outputDir, 'component-registry.md'), renderRegistryMarkdown(registry));
 
+  const tokensVersion = readVersion(tokensRoot);
   const tokens = buildTokenIndex(tokensCss);
-  writeFileSync(join(outputDir, 'tokens.md'), renderTokensMarkdown(tokens, readVersion(tokensRoot)));
+  writeJson('tokens.json', { schemaVersion: REGISTRY_SCHEMA_VERSION, version: tokensVersion, generatedAt, tokens });
+  writeFileSync(join(outputDir, 'tokens.md'), renderTokensMarkdown(tokens, tokensVersion));
 
+  const iconsVersion = readVersion(iconsRoot);
   const { prefix, icons } = buildIconIndex(iconsRoot);
-  writeFileSync(join(outputDir, 'icons.md'), renderIconsMarkdown(prefix, icons, readVersion(iconsRoot)));
+  writeJson('icons.json', { schemaVersion: REGISTRY_SCHEMA_VERSION, version: iconsVersion, generatedAt, prefix, icons });
+  writeFileSync(join(outputDir, 'icons.md'), renderIconsMarkdown(prefix, icons, iconsVersion));
 
   const componentCount = Object.keys(registry.components).length;
   const withStories = Object.values(registry.components).filter(component => component.hasStory).length;

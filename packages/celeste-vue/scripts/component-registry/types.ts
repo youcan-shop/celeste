@@ -53,3 +53,18 @@ export interface IconEntry {
   name: string;
   category: string;
 }
+
+export interface TokenIndex {
+  schemaVersion: number;
+  version: string;
+  generatedAt: string;
+  tokens: TokenEntry[];
+}
+
+export interface IconIndex {
+  schemaVersion: number;
+  version: string;
+  generatedAt: string;
+  prefix: string;
+  icons: IconEntry[];
+}
