@@ -8,7 +8,7 @@ const query = args().join(' ').toLowerCase();
 if (!query)
   fail('Usage: node search.mjs <query>\n  e.g. node search.mjs date');
 
-const { components } = load('component-registry.json');
+const { components, helpers = {} } = load('component-registry.json');
 
 function score(entry) {
   const name = entry.name.toLowerCase();
@@ -32,9 +32,17 @@ const matches = Object.values(components)
   .filter(match => match.rank !== Infinity)
   .sort((a, b) => a.rank - b.rank || a.entry.name.localeCompare(b.entry.name));
 
+// Exported functions such as `toast` or `useSidebar`, not components.
+const helperMatches = Object.values(helpers)
+  .filter(helper => helper.kind === 'function' && helper.name.toLowerCase().includes(query))
+  .map(helper => helper.name);
+
+if (helperMatches.length && !wantsJson())
+  console.log(`helpers: ${helperMatches.join(', ')}  (node component.mjs ${helperMatches[0]})\n`);
+
 if (!matches.length) {
   console.log(`No component matches "${query}".`);
-  console.log('Celeste may not have one — check the rules before hand-rolling a control.');
+  console.log('Celeste may not have one — see "Not in Celeste" in SKILL.md before hand-rolling it.');
   process.exit(0);
 }
 
