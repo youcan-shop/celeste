@@ -3,7 +3,8 @@ import type { DiscoveredComponent } from './discovery.ts';
 import type { ComponentEntry, EventEntry, PropEntry, SlotEntry } from './types.ts';
 import { resolve } from 'node:path';
 import { createChecker } from 'vue-component-meta';
-import { cleanType, collapseWhitespace, extractLiteralValues, normalizeDescription, shouldIncludeProp } from './props-filter';
+import { cleanType, collapseWhitespace, extractLiteralValues, isInheritedFromDependency, normalizeDescription, shouldIncludeProp } from './props-filter';
+import { extractUsage } from './usage';
 
 const IMPORT_SPECIFIER = '@youcan/celeste';
 
@@ -18,6 +19,7 @@ export function createComponentChecker(packageRoot: string) {
 
 export function extractComponent(
   checker: ReturnType<typeof createComponentChecker>,
+  packageRoot: string,
   component: DiscoveredComponent,
   siblings: string[],
 ): ComponentEntry {
@@ -37,6 +39,7 @@ export function extractComponent(
         required: prop.required,
         ...(prop.default ? { default: prop.default } : {}),
         ...(description ? { description } : {}),
+        ...(isInheritedFromDependency(prop) ? { inherited: true } : {}),
       };
     })
     .sort((a, b) => {
@@ -66,6 +69,8 @@ export function extractComponent(
     };
   });
 
+  const usage = component.story ? extractUsage(resolve(packageRoot, component.story), [component.name, ...siblings]) : undefined;
+
   return {
     name: component.name,
     group: component.group,
@@ -76,6 +81,7 @@ export function extractComponent(
     slots,
     siblings,
     ...(component.story ? { story: component.story } : {}),
+    ...(usage ? { usage } : {}),
     hasStory: Boolean(component.story),
   };
 }

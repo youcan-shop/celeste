@@ -1,7 +1,7 @@
 # Icons
 
 Celeste ships 3,148 icons as an Iconify collection with the prefix `celeste`.
-Names are listed by category in `node_modules/@youcan/celeste/ai/icons.md`.
+Find a name with `node scripts/icon.mjs <pattern>`.
 
 ## Icons are classes, not components
 
@@ -98,8 +98,10 @@ nothing renders.
 
 ```bash
 # Search all names
-grep -o '`[a-z0-9-]*arrow[a-z0-9-]*`' node_modules/@youcan/celeste/ai/icons.md | sort -u
+node scripts/icon.mjs arrow
 
-# Browse a category — arrows, system, media, finance, logos…
-grep -A 3 '^## system' node_modules/@youcan/celeste/ai/icons.md
+# Results come grouped by category — arrows, system, media, finance, logos…
+node scripts/icon.mjs chevron
 ```
+
+A broad pattern is capped; narrow it rather than asking for everything.

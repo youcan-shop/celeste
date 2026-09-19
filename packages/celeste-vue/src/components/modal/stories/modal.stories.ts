@@ -42,7 +42,7 @@ export const Default: Story = {
           />
           <ModalBody>
             <div style="display: grid; gap: 4px;">
-              <Label label-text="Email address" sublabel="(Optional)" required />
+              <Label sublabel="(Optional)" required>Email address</Label>
               <TextInput type="email" placeholder="hello@live.fr" size="md" />
             </div>
           </ModalBody>
@@ -79,7 +79,7 @@ export const WithoutDescription: Story = {
           />
           <ModalBody>
             <div style="display: grid; gap: 4px;">
-              <Label label-text="Email address" sublabel="(Optional)" required />
+              <Label sublabel="(Optional)" required>Email address</Label>
               <TextInput type="email" placeholder="hello@live.fr" size="md" />
             </div>
           </ModalBody>
@@ -113,7 +113,7 @@ export const WithoutIcon: Story = {
           <ModalHeader title="Email Verification"/>
           <ModalBody>
             <div style="display: grid; gap: 4px;">
-              <Label label-text="Email address" sublabel="(Optional)" required />
+              <Label sublabel="(Optional)" required>Email address</Label>
               <TextInput type="email" placeholder="hello@live.fr" size="md" />
             </div>
           </ModalBody>
