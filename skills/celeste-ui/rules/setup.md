@@ -95,8 +95,39 @@ export default defineConfig({
 });
 ```
 
-Then make sure your build runs the UnoCSS plugin and scans the files where you
-write icon classes.
+Then run the plugin and load its stylesheet:
+
+```ts
+// vite.config.ts
+import UnoCSS from 'unocss/vite';
+
+export default defineConfig({ plugins: [vue(), UnoCSS()] });
+```
+
+```ts
+// main.ts
+import 'virtual:uno.css';
+```
+
+This builds as-is in a Vite + TypeScript app: `uno.config.ts` is loaded by the
+plugin, not type-checked by `vue-tsc`, so the JSON imports need no casts or
+import attributes.
+
+## Toasts
+
+`toast()` renders through vue-sonner, whose stylesheet Celeste does not bundle:
+
+```bash
+pnpm add vue-sonner
+```
+
+```ts
+// main.ts
+import 'vue-sonner/style.css';
+```
+
+Render `<Sonner />` once near the root, then call `toast.success('Saved')`
+anywhere. `node scripts/component.mjs toast` lists every variant and option.
 
 ## Verifying the setup
 

@@ -2,7 +2,7 @@
 
 The registry shipped inside `@youcan/celeste` is generated from source and
 describes **what every component accepts** — props, their types and defaults,
-events, slots, and what each component composes with. Read it with
+events, slots, and how compound components nest. Read it with
 `node scripts/component.mjs <Name>`, or `node scripts/search.mjs <query>` when
 you do not know the name yet. Check it before writing any UI.
 
@@ -16,32 +16,30 @@ Celeste exports 147 components. Before writing a styled `<div>`, a custom
 `<button>`, or a bespoke dropdown, look it up. A hand-rolled control loses
 keyboard handling, focus management, and dark mode.
 
-## Compound components: read the story for nesting
+## Compound components: follow the usage example
 
 Around twenty components are compound — `Table`, `Select`, `Modal`, `Sidebar`,
 `DropdownMenu`, `Combobox`, `TabMenu`, `Pagination`, and others ship as a parent
 plus a set of parts.
 
-The registry lists those parts under **Composes with**, but that field is just
-"everything else in this folder" — it carries **no nesting order**. It will not
-tell you that `TableRow` goes inside `TableBody`, or `TableCell` inside
-`TableRow`. Do not guess the shape from part names.
+The **parts** line in `component.mjs` output is just "everything else in this
+folder" and carries no nesting order. It will not tell you that `TableRow` goes
+inside `TableBody`. Do not guess the shape from part names.
 
-Instead read the worked example. Every compound component has one, and
-`component.mjs` prints its path on the last line:
+`component.mjs` prints a **usage** example for these groups, taken from the
+component's story when the registry is built and trimmed to the nesting:
 
 ```
-example: src/components/table/stories/table.stories.ts
+usage (src/components/table/stories/table.stories.ts):
+  <Table>
+    <TableHeader>
+      <TableRow>
+        <TableHead>Invoice</TableHead>
+        <!-- …3 more <TableHead> -->
 ```
 
-That path resolves inside the installed package:
-
-```bash
-cat node_modules/@youcan/celeste/src/components/table/stories/table.stories.ts
-```
-
-A story is a few KB and shows real nesting, so it is cheaper and more reliable
-than reading the component sources one by one.
+Follow it. The full story, at `node_modules/@youcan/celeste/<that path>`, is
+only worth reading for a variant the usage does not show.
 
 ## Some components carry state, others are markup only
 
