@@ -7,7 +7,7 @@ import { discoverComponents } from './discovery';
 import { createComponentChecker, extractComponent } from './extract';
 import { buildHelperIndex } from './helpers';
 import { buildIconIndex } from './icons';
-import { syncSkillCounts } from './skill';
+import { syncSkillCounts, syncTokenSheet } from './skill';
 import { buildTokenIndex } from './tokens';
 import { REGISTRY_SCHEMA_VERSION } from './types';
 
@@ -143,6 +143,9 @@ function main(): void {
       themed: semantic,
       icons: icons.length,
     });
+
+    if (syncTokenSheet(skillRoot, tokens) && !skillChanges.includes('SKILL.md'))
+      skillChanges.push('SKILL.md');
   }
   catch (error) {
     console.error(`\n✗ ${(error as Error).message}\n`);
