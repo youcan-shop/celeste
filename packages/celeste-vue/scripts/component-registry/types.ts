@@ -7,6 +7,8 @@ export interface PropEntry {
   required: boolean;
   default?: string;
   description?: string;
+  /** Declared by a dependency (reka-ui) and passed through unchanged. */
+  inherited?: boolean;
 }
 
 export interface EventEntry {
@@ -31,7 +33,20 @@ export interface ComponentEntry {
   slots: SlotEntry[];
   siblings: string[];
   story?: string;
+  usage?: string;
   hasStory: boolean;
+}
+
+export interface HelperEntry {
+  name: string;
+  kind: 'function' | 'value' | 'type';
+  file: string;
+  import: string;
+  /** Call signatures for a function, the type for a value or alias. */
+  signatures: string[];
+  /** Methods of a function object (`toast.success`), or an interface's fields. */
+  members: string[];
+  description?: string;
 }
 
 export interface ComponentRegistry {
@@ -39,6 +54,7 @@ export interface ComponentRegistry {
   version: string;
   generatedAt: string;
   components: Record<string, ComponentEntry>;
+  helpers: Record<string, HelperEntry>;
 }
 
 export interface TokenEntry {

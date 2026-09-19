@@ -5,6 +5,7 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { discoverComponents } from './discovery';
 import { createComponentChecker, extractComponent } from './extract';
+import { buildHelperIndex } from './helpers';
 import { buildIconIndex } from './icons';
 import { syncSkillCounts } from './skill';
 import { buildTokenIndex } from './tokens';
@@ -30,7 +31,8 @@ function readme(version: string, iconCount: number): string {
 
 Generated from source for \`@youcan/celeste@${version}\`. Do not edit.
 
-- \`component-registry.json\` — every component's props, events, slots and story
+- \`component-registry.json\` — every component's props, events, slots, story and usage example, and
+  every exported helper such as \`toast\`
 - \`tokens.json\` — every design token, with its dark-mode value where it has one
 - \`icons.json\` — every icon name and category
 
@@ -39,7 +41,7 @@ asked for:
 
 \`\`\`bash
 node scripts/search.mjs <query>      # which component to use
-node scripts/component.mjs <Name>    # its props, events and slots
+node scripts/component.mjs <Name>    # its props, events, slots and usage
 node scripts/token.mjs <pattern>     # matching design tokens
 node scripts/icon.mjs <pattern>      # matching icon names
 \`\`\`
@@ -78,7 +80,7 @@ function buildComponentRegistry(): ComponentRegistry {
     const siblings = (byGroup.get(component.group) ?? []).filter(name => name !== component.name);
 
     try {
-      components[component.name] = extractComponent(checker, component, siblings);
+      components[component.name] = extractComponent(checker, packageRoot, component, siblings);
     }
     catch (error) {
       failures.push(`${component.name} (${component.file}): ${(error as Error).message}`);
@@ -98,6 +100,7 @@ function buildComponentRegistry(): ComponentRegistry {
     version: readVersion(packageRoot),
     generatedAt: new Date().toISOString(),
     components,
+    helpers: buildHelperIndex(checker, packageRoot),
   };
 }
 
