@@ -1,14 +1,14 @@
-import type { ComponentEntry, ComponentRegistry } from './types';
+import type { ComponentEntry, ComponentRegistry, IconIndex, TokenIndex } from './types';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { discoverComponents } from './discovery';
 import { createComponentChecker, extractComponent } from './extract';
-import { buildIconIndex, renderIconsMarkdown } from './icons';
-import { renderRegistryMarkdown } from './markdown';
-import { syncSkillCounts } from './skill';
-import { buildTokenIndex, renderTokensMarkdown } from './tokens';
+import { buildHelperIndex } from './helpers';
+import { buildIconIndex } from './icons';
+import { syncSkillCounts, syncTokenSheet } from './skill';
+import { buildTokenIndex } from './tokens';
 import { REGISTRY_SCHEMA_VERSION } from './types';
 
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -20,6 +20,35 @@ const outputDir = join(packageRoot, 'ai');
 
 function readVersion(packageDir: string): string {
   return JSON.parse(readFileSync(join(packageDir, 'package.json'), 'utf8')).version;
+}
+
+function writeJson(name: string, data: IconIndex | ComponentRegistry | TokenIndex): void {
+  writeFileSync(join(outputDir, name), `${JSON.stringify(data, null, 2)}\n`);
+}
+
+function readme(version: string, iconCount: number): string {
+  return `# Celeste agent indexes
+
+Generated from source for \`@youcan/celeste@${version}\`. Do not edit.
+
+- \`component-registry.json\` — every component's props, events, slots, story and usage example, and
+  every exported helper such as \`toast\`
+- \`tokens.json\` — every design token, with its dark-mode value where it has one
+- \`icons.json\` — every icon name and category
+
+Read them with the \`celeste-ui\` skill's scripts, which return only what was
+asked for:
+
+\`\`\`bash
+node scripts/search.mjs <query>      # which component to use
+node scripts/component.mjs <Name>    # its props, events, slots and usage
+node scripts/token.mjs <pattern>     # matching design tokens
+node scripts/icon.mjs <pattern>      # matching icon names
+\`\`\`
+
+Parsing these files directly, or reading one whole, costs far more than the
+answer is worth — \`icons.json\` alone describes ${iconCount.toLocaleString('en-US')} icons.
+`;
 }
 
 function requireBuilt(path: string, packageName: string): void {
@@ -51,7 +80,7 @@ function buildComponentRegistry(): ComponentRegistry {
     const siblings = (byGroup.get(component.group) ?? []).filter(name => name !== component.name);
 
     try {
-      components[component.name] = extractComponent(checker, component, siblings);
+      components[component.name] = extractComponent(checker, packageRoot, component, siblings);
     }
     catch (error) {
       failures.push(`${component.name} (${component.file}): ${(error as Error).message}`);
@@ -71,6 +100,7 @@ function buildComponentRegistry(): ComponentRegistry {
     version: readVersion(packageRoot),
     generatedAt: new Date().toISOString(),
     components,
+    helpers: buildHelperIndex(checker, packageRoot),
   };
 }
 
@@ -85,15 +115,20 @@ function main(): void {
 
   mkdirSync(outputDir, { recursive: true });
 
+  const generatedAt = new Date().toISOString();
+
   const registry = buildComponentRegistry();
-  writeFileSync(join(outputDir, 'component-registry.json'), `${JSON.stringify(registry, null, 2)}\n`);
-  writeFileSync(join(outputDir, 'component-registry.md'), renderRegistryMarkdown(registry));
+  writeJson('component-registry.json', registry);
 
+  const tokensVersion = readVersion(tokensRoot);
   const tokens = buildTokenIndex(tokensCss);
-  writeFileSync(join(outputDir, 'tokens.md'), renderTokensMarkdown(tokens, readVersion(tokensRoot)));
+  writeJson('tokens.json', { schemaVersion: REGISTRY_SCHEMA_VERSION, version: tokensVersion, generatedAt, tokens });
 
+  const iconsVersion = readVersion(iconsRoot);
   const { prefix, icons } = buildIconIndex(iconsRoot);
-  writeFileSync(join(outputDir, 'icons.md'), renderIconsMarkdown(prefix, icons, readVersion(iconsRoot)));
+  writeJson('icons.json', { schemaVersion: REGISTRY_SCHEMA_VERSION, version: iconsVersion, generatedAt, prefix, icons });
+
+  writeFileSync(join(outputDir, 'README.md'), readme(registry.version, icons.length));
 
   const componentCount = Object.keys(registry.components).length;
   const withStories = Object.values(registry.components).filter(component => component.hasStory).length;
@@ -108,6 +143,9 @@ function main(): void {
       themed: semantic,
       icons: icons.length,
     });
+
+    if (syncTokenSheet(skillRoot, tokens) && !skillChanges.includes('SKILL.md'))
+      skillChanges.push('SKILL.md');
   }
   catch (error) {
     console.error(`\n✗ ${(error as Error).message}\n`);

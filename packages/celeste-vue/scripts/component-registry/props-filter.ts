@@ -52,6 +52,16 @@ export function shouldIncludeProp(prop: ComponentMeta['props'][number]): boolean
   return !isInheritedFromVue(prop);
 }
 
+/**
+ * Declared only in a third-party package — in practice reka-ui's positioning,
+ * focus and dismissal props that Celeste passes straight through.
+ */
+export function isInheritedFromDependency(prop: ComponentMeta['props'][number]): boolean {
+  const declarations = prop.getDeclarations?.() ?? [];
+
+  return declarations.length > 0 && declarations.every(declaration => declaration.file.includes('/node_modules/'));
+}
+
 function isInheritedFromVue(prop: ComponentMeta['props'][number]): boolean {
   const declarations = prop.getDeclarations?.() ?? [];
 

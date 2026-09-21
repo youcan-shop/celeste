@@ -180,7 +180,7 @@ export const Simple: Story = {
     },
     template: `
       <SidebarProvider>
-        <Sidebar collapsible="icon" side="end" v-bind="args">
+        <Sidebar collapsible="icon" v-bind="args">
           <SidebarHeader>
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
@@ -351,7 +351,7 @@ export const Simple: Story = {
 
         <div style="padding: 24px;">
           <SidebarTrigger />
-        <div>
+        </div>
       </SidebarProvider>
     `,
   }),
