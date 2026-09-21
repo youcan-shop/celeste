@@ -38,9 +38,12 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
   width: 20px;
   padding: 0;
   transition: transform var(--animation-fast) ease-in-out;
+  border: 0;
   border-radius: var(--radius-8);
   outline: none;
+  background: none;
   color: var(--sidebar-foreground);
+  text-decoration: none;
   inset-inline-end: var(--spacing-4);
   inset-block-start: var(--spacing-8);
   aspect-ratio: 1;
