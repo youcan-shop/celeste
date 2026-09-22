@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import Combobox from '../combobox.vue';
 
 const meta: Meta<typeof Combobox> = {
@@ -235,6 +235,40 @@ export const Preselected: Story = {
       <div>
         <Combobox v-bind="args" v-model="selectedValue" />
         <div style="margin-top: 16px; padding: 12px; background: #f5f5f5; border-radius: 8px; font-family: monospace;">
+          <strong>Selected:</strong> {{ selectedValue ? selectedValue.label : 'None' }}
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const ControlledSearch: Story = {
+  args: {
+    valueBy: 'id',
+    placeholder: 'Search and select',
+    searchable: true,
+    searchPlaceholder: 'Search Users',
+    ignoreFilter: true,
+  },
+
+  render: args => ({
+    components: { Combobox },
+    setup() {
+      const selectedValue = ref();
+      const searchTerm = ref('');
+
+      const options = computed(() => OPTIONS.filter(option => option.label
+        .toLowerCase()
+        .startsWith(searchTerm.value.toLowerCase())));
+
+      return { args, selectedValue, searchTerm, options };
+    },
+    template: `
+      <div>
+        <Combobox v-bind="args" v-model="selectedValue" v-model:search-term="searchTerm" :options="options" />
+        <div style="margin-top: 16px; padding: 12px; background: #f5f5f5; border-radius: 8px; font-family: monospace;">
+          <strong>Term:</strong> {{ searchTerm || 'None' }}
+          <br>
           <strong>Selected:</strong> {{ selectedValue ? selectedValue.label : 'None' }}
         </div>
       </div>
