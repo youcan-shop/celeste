@@ -135,9 +135,9 @@ const mergedBadgeProps = computed(() => ({
   disabled: props.disabled,
 }));
 
-const filteredOptions = computed(() => props.searchTerm === undefined
-  ? filterFunction(props.options, searchTerm.value ?? '')
-  : props.options);
+const filteredOptions = computed(() => props.ignoreFilter
+  ? props.options
+  : filterFunction(props.options, searchTerm.value ?? ''));
 </script>
 
 <template>
