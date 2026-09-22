@@ -4,7 +4,7 @@ import type { BadgeProps } from '../badge/badge.vue';
 import type { ComboboxItemPropsType } from './combobox-item.vue';
 
 import { useForwardPropsEmits } from 'reka-ui';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import Badge from '../badge/badge.vue';
 import ComboboxAnchor from './combobox-anchor.vue';
 import ComboboxEmpty from './combobox-empty.vue';
@@ -22,6 +22,7 @@ export interface ComboboxPropsType extends ComboboxRootProps {
   labelBy?: string;
   placeholder?: string;
   searchPlaceholder?: string;
+  searchTerm?: string;
   type?: 'normal' | 'compact' | 'inline' | 'compact-input';
   size?: 'xs' | 'sm' | 'md';
   emptyLabel?: string;
@@ -39,6 +40,7 @@ const props = withDefaults(defineProps<ComboboxPropsType>(), {
   size: 'md',
 });
 const emits = defineEmits<ComboboxRootEmits>();
+const searchTerm = defineModel<string>('searchTerm');
 
 const delegatedProps = computed(() => {
   const {
@@ -53,6 +55,7 @@ const delegatedProps = computed(() => {
     emptyLabel,
     badgeProps,
     searchable,
+    searchTerm: _searchTerm,
     class: _class,
     ...delegated
   } = props;
@@ -132,9 +135,9 @@ const mergedBadgeProps = computed(() => ({
   disabled: props.disabled,
 }));
 
-const searchTerm = ref('');
-
-const filteredOptions = computed(() => filterFunction(props.options, searchTerm.value));
+const filteredOptions = computed(() => props.searchTerm === undefined
+  ? filterFunction(props.options, searchTerm.value ?? '')
+  : props.options);
 </script>
 
 <template>
