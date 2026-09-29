@@ -1,0 +1,14 @@
+export * from './dialog-body.vue';
+export { default as DialogBody } from './dialog-body.vue';
+export * from './dialog-close.vue';
+export { default as DialogClose } from './dialog-close.vue';
+export * from './dialog-content.vue';
+export { default as DialogContent } from './dialog-content.vue';
+export * from './dialog-footer.vue';
+export { default as DialogFooter } from './dialog-footer.vue';
+export * from './dialog-header.vue';
+export { default as DialogHeader } from './dialog-header.vue';
+export * from './dialog-trigger.vue';
+export { default as DialogTrigger } from './dialog-trigger.vue';
+export * from './dialog.vue';
+export { default as Dialog } from './dialog.vue';
