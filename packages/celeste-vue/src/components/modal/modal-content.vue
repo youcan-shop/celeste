@@ -17,37 +17,41 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <ModalPortal>
-    <ModalOverlay class="celeste-modal-overlay" />
-    <Transition name="fade">
-      <ModalContent
-        v-bind="forwarded"
-        :class="clsx('celeste-modal-content', props.class)"
-      >
-        <slot />
-      </ModalContent>
-    </Transition>
+    <ModalOverlay class="celeste-modal-overlay">
+      <Transition name="fade">
+        <ModalContent
+          v-bind="forwarded"
+          :class="clsx('celeste-modal-content', props.class)"
+        >
+          <slot />
+        </ModalContent>
+      </Transition>
+    </ModalOverlay>
   </ModalPortal>
 </template>
 
 <style scoped lang="scss">
 .celeste-modal-overlay {
+  display: flex;
   position: fixed;
   z-index: 50;
+  flex-direction: column;
+  padding: var(--spacing-16);
+  overflow-y: auto;
   background: var(--color-overlay-overlay);
   backdrop-filter: blur(5px);
   inset: 0;
 }
 
 .celeste-modal-content {
-  position: fixed;
+  position: relative;
   z-index: 51;
-  top: 50%;
-  left: 50%;
+  max-width: 100%;
+  margin: auto;
   border: 1px solid var(--color-stroke-soft-200);
   border-radius: var(--radius-20);
   background: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
-  translate: -50% -50%;
 }
 
 .fade-enter-active,
