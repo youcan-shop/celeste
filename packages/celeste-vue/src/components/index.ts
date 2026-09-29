@@ -10,6 +10,7 @@ export * from './combobox';
 export * from './content-divider';
 export * from './counter-input';
 export * from './date-picker';
+export * from './dialog';
 export * from './digit-input';
 export * from './drawer';
 export * from './dropdown-menu';
