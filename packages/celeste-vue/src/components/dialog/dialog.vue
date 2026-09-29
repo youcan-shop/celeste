@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useMediaQuery, useVModel } from '@vueuse/core';
+import { breakpoint as breakpoints } from '@youcan/celeste-tokens/json/breakpoint';
 import Drawer from '@/components/drawer/drawer.vue';
 import Modal from '@/components/modal/modal.vue';
 import { provideDialogContext } from './context';
@@ -7,18 +8,18 @@ import { provideDialogContext } from './context';
 export interface DialogProps {
   open?: boolean;
   defaultOpen?: boolean;
-  breakpoint?: number;
+  breakpoint?: keyof typeof breakpoints;
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {
   open: undefined,
-  breakpoint: 640,
+  breakpoint: 'sm',
 });
 
 const emits = defineEmits<{ 'update:open': [value: boolean] }>();
 
 const open = useVModel(props, 'open', emits, { passive: true, defaultValue: props.defaultOpen });
-const drawer = useMediaQuery(() => `(width <= ${props.breakpoint}px)`);
+const drawer = useMediaQuery(() => `(width < ${breakpoints[props.breakpoint].$value}px)`);
 
 provideDialogContext({ drawer });
 </script>
