@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DrawerContentEmits, DrawerContentProps } from 'reka-ui';
+import type { DrawerContentEmits, DrawerContentProps as RekaDrawerContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
@@ -11,7 +11,7 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui';
 
-export interface CelesteDrawerContentProps extends DrawerContentProps {
+export interface DrawerContentProps extends RekaDrawerContentProps {
   class?: HTMLAttributes['class'];
 }
 
@@ -19,7 +19,7 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const props = defineProps<CelesteDrawerContentProps>();
+const props = defineProps<DrawerContentProps>();
 
 const emits = defineEmits<DrawerContentEmits>();
 
@@ -43,7 +43,7 @@ const forwarded = useForwardPropsEmits(reactiveOmit(props, 'class'), emits);
 .celeste-drawer-overlay {
   position: fixed;
   z-index: 50;
-  transition: opacity var(--drawer-duration, 450ms) var(--drawer-ease, cubic-bezier(0.32, 0.72, 0, 1));
+  transition: opacity 450ms cubic-bezier(0.32, 0.72, 0, 1);
   opacity: calc(1 - var(--drawer-swipe-progress, 0));
   background: var(--color-overlay-overlay);
   inset: 0;
@@ -118,7 +118,7 @@ const forwarded = useForwardPropsEmits(reactiveOmit(props, 'class'), emits);
   &[data-swipe-direction='up'] {
     right: 0;
     left: 0;
-    max-height: calc(100dvh - var(--spacing-48, 48px));
+    max-height: calc(100dvh - var(--spacing-48));
     transform: translateY(calc(var(--drawer-snap-point-offset, 0%) + var(--drawer-swipe-movement-y, 0%)));
   }
 

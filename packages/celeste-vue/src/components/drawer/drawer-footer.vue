@@ -2,7 +2,11 @@
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
 
-const props = defineProps<{ class?: HTMLAttributes['class'] }>();
+export interface DrawerFooterProps {
+  class?: HTMLAttributes['class'];
+}
+
+const props = defineProps<DrawerFooterProps>();
 </script>
 
 <template>

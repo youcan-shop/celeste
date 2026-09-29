@@ -34,7 +34,6 @@ const props = withDefaults(defineProps<DrawerHeaderProps>(), {
       <DrawerDescription v-if="description">
         {{ description }}
       </DrawerDescription>
-      <slot />
     </div>
     <slot name="actions" />
     <DrawerClose v-if="dismissible" as-child>

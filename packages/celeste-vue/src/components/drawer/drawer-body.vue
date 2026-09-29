@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import type { DrawerViewportProps } from 'reka-ui';
+import type { DrawerViewportProps as RekaDrawerViewportProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import clsx from 'clsx';
 import { DrawerViewport } from 'reka-ui';
 
-const props = defineProps<DrawerViewportProps & { class?: HTMLAttributes['class'] }>();
+export interface DrawerBodyProps extends RekaDrawerViewportProps {
+  class?: HTMLAttributes['class'];
+}
+
+const props = defineProps<DrawerBodyProps>();
 
 const delegated = reactiveOmit(props, 'class');
 </script>

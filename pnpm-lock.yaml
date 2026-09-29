@@ -209,7 +209,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       reka-ui:
-        specifier: ^2.10.5
+        specifier: ~2.10.5
         version: 2.10.5(vue@3.5.41(typescript@6.0.3))
       tinycolor2:
         specifier: ^1.6.0

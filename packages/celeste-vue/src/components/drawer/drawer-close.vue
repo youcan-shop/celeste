@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import type { DrawerCloseProps } from 'reka-ui';
+import type { DrawerCloseProps as RekaDrawerCloseProps } from 'reka-ui';
 import { DrawerClose } from 'reka-ui';
+
+export interface DrawerCloseProps extends RekaDrawerCloseProps {}
 
 const props = defineProps<DrawerCloseProps>();
 </script>
