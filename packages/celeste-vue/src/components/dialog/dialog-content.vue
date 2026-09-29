@@ -5,7 +5,6 @@ import ModalContent from '@/components/modal/modal-content.vue';
 import { injectDialogContext } from './context';
 
 export interface DialogContentProps {
-  class?: HTMLAttributes['class'];
   style?: HTMLAttributes['style'];
 }
 
@@ -15,14 +14,10 @@ const { drawer } = injectDialogContext();
 </script>
 
 <template>
-  <DrawerContent v-if="drawer" :class="props.class">
+  <DrawerContent v-if="drawer">
     <slot />
   </DrawerContent>
-  <ModalContent
-    v-else
-    :class="props.class"
-    :style="props.style"
-  >
+  <ModalContent v-else :style="props.style">
     <slot />
   </ModalContent>
 </template>

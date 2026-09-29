@@ -15,7 +15,7 @@ const { drawer } = injectDialogContext();
 </script>
 
 <template>
-  <DrawerFooter v-if="drawer" :class="clsx('celeste-dialog-footer', props.class)">
+  <DrawerFooter v-if="drawer" :class="props.class">
     <slot />
   </DrawerFooter>
   <ModalFooter v-else :class="clsx('celeste-dialog-footer', props.class)">
