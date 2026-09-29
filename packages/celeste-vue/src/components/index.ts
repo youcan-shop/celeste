@@ -11,6 +11,7 @@ export * from './content-divider';
 export * from './counter-input';
 export * from './date-picker';
 export * from './digit-input';
+export * from './drawer';
 export * from './dropdown-menu';
 export * from './file-upload';
 export * from './hint-text';
