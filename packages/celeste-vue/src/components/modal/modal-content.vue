@@ -66,6 +66,7 @@ const root = injectDialogRootContext();
 
 .celeste-modal-content {
   position: relative;
+  width: 440px;
   max-width: 100%;
   margin: auto;
   border: 1px solid var(--color-stroke-soft-200);
