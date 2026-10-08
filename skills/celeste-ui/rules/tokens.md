@@ -5,7 +5,7 @@ property. There are 352 of them. Find one with
 `node scripts/token.mjs <pattern>`.
 
 Styling with tokens is not a style preference. Dark mode is implemented _only_
-through them: 70 of the 352 are redefined under `[data-theme="dark"]`. A
+through them: 73 of the 352 are redefined under `[data-theme="dark"]`. A
 hard-coded colour is invisible to that mechanism, so it stays light while
 everything around it flips.
 
