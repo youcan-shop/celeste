@@ -28,7 +28,7 @@
       "primary-focus": {
         "$value": [
           {
-            "color": "#ffffff",
+            "color": "{color.bg.white-0}",
             "$type": "dropShadow",
             "x": 0,
             "y": 0,
@@ -49,7 +49,7 @@
       "important-focus": {
         "$value": [
           {
-            "color": "#ffffff",
+            "color": "{color.bg.white-0}",
             "$type": "dropShadow",
             "x": 0,
             "y": 0,
@@ -70,7 +70,7 @@
       "error-focus": {
         "$value": [
           {
-            "color": "#ffffff",
+            "color": "{color.bg.white-0}",
             "$type": "dropShadow",
             "x": 0,
             "y": 0,
