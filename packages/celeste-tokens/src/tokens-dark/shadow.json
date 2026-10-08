@@ -1,0 +1,69 @@
+{
+  "shadow": {
+    "buttons": {
+      "primary-focus": {
+        "$value": [
+          {
+            "color": "{color.neutral.950}",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 2
+          },
+          {
+            "color": "#fb4ba31a",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 4
+          }
+        ],
+        "$type": "boxShadow"
+      },
+      "important-focus": {
+        "$value": [
+          {
+            "color": "{color.neutral.950}",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 2
+          },
+          {
+            "color": "#99a0ae29",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 4
+          }
+        ],
+        "$type": "boxShadow"
+      },
+      "error-focus": {
+        "$value": [
+          {
+            "color": "{color.neutral.950}",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 2
+          },
+          {
+            "color": "#fb37481a",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 4
+          }
+        ],
+        "$type": "boxShadow"
+      }
+    }
+  }
+}
