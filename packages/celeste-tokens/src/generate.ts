@@ -83,7 +83,8 @@ async function buildDarkMode(): Promise<void> {
           {
             destination: 'tokens.dark.css',
             format: 'css/dark',
-            filter: (token: any) => overridePaths.has(token.path.join('.')),
+            filter: (token: any) => overridePaths.has(token.path.join('.'))
+              || [...JSON.stringify(token.original.$value).matchAll(/\{([\w.-]+)\}/g)].some(([, path]) => overridePaths.has(path)),
           },
         ],
       },

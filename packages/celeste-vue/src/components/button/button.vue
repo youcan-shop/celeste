@@ -270,7 +270,7 @@ $hover-map: (
           color: map.get($hover-values, fg);
         }
 
-        &:focus:not(:disabled) {
+        &:focus-visible:not(:disabled) {
           outline: none;
           box-shadow: if(
             $intent == 'neutral',

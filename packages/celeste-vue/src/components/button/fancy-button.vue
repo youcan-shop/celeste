@@ -107,7 +107,7 @@ $intent-map: (
     height: 20px;
   }
 
-  &:focus {
+  &:focus-visible {
     outline: none;
   }
 
@@ -129,7 +129,7 @@ $intent-map: (
         linear-gradient(180deg, var(--celeste-fbutton-bg-start) 0%, var(--celeste-fbutton-bg-end) 100%),
         #{map.get($v, bg)};
       box-shadow: var(--shadow-fancy-buttons-#{$k});
-      color: var(--color-text-white-0);
+      color: if($k == 'neutral', var(--color-text-white-0), var(--color-static-white));
 
       &::before {
         content: '';
@@ -148,7 +148,7 @@ $intent-map: (
         --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
       }
 
-      &:focus {
+      &:focus-visible {
         --celeste-fbutton-bg-start: rgb(255 255 255 / 24%);
         --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
 
@@ -167,13 +167,13 @@ $intent-map: (
     &:hover {
       background: var(--color-bg-weak-50);
       box-shadow: none;
-      color: var(--text-strong-950);
+      color: var(--color-text-strong-950);
     }
 
-    &:focus {
+    &:focus-visible {
       background: var(--color-bg-weak-50);
       box-shadow: var(--shadow-buttons-important-focus);
-      color: var(--text-strong-950);
+      color: var(--color-text-strong-950);
     }
   }
 }
