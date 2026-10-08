@@ -68,7 +68,7 @@ $size-map: (
 $intent-map: (
   'primary': (
     'fill': (
-      fg: var(--color-text-white-0),
+      fg: var(--color-static-white),
       bg: var(--color-primary-base),
       border: var(--color-primary-base),
       shadow: none,
@@ -120,7 +120,7 @@ $intent-map: (
   ),
   'error': (
     'fill': (
-      fg: var(--color-text-white-0),
+      fg: var(--color-static-white),
       bg: var(--color-state-error-base),
       border: var(--color-state-error-base),
       shadow: none,
@@ -148,7 +148,7 @@ $intent-map: (
 $hover-map: (
   'primary': (
     'fill': (
-      fg: var(--color-text-white-0),
+      fg: var(--color-static-white),
       bg: var(--color-primary-darker),
       border: var(--color-primary-darker),
     ),
@@ -192,7 +192,7 @@ $hover-map: (
   ),
   'error': (
     'fill': (
-      fg: var(--color-text-white-0),
+      fg: var(--color-static-white),
       bg: var(--color-red-700),
       border: var(--color-red-700),
     ),

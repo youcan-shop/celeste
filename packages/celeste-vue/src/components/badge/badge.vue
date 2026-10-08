@@ -110,7 +110,7 @@ $states: faded, information, warning, error, success, away, feature, verified, h
   @each $state in $states {
     &-fill.celeste-badge-#{$state}:not(&-disabled) {
       background-color: var(--color-state-#{$state}-base);
-      color: var(--color-text-white-0);
+      color: var(--color-static-white);
     }
 
     &-light.celeste-badge-#{$state}:not(&-disabled) {
