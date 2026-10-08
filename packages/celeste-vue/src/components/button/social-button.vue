@@ -100,7 +100,7 @@ $brand-map: (
     border-color: var(--color-stroke-soft-200);
     background-color: var(--color-bg-white-0);
     box-shadow: var(--shadow-regular-xs);
-    color: var(--text-strong-950);
+    color: var(--color-text-strong-950);
 
     &:hover {
       border-color: transparent;
