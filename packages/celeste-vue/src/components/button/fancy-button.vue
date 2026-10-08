@@ -107,7 +107,7 @@ $intent-map: (
     height: 20px;
   }
 
-  &:focus {
+  &:focus-visible {
     outline: none;
   }
 
@@ -148,7 +148,7 @@ $intent-map: (
         --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
       }
 
-      &:focus {
+      &:focus-visible {
         --celeste-fbutton-bg-start: rgb(255 255 255 / 24%);
         --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
 
@@ -170,7 +170,7 @@ $intent-map: (
       color: var(--text-strong-950);
     }
 
-    &:focus {
+    &:focus-visible {
       background: var(--color-bg-weak-50);
       box-shadow: var(--shadow-buttons-important-focus);
       color: var(--text-strong-950);

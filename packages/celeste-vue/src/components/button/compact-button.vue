@@ -73,7 +73,7 @@ const props = withDefaults(defineProps<CompactButtonProps>(), {
     color: var(--color-icon-strong-950);
   }
 
-  &:focus {
+  &:focus-visible {
     border-color: transparent;
     outline: none;
     background-color: var(--color-bg-weak-50);

@@ -57,7 +57,7 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
   }
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     outline: none;
     text-decoration: underline;
   }
@@ -92,7 +92,7 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
     color: var(--color-primary-base);
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: var(--color-primary-darker);
     }
   }
@@ -101,7 +101,7 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
     color: var(--color-text-strong-950);
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: var(--color-text-strong-950);
     }
   }
@@ -110,7 +110,7 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
     color: var(--color-text-sub-600);
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: var(--color-text-sub-600);
     }
   }
@@ -119,7 +119,7 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
     color: var(--color-state-error-base);
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: var(--color-red-700);
     }
   }
