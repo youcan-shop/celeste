@@ -207,7 +207,7 @@ const forwarded = useForwardProps(delegatedProps);
       margin-inline-start: var(--spacing-2);
     }
 
-    &.celeste-dropdown-anchor-trigger-filled :deep(.celeste-dropdown-trigger i) {
+    &.celeste-dropdown-anchor-trigger-filled:not([data-disabled]) :deep(.celeste-dropdown-trigger i) {
       color: var(--color-icon-sub-600);
     }
 
