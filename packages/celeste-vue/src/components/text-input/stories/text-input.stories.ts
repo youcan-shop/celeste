@@ -73,15 +73,21 @@ export const Size: Story = {
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px" size="md">
-          <i class="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
 
         <TextInput v-bind="args" style="width: 300px" size="sm">
-          <i class="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
         
         <TextInput v-bind="args" style="width: 300px" size="xs">
-          <i class="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
       </div>
     `,
