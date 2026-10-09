@@ -206,7 +206,7 @@ function dragStop(event: PointerEvent, id: number) {
   Object.keys(drafts).forEach(key => delete drafts[key]);
 
   drag(event, (moved) => {
-    const { x, dy } = relative(bar.value!, moved);
+    const { x, dy } = relative(bar.value!, moved, 10);
 
     current.value!.position = Math.round(x * 100);
     removing.value = state.value!.stops.length > 2 && Math.abs(dy) > 40 ? id : undefined;
@@ -215,7 +215,7 @@ function dragStop(event: PointerEvent, id: number) {
 }
 
 function onBar(event: PointerEvent) {
-  event.target === event.currentTarget && dragStop(event, addAt(Math.round(relative(bar.value!, event).x * 100)));
+  event.target === event.currentTarget && dragStop(event, addAt(Math.round(relative(bar.value!, event, 10).x * 100)));
 }
 
 function onPreview(event: PointerEvent) {
@@ -239,11 +239,11 @@ function onArea(event: PointerEvent) {
 }
 
 function onHue(event: PointerEvent) {
-  drag(event, moved => patch({ h: Math.min(relative(hue.value!, moved).y * 360, 359) }));
+  drag(event, moved => patch({ h: Math.min(relative(hue.value!, moved, 12).y * 360, 359) }));
 }
 
 function onAlpha(event: PointerEvent) {
-  drag(event, moved => patch({ a: Math.round((1 - relative(alpha.value!, moved).y) * 100) / 100 }));
+  drag(event, moved => patch({ a: Math.round((1 - relative(alpha.value!, moved, 12).y) * 100) / 100 }));
 }
 
 function addStop() {
@@ -277,6 +277,8 @@ async function sip() {
   result && patch({ ...hsva(result.sRGBHex), a: current.value!.a });
 }
 
+const fill = (color: string) => `linear-gradient(${color}, ${color}), repeating-conic-gradient(#e5e5e5 0 25%, #fff 0 50%) 0 0 / 8px 8px`;
+const along = (fraction: number) => `calc(12px + (100% - 24px) * ${fraction})`;
 const canSip = 'EyeDropper' in window;
 </script>
 
@@ -383,7 +385,7 @@ const canSip = 'EyeDropper' in window;
                 :key="stop.id"
                 type="button"
                 class="celeste-gradient-handle"
-                :style="{ left: `${stop.position}%`, background: colorOf(stop) }"
+                :style="{ left: `calc(10px + (100% - 20px) * ${stop.position / 100})`, background: fill(colorOf(stop)) }"
                 :data-active="stop.id === selected"
                 :data-removing="stop.id === removing"
                 :aria-label="`${colorOf(stop)} ${stop.position}%`"
@@ -475,7 +477,7 @@ const canSip = 'EyeDropper' in window;
                 data-hue="true"
                 @pointerdown="onHue"
               >
-                <span class="celeste-gradient-knob" :style="{ top: `${(current.h / 360) * 100}%`, background: `hsl(${current.h}, 100%, 50%)` }" />
+                <span class="celeste-gradient-knob" :style="{ top: along(current.h / 360), background: `hsl(${current.h}, 100%, 50%)` }" />
               </div>
               <div
                 ref="alpha"
@@ -483,7 +485,7 @@ const canSip = 'EyeDropper' in window;
                 @pointerdown="onAlpha"
               >
                 <span class="celeste-gradient-fill" :style="{ background: `linear-gradient(${solid}, transparent)` }" />
-                <span class="celeste-gradient-knob" :style="{ top: `${(1 - current.a) * 100}%`, background: solid }" />
+                <span class="celeste-gradient-knob" :style="{ top: along(1 - current.a), background: fill(colorOf(current)) }" />
               </div>
             </div>
           </div>

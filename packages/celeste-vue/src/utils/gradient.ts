@@ -11,7 +11,22 @@ export interface Gradient {
   stops: GradientStop[];
 }
 
-const DIRECTIONS: Record<string, number> = { 'to top': 0, 'to right': 90, 'to bottom': 180, 'to left': 270 };
+const DIRECTIONS: Record<string, number> = {
+  'to top': 0,
+  'to top right': 45,
+  'to right top': 45,
+  'to right': 90,
+  'to bottom right': 135,
+  'to right bottom': 135,
+  'to bottom': 180,
+  'to bottom left': 225,
+  'to left bottom': 225,
+  'to left': 270,
+  'to top left': 315,
+  'to left top': 315,
+};
+
+const UNITS: Record<string, number> = { deg: 1, grad: 0.9, rad: 180 / Math.PI, turn: 360 };
 
 function splitTopLevel(value: string): string[] {
   const parts: string[] = [];
@@ -44,9 +59,11 @@ export function parseGradient(value?: string | null): Gradient | null {
   const head = parts[0]?.toLowerCase() ?? '';
   let angle = 180;
 
-  if (/deg$|^to |circle|ellipse|closest|farthest|^at /.test(head)) {
+  const unit = /^(-?(?:\d+(?:\.\d+)?|\.\d+))(deg|grad|rad|turn)$/.exec(head);
+
+  if (unit || /^to |circle|ellipse|closest|farthest|^at /.test(head)) {
     parts.shift();
-    angle = DIRECTIONS[head] ?? Number(/(-?\d+(?:\.\d+)?)deg/.exec(head)?.[1] ?? angle);
+    angle = unit ? Math.round(((Number(unit[1]) * UNITS[unit[2]]) % 360 + 360) % 360) : DIRECTIONS[head] ?? angle;
   }
 
   const stops = parts.map((part, index) => {
