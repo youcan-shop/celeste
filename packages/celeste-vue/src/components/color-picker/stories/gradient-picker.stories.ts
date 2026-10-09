@@ -6,7 +6,7 @@ const meta: Meta<typeof GradientPicker> = {
   title: 'Components/Gradient Picker',
   component: GradientPicker,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
   },
 };
 
@@ -21,7 +21,7 @@ export const Default: Story = {
       const gradient = ref('linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)');
       return { gradient };
     },
-    template: `<GradientPicker v-model="gradient" />`,
+    template: `<div style="display: grid; width: 280px; gap: 8px;"><GradientPicker v-model="gradient" /><code>{{ gradient }}</code></div>`,
   }),
 };
 
@@ -32,6 +32,6 @@ export const Empty: Story = {
       const gradient = ref('');
       return { gradient };
     },
-    template: `<GradientPicker v-model="gradient" />`,
+    template: `<div style="display: grid; width: 280px; gap: 8px;"><GradientPicker v-model="gradient" /><code>{{ gradient }}</code></div>`,
   }),
 };

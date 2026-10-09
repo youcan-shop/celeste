@@ -64,5 +64,5 @@ export function parseGradient(value?: string | null): Gradient | null {
 export function stringifyGradient({ type, angle, stops }: Gradient): string {
   const list = [...stops].sort((a, b) => a.position - b.position).map(stop => `${stop.color} ${stop.position}%`).join(', ');
 
-  return type === 'linear' ? `linear-gradient(${angle}deg, ${list})` : `radial-gradient(circle, ${list})`;
+  return type === 'linear' ? `linear-gradient(${angle}deg, ${list})` : `radial-gradient(${list})`;
 }
