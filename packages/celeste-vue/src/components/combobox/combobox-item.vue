@@ -2,7 +2,7 @@
 import type { ComboboxItemEmits } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import clsx from 'clsx';
-import { ComboboxItem, useForwardPropsEmits } from 'reka-ui';
+import { ComboboxItem, ComboboxItemIndicator, useForwardPropsEmits } from 'reka-ui';
 import { computed } from 'vue';
 import Checkbox from '../checkbox/checkbox.vue';
 
@@ -48,7 +48,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         props.class,
         'celeste-dropdown-item',
         { 'celeste-dropdown-item-disabled': disabled },
-        { 'celeste-dropdown-item-selected': selected },
         { 'celeste-dropdown-item-focused': focused },
       )"
     >
@@ -83,7 +82,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       <div v-if="$slots.suffix" class="celeste-dropdown-item-suffix">
         <slot name="suffix" />
       </div>
-      <i v-if="selected" class="i-celeste-check-fill" />
+      <ComboboxItemIndicator as-child>
+        <i class="celeste-dropdown-item-indicator i-celeste-check-line" />
+      </ComboboxItemIndicator>
     </div>
   </ComboboxItem>
 </template>
@@ -91,8 +92,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <style lang="scss" scoped>
 .celeste-dropdown-item {
   display: flex;
+  position: relative;
   align-items: center;
   padding: var(--spacing-8);
+  padding-inline-end: var(--spacing-36);
   transition-property: background-color;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
@@ -159,6 +162,15 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     color: var(--color-icon-sub-600);
   }
 
+  &-indicator {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+    inset-inline-end: var(--spacing-8);
+  }
+
   &-disabled {
     color: var(--color-text-disabled-300);
     cursor: not-allowed;
@@ -172,10 +184,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     .celeste-dropdown-item-description {
       color: var(--color-text-disabled-300);
     }
-  }
-
-  &-selected {
-    background: var(--color-bg-weak-50);
   }
 
   .celeste-dropdown-item-info {
