@@ -154,22 +154,21 @@ function getCurrentColorValue(key: ColorKey) {
   return currentValue;
 }
 
-function validateInput(event: Event) {
+function nextInputValue(event: Event) {
   const input = event.target as HTMLInputElement;
-  const inputEvent = event as InputEvent;
-  const newValue = truncColorValue(input.value) + (inputEvent.data ?? '');
+  const { length } = input.value;
 
-  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(newValue)) {
+  return input.value.slice(0, input.selectionStart ?? length) + ((event as InputEvent).data ?? '') + input.value.slice(input.selectionEnd ?? length);
+}
+
+function validateInput(event: Event) {
+  if (!COLOR_NUMBER_VALIDATION_PATTERN.test(nextInputValue(event).replace(/[%°]/g, '').trim())) {
     event.preventDefault();
   }
 }
 
 function validateHexInput(event: Event) {
-  const input = event.target as HTMLInputElement;
-  const inputEvent = event as InputEvent;
-  const newValue = input.value + (inputEvent.data ?? '');
-
-  if (!HEX_VALIDATION_PATTERN.test(newValue)) {
+  if (!HEX_VALIDATION_PATTERN.test(nextInputValue(event))) {
     event.preventDefault();
   }
 }

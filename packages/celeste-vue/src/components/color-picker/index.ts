@@ -10,5 +10,8 @@ export { default as ColorPicker } from './color-picker.vue';
 export * from './color-swatch.vue';
 export { default as ColorSwatch } from './color-swatch.vue';
 
+export * from './gradient-picker.vue';
+export { default as GradientPicker } from './gradient-picker.vue';
+
 export * from './hue-slider.vue';
 export { default as HueSlider } from './hue-slider.vue';

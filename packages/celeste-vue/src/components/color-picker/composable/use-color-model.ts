@@ -24,6 +24,11 @@ export function defineColorModel(props: useTinyColorModelProps, emit: any): Writ
     },
     set: (newValue: tinycolor.ColorInput) => {
       const newTinyColor = tinycolor(newValue);
+
+      if (tinycolor.equals(newTinyColor, props.modelValue)) {
+        return;
+      }
+
       const transformedValue = transformToOriginalInputFormat(
         newTinyColor,
         originalFormat,
