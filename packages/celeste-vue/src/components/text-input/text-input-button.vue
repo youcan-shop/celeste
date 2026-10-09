@@ -37,9 +37,13 @@ const delegatedProps = useDelegatedProps(props, 'class');
   }
 
   &[inline='false'] {
-    padding: var(--spacing-10);
+    padding-inline: var(--spacing-14);
     border-end-start-radius: 0;
     border-start-start-radius: 0;
+
+    &:has(> :only-child:is(i)) {
+      padding-inline: var(--spacing-10);
+    }
 
     &:is(.celeste-button-intent-neutral, .celeste-button-variant-stroke):not(:disabled) {
       background-color: var(--color-bg-white-0);
@@ -53,7 +57,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   &[inline='true'] {
     width: 20px;
     height: 20px;
-    color: var(--celeste-text-input-icon-color) !important;
+    color: var(--celeste-text-input-muted-color) !important;
 
     &:hover {
       background-color: transparent !important;

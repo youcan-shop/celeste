@@ -73,15 +73,21 @@ export const Size: Story = {
     template: `
       <div style="display: grid; gap: 20px; justify-content: center;">
         <TextInput v-bind="args" style="width: 300px" size="md">
-          <i class="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
 
         <TextInput v-bind="args" style="width: 300px" size="sm">
-          <i class="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
         
         <TextInput v-bind="args" style="width: 300px" size="xs">
-          <i class="i-celeste-user-6-line" />
+          <template #leadingIcon>
+            <i class="i-celeste-user-6-line" />
+          </template>
         </TextInput>
       </div>
     `,
@@ -354,6 +360,50 @@ export const WithTrailingCombobox: Story = {
               type="compact-input"
               :options="OPTIONS"
               value-by="id"
+            />
+          </template>
+        </TextInput>
+      </div>
+    `,
+  }),
+};
+
+function flag(color: string): string {
+  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="${color}"/></svg>`)}`;
+}
+
+const COUNTRIES = [
+  { value: 'MA', label: 'Morocco (+212)', shortLabel: '+212', image: flag('#c1272d') },
+  { value: 'FR', label: 'France (+33)', shortLabel: '+33', image: flag('#002654') },
+  { value: 'US', label: 'United States (+1)', shortLabel: '+1', image: flag('#3c3b6e') },
+];
+
+export const Phone: Story = {
+  args: {
+    type: 'tel',
+    placeholder: '610-101010',
+  },
+
+  render: args => ({
+    components: { TextInput, Combobox },
+    setup() {
+      const country = ref(COUNTRIES[0]);
+      const phone = ref('+212610101010');
+
+      return { args, COUNTRIES, country, phone };
+    },
+    template: `
+      <div style="display: grid; gap: 20px; width: 360px;">
+        <TextInput v-for="size in ['md', 'sm', 'xs']" :key="size" v-bind="args" v-model="phone" :size="size">
+          <template #leadingNode>
+            <Combobox
+              v-model="country"
+              searchable
+              :options="COUNTRIES"
+              :size="size"
+              value-by="value"
+              label-by="shortLabel"
+              type="compact-input"
             />
           </template>
         </TextInput>

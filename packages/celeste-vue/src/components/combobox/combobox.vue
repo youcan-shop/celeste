@@ -253,6 +253,7 @@ const filteredOptions = computed(() => props.ignoreFilter
   align-items: center;
   justify-content: center;
   width: 20px;
+  max-width: none;
   height: 20px;
   object-fit: cover;
   border-radius: var(--radius-full);
@@ -274,6 +275,7 @@ const filteredOptions = computed(() => props.ignoreFilter
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    unicode-bidi: plaintext;
   }
 }
 

@@ -80,6 +80,7 @@ function clearInput() {
     >
       <TextInputButton
         v-if="showClearButton"
+        inline
         type="button"
         aria-label="Clear search"
         @click="clearInput"
@@ -97,8 +98,9 @@ function clearInput() {
 .celeste-text-input-wrapper {
   --celeste-text-input-border-color: var(--color-stroke-soft-200);
   --celeste-text-input-drop-shadow: var(--shadow-regular-xs);
-  --celeste-text-input-icon-color: var(--color-text-soft-400);
-  --celeste-text-input-affix-color: var(--color-text-soft-400);
+  --celeste-text-input-icon-color: var(--color-text-sub-600);
+  --celeste-text-input-affix-color: var(--color-text-sub-600);
+  --celeste-text-input-muted-color: var(--color-text-soft-400);
   --celeste-text-input-placeholder-color: var(--color-text-soft-400);
   --celeste-text-input-affix-background-color: var(--color-bg-white-0);
 
@@ -106,12 +108,10 @@ function clearInput() {
   box-sizing: border-box;
   align-items: center;
   height: var(--input-height);
-  padding-inline: calc(var(--input-padding) + var(--spacing-2)) var(--input-padding);
+  padding-inline: var(--input-padding);
   transition: all var(--animation-fast) ease-out;
   border: 1px solid var(--celeste-text-input-border-color);
   border-radius: var(--input-radius);
-  outline: 2px solid transparent;
-  outline-offset: 2px;
   background-color: var(--color-bg-white-0);
   box-shadow: var(--celeste-text-input-drop-shadow);
   color: var(--color-text-strong-950);
@@ -119,24 +119,27 @@ function clearInput() {
   gap: var(--input-gap);
 
   &[size='xs'] {
-    --input-gap: 8px;
+    --input-gap: var(--spacing-6);
     --input-height: 32px;
     --input-radius: var(--radius-8);
-    --input-padding: calc(var(--spacing-8) - var(--spacing-2));
+    --input-padding: var(--spacing-8);
+    --input-affix-padding: var(--spacing-10);
   }
 
   &[size='sm'] {
-    --input-gap: 6px;
+    --input-gap: var(--spacing-8);
     --input-height: 36px;
     --input-radius: var(--radius-8);
-    --input-padding: var(--spacing-8);
+    --input-padding: var(--spacing-10);
+    --input-affix-padding: var(--spacing-10);
   }
 
   &[size='md'] {
-    --input-gap: 6px;
+    --input-gap: var(--spacing-8);
     --input-height: 40px;
     --input-radius: var(--radius-10);
-    --input-padding: var(--spacing-10);
+    --input-padding: var(--spacing-12);
+    --input-affix-padding: var(--spacing-12);
   }
 
   &[has-error='true'] {
@@ -156,6 +159,12 @@ function clearInput() {
     &::placeholder {
       transition: color var(--animation-fast) ease-out;
       color: var(--celeste-text-input-placeholder-color);
+    }
+
+    &[type='tel'] {
+      direction: ltr;
+      text-align: -webkit-match-parent;
+      text-align: match-parent;
     }
 
     // Hide default webkit search cancel button
@@ -199,18 +208,36 @@ function clearInput() {
     padding-inline-end: 0;
   }
 
+  &:has(.celeste-text-input:placeholder-shown) {
+    --celeste-text-input-icon-color: var(--color-text-soft-400);
+    --celeste-text-input-affix-color: var(--color-text-soft-400);
+  }
+
+  &:hover:not(:has(.celeste-text-input:focus)) {
+    --celeste-text-input-drop-shadow: none;
+
+    &:not([has-error='true'], :has(.celeste-text-input-node)) {
+      --celeste-text-input-border-color: transparent;
+    }
+
+    &:not(:has(.celeste-text-input-node:hover)) {
+      --celeste-text-input-icon-color: var(--color-text-sub-600);
+      --celeste-text-input-placeholder-color: var(--color-text-sub-600);
+
+      background-color: var(--color-bg-weak-50);
+    }
+  }
+
   &:has(.celeste-text-input:focus) {
     --celeste-text-input-border-color: var(--color-stroke-strong-950);
+    --celeste-text-input-drop-shadow: var(--shadow-buttons-important-focus);
     --celeste-text-input-placeholder-color: var(--color-text-sub-600);
     --celeste-text-input-icon-color: var(--color-text-sub-600);
     --celeste-text-input-affix-color: var(--color-text-sub-600);
 
-    outline-color: var(--color-stroke-soft-200);
-
     &[has-error='true'] {
       --celeste-text-input-border-color: var(--color-state-error-base);
-
-      outline-color: var(--color-state-error-lighter);
+      --celeste-text-input-drop-shadow: var(--shadow-buttons-error-focus);
     }
   }
 
@@ -229,34 +256,16 @@ function clearInput() {
     --celeste-text-input-drop-shadow: none;
     --celeste-text-input-affix-background-color: var(--color-bg-weak-50);
     --celeste-text-input-affix-color: var(--color-text-disabled-300);
+    --celeste-text-input-muted-color: var(--color-text-disabled-300);
     --celeste-text-input-placeholder-color: var(--color-text-disabled-300);
     --celeste-text-input-icon-color: var(--color-text-disabled-300);
 
     background-color: var(--color-bg-weak-50);
-    box-shadow: none;
     color: var(--color-text-disabled-300);
     pointer-events: none;
 
     .celeste-text-input::placeholder {
       color: currentcolor;
-    }
-
-    .celeste-text-input-clear-button {
-      color: var(--color-text-disabled-300);
-      pointer-events: none;
-    }
-  }
-
-  &:has(.celeste-text-input:hover:not(:focus, :disabled)) {
-    &:not(:has(.celeste-text-input-node)) {
-      --celeste-text-input-border-color: transparent;
-    }
-
-    &:not(:has(.celeste-text-input-node:hover)) {
-      --celeste-text-input-icon-color: var(--color-text-sub-600);
-      --celeste-text-input-placeholder-color: var(--color-text-sub-600);
-
-      background-color: var(--color-bg-weak-50);
     }
   }
 
@@ -274,6 +283,7 @@ function clearInput() {
   }
 
   :deep(.celeste-text-input-node.celeste-text-input-leading-node) {
+    margin-inline-end: calc(var(--input-padding) - var(--input-gap));
     border-inline-end: 1px solid var(--color-stroke-soft-200);
     border-start-start-radius: var(--input-radius);
     border-start-end-radius: 0;
@@ -282,6 +292,7 @@ function clearInput() {
   }
 
   :deep(.celeste-text-input-node.celeste-text-input-trailing-node) {
+    margin-inline-start: calc(var(--input-padding) - var(--input-gap));
     border-inline-start: 1px solid var(--color-stroke-soft-200);
     border-start-start-radius: 0;
     border-start-end-radius: var(--input-radius);

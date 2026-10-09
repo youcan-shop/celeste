@@ -197,6 +197,19 @@ const forwarded = useForwardProps(delegatedProps);
     border: none;
     border-radius: 0;
     box-shadow: none;
+    gap: 0;
+
+    :deep(.celeste-dropdown-anchor-trigger-prefix) {
+      margin-inline-end: var(--spacing-8);
+    }
+
+    :deep(.celeste-dropdown-trigger) {
+      margin-inline-start: var(--spacing-2);
+    }
+
+    &.celeste-dropdown-anchor-trigger-filled:not([data-disabled]) :deep(.celeste-dropdown-trigger i) {
+      color: var(--color-icon-sub-600);
+    }
 
     &:deep(.celeste-dropdown-trigger-label) {
       flex: inherit;
@@ -205,6 +218,31 @@ const forwarded = useForwardProps(delegatedProps);
 
     &[data-state='open'] {
       box-shadow: none;
+    }
+
+    &:focus-visible {
+      background: var(--color-bg-weak-50);
+    }
+
+    &.celeste-dropdown-anchor-trigger-size-md {
+      padding-inline: var(--spacing-10) var(--spacing-8);
+    }
+
+    &.celeste-dropdown-anchor-trigger-size-sm {
+      padding-inline: var(--spacing-8);
+    }
+
+    &.celeste-dropdown-anchor-trigger-size-xs {
+      padding-inline: var(--spacing-8) var(--spacing-6);
+
+      :deep(.celeste-dropdown-anchor-trigger-prefix) {
+        margin-inline-end: var(--spacing-6);
+      }
+
+      :deep(.celeste-dropdown-anchor-trigger-prefix :is(i, .selected-dropdown-image)) {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 

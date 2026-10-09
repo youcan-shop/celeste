@@ -39,14 +39,14 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 div:deep(.celeste-dropdown-content) {
   --dropdown-height: 300px;
   --dropdown-min-width: var(--reka-combobox-trigger-width, 300px);
-  --dropdown-width: max(var(--reka-popper-anchor-width), 300px);
 
   display: flex;
   z-index: 50;
   box-sizing: border-box;
   flex-direction: column;
-  width: var(--dropdown-width);
+  width: max-content;
   min-width: var(--dropdown-min-width);
+  max-width: max(var(--reka-popper-anchor-width), 320px);
   max-height: var(--dropdown-height);
   margin-top: var(--spacing-10);
   padding: var(--spacing-8);
