@@ -206,6 +206,22 @@ const forwarded = useForwardProps(delegatedProps);
     &[data-state='open'] {
       box-shadow: none;
     }
+
+    &:focus-visible {
+      background: var(--color-bg-weak-50);
+    }
+
+    &.celeste-dropdown-anchor-trigger-size-md {
+      padding-inline: var(--spacing-10) var(--spacing-8);
+    }
+
+    &.celeste-dropdown-anchor-trigger-size-sm {
+      padding-inline: var(--spacing-8);
+    }
+
+    &.celeste-dropdown-anchor-trigger-size-xs {
+      padding-inline: var(--spacing-8) var(--spacing-6);
+    }
   }
 
   &.celeste-dropdown-anchor-trigger-type-inline {
