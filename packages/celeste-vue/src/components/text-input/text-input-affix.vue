@@ -42,7 +42,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
     border: 1px solid var(--color-stroke-soft-200);
     border-radius: var(--radius-4);
     background-color: var(--color-bg-white-0);
-    color: var(--color-text-soft-400);
+    color: var(--celeste-text-input-muted-color);
     font: var(--subheading-xs);
   }
 }

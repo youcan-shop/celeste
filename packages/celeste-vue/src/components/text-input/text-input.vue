@@ -80,6 +80,7 @@ function clearInput() {
     >
       <TextInputButton
         v-if="showClearButton"
+        inline
         type="button"
         aria-label="Clear search"
         @click="clearInput"
@@ -99,7 +100,7 @@ function clearInput() {
   --celeste-text-input-drop-shadow: var(--shadow-regular-xs);
   --celeste-text-input-icon-color: var(--color-text-sub-600);
   --celeste-text-input-affix-color: var(--color-text-sub-600);
-  --celeste-text-input-button-color: var(--color-text-soft-400);
+  --celeste-text-input-muted-color: var(--color-text-soft-400);
   --celeste-text-input-placeholder-color: var(--color-text-soft-400);
   --celeste-text-input-affix-background-color: var(--color-bg-white-0);
 
@@ -255,7 +256,7 @@ function clearInput() {
     --celeste-text-input-drop-shadow: none;
     --celeste-text-input-affix-background-color: var(--color-bg-weak-50);
     --celeste-text-input-affix-color: var(--color-text-disabled-300);
-    --celeste-text-input-button-color: var(--color-text-disabled-300);
+    --celeste-text-input-muted-color: var(--color-text-disabled-300);
     --celeste-text-input-placeholder-color: var(--color-text-disabled-300);
     --celeste-text-input-icon-color: var(--color-text-disabled-300);
 
