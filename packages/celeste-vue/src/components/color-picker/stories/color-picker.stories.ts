@@ -114,3 +114,21 @@ export const CustomLabel: Story = {
     `,
   }),
 };
+
+export const CustomTrigger: Story = {
+  args: {},
+  render: (args: Story['args']) => ({
+    components: { ColorPicker },
+    setup() {
+      const color = ref('#E11D48');
+      return { args, color };
+    },
+    template: `
+      <ColorPicker v-model="color" v-bind="args">
+        <template #trigger>
+          <button type="button" :aria-label="color" :style="{ width: '48px', height: '48px', border: 0, borderRadius: '12px', background: color, cursor: 'pointer' }" />
+        </template>
+      </ColorPicker>
+    `,
+  }),
+};
