@@ -27,18 +27,22 @@ const delegatedProps = useDelegatedProps(props, 'class');
   flex-shrink: 0;
   align-items: center;
   color: var(--celeste-text-input-affix-color);
+  unicode-bidi: plaintext;
 
   &[inline='false'] {
-    padding-inline: var(--spacing-10);
+    padding-inline: var(--input-affix-padding);
     background-color: var(--celeste-text-input-affix-background-color);
   }
 
   &[askbd='true'] {
+    box-sizing: border-box;
     width: fit-content;
-    height: fit-content;
-    padding: var(--spacing-2) calc(var(--spacing-8) - var(--spacing-2));
+    height: 20px;
+    padding-inline: var(--spacing-6);
     border: 1px solid var(--color-stroke-soft-200);
     border-radius: var(--radius-4);
+    background-color: var(--color-bg-white-0);
+    color: var(--color-text-soft-400);
     font: var(--subheading-xs);
   }
 }
