@@ -279,14 +279,16 @@ function handleColorValueKeyDown(event: KeyboardEvent, key: ColorKey) {
 <template>
   <Popover>
     <PopoverTrigger>
-      <Button
-        class="celeste-picker-trigger"
-        intent="neutral"
-        variant="stroke"
-      >
-        <span class="celeste-selected-color" />
-        {{ label }}
-      </Button>
+      <slot name="trigger">
+        <Button
+          class="celeste-picker-trigger"
+          intent="neutral"
+          variant="stroke"
+        >
+          <span class="celeste-selected-color" />
+          {{ label }}
+        </Button>
+      </slot>
     </PopoverTrigger>
     <PopoverContent :dismissible="false">
       <div class="celeste-color-picker-wrapper" v-bind="forwarded">
