@@ -159,6 +159,7 @@ function clearInput() {
     }
 
     &[type='tel'] {
+      direction: ltr;
       text-align: -webkit-match-parent;
       text-align: match-parent;
     }
