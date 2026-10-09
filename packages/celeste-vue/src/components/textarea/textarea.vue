@@ -88,7 +88,7 @@ const modelValue = defineModel<string>();
     display: flex;
     position: absolute;
     color: var(--color-text-soft-400);
-    font: var(--subheading-2xs);
+    font: var(--subheading-xxs);
     inset-block-end: var(--spacing);
     inset-inline-end: calc(var(--spacing) + var(--resize-handle-offset));
   }
