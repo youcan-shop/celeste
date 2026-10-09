@@ -46,7 +46,7 @@ div:deep(.celeste-dropdown-content) {
   flex-direction: column;
   width: max-content;
   min-width: var(--dropdown-min-width);
-  max-width: max(var(--reka-popper-anchor-width), 300px);
+  max-width: max(var(--reka-popper-anchor-width), 320px);
   max-height: var(--dropdown-height);
   margin-top: var(--spacing-10);
   padding: var(--spacing-8);
