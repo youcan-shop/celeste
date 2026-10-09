@@ -21,6 +21,8 @@ export interface GradientPickerProps {
   removeStopLabel?: string;
   positionLabel?: string;
   opacityLabel?: string;
+  hueLabel?: string;
+  areaLabel?: string;
   eyedropperLabel?: string;
   usedLabel?: string;
   removeLabel?: string;
@@ -33,7 +35,7 @@ export interface GradientPickerEmits {
 }
 
 interface Stop { id: number; h: number; s: number; v: number; a: number; position: number }
-interface State { type: GradientType; angle: number; stops: Stop[] }
+interface State { type: GradientType; angle: number; shape?: string; stops: Stop[] }
 
 const props = withDefaults(defineProps<GradientPickerProps>(), {
   modelValue: '',
@@ -48,6 +50,8 @@ const props = withDefaults(defineProps<GradientPickerProps>(), {
   removeStopLabel: 'Remove stop',
   positionLabel: 'Position',
   opacityLabel: 'Opacity',
+  hueLabel: 'Hue',
+  areaLabel: 'Saturation and brightness',
   eyedropperLabel: 'Pick color',
   usedLabel: 'Currently used',
   removeLabel: 'Remove gradient',
@@ -102,6 +106,7 @@ function toCss(value: State, linear = false) {
   return stringifyGradient({
     type: linear ? 'linear' : value.type,
     angle: linear ? 90 : value.angle,
+    shape: value.shape,
     stops: value.stops.map(stop => ({ color: colorOf(stop), position: stop.position })),
   });
 }
@@ -112,6 +117,7 @@ function load(value?: string) {
   state.value = gradient && {
     type: gradient.type,
     angle: gradient.angle,
+    shape: gradient.shape,
     stops: gradient.stops.map(stop => ({ id: ++uid, ...hsva(stop.color), position: stop.position })),
   };
   selected.value = state.value?.stops[0].id;
@@ -169,6 +175,27 @@ function drag(event: PointerEvent, move: (event: PointerEvent) => void, up?: () 
 
   window.addEventListener('pointermove', move);
   window.addEventListener('pointerup', stop);
+}
+
+function keys(event: KeyboardEvent, apply: (dx: number, dy: number) => void) {
+  const step = event.shiftKey ? 10 : 1;
+  const delta = ({ ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] } as Record<string, [number, number]>)[event.key];
+
+  if (delta) {
+    event.preventDefault();
+    apply(...delta);
+  }
+}
+
+function onHandleKey(event: KeyboardEvent, id: number) {
+  selected.value = id;
+
+  if (['Delete', 'Backspace'].includes(event.key) && state.value!.stops.length > 2) {
+    event.preventDefault();
+    removeStop();
+  }
+
+  keys(event, (dx, dy) => patch({ position: clamp(current.value!.position + dx - dy, 0, 100) }));
 }
 
 function relative(element: HTMLElement, event: PointerEvent, inset = 0) {
@@ -301,6 +328,7 @@ const canSip = 'EyeDropper' in window;
       :dismissible="false"
       :show-tail="false"
       align="start"
+      @open-auto-focus.prevent
     >
       <div class="celeste-gradient-picker">
         <div v-if="!state" class="celeste-gradient-section">
@@ -390,6 +418,7 @@ const canSip = 'EyeDropper' in window;
                 :data-removing="stop.id === removing"
                 :aria-label="`${colorOf(stop)} ${stop.position}%`"
                 @pointerdown.stop="dragStop($event, stop.id)"
+                @keydown="onHandleKey($event, stop.id)"
               />
             </div>
 
@@ -467,22 +496,44 @@ const canSip = 'EyeDropper' in window;
                 ref="area"
                 class="celeste-gradient-area"
                 :style="{ backgroundColor: `hsl(${current.h}, 100%, 50%)` }"
+                role="slider"
+                tabindex="0"
+                :aria-label="areaLabel"
+                :aria-valuenow="Math.round(current.s)"
+                :aria-valuetext="`${Math.round(current.s)}%, ${Math.round(current.v)}%`"
                 @pointerdown="onArea"
+                @keydown="keys($event, (dx, dy) => patch({ s: clamp(current!.s + dx, 0, 100), v: clamp(current!.v - dy, 0, 100) }))"
               >
-                <span class="celeste-gradient-knob" :style="{ left: `${current.s}%`, top: `${100 - current.v}%`, background: solid }" />
+                <span class="celeste-gradient-knob" :style="{ left: `${current.s}%`, top: `${100 - current.v}%`, background: fill(colorOf(current)) }" />
               </div>
               <div
                 ref="hue"
                 class="celeste-gradient-slider"
                 data-hue="true"
+                role="slider"
+                tabindex="0"
+                aria-orientation="vertical"
+                aria-valuemin="0"
+                aria-valuemax="359"
+                :aria-label="hueLabel"
+                :aria-valuenow="Math.round(current.h)"
                 @pointerdown="onHue"
+                @keydown="keys($event, (dx, dy) => patch({ h: clamp(current!.h + dx + dy, 0, 359) }))"
               >
-                <span class="celeste-gradient-knob" :style="{ top: along(current.h / 360), background: `hsl(${current.h}, 100%, 50%)` }" />
+                <span class="celeste-gradient-knob" :style="{ top: along(current.h / 360), background: fill(colorOf(current)) }" />
               </div>
               <div
                 ref="alpha"
                 class="celeste-gradient-slider"
+                role="slider"
+                tabindex="0"
+                aria-orientation="vertical"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :aria-label="opacityLabel"
+                :aria-valuenow="Math.round(current.a * 100)"
                 @pointerdown="onAlpha"
+                @keydown="keys($event, (dx, dy) => patch({ a: clamp(Math.round(current!.a * 100 + dx - dy), 0, 100) / 100 }))"
               >
                 <span class="celeste-gradient-fill" :style="{ background: `linear-gradient(${solid}, transparent)` }" />
                 <span class="celeste-gradient-knob" :style="{ top: along(1 - current.a), background: fill(colorOf(current)) }" />
@@ -807,6 +858,15 @@ $inset: inset 0 0 0 1px #0000001a;
 
   .celeste-gradient-knob {
     left: 50%;
+  }
+}
+
+.celeste-gradient-area,
+.celeste-gradient-slider,
+.celeste-gradient-handle {
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-base);
+    outline-offset: 2px;
   }
 }
 
