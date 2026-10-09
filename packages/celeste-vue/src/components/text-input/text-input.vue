@@ -158,6 +158,11 @@ function clearInput() {
       color: var(--celeste-text-input-placeholder-color);
     }
 
+    &[type='tel'] {
+      text-align: -webkit-match-parent;
+      text-align: match-parent;
+    }
+
     // Hide default webkit search cancel button
     &[type='search'] {
       &::-webkit-search-cancel-button {
