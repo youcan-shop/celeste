@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PopoverContentProps } from '../popover';
 import type { GradientType } from '@/utils/gradient';
 import tinycolor from 'tinycolor2';
 import { computed, reactive, ref, watch } from 'vue';
@@ -28,6 +29,8 @@ export interface GradientPickerProps {
   removeLabel?: string;
   presets?: string[];
   swatches?: string[];
+  side?: PopoverContentProps['side'];
+  align?: PopoverContentProps['align'];
 }
 
 export interface GradientPickerEmits {
@@ -39,6 +42,8 @@ interface State { type: GradientType; angle: number; shape?: string; stops: Stop
 
 const props = withDefaults(defineProps<GradientPickerProps>(), {
   modelValue: '',
+  side: 'bottom',
+  align: 'start',
   placeholder: 'No gradient chosen',
   emptyHint: 'Select a gradient to begin editing',
   noneLabel: 'None',
@@ -326,7 +331,8 @@ const canSip = 'EyeDropper' in window;
     <PopoverContent
       :dismissible="false"
       :show-tail="false"
-      align="start"
+      :side="side"
+      :align="align"
       @open-auto-focus.prevent
     >
       <div class="celeste-gradient-picker">

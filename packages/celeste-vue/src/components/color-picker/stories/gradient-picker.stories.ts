@@ -35,3 +35,14 @@ export const Empty: Story = {
     template: `<div style="display: grid; width: 280px; gap: 8px;"><GradientPicker v-model="gradient" /><code>{{ gradient }}</code></div>`,
   }),
 };
+
+export const Side: Story = {
+  render: () => ({
+    components: { GradientPicker },
+    setup() {
+      const gradient = ref('linear-gradient(135deg, #3B82F6 0%, #EC4899 100%)');
+      return { gradient };
+    },
+    template: `<div style="display: grid; width: 280px; margin: 480px 0 0 360px; gap: 8px;"><GradientPicker v-model="gradient" side="left" /><code>{{ gradient }}</code></div>`,
+  }),
+};
