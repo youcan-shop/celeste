@@ -274,6 +274,7 @@ const filteredOptions = computed(() => props.ignoreFilter
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    unicode-bidi: plaintext;
   }
 }
 
