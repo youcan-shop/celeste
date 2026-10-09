@@ -8,6 +8,7 @@ export interface GradientStop {
 export interface Gradient {
   type: GradientType;
   angle: number;
+  shape?: string;
   stops: GradientStop[];
 }
 
@@ -61,7 +62,9 @@ export function parseGradient(value?: string | null): Gradient | null {
 
   const unit = /^(-?(?:\d+(?:\.\d+)?|\.\d+))(deg|grad|rad|turn)$/.exec(head);
 
-  if (unit || /^to |circle|ellipse|closest|farthest|^at /.test(head)) {
+  const shape = /circle|ellipse|closest|farthest|^at /.test(head) ? parts[0] : undefined;
+
+  if (unit || shape || head.startsWith('to ')) {
     parts.shift();
     angle = unit ? Math.round(((Number(unit[1]) * UNITS[unit[2]]) % 360 + 360) % 360) : DIRECTIONS[head] ?? angle;
   }
@@ -75,11 +78,13 @@ export function parseGradient(value?: string | null): Gradient | null {
     };
   });
 
-  return stops.length > 1 ? { type: match[1].toLowerCase() as GradientType, angle, stops } : null;
+  const type = match[1].toLowerCase() as GradientType;
+
+  return stops.length > 1 ? { type, angle, ...(type === 'radial' && shape && { shape }), stops } : null;
 }
 
-export function stringifyGradient({ type, angle, stops }: Gradient): string {
+export function stringifyGradient({ type, angle, shape, stops }: Gradient): string {
   const list = [...stops].sort((a, b) => a.position - b.position).map(stop => `${stop.color} ${stop.position}%`).join(', ');
 
-  return type === 'linear' ? `linear-gradient(${angle}deg, ${list})` : `radial-gradient(${list})`;
+  return type === 'linear' ? `linear-gradient(${angle}deg, ${list})` : `radial-gradient(${shape ? `${shape}, ` : ''}${list})`;
 }
