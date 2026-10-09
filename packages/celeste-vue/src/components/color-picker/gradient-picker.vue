@@ -84,7 +84,6 @@ const area = ref<HTMLElement>();
 const hue = ref<HTMLElement>();
 const alpha = ref<HTMLElement>();
 let uid = 0;
-let emitted: string | undefined;
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 const numeric = (raw: string) => raw.trim() !== '' && !Number.isNaN(Number(raw));
@@ -123,16 +122,16 @@ function load(value?: string) {
   selected.value = state.value?.stops[0].id;
 }
 
-watch(() => props.modelValue, value => value !== emitted && load(value), { immediate: true });
-
 const css = computed(() => (state.value ? toCss(state.value) : ''));
+
+watch(() => props.modelValue, value => value !== css.value && load(value), { immediate: true });
+
 const track = computed(() => (state.value ? toCss(state.value, true) : ''));
 const current = computed(() => state.value?.stops.find(stop => stop.id === selected.value));
 const solid = computed(() => current.value && colorOf({ ...current.value, a: 1 }));
 
 function save() {
-  emitted = state.value ? toCss(state.value) : '';
-  emit('update:modelValue', emitted);
+  css.value !== props.modelValue && emit('update:modelValue', css.value);
 }
 
 function patch(changes: Partial<Stop>, keepDrafts = false) {
