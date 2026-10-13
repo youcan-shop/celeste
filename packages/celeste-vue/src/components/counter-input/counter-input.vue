@@ -95,6 +95,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     border: none;
     outline: none;
     background-color: transparent;
+    box-shadow: none;
     color: inherit;
     text-align: center;
   }

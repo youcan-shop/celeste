@@ -118,6 +118,7 @@ const modelValue = defineModel<string>();
     width: 100%;
     border: none;
     background: transparent;
+    box-shadow: none;
     color: inherit;
     font-family: inherit;
     font-size: var(--font-size-2);
