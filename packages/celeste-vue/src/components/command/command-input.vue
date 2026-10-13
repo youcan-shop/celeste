@@ -61,6 +61,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   border: none;
   outline: none;
   background: transparent;
+  box-shadow: none;
   font: inherit;
 }
 

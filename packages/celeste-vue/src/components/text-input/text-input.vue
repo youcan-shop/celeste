@@ -153,6 +153,7 @@ function clearInput() {
     border: none;
     outline: none;
     background-color: transparent;
+    box-shadow: none;
     color: inherit;
     font: inherit;
 
