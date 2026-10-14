@@ -1,7 +1,7 @@
 {
   "name": "@youcan/celeste",
   "type": "module",
-  "version": "0.21.2",
+  "version": "0.22.0",
   "author": "YouCan <tech@youcan.shop>",
   "repository": {
     "type": "git",
