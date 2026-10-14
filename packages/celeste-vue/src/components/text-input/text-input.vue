@@ -109,6 +109,7 @@ function clearInput() {
   align-items: center;
   height: var(--input-height);
   padding-inline: var(--input-padding);
+  overflow: hidden;
   transition: all var(--animation-fast) ease-out;
   border: 1px solid var(--celeste-text-input-border-color);
   border-radius: var(--input-radius);
@@ -278,27 +279,33 @@ function clearInput() {
     color: var(--celeste-text-input-icon-color);
   }
 
-  :deep(.celeste-text-input-node.celeste-text-input-leading-node),
-  :deep(.celeste-text-input-node.celeste-text-input-trailing-node) {
+  :deep(.celeste-text-input-node) {
+    position: relative;
     height: calc(var(--input-height) - var(--spacing-2));
   }
 
-  :deep(.celeste-text-input-node.celeste-text-input-leading-node) {
-    margin-inline-end: calc(var(--input-padding) - var(--input-gap));
-    border-inline-end: 1px solid var(--color-stroke-soft-200);
-    border-start-start-radius: var(--input-radius);
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
-    border-end-start-radius: var(--input-radius);
+  :deep(.celeste-text-input-node)::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    background-color: var(--color-stroke-soft-200);
+    inset-block: 0;
   }
 
-  :deep(.celeste-text-input-node.celeste-text-input-trailing-node) {
+  :deep(.celeste-text-input-leading-node) {
+    margin-inline-end: calc(var(--input-padding) - var(--input-gap));
+  }
+
+  :deep(.celeste-text-input-leading-node)::after {
+    inset-inline-end: 0;
+  }
+
+  :deep(.celeste-text-input-trailing-node) {
     margin-inline-start: calc(var(--input-padding) - var(--input-gap));
-    border-inline-start: 1px solid var(--color-stroke-soft-200);
-    border-start-start-radius: 0;
-    border-start-end-radius: var(--input-radius);
-    border-end-end-radius: var(--input-radius);
-    border-end-start-radius: 0;
+  }
+
+  :deep(.celeste-text-input-trailing-node)::after {
+    inset-inline-start: 0;
   }
 }
 </style>
