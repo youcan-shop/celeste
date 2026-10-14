@@ -51,6 +51,12 @@ function createOutput(format: 'es' | 'cjs', dir: string, ext: string) {
   };
 }
 
+const external = [
+  ...Object.keys(pkg.peerDependencies),
+  ...Object.keys(pkg.dependencies).filter(dep => !dep.startsWith('@youcan/')),
+  'unocss',
+];
+
 export default defineConfig({
   plugins: [
     uno(),
@@ -79,7 +85,7 @@ export default defineConfig({
       entry: createEntries(),
     },
     rollupOptions: {
-      external: [...Object.keys(pkg.peerDependencies), 'unocss'],
+      external: id => external.some(dep => id === dep || id.startsWith(`${dep}/`)),
       output: [
         createOutput('es', 'es', 'js'),
         createOutput('cjs', 'cjs', 'cjs'),
