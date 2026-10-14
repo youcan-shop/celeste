@@ -53,7 +53,7 @@ function createOutput(format: 'es' | 'cjs', dir: string, ext: string) {
 
 const external = [
   ...Object.keys(pkg.peerDependencies),
-  ...Object.keys(pkg.dependencies).filter(dep => !dep.startsWith('@youcan/')),
+  ...Object.keys(pkg.dependencies).filter(dep => !dep.startsWith('@youcan/') && dep !== 'vue-sonner'),
   'unocss',
 ];
 
