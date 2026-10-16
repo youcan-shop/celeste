@@ -93,6 +93,7 @@ $intent-map: (
   background-color: transparent;
   font: var(--label-sm);
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
 
   &:disabled {
