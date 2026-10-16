@@ -80,6 +80,7 @@ $brand-map: (
   border-radius: var(--radius-10);
   font: var(--label-sm);
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   gap: var(--spacing-8);
 

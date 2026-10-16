@@ -47,6 +47,7 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
 
   &:disabled,
