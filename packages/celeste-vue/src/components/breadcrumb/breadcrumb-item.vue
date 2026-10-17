@@ -9,7 +9,7 @@ export interface BreadcrumbItemProps extends PrimitiveProps {
   active?: boolean;
 }
 
-const props = withDefaults(defineProps<BreadcrumbItemProps>(), { as: 'div' });
+const props = defineProps<BreadcrumbItemProps>();
 </script>
 
 <template>

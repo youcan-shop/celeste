@@ -8,7 +8,7 @@ export interface BreadcrumbArrowProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
 }
 
-const props = withDefaults(defineProps<BreadcrumbArrowProps>(), { as: 'div' });
+const props = defineProps<BreadcrumbArrowProps>();
 </script>
 
 <template>
@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<BreadcrumbArrowProps>(), { as: 'div' });
   width: 20px;
   height: 20px;
   color: var(--color-text-disabled-300);
-  font: var(--label-sm);
+  font: var(--paragraph-md);
   user-select: none;
 
   &:deep(i) {
