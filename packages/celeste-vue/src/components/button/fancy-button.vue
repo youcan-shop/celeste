@@ -8,6 +8,8 @@ export interface FancyButtonProps extends PrimitiveProps {
   class?: HTMLAttributes['class'];
   size?: 'xs' | 'sm' | 'md';
   intent?: 'primary' | 'neutral' | 'error' | 'basic';
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<FancyButtonProps>(), {
@@ -21,14 +23,21 @@ const props = withDefaults(defineProps<FancyButtonProps>(), {
   <Primitive
     :as
     :as-child
+    :disabled="disabled || loading || undefined"
+    :aria-busy="loading || undefined"
     :class="clsx(
       'celeste-fbutton',
       `celeste-fbutton-${intent}`,
       `celeste-fbutton-${size}`,
+      loading && !asChild && 'celeste-fbutton-loading',
       props.class,
     )"
   >
-    <slot />
+    <slot v-if="asChild" />
+    <template v-else>
+      <slot />
+      <i class="celeste-fbutton-spinner i-celeste-loader-5-line" />
+    </template>
   </Primitive>
 </template>
 
@@ -95,8 +104,9 @@ $intent-map: (
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  user-select: none;
 
-  &:disabled {
+  &:disabled:not(&-loading) {
     background-color: var(--color-bg-weak-50);
     color: var(--color-text-disabled-300);
     cursor: default;
@@ -122,7 +132,8 @@ $intent-map: (
   }
 
   @each $k, $v in $intent-map {
-    &-#{$k}:not(&-basic, :disabled) {
+    &-#{$k}:not(&-basic, :disabled:not(&-loading)) {
+      --celeste-fbutton-fg: #{if($k == 'neutral', var(--color-text-white-0), var(--color-static-white))};
       --celeste-fbutton-bg-start: rgb(255 255 255 / 16%);
       --celeste-fbutton-bg-end: rgb(255 255 255 / 0%);
 
@@ -130,7 +141,11 @@ $intent-map: (
         linear-gradient(180deg, var(--celeste-fbutton-bg-start) 0%, var(--celeste-fbutton-bg-end) 100%),
         #{map.get($v, bg)};
       box-shadow: var(--shadow-fancy-buttons-#{$k});
-      color: if($k == 'neutral', var(--color-text-white-0), var(--color-static-white));
+      color: var(--celeste-fbutton-fg);
+
+      &.celeste-fbutton-loading {
+        color: transparent;
+      }
 
       &::before {
         content: '';
@@ -161,9 +176,15 @@ $intent-map: (
   }
 
   &-basic {
+    --celeste-fbutton-fg: var(--color-text-sub-600);
+
     background: var(--color-bg-white-0);
     box-shadow: var(--shadow-fancy-buttons-stroke);
-    color: var(--color-text-sub-600);
+    color: var(--celeste-fbutton-fg);
+
+    &.celeste-fbutton-loading {
+      color: transparent;
+    }
 
     &:hover {
       background: var(--color-bg-weak-50);
@@ -176,6 +197,42 @@ $intent-map: (
       box-shadow: var(--shadow-buttons-important-focus);
       color: var(--color-text-strong-950);
     }
+  }
+}
+
+.celeste-fbutton-loading {
+  pointer-events: none;
+}
+
+.celeste-fbutton-spinner {
+  position: absolute;
+  margin: auto;
+  transition-property: opacity, scale;
+  transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
+  animation: celeste-fbutton-spin 600ms linear infinite paused;
+  opacity: 0;
+  color: var(--celeste-fbutton-fg);
+  inset: 0;
+  scale: 0.9;
+}
+
+.celeste-fbutton-loading > .celeste-fbutton-spinner {
+  animation-play-state: running;
+  opacity: 1;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celeste-fbutton-spinner {
+    animation-duration: 1200ms;
+    scale: 1;
+  }
+}
+
+@keyframes celeste-fbutton-spin {
+  100% {
+    rotate: 360deg;
   }
 }
 </style>

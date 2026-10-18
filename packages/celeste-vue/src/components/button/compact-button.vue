@@ -51,6 +51,7 @@ const props = withDefaults(defineProps<CompactButtonProps>(), {
   font: var(--label-sm);
   text-decoration: none;
   cursor: pointer;
+  user-select: none;
   gap: var(--spacing-2);
 
   &:disabled {

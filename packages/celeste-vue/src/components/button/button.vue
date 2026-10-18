@@ -9,6 +9,8 @@ export interface ButtonProps extends PrimitiveProps {
   size?: 'xxs' | 'xs' | 'sm' | 'md';
   intent?: 'primary' | 'neutral' | 'error';
   variant?: 'fill' | 'stroke' | 'lighter' | 'ghost';
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -23,15 +25,22 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   <Primitive
     :as
     :as-child
+    :disabled="disabled || loading || undefined"
+    :aria-busy="loading || undefined"
     :class="clsx(
       'celeste-button',
       `celeste-button-intent-${intent}`,
       `celeste-button-size-${size}`,
       `celeste-button-variant-${variant}`,
+      loading && !asChild && 'celeste-button-loading',
       props.class,
     )"
   >
-    <slot />
+    <slot v-if="asChild" />
+    <template v-else>
+      <slot />
+      <i class="celeste-button-spinner i-celeste-loader-5-line" />
+    </template>
   </Primitive>
 </template>
 
@@ -216,6 +225,7 @@ $hover-map: (
 
 .celeste-button {
   display: inline-flex;
+  position: relative;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
@@ -229,8 +239,9 @@ $hover-map: (
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  user-select: none;
 
-  &:disabled {
+  &:disabled:not(&-loading) {
     background-color: var(--color-bg-weak-50);
     color: var(--color-text-disabled-300);
     cursor: default;
@@ -249,7 +260,8 @@ $hover-map: (
       padding: map.get($v, padding);
       border-radius: map.get($v, border-radius);
 
-      &:has(> :only-child:is(i)) {
+      &:has(> :only-child:is(i):not(.celeste-button-spinner)),
+      &:has(> i:first-child + .celeste-button-spinner:last-child) {
         padding: list.nth(map.get($v, padding), 1);
       }
     }
@@ -257,11 +269,17 @@ $hover-map: (
 
   @each $intent, $sub in $intent-map {
     @each $variant, $values in $sub {
-      &-intent-#{$intent}:not(:disabled).celeste-button-variant-#{$variant}:not(:disabled) {
+      &-intent-#{$intent}.celeste-button-variant-#{$variant}:not(:disabled:not(.celeste-button-loading)) {
+        --celeste-button-fg: #{map.get($values, fg)};
+
         border-color: map.get($values, border);
         background-color: map.get($values, bg);
         box-shadow: map.get($values, shadow);
-        color: map.get($values, fg);
+        color: var(--celeste-button-fg);
+
+        &.celeste-button-loading {
+          color: transparent;
+        }
 
         &:hover:not(:disabled) {
           $hover-values: map.get(map.get($hover-map, $intent), $variant);
@@ -281,6 +299,42 @@ $hover-map: (
         }
       }
     }
+  }
+}
+
+.celeste-button-loading {
+  pointer-events: none;
+}
+
+.celeste-button-spinner {
+  position: absolute;
+  margin: auto;
+  transition-property: opacity, scale;
+  transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
+  animation: celeste-button-spin 600ms linear infinite paused;
+  opacity: 0;
+  color: var(--celeste-button-fg);
+  inset: 0;
+  scale: 0.9;
+}
+
+.celeste-button-loading > .celeste-button-spinner {
+  animation-play-state: running;
+  opacity: 1;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celeste-button-spinner {
+    animation-duration: 1200ms;
+    scale: 1;
+  }
+}
+
+@keyframes celeste-button-spin {
+  100% {
+    rotate: 360deg;
   }
 }
 </style>
