@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<FancyButtonProps>(), {
     <slot v-if="asChild" />
     <template v-else>
       <slot />
-      <i v-if="loading" class="celeste-fbutton-spinner i-celeste-loader-4-line" />
+      <i class="celeste-fbutton-spinner i-celeste-loader-5-line" />
     </template>
   </Primitive>
 </template>
@@ -200,64 +200,32 @@ $intent-map: (
 }
 
 .celeste-fbutton-loading {
-  animation: celeste-fbutton-label-out 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
   pointer-events: none;
-}
-
-.celeste-fbutton-loading :deep(i:not(.celeste-fbutton-spinner)) {
-  animation: celeste-fbutton-icon-out 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 .celeste-fbutton-spinner {
   position: absolute;
   margin: auto;
-  animation:
-    celeste-fbutton-spinner-in 200ms cubic-bezier(0.23, 1, 0.32, 1) 50ms backwards,
-    celeste-fbutton-spin 800ms linear infinite;
+  transition-property: opacity, scale;
+  transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
+  animation: celeste-fbutton-spin 600ms linear infinite paused;
+  opacity: 0;
   color: var(--celeste-fbutton-fg);
   inset: 0;
+  scale: 0.9;
+}
+
+.celeste-fbutton-loading > .celeste-fbutton-spinner {
+  animation-play-state: running;
+  opacity: 1;
+  scale: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .celeste-fbutton-loading,
-  .celeste-fbutton-loading :deep(i:not(.celeste-fbutton-spinner)) {
-    animation: none;
-  }
-
   .celeste-fbutton-spinner {
-    animation: celeste-fbutton-spin 1600ms linear infinite;
-  }
-}
-
-@keyframes celeste-fbutton-label-out {
-  0% {
-    color: var(--celeste-fbutton-fg);
-    text-shadow: 0 0 0 var(--celeste-fbutton-fg);
-  }
-
-  40% {
-    color: transparent;
-    text-shadow: 0 0 3px color-mix(in srgb, var(--celeste-fbutton-fg) 60%, transparent);
-  }
-
-  100% {
-    color: transparent;
-    text-shadow: 0 0 8px transparent;
-  }
-}
-
-@keyframes celeste-fbutton-icon-out {
-  100% {
-    filter: blur(4px);
-    scale: 0.8;
-  }
-}
-
-@keyframes celeste-fbutton-spinner-in {
-  0% {
-    filter: blur(4px);
-    opacity: 0;
-    scale: 0.6;
+    animation-duration: 1200ms;
+    scale: 1;
   }
 }
 

@@ -39,7 +39,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
     <slot v-if="asChild" />
     <template v-else>
       <slot />
-      <i v-if="loading" class="celeste-button-spinner i-celeste-loader-4-line" />
+      <i class="celeste-button-spinner i-celeste-loader-5-line" />
     </template>
   </Primitive>
 </template>
@@ -259,7 +259,7 @@ $hover-map: (
       padding: map.get($v, padding);
       border-radius: map.get($v, border-radius);
 
-      &:has(> :only-child:is(i)),
+      &:has(> :only-child:is(i):not(.celeste-button-spinner)),
       &:has(> i:first-child + .celeste-button-spinner:last-child) {
         padding: list.nth(map.get($v, padding), 1);
       }
@@ -302,64 +302,32 @@ $hover-map: (
 }
 
 .celeste-button-loading {
-  animation: celeste-button-label-out 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
   pointer-events: none;
-}
-
-.celeste-button-loading :deep(i:not(.celeste-button-spinner)) {
-  animation: celeste-button-icon-out 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 .celeste-button-spinner {
   position: absolute;
   margin: auto;
-  animation:
-    celeste-button-spinner-in 200ms cubic-bezier(0.23, 1, 0.32, 1) 50ms backwards,
-    celeste-button-spin 800ms linear infinite;
+  transition-property: opacity, scale;
+  transition-duration: var(--animation-fast);
+  transition-timing-function: ease-out;
+  animation: celeste-button-spin 600ms linear infinite paused;
+  opacity: 0;
   color: var(--celeste-button-fg);
   inset: 0;
+  scale: 0.9;
+}
+
+.celeste-button-loading > .celeste-button-spinner {
+  animation-play-state: running;
+  opacity: 1;
+  scale: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .celeste-button-loading,
-  .celeste-button-loading :deep(i:not(.celeste-button-spinner)) {
-    animation: none;
-  }
-
   .celeste-button-spinner {
-    animation: celeste-button-spin 1600ms linear infinite;
-  }
-}
-
-@keyframes celeste-button-label-out {
-  0% {
-    color: var(--celeste-button-fg);
-    text-shadow: 0 0 0 var(--celeste-button-fg);
-  }
-
-  40% {
-    color: transparent;
-    text-shadow: 0 0 3px color-mix(in srgb, var(--celeste-button-fg) 60%, transparent);
-  }
-
-  100% {
-    color: transparent;
-    text-shadow: 0 0 8px transparent;
-  }
-}
-
-@keyframes celeste-button-icon-out {
-  100% {
-    filter: blur(4px);
-    scale: 0.8;
-  }
-}
-
-@keyframes celeste-button-spinner-in {
-  0% {
-    filter: blur(4px);
-    opacity: 0;
-    scale: 0.6;
+    animation-duration: 1200ms;
+    scale: 1;
   }
 }
 
