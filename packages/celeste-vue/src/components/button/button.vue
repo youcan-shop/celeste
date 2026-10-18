@@ -9,6 +9,8 @@ export interface ButtonProps extends PrimitiveProps {
   size?: 'xxs' | 'xs' | 'sm' | 'md';
   intent?: 'primary' | 'neutral' | 'error';
   variant?: 'fill' | 'stroke' | 'lighter' | 'ghost';
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -23,15 +25,19 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   <Primitive
     :as
     :as-child
+    :disabled="disabled || loading || undefined"
+    :aria-busy="loading || undefined"
     :class="clsx(
       'celeste-button',
       `celeste-button-intent-${intent}`,
       `celeste-button-size-${size}`,
       `celeste-button-variant-${variant}`,
+      loading && 'celeste-button-loading',
       props.class,
     )"
   >
     <slot />
+    <i v-if="loading" class="celeste-button-spinner i-celeste-loader-4-line" />
   </Primitive>
 </template>
 
@@ -216,6 +222,7 @@ $hover-map: (
 
 .celeste-button {
   display: inline-flex;
+  position: relative;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
@@ -230,7 +237,7 @@ $hover-map: (
   white-space: nowrap;
   cursor: pointer;
 
-  &:disabled {
+  &:disabled:not(&-loading) {
     background-color: var(--color-bg-weak-50);
     color: var(--color-text-disabled-300);
     cursor: default;
@@ -249,7 +256,8 @@ $hover-map: (
       padding: map.get($v, padding);
       border-radius: map.get($v, border-radius);
 
-      &:has(> :only-child:is(i)) {
+      &:has(> :only-child:is(i)),
+      &:has(> i:first-child + .celeste-button-spinner:last-child) {
         padding: list.nth(map.get($v, padding), 1);
       }
     }
@@ -257,11 +265,17 @@ $hover-map: (
 
   @each $intent, $sub in $intent-map {
     @each $variant, $values in $sub {
-      &-intent-#{$intent}:not(:disabled).celeste-button-variant-#{$variant}:not(:disabled) {
+      &-intent-#{$intent}.celeste-button-variant-#{$variant}:not(:disabled:not(.celeste-button-loading)) {
+        --celeste-button-fg: #{map.get($values, fg)};
+
         border-color: map.get($values, border);
         background-color: map.get($values, bg);
         box-shadow: map.get($values, shadow);
-        color: map.get($values, fg);
+        color: var(--celeste-button-fg);
+
+        &.celeste-button-loading {
+          color: transparent;
+        }
 
         &:hover:not(:disabled) {
           $hover-values: map.get(map.get($hover-map, $intent), $variant);
@@ -281,6 +295,74 @@ $hover-map: (
         }
       }
     }
+  }
+}
+
+.celeste-button-loading {
+  animation: celeste-button-label-out 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  pointer-events: none;
+}
+
+.celeste-button-loading :deep(i:not(.celeste-button-spinner)) {
+  animation: celeste-button-icon-out 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.celeste-button-spinner {
+  position: absolute;
+  margin: auto;
+  animation:
+    celeste-button-spinner-in 200ms cubic-bezier(0.23, 1, 0.32, 1) 50ms backwards,
+    celeste-button-spin 800ms linear infinite;
+  color: var(--celeste-button-fg);
+  inset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celeste-button-loading,
+  .celeste-button-loading :deep(i:not(.celeste-button-spinner)) {
+    animation: none;
+  }
+
+  .celeste-button-spinner {
+    animation: celeste-button-spin 1600ms linear infinite;
+  }
+}
+
+@keyframes celeste-button-label-out {
+  0% {
+    color: var(--celeste-button-fg);
+    text-shadow: 0 0 0 var(--celeste-button-fg);
+  }
+
+  40% {
+    color: transparent;
+    text-shadow: 0 0 3px color-mix(in srgb, var(--celeste-button-fg) 60%, transparent);
+  }
+
+  100% {
+    color: transparent;
+    text-shadow: 0 0 8px transparent;
+  }
+}
+
+@keyframes celeste-button-icon-out {
+  100% {
+    filter: blur(4px);
+    scale: 0.8;
+  }
+}
+
+@keyframes celeste-button-spinner-in {
+  0% {
+    filter: blur(4px);
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+@keyframes celeste-button-spin {
+  100% {
+    rotate: 360deg;
   }
 }
 </style>
