@@ -239,6 +239,7 @@ $hover-map: (
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  user-select: none;
 
   &:disabled:not(&-loading) {
     background-color: var(--color-bg-weak-50);

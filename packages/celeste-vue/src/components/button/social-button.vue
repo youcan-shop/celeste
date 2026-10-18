@@ -82,6 +82,7 @@ $brand-map: (
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  user-select: none;
   gap: var(--spacing-8);
 
   span {
