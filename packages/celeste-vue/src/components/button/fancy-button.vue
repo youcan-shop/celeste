@@ -29,12 +29,15 @@ const props = withDefaults(defineProps<FancyButtonProps>(), {
       'celeste-fbutton',
       `celeste-fbutton-${intent}`,
       `celeste-fbutton-${size}`,
-      loading && 'celeste-fbutton-loading',
+      loading && !asChild && 'celeste-fbutton-loading',
       props.class,
     )"
   >
-    <slot />
-    <i v-if="loading" class="celeste-fbutton-spinner i-celeste-loader-4-line" />
+    <slot v-if="asChild" />
+    <template v-else>
+      <slot />
+      <i v-if="loading" class="celeste-fbutton-spinner i-celeste-loader-4-line" />
+    </template>
   </Primitive>
 </template>
 

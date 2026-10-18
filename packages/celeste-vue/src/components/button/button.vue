@@ -32,12 +32,15 @@ const props = withDefaults(defineProps<ButtonProps>(), {
       `celeste-button-intent-${intent}`,
       `celeste-button-size-${size}`,
       `celeste-button-variant-${variant}`,
-      loading && 'celeste-button-loading',
+      loading && !asChild && 'celeste-button-loading',
       props.class,
     )"
   >
-    <slot />
-    <i v-if="loading" class="celeste-button-spinner i-celeste-loader-4-line" />
+    <slot v-if="asChild" />
+    <template v-else>
+      <slot />
+      <i v-if="loading" class="celeste-button-spinner i-celeste-loader-4-line" />
+    </template>
   </Primitive>
 </template>
 
