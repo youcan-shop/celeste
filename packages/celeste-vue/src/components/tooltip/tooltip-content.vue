@@ -88,7 +88,7 @@ function handleDismiss() {
   gap: var(--spacing-12);
   scale: 0.98;
 
-  &[data-state='delayed-open'] {
+  &[data-state$='open'] {
     animation-name: open;
   }
 
