@@ -45,12 +45,12 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
   color: var(--sidebar-foreground);
   text-decoration: none;
   inset-inline-end: var(--spacing-4);
-  inset-block-start: var(--spacing-8);
+  inset-block-start: 5px;
   aspect-ratio: 1;
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-action {
-  inset-block-start: var(--spacing-6);
+  inset-block-start: 0;
 }
 
 .celeste-sidebar-menu-action::after {

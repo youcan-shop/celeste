@@ -26,7 +26,7 @@ const props = defineProps<{
   padding-block: var(--spacing-4);
   padding-inline: var(--spacing-10);
   transform: translateX(1px);
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
   border-inline-start: 1px solid var(--sidebar-border);
   list-style: none;
 }

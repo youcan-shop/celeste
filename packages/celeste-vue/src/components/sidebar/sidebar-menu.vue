@@ -24,7 +24,7 @@ const props = defineProps<{
   min-width: 0;
   margin: 0;
   padding: 0;
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
   list-style: none;
 }
 </style>

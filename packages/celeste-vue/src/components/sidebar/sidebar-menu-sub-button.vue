@@ -41,8 +41,8 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   align-items: center;
   width: 100%;
   min-width: 0;
-  height: 32px;
-  padding: var(--spacing-8);
+  height: 20px;
+  padding: 0 var(--spacing-8);
   overflow: hidden;
   transform: translateX(-1px);
   transition:
@@ -97,8 +97,8 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
 
 .celeste-sidebar-menu-sub-button :is(svg, i) {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   color: var(--sidebar-accent-foreground);
 }
 
@@ -108,6 +108,7 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
 
 .celeste-sidebar-menu-sub-button-size-md {
   font: var(--paragraph-sm);
+  font-size: 13px;
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-sub-button {

@@ -27,6 +27,6 @@ const props = defineProps<SidebarFooterProps>();
 }
 
 [data-collapsible='icon'] .celeste-sidebar-footer {
-  padding: var(--spacing-8) var(--spacing-4);
+  padding: var(--spacing-8) calc((var(--sidebar-width-icon) - 30px) / 2);
 }
 </style>

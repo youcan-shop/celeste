@@ -42,19 +42,19 @@ const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
 }
 
 .celeste-sidebar-menu-item > .celeste-sidebar-menu-badge.celeste-badge-sm {
-  inset-block-start: var(--spacing-10);
+  inset-block-start: 7px;
 }
 
 .celeste-sidebar-menu-item > .celeste-sidebar-menu-badge.celeste-badge-md {
-  inset-block-start: var(--spacing-8);
+  inset-block-start: 5px;
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-badge.celeste-badge-sm {
-  inset-block-start: var(--spacing-8);
+  inset-block-start: var(--spacing-2);
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-badge.celeste-badge-md {
-  inset-block-start: var(--spacing-6);
+  inset-block-start: 0;
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-badge {
