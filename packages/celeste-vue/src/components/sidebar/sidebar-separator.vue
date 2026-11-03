@@ -19,7 +19,7 @@ const props = defineProps<SidebarSeparatorProps>();
 
 <style lang="css">
 .celeste-sidebar-separator {
-  margin-inline: var(--spacing-16);
+  margin-inline: var(--spacing-8);
   background-color: var(--sidebar-border);
 }
 
