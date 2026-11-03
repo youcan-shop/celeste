@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@internationalized/date": "^3.12.3",
-    "@tiptap/core": "^3.29.2",
+    "@tiptap/core": "^3.30.5",
     "@tiptap/extension-bubble-menu": "^3.29.2",
     "@tiptap/extension-color": "^3.29.2",
     "@tiptap/extension-link": "^3.29.2",
@@ -97,7 +97,7 @@
     "unocss": "^66.7.5",
     "vite": "^8.2.1",
     "vite-plugin-dts": "^5.0.3",
-    "vitest": "^4.1.10",
+    "vitest": "^5.0.2",
     "vue-component-meta": "^3.3.11",
     "vue-docgen-api": "^4.79.2",
     "vue-tsc": "^3.3.9"
