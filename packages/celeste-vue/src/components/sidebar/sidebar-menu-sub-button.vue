@@ -42,10 +42,7 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   width: 100%;
   min-width: 0;
   height: 28px;
-  padding-block: 0;
-
-  /* Starts the text where the parent menu button's text starts: its padding, 16px icon and gap. */
-  padding-inline: calc(var(--spacing-8) * 2 + 16px) var(--spacing-8);
+  padding: 0 var(--spacing-8);
   overflow: hidden;
   transition:
     background-color var(--animation-fast),
@@ -57,6 +54,13 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   color: var(--sidebar-foreground);
   text-decoration: none;
   gap: var(--spacing-8);
+}
+
+/* A hidden icon the size of the parent menu button's, so the text starts where the parent's text does. */
+.celeste-sidebar-menu-sub-button::before {
+  content: '';
+  flex-shrink: 0;
+  width: var(--sidebar-icon-size, 16px);
 }
 
 .celeste-sidebar-menu-sub-button:hover {

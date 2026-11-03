@@ -106,7 +106,7 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
 [data-collapsible='icon'] .celeste-sidebar-menu-button {
   width: 30px;
   height: 30px;
-  padding: 0 7px;
+  padding: 0 calc((30px - var(--sidebar-icon-size, 16px)) / 2);
 }
 
 .celeste-sidebar-menu-button > span:last-child {
@@ -118,8 +118,8 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
 .celeste-sidebar-menu-button svg,
 .celeste-sidebar-menu-button i {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: var(--sidebar-icon-size, 16px);
+  height: var(--sidebar-icon-size, 16px);
 }
 
 .celeste-sidebar-menu-button-variant-outline {
