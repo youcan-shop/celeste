@@ -45,7 +45,9 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   padding: var(--spacing-8);
   overflow: hidden;
   transform: translateX(-1px);
-  transition: background-color var(--animation-fast);
+  transition:
+    background-color var(--animation-fast),
+    color var(--animation-fast);
   border: 0;
   border-radius: var(--radius-8);
   outline: none;
@@ -56,8 +58,11 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
 }
 
 .celeste-sidebar-menu-sub-button:hover {
-  background-color: var(--sidebar-accent);
-  color: var(--sidebar-accent-foreground);
+  background-color: var(--sidebar-hover, color-mix(in oklab, var(--sidebar-accent) 50%, transparent));
+  color: var(
+    --sidebar-hover-foreground,
+    color-mix(in oklab, var(--sidebar-accent-foreground) 50%, var(--sidebar-foreground))
+  );
 }
 
 .celeste-sidebar-menu-sub-button:focus-visible {

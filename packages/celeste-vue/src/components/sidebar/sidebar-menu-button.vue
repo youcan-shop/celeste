@@ -50,7 +50,8 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
     width var(--animation-fast) linear,
     height var(--animation-fast) linear,
     padding var(--animation-fast) linear,
-    background-color var(--animation-fast);
+    background-color var(--animation-fast),
+    color var(--animation-fast);
   border: 0;
   border-radius: var(--radius-8);
   outline: none;
@@ -63,8 +64,11 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
 }
 
 .celeste-sidebar-menu-button:hover {
-  background-color: var(--sidebar-accent);
-  color: var(--sidebar-accent-foreground);
+  background-color: var(--sidebar-hover, color-mix(in oklab, var(--sidebar-accent) 50%, transparent));
+  color: var(
+    --sidebar-hover-foreground,
+    color-mix(in oklab, var(--sidebar-accent-foreground) 50%, var(--sidebar-foreground))
+  );
 }
 
 .celeste-sidebar-menu-button:focus-visible {
@@ -91,13 +95,12 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
   color: var(--sidebar-accent-foreground);
 }
 
-.celeste-sidebar-menu-button[data-active='true'] :is(i, svg) {
-  color: var(--sidebar-primary);
-}
-
-.celeste-sidebar-menu-button[data-state='open']:hover {
-  background-color: var(--sidebar-accent);
-  color: var(--sidebar-accent-foreground);
+.celeste-sidebar-menu-button[data-state='open']:not([data-active='true']):hover {
+  background-color: var(--sidebar-hover, color-mix(in oklab, var(--sidebar-accent) 50%, transparent));
+  color: var(
+    --sidebar-hover-foreground,
+    color-mix(in oklab, var(--sidebar-accent-foreground) 50%, var(--sidebar-foreground))
+  );
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-button {

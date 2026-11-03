@@ -90,6 +90,13 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
 }
 
 .celeste-sidebar-menu-button:hover ~ .celeste-sidebar-menu-action {
+  color: var(
+    --sidebar-hover-foreground,
+    color-mix(in oklab, var(--sidebar-accent-foreground) 50%, var(--sidebar-foreground))
+  );
+}
+
+.celeste-sidebar-menu-button[data-active='true']:hover ~ .celeste-sidebar-menu-action {
   color: var(--sidebar-accent-foreground);
 }
 
