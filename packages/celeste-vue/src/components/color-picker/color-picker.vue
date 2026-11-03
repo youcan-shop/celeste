@@ -235,7 +235,7 @@ function inputChangeAlpha(event: Event) {
     return;
   }
 
-  tinyColorRef.value = tinyColorRef.value.setAlpha(Math.max(0, Math.min(1, alphaValue)));
+  tinyColorRef.value = tinyColorRef.value.clone().setAlpha(Math.max(0, Math.min(1, alphaValue)));
 }
 
 function handleColorValueKeyDown(event: KeyboardEvent, key: ColorKey) {
