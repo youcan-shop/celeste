@@ -50,7 +50,7 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-action {
-  inset-block-start: 0;
+  inset-block-start: var(--spacing-4);
 }
 
 .celeste-sidebar-menu-action::after {

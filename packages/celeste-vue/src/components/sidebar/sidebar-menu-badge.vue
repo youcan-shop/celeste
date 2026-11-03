@@ -50,11 +50,11 @@ const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-badge.celeste-badge-sm {
-  inset-block-start: var(--spacing-2);
+  inset-block-start: var(--spacing-6);
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-badge.celeste-badge-md {
-  inset-block-start: 0;
+  inset-block-start: var(--spacing-4);
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-badge {

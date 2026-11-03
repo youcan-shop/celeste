@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   align-items: center;
   width: 100%;
   min-width: 0;
-  height: 20px;
+  height: 28px;
   padding: 0 var(--spacing-8);
   overflow: hidden;
   transform: translateX(-1px);
