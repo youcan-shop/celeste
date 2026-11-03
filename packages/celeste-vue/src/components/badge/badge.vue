@@ -121,17 +121,6 @@ $states: faded, information, warning, error, success, away, feature, verified, h
     &-lighter.celeste-badge-#{$state}:not(&-disabled) {
       background-color: var(--color-state-#{$state}-lighter);
       color: var(--color-state-#{$state}-base);
-
-      // The dark theme keeps the base shade at 600 and turns the dark shade into a 400, which reads on dark surfaces.
-      [data-theme='dark'] & {
-        color: var(--color-state-#{$state}-dark);
-      }
-
-      @media (prefers-color-scheme: dark) {
-        [data-theme='system'] & {
-          color: var(--color-state-#{$state}-dark);
-        }
-      }
     }
 
     &-stroke.celeste-badge-#{$state}:not(&-disabled) {

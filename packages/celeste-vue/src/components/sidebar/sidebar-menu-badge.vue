@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
   />
 </template>
 
-<style lang="scss">
+<style lang="css">
 .celeste-sidebar-menu-badge {
   --celeste-sidebar-badge-offset: 0px;
 
@@ -64,38 +64,5 @@ const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
 .celeste-sidebar-menu-item:has([data-sidebar='menu-action']) > .celeste-sidebar-menu-badge,
 .celeste-sidebar-menu-sub-item:has([data-sidebar='menu-action']) > .celeste-sidebar-menu-badge {
   --celeste-sidebar-badge-offset: 20px;
-}
-
-$active-row-shades: (
-  faded: neutral-200,
-  information: blue-300,
-  warning: orange-300,
-  error: red-300,
-  success: green-300,
-  away: yellow-300,
-  feature: purple-300,
-  verified: sky-300,
-  highlighted: pink-300,
-  stable: teal-300,
-);
-
-@mixin active-row-shades {
-  :is(.celeste-sidebar-menu-item, .celeste-sidebar-menu-sub-item):has(> [data-active='true'])
-    > .celeste-sidebar-menu-badge {
-    @each $state, $shade in $active-row-shades {
-      --color-state-#{$state}-dark: var(--color-#{$shade});
-    }
-  }
-}
-
-// The active row's background is lighter than the sidebar, so dark mode text needs one shade brighter to keep its contrast.
-[data-theme='dark'] {
-  @include active-row-shades;
-}
-
-@media (prefers-color-scheme: dark) {
-  [data-theme='system'] {
-    @include active-row-shades;
-  }
 }
 </style>
