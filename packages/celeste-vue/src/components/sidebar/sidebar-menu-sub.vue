@@ -21,13 +21,10 @@ const props = defineProps<{
   display: flex;
   flex-direction: column;
   min-width: 0;
-  margin-block: 0;
-  margin-inline: var(--spacing-16);
+  margin: 0;
   padding-block: var(--spacing-4);
-  padding-inline: var(--spacing-10);
-  transform: translateX(1px);
+  padding-inline: 0;
   gap: var(--spacing-2);
-  border-inline-start: 1px solid var(--sidebar-border);
   list-style: none;
 }
 

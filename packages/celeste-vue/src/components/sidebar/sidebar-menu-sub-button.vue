@@ -42,9 +42,11 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   width: 100%;
   min-width: 0;
   height: 28px;
-  padding: 0 var(--spacing-8);
+  padding-block: 0;
+
+  /* Starts the text where the parent menu button's text starts: its padding, 16px icon and gap. */
+  padding-inline: calc(var(--spacing-8) * 2 + 16px) var(--spacing-8);
   overflow: hidden;
-  transform: translateX(-1px);
   transition:
     background-color var(--animation-fast),
     color var(--animation-fast);
