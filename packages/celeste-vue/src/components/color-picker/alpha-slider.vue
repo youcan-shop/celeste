@@ -71,7 +71,7 @@ function handleChange(e: MouseEvent | TouchEvent, skip = false) {
   }
 
   if (alpha.value !== a) {
-    tinyColorRef.value = tinyColorRef.value.setAlpha(a).clone();
+    tinyColorRef.value = tinyColorRef.value.clone().setAlpha(a);
   }
 }
 
@@ -115,7 +115,7 @@ function handleKeydown(e: KeyboardEvent) {
     }
   }
   if (typeof newValue !== 'undefined') {
-    tinyColorRef.value = tinyColorRef.value.setAlpha(newValue).clone();
+    tinyColorRef.value = tinyColorRef.value.clone().setAlpha(newValue);
   }
 }
 
