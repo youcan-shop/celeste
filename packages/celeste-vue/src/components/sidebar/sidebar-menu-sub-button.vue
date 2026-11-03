@@ -108,7 +108,6 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
 
 .celeste-sidebar-menu-sub-button-size-md {
   font: var(--paragraph-sm);
-  font-size: 13px;
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-sub-button {

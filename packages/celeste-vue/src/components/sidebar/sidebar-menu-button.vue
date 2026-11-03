@@ -58,7 +58,6 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
   background: none;
   color: var(--sidebar-foreground);
   font: var(--label-sm);
-  font-size: 13px;
   text-align: start;
   text-decoration: none;
   gap: var(--spacing-8);
