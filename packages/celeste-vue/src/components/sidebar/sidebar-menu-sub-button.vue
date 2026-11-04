@@ -72,7 +72,7 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
 }
 
 .celeste-sidebar-menu-sub-button:focus-visible {
-  box-shadow: 0 0 0 2px var(--sidebar-ring);
+  box-shadow: var(--sidebar-ring);
 }
 
 .celeste-sidebar-menu-sub-button:active {

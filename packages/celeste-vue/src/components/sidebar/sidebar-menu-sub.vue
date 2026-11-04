@@ -28,6 +28,12 @@ const props = defineProps<{
   list-style: none;
 }
 
+/* The collapsible around a sub menu clips its content for the height animation, which cut the sides off the sub buttons' focus ring. */
+.celeste-collapsible-content:has(> .celeste-sidebar-menu-sub) {
+  overflow: clip;
+  overflow-clip-margin: 4px;
+}
+
 [data-collapsible='icon'] .celeste-sidebar-menu-sub {
   display: none;
 }

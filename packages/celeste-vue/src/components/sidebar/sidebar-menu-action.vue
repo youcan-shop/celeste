@@ -71,7 +71,7 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
 }
 
 .celeste-sidebar-menu-action:focus-visible {
-  box-shadow: 0 0 0 2px var(--sidebar-ring);
+  box-shadow: var(--sidebar-ring);
 }
 
 .celeste-sidebar-menu-action :is(svg, i) {
