@@ -122,6 +122,7 @@ function clearInput() {
   &[size='xs'] {
     --input-gap: var(--spacing-6);
     --input-height: 32px;
+    --input-icon-size: 16px;
     --input-radius: var(--radius-8);
     --input-padding: var(--spacing-8);
     --input-affix-padding: var(--spacing-10);
@@ -273,8 +274,8 @@ function clearInput() {
 
   .celeste-text-input-icon {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: var(--input-icon-size, 20px);
+    height: var(--input-icon-size, 20px);
     transition: all var(--animation-fast) ease-out;
     color: var(--celeste-text-input-icon-color);
   }
