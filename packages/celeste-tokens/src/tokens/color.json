@@ -677,6 +677,10 @@
         "$value": "{color.neutral.50}",
         "$type": "color"
       },
+      "weak-100": {
+        "$value": "{color.neutral.100}",
+        "$type": "color"
+      },
       "strong-950": {
         "$value": "{color.neutral.950}",
         "$type": "color"
