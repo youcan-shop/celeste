@@ -36,6 +36,12 @@ const props = defineProps<{
   min-height: 0;
   gap: var(--spacing-8);
   overflow: auto;
+  scrollbar-color: var(--color-stroke-soft-200) transparent;
+  scrollbar-width: thin;
+}
+
+.celeste-sidebar-content:hover {
+  scrollbar-color: var(--color-stroke-sub-300) transparent;
 }
 
 /* The edges fade only where items are scrolled out of view. Content that does not scroll has no active timeline, so both fades stay at 0. */
