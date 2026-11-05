@@ -5,6 +5,7 @@ import { Sheet, SheetContent } from '@/components/sheet';
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from '@/composables/use-sidebar';
 
 export interface SidebarProps {
+  side?: 'left' | 'right';
   variant?: 'sidebar' | 'floating' | 'inset';
   collapsible?: 'offcanvas' | 'icon' | 'none';
   class?: HTMLAttributes['class'];
@@ -15,6 +16,7 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<SidebarProps>(), {
+  side: 'right',
   variant: 'sidebar',
   collapsible: 'offcanvas',
 });
@@ -26,17 +28,18 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
   <Sheet
     v-if="isMobile"
     :open="openMobile"
-    v-bind="$attrs"
     @update:open="setOpenMobile"
   >
     <SheetContent
       data-sidebar="sidebar"
       data-mobile="true"
-      side="right"
-      class="celeste-sidebar-mobile"
+      :side="side"
+      :class="clsx('celeste-sidebar-mobile', props.class)"
+      overlay-class="celeste-sidebar-mobile-overlay"
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
       }"
+      v-bind="$attrs"
     >
       <div class="celeste-sidebar-mobile-content">
         <slot />
@@ -93,6 +96,10 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
   padding: 0;
   background-color: var(--sidebar-background);
   color: var(--sidebar-foreground);
+}
+
+.celeste-sheet-overlay.celeste-sidebar-mobile-overlay[data-state] {
+  background-color: rgb(0 0 0 / 24%);
 }
 
 .celeste-sidebar-mobile > .celeste-sheet-close {
