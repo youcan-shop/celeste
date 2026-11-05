@@ -17,6 +17,18 @@ const props = defineProps<{
 </template>
 
 <style lang="css">
+@property --celeste-sidebar-fade-top {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --celeste-sidebar-fade-bottom {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
 .celeste-sidebar-content {
   display: flex;
   flex: 1;
@@ -24,6 +36,46 @@ const props = defineProps<{
   min-height: 0;
   gap: var(--spacing-8);
   overflow: auto;
+}
+
+/* The edges fade only where items are scrolled out of view. Content that does not scroll has no active timeline, so both fades stay at 0. */
+@supports (animation-timeline: scroll()) {
+  .celeste-sidebar-content {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 var(--celeste-sidebar-fade-top),
+      #000 calc(100% - var(--celeste-sidebar-fade-bottom)),
+      transparent
+    );
+    animation:
+      celeste-sidebar-fade-top linear both,
+      celeste-sidebar-fade-bottom linear both;
+    animation-range:
+      0 24px,
+      calc(100% - 24px) 100%;
+    animation-timeline: scroll(self), scroll(self);
+  }
+}
+
+@keyframes celeste-sidebar-fade-top {
+  from {
+    --celeste-sidebar-fade-top: 0;
+  }
+
+  to {
+    --celeste-sidebar-fade-top: 24px;
+  }
+}
+
+@keyframes celeste-sidebar-fade-bottom {
+  from {
+    --celeste-sidebar-fade-bottom: 24px;
+  }
+
+  to {
+    --celeste-sidebar-fade-bottom: 0;
+  }
 }
 
 [data-collapsible='icon'] .celeste-sidebar-content {
