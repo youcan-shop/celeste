@@ -99,7 +99,11 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 }
 
 .celeste-sheet-overlay.celeste-sidebar-mobile-overlay[data-state] {
-  background-color: rgb(0 0 0 / 24%);
+  background-color: var(--sidebar-overlay);
+}
+
+.celeste-sheet-content.celeste-sidebar-mobile[data-sidebar] {
+  border-color: var(--sidebar-border);
 }
 
 .celeste-sidebar-mobile > .celeste-sheet-close {
