@@ -1,11 +1,11 @@
 # Design tokens
 
 Every visual value in Celeste comes from a token exposed as a CSS custom
-property. There are 353 of them. Find one with
+property. There are 355 of them. Find one with
 `node scripts/token.mjs <pattern>`.
 
 Styling with tokens is not a style preference. Dark mode is implemented _only_
-through them: 77 of the 353 are redefined under `[data-theme="dark"]`. A
+through them: 77 of the 355 are redefined under `[data-theme="dark"]`. A
 hard-coded colour is invisible to that mechanism, so it stays light while
 everything around it flips.
 
