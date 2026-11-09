@@ -5,7 +5,7 @@ import { Sheet, SheetContent } from '@/components/sheet';
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from '@/composables/use-sidebar';
 
 export interface SidebarProps {
-  side?: 'left' | 'right';
+  mobileSide?: 'left' | 'right';
   variant?: 'sidebar' | 'floating' | 'inset';
   collapsible?: 'offcanvas' | 'icon' | 'none';
   class?: HTMLAttributes['class'];
@@ -16,7 +16,7 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<SidebarProps>(), {
-  side: 'right',
+  mobileSide: 'right',
   variant: 'sidebar',
   collapsible: 'offcanvas',
 });
@@ -33,7 +33,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
     <SheetContent
       data-sidebar="sidebar"
       data-mobile="true"
-      :side="side"
+      :side="mobileSide"
       :class="clsx('celeste-sidebar-mobile', props.class)"
       overlay-class="celeste-sidebar-mobile-overlay"
       :style="{
