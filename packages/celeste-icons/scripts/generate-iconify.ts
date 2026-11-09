@@ -9,7 +9,6 @@ import {
   parseColors,
   runSVGO,
 } from '@iconify/tools';
-import { ensureFile } from 'fs-extra';
 import pkg from '../package.json' assert { type: 'json' };
 
 // this is a stub
@@ -83,7 +82,7 @@ const info = {
 
   const iconSetContent = iconSet.export(true);
 
-  await ensureFile(resolve('assets', 'icons.json'));
+  await fs.mkdir(resolve('assets'), { recursive: true });
 
   await fs.writeFile(
     resolve('assets', 'icons.json'),
