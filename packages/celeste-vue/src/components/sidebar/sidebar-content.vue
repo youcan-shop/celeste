@@ -44,7 +44,6 @@ const props = defineProps<{
   scrollbar-color: var(--color-stroke-sub-300) transparent;
 }
 
-/* The edges fade only where items are scrolled out of view. Content that does not scroll has no active timeline, so both fades stay at 0. */
 @supports (animation-timeline: scroll()) {
   .celeste-sidebar-content {
     mask-image: linear-gradient(

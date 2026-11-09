@@ -56,7 +56,6 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   gap: var(--spacing-8);
 }
 
-/* A hidden icon the size of the parent menu button's, so the text starts where the parent's text does. */
 .celeste-sidebar-menu-sub-button::before {
   content: '';
   flex-shrink: 0;
