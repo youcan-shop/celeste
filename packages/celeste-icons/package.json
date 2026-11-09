@@ -28,7 +28,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=20.10.0"
+    "node": ">=22"
   },
   "iconSet": {
     "icons": "./dist/icons.json",

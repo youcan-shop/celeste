@@ -28,7 +28,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=20.10.0"
+    "node": ">=22"
   },
   "scripts": {
     "codegen:registry": "tsx scripts/component-registry/index.ts",
