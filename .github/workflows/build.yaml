@@ -6,10 +6,18 @@ on:
       - main
     paths:
       - 'packages/**'
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - .github/workflows/build.yaml
 
   pull_request:
     paths:
       - 'packages/**'
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - .github/workflows/build.yaml
 
 jobs:
   build:
