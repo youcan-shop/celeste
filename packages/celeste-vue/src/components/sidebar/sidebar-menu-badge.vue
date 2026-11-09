@@ -42,11 +42,11 @@ const props = withDefaults(defineProps<SidebarMenuBadgeProps>(), {
 }
 
 .celeste-sidebar-menu-item > .celeste-sidebar-menu-badge.celeste-badge-sm {
-  inset-block-start: 7px;
+  inset-block-start: calc((var(--sidebar-item-height) - 16px) / 2);
 }
 
 .celeste-sidebar-menu-item > .celeste-sidebar-menu-badge.celeste-badge-md {
-  inset-block-start: 5px;
+  inset-block-start: calc((var(--sidebar-item-height) - 20px) / 2);
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-badge.celeste-badge-sm {

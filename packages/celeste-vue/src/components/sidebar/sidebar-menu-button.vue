@@ -43,7 +43,7 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
   position: relative;
   align-items: center;
   width: 100%;
-  height: 30px;
+  height: var(--sidebar-item-height);
   padding: 0 var(--spacing-8);
   overflow: hidden;
   transition:
@@ -104,9 +104,9 @@ const delegatedProps = reactiveOmit(props, 'class', 'variant', 'isActive');
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-button {
-  width: 30px;
-  height: 30px;
-  padding: 0 calc((30px - var(--sidebar-icon-size, 16px)) / 2);
+  width: var(--sidebar-item-height);
+  height: var(--sidebar-item-height);
+  padding: 0 calc((var(--sidebar-item-height) - var(--sidebar-icon-size, 16px)) / 2);
 }
 
 .celeste-sidebar-menu-button > span:last-child {

@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
   color: var(--sidebar-foreground);
   text-decoration: none;
   inset-inline-end: var(--spacing-4);
-  inset-block-start: 5px;
+  inset-block-start: calc((var(--sidebar-item-height) - 20px) / 2);
   aspect-ratio: 1;
 }
 

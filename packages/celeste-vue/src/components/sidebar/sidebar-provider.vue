@@ -84,6 +84,7 @@ provideSidebarContext({
   --sidebar-border: var(--color-stroke-soft-200);
   --sidebar-ring: var(--shadow-buttons-important-focus);
   --sidebar-overlay: rgb(0 0 0 / 24%);
+  --sidebar-item-height: 30px;
 }
 
 .celeste-sidebar-provider * {
