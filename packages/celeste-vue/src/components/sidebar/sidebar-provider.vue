@@ -29,7 +29,7 @@ const open = useVModel(props, 'open', emits, {
 function setOpen(value: boolean) {
   open.value = value;
 
-  document.cookie = `${SIDEBAR_COOKIE_NAME}=${open.value}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+  document.cookie = `${SIDEBAR_COOKIE_NAME}=${value}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
 }
 
 function setOpenMobile(value: boolean) {
@@ -83,6 +83,8 @@ provideSidebarContext({
   --sidebar-accent-foreground: var(--color-text-strong-950);
   --sidebar-border: var(--color-stroke-soft-200);
   --sidebar-ring: var(--shadow-buttons-important-focus);
+  --sidebar-overlay: rgb(0 0 0 / 24%);
+  --sidebar-item-height: 30px;
 }
 
 .celeste-sidebar-provider * {

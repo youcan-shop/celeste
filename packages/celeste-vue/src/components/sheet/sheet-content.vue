@@ -14,6 +14,7 @@ import CompactButton from '@/components/button/compact-button.vue';
 
 export interface SheetContentProps extends DialogContentProps {
   class?: HTMLAttributes['class'];
+  overlayClass?: HTMLAttributes['class'];
   side?: 'top' | 'bottom' | 'left' | 'right';
 }
 
@@ -27,13 +28,13 @@ const props = withDefaults(defineProps<SheetContentProps>(), {
 
 const emits = defineEmits<DialogContentEmits>();
 
-const delegated = reactiveOmit(props, 'class', 'side');
+const delegated = reactiveOmit(props, 'class', 'overlayClass', 'side');
 const forwarded = useForwardPropsEmits(delegated, emits);
 </script>
 
 <template>
   <DialogPortal>
-    <DialogOverlay class="celeste-sheet-overlay" />
+    <DialogOverlay :class="clsx('celeste-sheet-overlay', props.overlayClass)" />
     <DialogContent
       :class="clsx('celeste-sheet-content', `celeste-sheet-side-${side}`, props.class)"
       v-bind="{ ...forwarded, ...$attrs }"

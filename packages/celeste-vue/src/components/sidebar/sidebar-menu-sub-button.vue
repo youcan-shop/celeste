@@ -41,11 +41,12 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   align-items: center;
   width: 100%;
   min-width: 0;
-  height: 32px;
-  padding: var(--spacing-8);
+  height: 28px;
+  padding: 0 var(--spacing-8);
   overflow: hidden;
-  transform: translateX(-1px);
-  transition: background-color var(--animation-fast);
+  transition:
+    background-color var(--animation-fast),
+    color var(--animation-fast);
   border: 0;
   border-radius: var(--radius-8);
   outline: none;
@@ -55,13 +56,22 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
   gap: var(--spacing-8);
 }
 
+.celeste-sidebar-menu-sub-button::before {
+  content: '';
+  flex-shrink: 0;
+  width: var(--sidebar-icon-size, 16px);
+}
+
 .celeste-sidebar-menu-sub-button:hover {
-  background-color: var(--sidebar-accent);
-  color: var(--sidebar-accent-foreground);
+  background-color: var(--sidebar-hover, color-mix(in oklab, var(--sidebar-accent) 50%, transparent));
+  color: var(
+    --sidebar-hover-foreground,
+    color-mix(in oklab, var(--sidebar-accent-foreground) 50%, var(--sidebar-foreground))
+  );
 }
 
 .celeste-sidebar-menu-sub-button:focus-visible {
-  box-shadow: 0 0 0 2px var(--sidebar-ring);
+  box-shadow: var(--sidebar-ring);
 }
 
 .celeste-sidebar-menu-sub-button:active {
@@ -92,8 +102,8 @@ const props = withDefaults(defineProps<SidebarMenuSubButtonProps>(), {
 
 .celeste-sidebar-menu-sub-button :is(svg, i) {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   color: var(--sidebar-accent-foreground);
 }
 

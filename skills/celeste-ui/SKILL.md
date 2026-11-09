@@ -5,7 +5,7 @@ description: "Build UI with Celeste, YouCan's design system for Vue 3. Use when 
 
 # Celeste UI
 
-Celeste is YouCan's design system: 169 Vue 3 components, 352 design tokens, and
+Celeste is YouCan's design system: 169 Vue 3 components, 353 design tokens, and
 3,148 icons. This skill covers building product UI **with** Celeste, not
 contributing to the Celeste repo.
 
@@ -123,10 +123,10 @@ Semantic colours re-theme in dark mode; use these before reaching for
 <!-- generated:tokens -->
 
 - **Text:** `--color-text-{strong-950, sub-600, soft-400, disabled-300, white-0}`
-- **Background:** `--color-bg-{strong-950, surface-800, sub-300, soft-200, weak-50, white-0}`
+- **Background:** `--color-bg-{strong-950, surface-800, sub-300, soft-200, weak-100, weak-50, white-0}`
 - **Border:** `--color-stroke-{strong-950, sub-300, soft-200, white-0}`
 - **Icon:** `--color-icon-{strong-950, sub-600, soft-400, disabled-300, white-0}`
-- **State:** `--color-state-<state>-<shade>` — away, error, highlighted, stable, success, verified, warning: base, dark, light, lighter · faded, feature, information: dark, light, lighter
+- **State:** `--color-state-<state>-<shade>` — away, error, faded, feature, highlighted, information, stable, success, verified, warning: base, dark, light, lighter
 - **Spacing:** `--spacing-{0, 2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48}`
 - **Radius:** `--radius-{4, 6, 8, 10, 12, 16, 20, 24, full}`
 - **Shadow:** `--shadow-{regular-md, regular-xs}`

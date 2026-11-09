@@ -21,14 +21,17 @@ const props = defineProps<{
   display: flex;
   flex-direction: column;
   min-width: 0;
-  margin-block: 0;
-  margin-inline: var(--spacing-16);
+  margin: 0;
   padding-block: var(--spacing-4);
-  padding-inline: var(--spacing-10);
-  transform: translateX(1px);
-  gap: var(--spacing-4);
-  border-inline-start: 1px solid var(--sidebar-border);
+  padding-inline: 0;
+  gap: var(--spacing-2);
   list-style: none;
+}
+
+/* The collapsible around a sub menu clips its content for the height animation, which cut the sides off the sub buttons' focus ring. */
+.celeste-collapsible-content:has(> .celeste-sidebar-menu-sub) {
+  overflow: clip;
+  overflow-clip-margin: 4px;
 }
 
 [data-collapsible='icon'] .celeste-sidebar-menu-sub {

@@ -25,4 +25,8 @@ const props = defineProps<{
   min-width: 0;
   padding: var(--spacing-10);
 }
+
+[data-collapsible='icon'] .celeste-sidebar-group {
+  padding-inline: calc((var(--sidebar-width-icon) - var(--sidebar-item-height)) / 2);
+}
 </style>

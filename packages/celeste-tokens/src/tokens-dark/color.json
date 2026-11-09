@@ -9,6 +9,10 @@
         "$value": "{color.neutral.900}",
         "$type": "color"
       },
+      "weak-100": {
+        "$value": "{color.neutral.800}",
+        "$type": "color"
+      },
       "strong-950": {
         "$value": "{color.neutral.0}",
         "$type": "color"
@@ -95,7 +99,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.neutral.500}",
+          "$value": "{color.neutral.400}",
           "$type": "color"
         },
         "light": {
@@ -113,7 +117,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.red.600}",
+          "$value": "{color.red.400}",
           "$type": "color"
         },
         "light": {
@@ -131,7 +135,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.orange.600}",
+          "$value": "{color.orange.400}",
           "$type": "color"
         },
         "light": {
@@ -149,7 +153,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.blue.500}",
+          "$value": "{color.blue.400}",
           "$type": "color"
         },
         "light": {
@@ -167,7 +171,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.green.600}",
+          "$value": "{color.green.400}",
           "$type": "color"
         },
         "light": {
@@ -185,7 +189,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.yellow.600}",
+          "$value": "{color.yellow.400}",
           "$type": "color"
         },
         "light": {
@@ -203,7 +207,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.purple.500}",
+          "$value": "{color.purple.400}",
           "$type": "color"
         },
         "light": {
@@ -221,7 +225,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.sky.600}",
+          "$value": "{color.sky.400}",
           "$type": "color"
         },
         "light": {
@@ -239,7 +243,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.pink.600}",
+          "$value": "{color.pink.400}",
           "$type": "color"
         },
         "light": {
@@ -257,7 +261,7 @@
           "$type": "color"
         },
         "base": {
-          "$value": "{color.teal.600}",
+          "$value": "{color.teal.400}",
           "$type": "color"
         },
         "light": {

@@ -45,12 +45,12 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
   color: var(--sidebar-foreground);
   text-decoration: none;
   inset-inline-end: var(--spacing-4);
-  inset-block-start: var(--spacing-8);
+  inset-block-start: calc((var(--sidebar-item-height) - 20px) / 2);
   aspect-ratio: 1;
 }
 
 .celeste-sidebar-menu-sub-item > .celeste-sidebar-menu-action {
-  inset-block-start: var(--spacing-6);
+  inset-block-start: var(--spacing-4);
 }
 
 .celeste-sidebar-menu-action::after {
@@ -71,7 +71,7 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
 }
 
 .celeste-sidebar-menu-action:focus-visible {
-  box-shadow: 0 0 0 2px var(--sidebar-ring);
+  box-shadow: var(--sidebar-ring);
 }
 
 .celeste-sidebar-menu-action :is(svg, i) {
@@ -90,6 +90,13 @@ const props = withDefaults(defineProps<SidebarMenuActionProps>(), {
 }
 
 .celeste-sidebar-menu-button:hover ~ .celeste-sidebar-menu-action {
+  color: var(
+    --sidebar-hover-foreground,
+    color-mix(in oklab, var(--sidebar-accent-foreground) 50%, var(--sidebar-foreground))
+  );
+}
+
+.celeste-sidebar-menu-button[data-active='true']:hover ~ .celeste-sidebar-menu-action {
   color: var(--sidebar-accent-foreground);
 }
 

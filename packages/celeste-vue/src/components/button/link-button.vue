@@ -43,9 +43,12 @@ const props = withDefaults(defineProps<LinkButtonProps>(), {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
   transition-property: color, text-decoration-color;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;
+  border: 0;
+  background: none;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
