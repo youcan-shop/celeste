@@ -59,8 +59,8 @@
   "devDependencies": {
     "@tokens-studio/sd-transforms": "^2.0.3",
     "csso": "^5.0.5",
-    "style-dictionary": "^5.5.1",
-    "tsx": "^4.23.11",
-    "unocss": "^66.7.5"
+    "style-dictionary": "^5.8.0",
+    "tsx": "^4.23.15",
+    "unocss": "^66.12.0"
   }
 }
