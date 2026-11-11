@@ -43,6 +43,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     color var(--animation-fast) var(--animation-function);
   border: none;
   border-radius: var(--radius-8);
+  background-color: transparent;
   color: var(--color-text-sub-600);
   font: var(--label-sm);
   cursor: pointer;
@@ -62,12 +63,9 @@ const forwardedProps = useForwardProps(delegatedProps);
     width: fit-content;
     padding-block: var(--spacing-14);
     padding-inline: var(--spacing-0);
-    background-color: var(--color-bg-white-0);
   }
 
   &[data-orientation='vertical'] {
-    background-color: var(--color-bg-white-0);
-
     &:hover,
     &[data-state='active'] {
       background-color: var(--color-bg-weak-50);
