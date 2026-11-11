@@ -275,3 +275,23 @@ export const ControlledSearch: Story = {
     `,
   }),
 };
+
+export const LongList: Story = {
+  args: {
+    options: Array.from({ length: 1000 }, (_, index) => ({ value: { id: index }, label: `Option ${index + 1}` })),
+    valueBy: 'id',
+    placeholder: 'Select an option',
+    searchable: true,
+    multiple: true,
+  },
+
+  render: args => ({
+    components: { Combobox },
+    setup() {
+      const selectedValue = ref([]);
+
+      return { args, selectedValue };
+    },
+    template: `<Combobox v-bind="args" v-model="selectedValue" />`,
+  }),
+};

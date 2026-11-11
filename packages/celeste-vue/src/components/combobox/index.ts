@@ -27,3 +27,5 @@ export { default as ComboboxTrigger } from './combobox-trigger.vue';
 
 export * from './combobox.vue';
 export { default as Combobox } from './combobox.vue';
+
+export { ComboboxVirtualizer } from 'reka-ui';
