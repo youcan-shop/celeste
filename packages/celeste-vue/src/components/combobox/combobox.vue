@@ -3,7 +3,7 @@ import type { ComboboxRootEmits, ComboboxRootProps } from 'reka-ui';
 import type { BadgeProps } from '../badge/badge.vue';
 import type { ComboboxItemPropsType } from './combobox-item.vue';
 
-import { useForwardPropsEmits } from 'reka-ui';
+import { ComboboxVirtualizer, useForwardPropsEmits } from 'reka-ui';
 import { computed } from 'vue';
 import Badge from '../badge/badge.vue';
 import ComboboxAnchor from './combobox-anchor.vue';
@@ -138,6 +138,19 @@ const mergedBadgeProps = computed(() => ({
 const filteredOptions = computed(() => props.ignoreFilter
   ? props.options
   : filterFunction(props.options, searchTerm.value ?? ''));
+
+const virtual = props.options.length > 50;
+
+function itemProps(option: ComboboxItemPropsType) {
+  return {
+    label: option.label,
+    sublabel: option.sublabel,
+    description: option.description,
+    checkbox: props.multiple,
+    value: option,
+    selected: isSelected(option.value),
+  };
+}
 </script>
 
 <template>
@@ -204,16 +217,32 @@ const filteredOptions = computed(() => props.ignoreFilter
         </template>
       </ComboboxEmpty>
 
-      <ComboboxGroup>
+      <ComboboxVirtualizer
+        v-if="virtual"
+        v-slot="{ option }"
+        class="celeste-dropdown-virtualizer"
+        :options="filteredOptions"
+        :estimate-size="40"
+        :text-content="(option: ComboboxItemPropsType) => option.label"
+      >
+        <ComboboxItem v-bind="itemProps(option)" class="celeste-dropdown-item-virtual">
+          <template #prefix>
+            <i v-if="option.icon" :class="option.icon" />
+            <img
+              v-if="option.image"
+              :src="option.image"
+              alt="option"
+              class="celeste-dropdown-item-image"
+            >
+          </template>
+        </ComboboxItem>
+      </ComboboxVirtualizer>
+
+      <ComboboxGroup v-else>
         <ComboboxItem
           v-for="option in filteredOptions"
           :key="option.label"
-          :label="option.label"
-          :sublabel="option.sublabel"
-          :description="option.description"
-          :checkbox="props.multiple"
-          :value="option"
-          :selected="isSelected(option.value)"
+          v-bind="itemProps(option)"
         >
           <template #prefix>
             <i v-if="option.icon" :class="option.icon" />
@@ -257,6 +286,15 @@ const filteredOptions = computed(() => props.ignoreFilter
   height: 20px;
   object-fit: cover;
   border-radius: var(--radius-full);
+}
+
+.celeste-dropdown-virtualizer {
+  flex-shrink: 0;
+}
+
+.celeste-dropdown-item-virtual {
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .celeste-dropdown-trigger-label {
