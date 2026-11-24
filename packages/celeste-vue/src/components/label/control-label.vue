@@ -19,21 +19,23 @@ const delegatedProps = useDelegatedProps(props, 'class');
     v-bind="delegatedProps"
     :aria-required="required"
     :aria-disabled="disabled"
-    :class="clsx('celeste-switch-label', props.class)"
+    :class="clsx('celeste-control-label', props.class)"
   >
-    <slot />
+    <span role="presentation" class="celeste-control-label-control">
+      <slot />
+    </span>
 
     <div role="presentation">
-      <div role="presentation" class="celeste-switch-label-row">
+      <div role="presentation" class="celeste-control-label-row">
         <div>
-          <Primitive as="span" class="celeste-switch-label-label">
+          <Primitive as="span" class="celeste-control-label-label">
             <slot name="label" />
           </Primitive>
 
           <Primitive
             v-if="$slots.sublabel"
             as="span"
-            class="celeste-switch-label-sublabel"
+            class="celeste-control-label-sublabel"
           >
             <slot name="sublabel" />
           </Primitive>
@@ -42,7 +44,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
         <Primitive
           v-if="$slots.badge"
           as-child
-          class="celeste-switch-label-badge"
+          class="celeste-control-label-badge"
         >
           <slot name="badge" />
         </Primitive>
@@ -51,12 +53,12 @@ const delegatedProps = useDelegatedProps(props, 'class');
       <div
         v-if="$slots.description || $slots.linkButton"
         role="presentation"
-        class="celeste-switch-label-content"
+        class="celeste-control-label-content"
       >
         <Primitive
           v-if="$slots.description"
           as="span"
-          class="celeste-switch-label-description"
+          class="celeste-control-label-description"
         >
           <slot name="description" />
         </Primitive>
@@ -64,7 +66,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
         <Primitive
           v-if="$slots.linkButton"
           as-child
-          class="celeste-switch-label-link-button"
+          class="celeste-control-label-link-button"
         >
           <slot name="linkButton" />
         </Primitive>
@@ -74,7 +76,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
 </template>
 
 <style scoped lang="scss">
-.celeste-switch-label {
+.celeste-control-label {
   display: flex;
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
@@ -87,18 +89,25 @@ const delegatedProps = useDelegatedProps(props, 'class');
   }
 }
 
-.celeste-switch-label-row {
+.celeste-control-label-control {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 1lh;
+}
+
+.celeste-control-label-row {
   display: flex;
   align-items: center;
   gap: var(--spacing-8);
 }
 
-.celeste-switch-label-sublabel {
+.celeste-control-label-sublabel {
   color: var(--color-text-sub-600);
   font: var(--paragraph-xs);
 }
 
-.celeste-switch-label-content {
+.celeste-control-label-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -107,7 +116,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   font: var(--paragraph-xs);
 }
 
-.celeste-switch-label-link-button {
+.celeste-control-label-link-button {
   margin-top: var(--spacing-10);
 }
 </style>

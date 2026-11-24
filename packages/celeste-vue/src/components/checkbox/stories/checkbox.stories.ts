@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Badge from '@/components/badge/badge.vue';
 import LinkButton from '@/components/button/link-button.vue';
-import CheckboxLabel from '../checkbox-label.vue';
+import CheckboxLabel from '@/components/label/control-label.vue';
 import Checkbox from '../checkbox.vue';
 
 const meta: Meta<typeof Checkbox> = {
