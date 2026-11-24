@@ -17,95 +17,123 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     v-bind="forwarded"
     :class="clsx('celeste-switch', props.class)"
   >
-    <SwitchThumb class="celeste-switch-thumb" />
+    <span class="celeste-switch-track">
+      <SwitchThumb class="celeste-switch-thumb" />
+    </span>
   </SwitchRoot>
 </template>
 
 <style lang="scss">
 .celeste-switch {
-  --width: 26px;
-  --height: 16px;
-  --thumb-size: 12px;
-  --thumb-inset: 1px;
-  --travel: calc(var(--width) - var(--thumb-size) - var(--thumb-inset) * 2 - 2px);
   --bg-color: var(--color-bg-soft-200);
+  --direction: 1;
 
-  position: relative;
+  display: block;
   box-sizing: border-box;
-  width: var(--width);
-  height: var(--height);
-  transition: background-color var(--animation-fast) ease-out;
-  border: 1px solid transparent;
-  border-radius: var(--radius-full);
-  background-color: var(--bg-color);
+  flex-shrink: 0;
+  width: 32px;
+  height: 20px;
+  padding: var(--spacing-2);
+  border: none;
+  outline: none;
+  background: none;
   cursor: pointer;
 
-  .celeste-switch-thumb {
-    --thumb-hole: 4px;
-    --direction: 1;
+  :dir(rtl) & {
+    --direction: -1;
+  }
 
-    position: absolute;
+  .celeste-switch-track {
+    display: block;
     box-sizing: border-box;
-    width: var(--thumb-size);
-    height: var(--thumb-size);
-    transform: translateY(-50%) scale(var(--thumb-scale, 1));
-    transition: transform var(--animation-fast) ease-out;
+    width: 28px;
+    height: 16px;
+    padding: var(--spacing-2);
+    transition: background-color var(--animation-fast) ease-out;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-color);
+  }
+
+  .celeste-switch-thumb {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+    transition:
+      transform var(--animation-fast) ease-out,
+      scale var(--animation-fast) ease-out;
     border-radius: var(--radius-full);
     background-color: var(--color-static-white);
     box-shadow: var(--shadow-toggle-switch);
-    inset-block-start: 50%;
-    inset-inline-start: var(--thumb-inset);
+    pointer-events: none;
 
     &[data-state='checked'] {
-      transform: translateY(-50%) translateX(calc(var(--travel) * var(--direction))) scale(var(--thumb-scale, 1));
+      transform: translateX(calc(12px * var(--direction)));
     }
 
     &::before {
       content: '';
       position: absolute;
-      width: var(--thumb-hole);
-      height: var(--thumb-hole);
+      width: 4px;
+      height: 4px;
       margin: auto;
       transition: background-color var(--animation-fast) ease-out;
       border-radius: var(--radius-full);
       background-color: var(--bg-color);
       inset: var(--spacing-0);
     }
-
-    :dir(rtl) & {
-      --direction: -1;
-    }
   }
 
-  &[aria-checked='true'] {
+  &[data-state='checked'] {
     --bg-color: var(--color-primary-base);
   }
 
-  &:disabled {
-    --bg-color: var(--color-bg-white-0);
-    --thumb-inset: var(--spacing-2);
-    --travel: calc(var(--width) - var(--thumb-size) - var(--thumb-inset) - 2px);
+  &:not(:disabled) {
+    &:hover,
+    &:focus-visible {
+      --bg-color: var(--color-bg-sub-300);
+    }
 
-    border-color: var(--color-stroke-soft-200);
-    background-color: var(--bg-color);
-    pointer-events: none;
+    &:hover[data-state='checked'] {
+      --bg-color: var(--color-primary-darker);
+    }
 
-    .celeste-switch-thumb {
-      border-color: var(--color-bg-soft-200);
-      background-color: var(--color-bg-soft-200);
-      box-shadow: none;
+    &:focus-visible[data-state='checked'] {
+      --bg-color: var(--color-primary-base);
+    }
+
+    &:active {
+      --bg-color: var(--color-bg-soft-200);
+
+      .celeste-switch-thumb {
+        scale: 0.833;
+      }
+    }
+
+    &:active[data-state='checked'] {
+      --bg-color: var(--color-primary-base);
     }
   }
 
-  &:active:not(:disabled) {
-    --thumb-scale: 0.833;
-  }
+  &:disabled {
+    cursor: not-allowed;
 
-  &:hover:not(:active, :disabled) {
-    --bg-color: var(--color-bg-sub-300);
+    .celeste-switch-track {
+      padding: 3px;
+      background-color: var(--color-bg-white-0);
+      box-shadow: inset 0 0 0 1px var(--color-stroke-soft-200);
+    }
 
-    &[aria-checked='true'] {
-      --bg-color: var(--color-primary-darker);
+    .celeste-switch-thumb {
+      width: 10px;
+      height: 10px;
+      background-color: var(--color-bg-soft-200);
+      box-shadow: none;
+
+      &::before {
+        content: none;
+      }
     }
   }
 }

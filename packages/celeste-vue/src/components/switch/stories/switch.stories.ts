@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import Badge from '@/components/badge/badge.vue';
+import LinkButton from '@/components/button/link-button.vue';
+import SwitchLabel from '../switch-label.vue';
 import Switch from '../switch.vue';
 
 const meta: Meta<typeof Switch> = {
@@ -42,32 +45,70 @@ export const Disabled: Story = {
   }),
 };
 
+export const States: Story = {
+  render: () => ({
+    components: { Switch },
+    template: `
+      <div style="display: grid; grid-template-columns: repeat(2, max-content); gap: 1em;">
+        <Switch />
+        <Switch :default-value="true" />
+        <Switch disabled />
+        <Switch :default-value="true" disabled />
+      </div>
+    `,
+  }),
+};
+
 export const WithLabel: Story = {
   args: {},
 
   render: args => ({
-    components: { Switch },
+    components: { Switch, SwitchLabel, Badge, LinkButton },
     setup() {
       return { args };
     },
     template: `
-      <div style="display: grid; gap: 1em;">
-        <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
+      <div style="display: grid; gap: 1.5em; max-width: 400px;">
+        <SwitchLabel>
           <Switch v-bind="args" :default-value="true" />
-          SMS Verification
-        </label>
-        <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
-          <Switch v-bind="args" />
-          Authenticator App
-        </label>
-        <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
+          <template #label>SMS verification</template>
+        </SwitchLabel>
+
+        <SwitchLabel disabled>
           <Switch v-bind="args" disabled />
-          Disabled
-        </label>
-        <label style="display: flex; align-items: center; gap: 0.5em; font: var(--paragraph-sm); cursor: pointer; user-select: none;">
-          <Switch v-bind="args" :default-value="true" disabled />
-          Disabled but default checked
-        </label>
+          <template #label>Disabled</template>
+        </SwitchLabel>
+
+        <SwitchLabel>
+          <Switch v-bind="args" />
+
+          <template #label>
+            Label
+          </template>
+          <template #sublabel>
+            (Sublabel)
+          </template>
+          <template #badge>
+            <Badge
+              label="NEW"
+              state="information"
+              variant="light"
+              size="sm"
+            />
+          </template>
+          <template #description>
+            Insert the switch description here.
+          </template>
+          <template #linkButton>
+            <LinkButton
+              href="#"
+              intent="primary"
+              size="sm"
+            >
+              Learn More
+            </LinkButton>
+          </template>
+        </SwitchLabel>
       </div>
     `,
   }),
