@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
+import RadioGroupLabel from '@/components/label/control-label.vue';
 import RadioGroupItem from '../radio-group-item.vue';
-import RadioGroupLabel from '../radio-group-label.vue';
 import RadioGroup from '../radio-group.vue';
 
 const meta: Meta<typeof RadioGroup> = {

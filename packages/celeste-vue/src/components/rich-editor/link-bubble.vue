@@ -279,8 +279,10 @@ onUnmounted(() => {
       }
     }
 
-    :deep(.celeste-switch[aria-checked='true']) {
-      background-color: var(--color-neutral-700);
+    :deep(.celeste-switch[data-state='checked']) {
+      .celeste-switch-track {
+        background-color: var(--color-neutral-700);
+      }
 
       .celeste-switch-thumb::before {
         background-color: currentcolor;

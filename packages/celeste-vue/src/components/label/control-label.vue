@@ -19,23 +19,23 @@ const delegatedProps = useDelegatedProps(props, 'class');
     v-bind="delegatedProps"
     :aria-required="required"
     :aria-disabled="disabled"
-    :class="clsx('celeste-radio-label', props.class)"
+    :class="clsx('celeste-control-label', props.class)"
   >
-    <Primitive as-child class="celeste-radio-label-radio">
+    <span role="presentation" class="celeste-control-label-control">
       <slot />
-    </Primitive>
+    </span>
 
     <div role="presentation">
-      <div role="presentation" class="celeste-radio-label-row">
+      <div role="presentation" class="celeste-control-label-row">
         <div>
-          <Primitive as="span" class="celeste-radio-label-label">
+          <Primitive as="span" class="celeste-control-label-label">
             <slot name="label" />
           </Primitive>
 
           <Primitive
             v-if="$slots.sublabel"
             as="span"
-            class="celeste-radio-label-sublabel"
+            class="celeste-control-label-sublabel"
           >
             <slot name="sublabel" />
           </Primitive>
@@ -44,17 +44,21 @@ const delegatedProps = useDelegatedProps(props, 'class');
         <Primitive
           v-if="$slots.badge"
           as-child
-          class="celeste-radio-label-badge"
+          class="celeste-control-label-badge"
         >
           <slot name="badge" />
         </Primitive>
       </div>
 
-      <div role="presentation" class="celeste-radio-label-content">
+      <div
+        v-if="$slots.description || $slots.linkButton"
+        role="presentation"
+        class="celeste-control-label-content"
+      >
         <Primitive
           v-if="$slots.description"
           as="span"
-          class="celeste-radio-label-description"
+          class="celeste-control-label-description"
         >
           <slot name="description" />
         </Primitive>
@@ -62,7 +66,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
         <Primitive
           v-if="$slots.linkButton"
           as-child
-          class="celeste-radio-label-link-button"
+          class="celeste-control-label-link-button"
         >
           <slot name="linkButton" />
         </Primitive>
@@ -72,29 +76,38 @@ const delegatedProps = useDelegatedProps(props, 'class');
 </template>
 
 <style scoped lang="scss">
-.celeste-radio-label {
+.celeste-control-label {
   display: flex;
   color: var(--color-text-strong-950);
   font: var(--paragraph-sm);
+  cursor: pointer;
+  user-select: none;
   gap: var(--spacing-8);
+
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+  }
 }
 
-:deep(.celeste-radio-label-radio) {
-  margin-top: var(--spacing-2);
+.celeste-control-label-control {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 1lh;
 }
 
-.celeste-radio-label-row {
+.celeste-control-label-row {
   display: flex;
   align-items: center;
   gap: var(--spacing-8);
 }
 
-.celeste-radio-label-sublabel {
+.celeste-control-label-sublabel {
   color: var(--color-text-sub-600);
   font: var(--paragraph-xs);
 }
 
-.celeste-radio-label-content {
+.celeste-control-label-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -103,7 +116,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   font: var(--paragraph-xs);
 }
 
-.celeste-radio-label-link-button {
+.celeste-control-label-link-button {
   margin-top: var(--spacing-10);
 }
 </style>
