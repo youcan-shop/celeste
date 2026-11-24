@@ -49,16 +49,16 @@ div:deep(.celeste-dropdown-content) {
   max-width: max(var(--reka-popper-anchor-width), 320px);
   max-height: var(--dropdown-height);
   margin-top: var(--spacing-10);
-  padding: var(--spacing-8);
+  padding: var(--spacing-4);
   overflow: visible;
   transform-origin: var(--reka-combobox-content-transform-origin);
   animation-duration: var(--animation-fast);
   animation-timing-function: ease-out;
   border: 1px solid var(--color-stroke-soft-200);
-  border-radius: var(--radius-16);
+  border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
 
   &[data-state='open'] {
     animation-name: slide-up-and-fade;
@@ -72,7 +72,7 @@ div:deep(.celeste-dropdown-content) {
 div:deep(.celeste-dropdown-items-viewport) {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
 }
 
 @keyframes slide-up-and-fade {

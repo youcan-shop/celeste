@@ -192,7 +192,7 @@ function weekdayLabel(day: string): string {
 .celeste-calendar-grid {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: var(--spacing-4);
   width: 100%;
   border-collapse: collapse;
 }
@@ -200,18 +200,18 @@ function weekdayLabel(day: string): string {
 .celeste-calendar-body {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: var(--spacing-4);
 }
 
 .celeste-calendar-week {
   display: flex;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--spacing-4);
 }
 
 .celeste-calendar-weekday {
   flex: 1;
-  padding-block: var(--spacing-10);
+  padding-block: var(--spacing-8);
   color: var(--color-text-soft-400);
   font: var(--label-sm);
   text-align: center;
@@ -231,7 +231,7 @@ function weekdayLabel(day: string): string {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding-block: var(--spacing-10);
+  padding-block: var(--spacing-8);
   transition-property: background-color, color;
   transition-duration: var(--animation-fast);
   transition-timing-function: ease-out;

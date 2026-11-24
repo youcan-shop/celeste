@@ -47,16 +47,16 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   width: 100%;
   min-width: var(--dropdown-min-width);
   max-width: var(--dropdown-max-width);
-  padding: var(--spacing-8);
+  padding: var(--spacing-4);
   overflow: hidden;
   transform-origin: var(--reka-popper-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
   border: 1px solid var(--color-stroke-soft-200);
-  border-radius: var(--radius-16);
+  border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
   transition-behavior: allow-discrete;
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
   scale: 0.95;
 
   &[data-state='open'] {

@@ -33,7 +33,7 @@ const delegatedProps = computed(() => {
  .celeste-dropdown-items-group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
 
   &:deep([data-reka-collection-item]) {
     width: auto;

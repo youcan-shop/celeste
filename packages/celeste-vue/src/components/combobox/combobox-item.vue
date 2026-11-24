@@ -94,7 +94,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   display: flex;
   position: relative;
   align-items: center;
-  padding: var(--spacing-8);
+  padding: var(--spacing-6) var(--spacing-8);
   padding-inline-end: var(--spacing-36);
   transition-property: background-color;
   transition-duration: var(--animation-fast);

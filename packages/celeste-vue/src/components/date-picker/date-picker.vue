@@ -63,17 +63,17 @@ const cardClass = computed(() => clsx('celeste-date-picker', props.class));
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
-  width: 368px;
+  width: 336px;
   max-width: 100%;
   overflow: hidden;
   border: 1px solid var(--color-stroke-soft-200);
-  border-radius: var(--radius-20);
+  border-radius: var(--radius-16);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
 }
 
 .celeste-date-picker-body {
-  padding: 20px;
+  padding: var(--spacing-16);
   border-block-end: 1px solid var(--color-stroke-soft-200);
 }
 
@@ -81,8 +81,8 @@ const cardClass = computed(() => clsx('celeste-date-picker', props.class));
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-16);
-  gap: var(--spacing-16);
+  padding: var(--spacing-12);
+  gap: var(--spacing-12);
 }
 
 .celeste-date-picker-action {

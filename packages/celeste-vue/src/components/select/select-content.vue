@@ -37,11 +37,11 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   overflow-y: scroll;
   animation: var(--animation-fast) forwards;
   border: 1px solid var(--color-stroke-soft-200);
-  border-radius: var(--radius-16);
+  border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
   scale: 0.98;
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
 
   &[data-side='top'] {
     margin-block-start: var(--spacing-4);
@@ -58,7 +58,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   }
 
   .celeste-select-view-port {
-    padding: var(--spacing-8);
+    padding: var(--spacing-4);
   }
 }
 

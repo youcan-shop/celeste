@@ -24,7 +24,7 @@ const delegatedProps = computed(() => {
 .celeste-dropdown-empty-list {
   display: flex;
   align-items: center;
-  padding: var(--spacing-8);
+  padding: var(--spacing-6) var(--spacing-8);
   color: var(--color-text-sub-600);
   font: var(--paragraph-sm);
 }

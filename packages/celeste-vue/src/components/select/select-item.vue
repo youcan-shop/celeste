@@ -23,7 +23,7 @@ const delegatedProps = useDelegatedProps(props, 'class');
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-8);
+  padding: var(--spacing-6) var(--spacing-8);
   gap: var(--spacing-4);
   border-radius: var(--radius-8);
   outline: 2px solid transparent;
