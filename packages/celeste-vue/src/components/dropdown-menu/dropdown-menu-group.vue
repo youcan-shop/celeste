@@ -15,6 +15,6 @@ const props = defineProps<DropdownMenuGroupProps>();
 .celeste-dropdown-menu-group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
 }
 </style>
