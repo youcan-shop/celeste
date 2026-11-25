@@ -44,15 +44,15 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   max-width: var(--dropdown-max-width);
   max-height: var(--dropdown-max-height);
   margin-block-start: var(--spacing-10);
-  padding: var(--spacing-8);
+  padding: var(--spacing-6);
   overflow: hidden auto;
   transform-origin: var(--reka-popper-transform-origin);
   animation: var(--animation-fast) ease-out forwards;
   border: 1px solid var(--color-stroke-soft-200);
-  border-radius: var(--radius-16);
+  border-radius: var(--radius-12);
   background-color: var(--color-bg-white-0);
   box-shadow: var(--shadow-regular-md);
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
   scale: 0.95;
 
   &[data-state='open'] {

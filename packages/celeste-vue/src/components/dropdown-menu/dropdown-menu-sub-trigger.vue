@@ -37,7 +37,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   position: relative;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-8);
+  padding: var(--spacing-6) var(--spacing-8);
   transition: background-color var(--animation-fast) ease-out;
   border-radius: var(--radius-8);
   background: var(--color-bg-white-0);
